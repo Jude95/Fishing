@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
             fab:fab_colorNormal="?colorAccent"
-            fab:menu_colorPressed="?colorAccent"
+            fab:fab_colorPressed="?colorAccent"
             fab:fab_size="mini"
             fab:fab_label="热闹广场" />
         <com.github.clans.fab.FloatingActionButton
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
             fab:fab_colorNormal="?colorAccent"
-            fab:menu_colorPressed="?colorAccent"
+            fab:fab_colorPressed="?colorAccent"
             fab:fab_size="mini"
             fab:fab_label="朋友圈" />
         <com.github.clans.fab.FloatingActionButton
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
             fab:fab_colorNormal="?colorAccent"
-            fab:menu_colorPressed="?colorAccent"
+            fab:fab_colorPressed="?colorAccent"
             fab:fab_size="mini"
             fab:fab_label="附近的热闹" />
         <com.github.clans.fab.FloatingActionButton
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
             fab:fab_colorNormal="?colorAccent"
-            fab:menu_colorPressed="?colorAccent"
+            fab:fab_colorPressed="?colorAccent"
             fab:fab_size="mini"
             fab:fab_label="我的热闹" />
         <com.github.clans.fab.FloatingActionButton
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add"
             fab:fab_colorNormal="?colorAccent"
-            fab:menu_colorPressed="?colorAccent"
+            fab:fab_colorPressed="?colorAccent"
             fab:fab_size="mini"
             fab:fab_label="添加热闹" />
     </com.github.clans.fab.FloatingActionMenu>

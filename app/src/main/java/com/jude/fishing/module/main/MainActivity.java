@@ -1,12 +1,11 @@
 package com.jude.fishing.module.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,9 +18,9 @@ import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.module.bbs.BBSFragment;
 import com.jude.fishing.module.message.MassageFragment;
-import com.jude.fishing.module.mine.MineFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.setting.UpdateLogActivity;
+import com.jude.fishing.module.user.MineFragment;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -46,7 +45,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mian_activity_main);
+        setContentView(R.layout.user_activity_main);
         UmengUpdateAgent.forceUpdate(this);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
@@ -56,12 +55,9 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
         tabLayout.setTabTextColors(getResources().getColor(R.color.white_trans80), getResources().getColor(R.color.white));
         viewPager.setAdapter(mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
-        name.setText("Jude");
-        avatar.setImageURI(Uri.parse("http://img5.imgtn.bdimg.com/it/u=34863218,524059131&fm=21&gp=0.jpg"));
-
     }
 
-    public class MainPagerAdapter extends FragmentStatePagerAdapter {
+    public class MainPagerAdapter extends FragmentPagerAdapter {
 
         public MainPagerAdapter(FragmentManager fm) {
             super(fm);

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/include_toolbar"/>
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="11"
+        android:inputType="number"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:padding="16dp"
+        android:hint="请输入您的手机号"
+        android:background="@drawable/bg_round_white"/>
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="12"
+        android:textSize="16sp"
+        android:inputType="textPassword"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="16dp"
+        android:hint="请输入您的密码"
+        android:background="@drawable/bg_round_white"/>
+    <EditText
+        android:id="@+id/password_re"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:maxLength="12"
+        android:textSize="16sp"
+        android:inputType="textPassword"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="16dp"
+        android:hint="请再次输入您的密码"
+        android:background="@drawable/bg_round_white"/>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginLeft="16dp"
+            android:text="通过通讯录添加正在玩空钩的朋友"/>
+
+    <com.jude.tagview.TAGView
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        app:tag_color="?colorPrimary"
+        app:tag_text_size="18sp"
+        app:tag_text="注册"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="*注册即默认统一空钩《服务协议》条款"/>
+
+</LinearLayout>

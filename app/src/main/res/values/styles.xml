@@ -7,6 +7,7 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="android:textColorPrimary">#4d4d4d</item>
         <item name="android:textColorHint">#999999</item>
+        <item name="android:colorBackground">@color/gray_light</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>

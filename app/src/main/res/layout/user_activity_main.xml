@@ -21,6 +21,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
+            app:placeholderImage="@drawable/img_head_null"
+            app:placeholderImageScaleType="centerCrop"
             app:roundAsCircle="true"
             />
         <TextView
@@ -30,6 +32,8 @@
             android:layout_gravity="center_vertical"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_marginLeft="16dp"
+            android:textColor="@color/white"
+            android:text="未登录"
             />
     </android.support.v7.widget.Toolbar>
     <android.support.design.widget.TabLayout

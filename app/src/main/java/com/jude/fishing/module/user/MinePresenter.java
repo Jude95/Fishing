@@ -1,4 +1,4 @@
-package com.jude.fishing.module.mine;
+package com.jude.fishing.module.user;
 
 import com.jude.beam.bijection.Presenter;
 
