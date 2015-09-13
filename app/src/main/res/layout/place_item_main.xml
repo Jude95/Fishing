@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/preview"
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        />
+    <TextView
+        android:id="@+id/name"
+        android:layout_alignTop="@+id/preview"
+        android:layout_toRightOf="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        tool:text="南山鱼塘"/>
+    <com.jude.fishing.widget.ScoreView
+        android:id="@+id/score_image"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_above="@+id/tag_container"
+        android:layout_toRightOf="@+id/preview" />
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/score_image"
+        android:layout_alignTop="@+id/score_image"
+        android:layout_alignBottom="@+id/score_image"
+        />
+    <LinearLayout
+        android:id="@+id/tag_container"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="-4dp"
+        android:layout_above="@+id/address"/>
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/preview"
+        android:layout_toRightOf="@+id/preview"
+        tool:text="黄桷垭 420km"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_light"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="rc_chatroom_first_pull_message_count">10</integer>
+</resources>

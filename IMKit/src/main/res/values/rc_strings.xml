@@ -1,0 +1,7 @@
+<resources>
+    <string name="rc_name">融云</string>
+    <string name="rc_voice_dialog_swipe">手指上滑，取消发送</string>
+    <string name="rc_voice_dialog_cancel_send">松开手指，取消发送</string>
+    <string name="rc_voice_dialog_time_short">说话时间太短</string>
+
+</resources>
