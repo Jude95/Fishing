@@ -4,7 +4,8 @@
     <color name="white_trans80">#AFFF</color>
     <color name="black_deep">#34322F</color>
     <color name="orange">#fda76d</color>
-    <color name="gray_light">#e2e2e2</color>
+    <color name="orange_deep">#ff9800</color>
+    <color name="gray_light">#c2c2c2</color>
     <color name="purple">#d6a0d6</color>
     <color name="blue">#00bcd4</color>
     <color name="red">#f67f7f</color>

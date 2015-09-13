@@ -12,8 +12,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "0.0.3 Build"
     }
 
     signingConfigs {
@@ -61,4 +61,5 @@ dependencies {
     compile project(':IMKit')
     compile files('libs/Android_Location_V1.3.2.jar')
     compile 'com.jude:tagview:2.0.0'
+    compile 'com.github.clans:fab:1.6.0'
 }

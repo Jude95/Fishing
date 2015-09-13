@@ -23,6 +23,7 @@ import com.jude.fishing.module.mine.MineFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.setting.UpdateLogActivity;
 import com.jude.swipbackhelper.SwipeBackHelper;
+import com.umeng.update.UmengUpdateAgent;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,6 +47,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mian_activity_main);
+        UmengUpdateAgent.forceUpdate(this);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
