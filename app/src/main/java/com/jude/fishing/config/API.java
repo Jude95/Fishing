@@ -6,7 +6,7 @@ package com.jude.fishing.config;
 public class API {
     public static class URL{
         public static final String BASEURL = "http://123.56.225.103/api/index.php?s=/api/";
-        public static final String UpdateLog = "https://raw.githubusercontent.com/RedrockTeam/Date2_Android/master/updateLog.txt";
+        public static final String UpdateLog = "https://raw.githubusercontent.com/Jude95/Fishing/master/update.txt";
     }
 
     public static class WRAPPER {

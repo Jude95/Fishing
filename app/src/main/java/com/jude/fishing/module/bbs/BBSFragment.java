@@ -22,7 +22,7 @@ public class BBSFragment extends BeamListFragment<BBSPresenter,Seed> {
 
     @Override
     public int getLayout() {
-        return R.layout.include_recyclerview;
+        return R.layout.bbs_fragment_main;
     }
 
     @Override

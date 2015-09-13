@@ -22,7 +22,7 @@ public class PlaceFragment extends BeamListFragment<PlacePresenter,PlaceBrief> {
 
     @Override
     public int getLayout() {
-        return R.layout.include_recyclerview;
+        return R.layout.place_fragment_main;
     }
 
     @Override

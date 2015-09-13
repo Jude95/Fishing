@@ -39,7 +39,7 @@ public class ScoreView extends LinearLayout {
 
     public void setScore(float score){
         for (int i = 0; i < 5; i++) {
-            ((ImageView)getChildAt(i)).setImageResource(i<score?R.drawable.ic_score_focus :R.drawable.ic_score_unfocus);
+            ((ImageView)getChildAt(i)).setImageResource(i<(int)score?R.drawable.ic_score_focus :R.drawable.ic_score_unfocus);
         }
     }
 }

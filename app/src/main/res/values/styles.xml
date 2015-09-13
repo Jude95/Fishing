@@ -4,7 +4,9 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/orange</item>
-        <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="android:textColorPrimary">#4d4d4d</item>
+        <item name="android:textColorHint">#999999</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
@@ -15,7 +17,7 @@
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/orange</item>
-        <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorPrimary">@color/blue</item>
     </style>
 
     <style name="LaunchTheme" parent="Theme.AppCompat.NoActionBar">
