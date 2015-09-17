@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -14,6 +15,13 @@ import com.jude.fishing.model.bean.PlaceBrief;
  */
 @RequiresPresenter(PlacePresenter.class)
 public class PlaceFragment extends BeamListFragment<PlacePresenter,PlaceBrief> {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.app_name);
+
+    }
 
     @Override
     protected ListConfig getConfig() {

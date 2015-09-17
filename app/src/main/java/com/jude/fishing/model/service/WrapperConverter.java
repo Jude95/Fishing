@@ -35,7 +35,10 @@ public class WrapperConverter implements Converter {
             JSONObject jsonObject = new JSONObject(result);
             int status = jsonObject.getInt(API.WRAPPER.STATUS);
             if (status == API.CODE.SUCCEED){
-                return getGson().fromJson(jsonObject.getString(API.WRAPPER.DATA), type);
+                if (jsonObject.has(API.WRAPPER.DATA))
+                    return getGson().fromJson(jsonObject.getString(API.WRAPPER.DATA), type);
+                else
+                    return null;
             }else{
                 String info = "";
                 if (jsonObject.has(API.WRAPPER.INFO))

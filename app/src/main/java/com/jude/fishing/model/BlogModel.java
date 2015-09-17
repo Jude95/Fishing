@@ -11,13 +11,13 @@ import rx.Observable;
 /**
  * Created by Mr.Jude on 2015/9/12.
  */
-public class BBSModel extends AbsModel {
-    public static BBSModel getInstance() {
-        return getInstance(BBSModel.class);
+public class BlogModel extends AbsModel {
+    public static BlogModel getInstance() {
+        return getInstance(BlogModel.class);
     }
 
     public Observable<Seed[]> getSeed(int type,int page){
-        return Observable.just(createVirtualSeed()).delay(1, TimeUnit.SECONDS).compose(new DefaultTransform<>());
+        return Observable.just(createVirtualSeed()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
     Seed[] createVirtualSeed(){

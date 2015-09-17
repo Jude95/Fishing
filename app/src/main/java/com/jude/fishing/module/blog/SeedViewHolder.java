@@ -1,7 +1,6 @@
-package com.jude.fishing.module.bbs;
+package com.jude.fishing.module.blog;
 
 import android.net.Uri;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,12 +8,13 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
 import com.jude.fishing.model.bean.Seed;
 import com.jude.fishing.utils.RecentDateFormat;
-import com.jude.fishing.widget.ImagePieceView;
-import com.jude.fishing.widget.PieceViewGroup;
+import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     @InjectView(R.id.content)
     TextView content;
     @InjectView(R.id.image)
-    PieceViewGroup image;
+    ExGridView image;
     @InjectView(R.id.address)
     TextView address;
     @InjectView(R.id.praise_image)
@@ -47,11 +47,12 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     TextView commentCount;
     @InjectView(R.id.tool)
     LinearLayout tool;
-
+    NetImageAdapter adapter;
 
     public SeedViewHolder(ViewGroup parent) {
-        super(parent, R.layout.bbs_item_main);
+        super(parent, R.layout.blog_item_main);
         ButterKnife.inject(this, itemView);
+        image.setAdapter(adapter = new NetImageAdapter(parent.getContext()));
     }
 
     @Override
@@ -61,31 +62,14 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
-        praiseCount.setText(data.getPraiseCount()+"");
-        commentCount.setText(data.getCommentCount()+"");
-
-        image.clear();
-        if (data.getImages() != null) {
-            final ArrayList<Uri> arr = new ArrayList<>();
-            for (final String img : data.getImages()) {
-                arr.add(Uri.parse(img));
-            }
-            for (final String img : data.getImages()) {
-                final int index = image.getCount();
-                final ImagePieceView view = new ImagePieceView(itemView.getContext());
-                view.setImage(Uri.parse(img));
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        Intent intent = new Intent(getContext(), ImageViewActivity.class);
-//                        intent.putExtra(ImageViewActivity.KEY_URIS,arr);
-//                        intent.putExtra(ImageViewActivity.KEY_INDEX,index);
-//                        getContext().startActivity(intent);
-                    }
-                });
-                image.add(view);
-            }
+        praiseCount.setText(data.getPraiseCount() + "");
+        commentCount.setText(data.getCommentCount() + "");
+//        adapter.clear();
+        ArrayList<Uri> arr = new ArrayList<>();
+        for (String img : data.getImages()) {
+            arr.add(Uri.parse(img));
         }
-
+        //adapter.addAll(arr);
+        JUtils.Log("  I:" + image.getChildCount());
     }
 }

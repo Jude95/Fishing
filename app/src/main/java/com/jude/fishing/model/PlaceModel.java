@@ -17,7 +17,7 @@ public class PlaceModel extends AbsModel {
                 return getInstance(PlaceModel.class);
         }
     public Observable<PlaceBrief[]> getPlaces(int page){
-        return Observable.just(createVirtualPlace()).delay(1, TimeUnit.SECONDS).compose(new DefaultTransform<>());
+        return Observable.just(createVirtualPlace()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
     PlaceBrief[] createVirtualPlace(){

@@ -1,34 +1,34 @@
 package com.jude.fishing.model.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Mr.Jude on 2015/2/11.
  */
 
-public class PersonBrief{
+public class PersonBrief implements Serializable{
     private int id;
 
     private String name;
 
-    private String face;
+    private String avatar;
 
     private String sign;
 
     public PersonBrief(int userId, String userName, String userFace, String userSign) {
         this.id = userId;
         this.name = userName;
-        this.face = userFace;
+        this.avatar = userFace;
         this.sign = userSign;
     }
 
     public void clone(PersonBrief person) {
         this.id = person.id;
         this.name = person.name;
-        this.face = person.face;
+        this.avatar = person.avatar;
         this.sign = person.sign;
     }
 
-    public PersonBrief() {
-    }
 
     public int getUID() {
         return id;
@@ -38,8 +38,8 @@ public class PersonBrief{
         return name;
     }
 
-    public String getFace() {
-        return face;
+    public String getAvatar() {
+        return avatar;
     }
 
     public String getSign() {

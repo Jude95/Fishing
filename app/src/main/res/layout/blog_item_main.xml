@@ -57,12 +57,18 @@
                 android:textSize="16sp"
                 android:text="一开始这个网络的权重完全是随机产生的，所以生物会在平面中做各种毫无意义的动作：原地不动、转圈、蒙头向前冲。进化的规则是：如果碰到越多的“食物”，它越有可能活下来。我初始化了几十个这样的生物，丢到这个环境里运行，每次留下吃到食物多的，删掉吃掉食物少的（自然选择）。淘汰掉不良个体后，我把优良个体复制几份，然后随机改动一些里面的参数（基因突变）。这样，随着进化次数的增加，生物开始“学会”主动寻找食物，并且在有限的步数中尽可能走快捷的路线、少撞墙。"/>
 
-            <com.jude.fishing.widget.PieceViewGroup
+            <com.jude.exgridview.ExGridView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/content"
-                />
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_login"
+                    />
+            </com.jude.exgridview.ExGridView>
 
             <LinearLayout
                 android:id="@+id/tool"

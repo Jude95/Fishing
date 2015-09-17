@@ -10,6 +10,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.tagview.TAGView;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -38,5 +39,18 @@ public class LoginActivity extends BeamBaseActivity<LoginPresenter> {
         setContentView(R.layout.user_activity_login);
         ButterKnife.inject(this);
         register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+        login.setOnClickListener(v-> checkInput());
+    }
+
+    private void checkInput(){
+        if (number.getText().toString().length() != 11) {
+            JUtils.Toast("请输入正确手机号");
+            return;
+        }
+        if (password.getText().toString().length() < 6 || password.getText().toString().length() > 12) {
+            JUtils.Toast("请输入6-12位密码");
+            return;
+        }
+        getPresenter().login(number.getText().toString(),password.getText().toString());
     }
 }

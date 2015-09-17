@@ -70,7 +70,7 @@ public class RongYunModel extends AbsModel {
 
 
     public void updateRongYunPersonBrief(PersonBrief p){
-        RongIM.getInstance().refreshUserInfoCache(new UserInfo(p.getUID()+"",p.getName(), Uri.parse(p.getFace())));
+        RongIM.getInstance().refreshUserInfoCache(new UserInfo(p.getUID()+"",p.getName(), Uri.parse(p.getAvatar())));
     }
 
     public void chatPerson(Context ctx,String id,String title){

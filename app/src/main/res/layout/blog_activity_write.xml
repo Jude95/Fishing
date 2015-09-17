@@ -15,10 +15,11 @@
         android:padding="8dp"
         android:background="@drawable/bg_round_white"/>
 
-    <com.jude.fishing.widget.PieceViewGroup
+    <com.jude.exgridview.PieceViewGroup
         android:id="@+id/images"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_margin="8dp"
+        android:layout_height="match_parent"/>
 
     <com.jude.tagview.TAGView
         android:id="@+id/send"
