@@ -39,10 +39,10 @@ public class AccountModel extends AbsModel {
         return userAccountData;
     }
 
-    public Subscription registerAccountUpdate(Action1<Account> accountAction1){
+    public Subscription registerAccountUpdate(Action1<? super Account> accountAction1){
         return userAccountDataBehaviorSubject.subscribe(accountAction1);
     }
-    public Subscription registerAccountUpdate(Observer<Account> accountAction1){
+    public Subscription registerAccountUpdate(Observer<? super Account> accountAction1){
         return userAccountDataBehaviorSubject.subscribe(accountAction1);
     }
     public Observable<Account> login(String name,String password){
@@ -62,6 +62,11 @@ public class AccountModel extends AbsModel {
             }
         });
         return observable;
+    }
+
+    public void logout(){
+        saveAccount(null);
+        setAccount(null);
     }
 
     void saveAccount(Account account){

@@ -73,34 +73,6 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         }
     }
 
-    public void showFriendsFragment(){
-        if (checkLogin()) {
-
-            if (mFriendsFragment == null) mFriendsFragment = new FriendsFragment();
-            if (lastFragment == mFriendsFragment)return;
-
-            getView().showFragment(mFriendsFragment);
-            lastFragment = mFriendsFragment;
-
-            getView().focusView(getView().friend);
-
-        }
-    }
-
-    public void showCollectFragment(){
-        if (checkLogin()) {
-
-            if (mCollectFragment == null) mCollectFragment = new CollectFragment();
-            if (lastFragment == mCollectFragment)return;
-
-            getView().showFragment(mCollectFragment);
-            lastFragment = mCollectFragment;
-
-            getView().focusView(getView().collect);
-
-        }
-    }
-
     public void showUserFragment(){
         if (checkLogin()) {
 

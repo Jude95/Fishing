@@ -1,5 +1,6 @@
 package com.jude.fishing.module.blog;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,8 +31,8 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     PagerSlidingTabStrip tabs;
     @InjectView(R.id.vp_date)
     ViewPager vpDate;
-    @InjectView(R.id.menu_all)
-    FloatingActionButton menuAll;
+    @InjectView(R.id.write)
+    FloatingActionButton write;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
         tabs.setViewPager(vpDate);
         tabs.setTextColor(Color.WHITE);
         tabs.setBackgroundColor(getResources().getColor(R.color.blue));
+        write.setOnClickListener(v->startActivity(new Intent(getActivity(),WriteActivity.class)));
         return rootView;
     }
 

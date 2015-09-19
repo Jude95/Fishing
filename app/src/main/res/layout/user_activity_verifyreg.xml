@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <include layout="@layout/include_toolbar"/>
     <TextView
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -15,10 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:layout_margin="@dimen/activity_margin">
         <EditText
             android:id="@+id/code"
             android:layout_width="0dp"
@@ -44,7 +41,7 @@
         android:layout_height="48dp"
         app:tag_text="完成注册"
         app:tag_text_size="18sp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         app:tag_color="?colorPrimary"></com.jude.tagview.TAGView>
 
 </LinearLayout>

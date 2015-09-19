@@ -12,7 +12,9 @@
         android:singleLine="true"
         android:maxLength="11"
         android:inputType="number"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/activity_margin"
         android:textSize="16sp"
         android:padding="16dp"
         android:hint="请输入您的手机号"
@@ -25,9 +27,9 @@
         android:maxLength="12"
         android:textSize="16sp"
         android:inputType="textPassword"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="8dp"
         android:padding="16dp"
         android:hint="请输入您的密码"
         android:background="@drawable/bg_round_white"/>
@@ -39,9 +41,9 @@
         android:maxLength="12"
         android:textSize="16sp"
         android:inputType="textPassword"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="8dp"
         android:padding="16dp"
         android:hint="请再次输入您的密码"
         android:background="@drawable/bg_round_white"/>
@@ -58,7 +60,7 @@
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         app:tag_color="?colorPrimary"
         app:tag_text_size="18sp"
         app:tag_text="注册"/>
@@ -66,7 +68,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         android:text="*注册即默认统一空钩《服务协议》条款"/>
 
 </LinearLayout>

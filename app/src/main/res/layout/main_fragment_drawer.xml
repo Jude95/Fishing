@@ -127,6 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/gray"/>
+
             <RelativeLayout
                 android:id="@+id/message"
                 android:layout_width="match_parent"
@@ -156,67 +157,7 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/collect"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/main_drawer_selector"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:adjustViewBounds="true"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:src="@drawable/nav_collect" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="72dp"
-                    android:gravity="center_vertical"
-                    android:text="收藏"
-                    android:textColor="@color/secondary_text_default_material_light"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/friend"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@drawable/main_drawer_selector"
-                android:clickable="true"
-
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:adjustViewBounds="true"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:src="@drawable/nav_friend" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="72dp"
-                    android:gravity="center_vertical"
-                    android:text="朋友"
-                    android:textColor="@color/secondary_text_default_material_light"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray"/>
             <RelativeLayout
                 android:id="@+id/user"
                 android:layout_width="match_parent"
@@ -247,6 +188,12 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+
+
             <RelativeLayout
                 android:id="@+id/setting"
                 android:layout_width="match_parent"
@@ -271,6 +218,34 @@
                     android:layout_marginLeft="72dp"
                     android:gravity="center_vertical"
                     android:text="设置"
+                    android:textColor="@color/secondary_text_default_material_light"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/main_drawer_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:adjustViewBounds="true"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/nav_logout" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="72dp"
+                    android:gravity="center_vertical"
+                    android:text="注销"
                     android:textColor="@color/secondary_text_default_material_light"
                     android:textSize="16sp"
                     android:textStyle="bold" />

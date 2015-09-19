@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.jude.utils.JUtils;
 
 /**
  * Created by Mr.Jude on 2015/9/16.
@@ -24,8 +23,9 @@ public class NetImageAdapter extends ArrayAdapter<Uri> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         SimpleDraweeView draweeView = new SimpleDraweeView(getContext());
-        draweeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, JUtils.dip2px(56)));
+        draweeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         draweeView.setImageURI(getItem(position));
         return draweeView;
     }

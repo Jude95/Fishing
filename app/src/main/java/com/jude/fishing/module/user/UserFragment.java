@@ -1,11 +1,14 @@
 package com.jude.fishing.module.user;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
 import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.module.blog.UserBlogActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,38 +26,39 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/11.
  */
 @RequiresPresenter(UserPresenter.class)
-public class UserFragment extends BeamDataFragment<UserPresenter,Account> {
+public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
+
 
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
-    @InjectView(R.id.container_avatar)
-    RelativeLayout containerAvatar;
     @InjectView(R.id.name)
     TextView name;
-    @InjectView(R.id.container_name)
-    RelativeLayout containerName;
-    @InjectView(R.id.background)
-    SimpleDraweeView background;
-    @InjectView(R.id.container_background)
-    RelativeLayout containerBackground;
-    @InjectView(R.id.age)
-    TextView age;
-    @InjectView(R.id.container_age)
-    RelativeLayout containerAge;
-    @InjectView(R.id.skill)
-    TextView skill;
-    @InjectView(R.id.container_skill)
-    RelativeLayout containerSkill;
-    @InjectView(R.id.signature)
-    TextView signature;
-    @InjectView(R.id.phone)
-    TextView phone;
-    @InjectView(R.id.container_phone)
-    RelativeLayout containerPhone;
-    @InjectView(R.id.container_password)
-    RelativeLayout containerPassword;
-    @InjectView(R.id.container_logout)
-    RelativeLayout containerLogout;
+    @InjectView(R.id.sign)
+    TextView sign;
+    @InjectView(R.id.head_arrows)
+    ImageView headArrows;
+    @InjectView(R.id.container_user)
+    RelativeLayout containerUser;
+    @InjectView(R.id.divider)
+    View divider;
+    @InjectView(R.id.blog)
+    TextView blog;
+    @InjectView(R.id.container_blog)
+    LinearLayout containerBlog;
+    @InjectView(R.id.attention)
+    TextView attention;
+    @InjectView(R.id.container_attention)
+    LinearLayout containerAttention;
+    @InjectView(R.id.fans)
+    TextView fans;
+    @InjectView(R.id.container_fans)
+    LinearLayout containerFans;
+    @InjectView(R.id.notify)
+    LinearLayout notify;
+    @InjectView(R.id.collect)
+    LinearLayout collect;
+    @InjectView(R.id.evaluate)
+    LinearLayout evaluate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,8 +69,11 @@ public class UserFragment extends BeamDataFragment<UserPresenter,Account> {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.user_fragment_main, container, false);
+        View root = inflater.inflate(R.layout.user_fragment_main2, container, false);
         ButterKnife.inject(this, root);
+        containerUser.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserDetailActivity.class)));
+        containerBlog.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserBlogActivity.class)));
+
         return root;
     }
 
@@ -78,11 +86,6 @@ public class UserFragment extends BeamDataFragment<UserPresenter,Account> {
     @Override
     public void setData(Account data) {
         avatar.setImageURI(Uri.parse(data.getAvatar()));
-        background.setImageURI(Uri.parse(data.getBackground()));
         name.setText(data.getName());
-        signature.setText(data.getSign());
-        age.setText(data.getAge() + "年");
-        skill.setText(data.getSkill());
-        phone.setText(data.getPhone());
     }
 }

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="120dp"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         android:hint="请填写您要发布的内容"
         android:gravity="top"
         android:padding="8dp"
@@ -18,7 +18,7 @@
     <com.jude.exgridview.PieceViewGroup
         android:id="@+id/images"
         android:layout_width="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         android:layout_height="match_parent"/>
 
     <com.jude.tagview.TAGView
@@ -27,6 +27,6 @@
         android:layout_height="48dp"
         app:tag_color="?colorPrimary"
         app:tag_text="发布"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_margin"
         app:tag_text_size="18sp"/>
 </LinearLayout>

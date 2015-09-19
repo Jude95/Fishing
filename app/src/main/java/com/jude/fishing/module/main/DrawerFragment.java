@@ -16,9 +16,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.bean.Account;
 import com.jude.fishing.module.setting.UpdateLogActivity;
-import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -43,18 +43,14 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
     RelativeLayout blog;
     @InjectView(R.id.message)
     RelativeLayout message;
-    @InjectView(R.id.friend)
-    RelativeLayout friend;
-    @InjectView(R.id.collect)
-    RelativeLayout collect;
     @InjectView(R.id.user)
     RelativeLayout user;
     @InjectView(R.id.setting)
     RelativeLayout setting;
-
+    @InjectView(R.id.logout)
+    RelativeLayout logout;
     @Override
     public void setData(Account info) {
-        JUtils.Log("I think I should get it too "+(info==null));
         if (info == null){
             imgFace.setImageURI(null);
             tvName.setText("未登录,点击登陆");
@@ -75,10 +71,9 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         place.setOnClickListener(v -> getPresenter().showPlaceFragment());
         blog.setOnClickListener(v -> getPresenter().showBlogFragment());
         message.setOnClickListener(v -> getPresenter().showMessageFragment());
-        friend.setOnClickListener(v->getPresenter().showFriendsFragment());
-        collect.setOnClickListener(v->getPresenter().showCollectFragment());
         user.setOnClickListener(v -> getPresenter().showUserFragment());
         setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), UpdateLogActivity.class)));
+        logout.setOnClickListener(v -> AccountModel.getInstance().logout());
         return view;
     }
 

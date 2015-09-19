@@ -21,9 +21,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_margin="8dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
         android:background="@drawable/bg_round_white"
         android:gravity="center_vertical">
         <TextView
@@ -52,10 +53,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="@dimen/activity_margin"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
         android:background="@drawable/bg_round_white"
         android:gravity="center_vertical">
         <TextView
@@ -76,7 +78,7 @@
             android:background="@null"
             android:singleLine="true"
             android:maxLength="11"
-            android:inputType="number"
+            android:inputType="textPassword"
             android:textSize="14sp"
             android:gravity="center_vertical"
             android:hint="请输入你的密码"/>
@@ -109,7 +111,8 @@
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
         app:tag_color="?colorPrimary"
         app:tag_text_size="18sp"
         app:tag_text="登录"

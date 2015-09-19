@@ -79,7 +79,11 @@
         <activity android:name=".module.user.RegisterVerifyActivity"
             android:label="手机号快速注册"/>
         <activity android:name=".module.blog.WriteActivity"
-            android:label="发布热闹"></activity>
+            android:label="发布热闹"/>
+        <activity android:name=".module.user.UserDetailActivity"
+            android:label="个人资料"/>
+        <activity android:name=".module.blog.UserBlogActivity"
+            android:label="热闹"/>
     </application>
 
 </manifest>

@@ -14,7 +14,6 @@ import com.jude.fishing.model.bean.Seed;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
-import com.jude.utils.JUtils;
 
 import java.util.ArrayList;
 
@@ -64,12 +63,12 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
-//        adapter.clear();
+        adapter.clear();
         ArrayList<Uri> arr = new ArrayList<>();
         for (String img : data.getImages()) {
             arr.add(Uri.parse(img));
         }
-        //adapter.addAll(arr);
-        JUtils.Log("  I:" + image.getChildCount());
+        adapter.addAll(arr);
+
     }
 }
