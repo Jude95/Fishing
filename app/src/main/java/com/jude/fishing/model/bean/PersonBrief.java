@@ -8,18 +8,21 @@ import java.io.Serializable;
 
 public class PersonBrief implements Serializable{
     private int id;
-
     private String name;
-
     private String avatar;
-
     private String sign;
+    private int relation;
 
-    public PersonBrief(int userId, String userName, String userFace, String userSign) {
-        this.id = userId;
-        this.name = userName;
-        this.avatar = userFace;
-        this.sign = userSign;
+    public int getRelation() {
+        return relation;
+    }
+
+    public PersonBrief(String avatar, int id, String name, int relation, String sign) {
+        this.avatar = avatar;
+        this.id = id;
+        this.name = name;
+        this.relation = relation;
+        this.sign = sign;
     }
 
     public void clone(PersonBrief person) {

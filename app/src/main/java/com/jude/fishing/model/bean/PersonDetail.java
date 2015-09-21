@@ -32,7 +32,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
     }
 
     public PersonDetail(int userId, String userName, String userFace, String userSign, String skill, int age, String background) {
-        super(userId, userName, userFace, userSign);
+        super(userFace,userId, userName,  0,userSign);
         this.skill = skill;
         this.age = age;
         this.background = background;

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.model.bean.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.utils.JFileManager;
 
@@ -80,6 +81,14 @@ public class AccountModel extends AbsModel {
     void setAccount(Account account){
         userAccountData = account;
         userAccountDataBehaviorSubject.onNext(account);
+    }
+
+    public PersonBrief[] creatVirtualPersonBriefs(int count){
+        PersonBrief[] personBriefs = new PersonBrief[count];
+        for (int i = 0; i < count; i++) {
+            personBriefs[i] = new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",0,"赛亚♂sya",2,"沉迷于手游无法自拔填坑是什么能吃吗");
+        }
+        return personBriefs;
     }
 
     public Account createVirtualAccount(){

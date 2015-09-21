@@ -60,7 +60,7 @@ dependencies {
     compile project(':umengfamily')
     compile project(':IMKit')
     compile files('libs/Android_Location_V1.3.2.jar')
-    compile 'com.jude:tagview:2.0.0'
+    compile 'com.jude:tagview:2.1.0'
     compile 'com.github.clans:fab:1.6.0'
     compile project(':SMSSDK')
     compile 'com.jude:exgridview:1.0.3'

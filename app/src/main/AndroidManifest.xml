@@ -57,7 +57,8 @@
             com.jude.fishing.model.LocationModel,
             com.jude.fishing.model.PlaceModel,
             com.jude.fishing.model.RemoteFileModel,
-            com.jude.fishing.model.RongYunModel"
+            com.jude.fishing.model.RongYunModel,
+            com.jude.fishing.model.SocialModel"
             />
 
         <activity
@@ -84,6 +85,10 @@
             android:label="个人资料"/>
         <activity android:name=".module.blog.UserBlogActivity"
             android:label="热闹"/>
+        <activity android:name=".module.user.AttentionActivity"
+            android:label="关注"/>
+        <activity android:name=".module.user.FansActivity"
+            android:label="粉丝"/>
     </application>
 
 </manifest>
