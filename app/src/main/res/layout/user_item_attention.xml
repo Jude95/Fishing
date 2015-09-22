@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="78dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/avatar"
@@ -12,6 +12,8 @@
         android:layout_height="48dp"
         android:layout_centerVertical="true"
         app:roundAsCircle="true"
+        app:placeholderImage="@drawable/img_head_null"
+        app:placeholderImageScaleType="centerInside"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
 
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/avatar"
         android:layout_toLeftOf="@+id/attention"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         style="@style/TextAppearance.AppCompat.Body2"
         android:layout_alignBottom="@+id/avatar"
         tool:text="我喜欢人类，最喜欢最喜欢了"
@@ -40,13 +42,15 @@
     <com.jude.tagview.TAGView
         android:id="@+id/attention"
         android:layout_width="50dp"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_margin="16dp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         app:tag_text="关注"
         app:tag_text_color="@color/gray_deep"
         app:tag_color="@color/gray_deep"
-        app:tag_stroke_width="2dp"/>
+        app:tag_stroke_width="1dp"
+        app:tag_radius="5dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"

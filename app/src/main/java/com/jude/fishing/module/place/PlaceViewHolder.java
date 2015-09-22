@@ -48,15 +48,11 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
         score.setText(data.getScore() + "");
         scoreImage.setScore(data.getScore());
         tagContainer.removeAllViews();
-        if (data.getCostType()<Constant.PlaceCostType.length)
-            tagContainer.addView(createTag(Constant.PlaceCostType[data.getCostType()]));
-        if (data.getPoolType()<Constant.PlacePoolType.length)
-            tagContainer.addView(createTag(Constant.PlacePoolType[data.getPoolType()]));
         for (int service : data.getServiceType()) {
             if (Constant.PlaceServiceType.length>service)
             tagContainer.addView(createTag(Constant.PlaceServiceType[service]));
         }
-        address.setText(data.getAddress()+" "+data.getDistance()/1000+"km");
+        address.setText(data.getAddress());
     }
 
     View createTag(String content){

@@ -21,7 +21,7 @@ public class SocialModel extends AbsModel {
         return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
             @Override
             public void call(Subscriber<? super PersonBrief[]> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().creatVirtualPersonBriefs(20));
+                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());
@@ -31,7 +31,7 @@ public class SocialModel extends AbsModel {
         return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
             @Override
             public void call(Subscriber<? super PersonBrief[]> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().creatVirtualPersonBriefs(20));
+                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());

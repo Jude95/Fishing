@@ -10,6 +10,7 @@ public class PlaceBrief {
     private String address;
     private float score;
     private int distance;
+    private int cost;
     private int costType;
     private String fishType;
     private int poolType;
@@ -26,6 +27,10 @@ public class PlaceBrief {
         this.fishType = fishType;
         this.poolType = poolType;
         this.serviceType = serviceType;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     public String getId() {
