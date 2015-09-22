@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_margin="16dp"
-        android:src="@drawable/fab_add"
+        android:src="@drawable/ic_category"
         app:fab_colorNormal="?colorAccent"
         app:fab_colorPressed="?colorAccent"
         app:fab_size="normal" />

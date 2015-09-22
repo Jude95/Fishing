@@ -9,8 +9,8 @@ public class Account extends PersonDetail implements Serializable{
     private String phone;
     private String rongToken;
 
-    public Account(int userId, String userName, String userFace, String userSign, String skill, int age, String background, String phone, String rongToken) {
-        super(userId, userName, userFace, userSign, skill, age, background);
+    public Account(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, Seed[] seeds, int blogCount, int attentionCount, int fansCount, String phone, String rongToken) {
+        super(avatar, id, name, relation, sign, skill, age, background, address, seeds, blogCount, attentionCount, fansCount);
         this.phone = phone;
         this.rongToken = rongToken;
     }

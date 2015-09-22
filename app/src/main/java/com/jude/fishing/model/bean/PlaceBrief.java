@@ -15,6 +15,9 @@ public class PlaceBrief {
     private String fishType;
     private int poolType;
     private int[] serviceType;
+    private double lat;
+    private double lon;
+
 
     public PlaceBrief(String id, String name, String preview, String address, float score, int distance, int costType, String fishType, int poolType, int[] serviceType) {
         this.id = id;

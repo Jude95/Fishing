@@ -1,6 +1,10 @@
 package com.jude.fishing.module.place;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -20,7 +24,12 @@ public class PlaceFragment extends BeamListFragment<PlacePresenter,PlaceBrief> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.app_name);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main,menu);
     }
 
     @Override
@@ -36,5 +45,14 @@ public class PlaceFragment extends BeamListFragment<PlacePresenter,PlaceBrief> {
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
         return new PlaceViewHolder(viewGroup);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.add){
+            startActivity(new Intent(getActivity(),PlaceAddActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

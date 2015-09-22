@@ -11,7 +11,7 @@ public class PersonBrief implements Serializable{
     private String name;
     private String avatar;
     private String sign;
-    private int relation;
+    private int relation;//0未关注，1已关注
 
     public int getRelation() {
         return relation;

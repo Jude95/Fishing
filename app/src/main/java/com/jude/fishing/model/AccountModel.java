@@ -92,8 +92,10 @@ public class AccountModel extends AbsModel {
     }
 
     public Account createVirtualAccount(){
-        return new Account(0,"Jude","http://i2.hdslb.com/user/18232/1823239/myface.jpg","喂不熟的人，忘不掉的狗","海底捞针，倒挂金钩",18,
-                "http://img3.imgtn.bdimg.com/it/u=3619136483,1678174220&fm=21&gp=0.jpg","156*****295","");
+        return new Account("http://i2.hdslb.com/user/18232/1823239/myface.jpg",0,"Jude",0,"喂不熟的人，忘不掉的狗","海底捞针，倒挂金钩",18,
+                "http://img3.imgtn.bdimg.com/it/u=3619136483,1678174220&fm=21&gp=0.jpg","jack slow fuck",BlogModel.getInstance().createVirtualSeed(3),
+                5,8,10,"156*****295","");
+
     }
 
 }

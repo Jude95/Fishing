@@ -10,14 +10,19 @@ public class PersonDetail extends PersonBrief implements Serializable {
     private int age;
     private String background;
     private String address;
+    private Seed[] seeds;
+    private int blogCount;
+    private int attentionCount;
+    private int fansCount;
+
+
+    public Seed[] getSeeds() {
+        return seeds;
+    }
 
     public String getAddress() {
         return address;
     }
-
-    private int blogCount;
-    private int attentionCount;
-    private int fansCount;
 
     public int getBlogCount() {
         return blogCount;
@@ -31,11 +36,16 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return fansCount;
     }
 
-    public PersonDetail(int userId, String userName, String userFace, String userSign, String skill, int age, String background) {
-        super(userFace,userId, userName,  0,userSign);
+    public PersonDetail(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, Seed[] seeds, int blogCount, int attentionCount, int fansCount) {
+        super(avatar, id, name, relation, sign);
         this.skill = skill;
         this.age = age;
         this.background = background;
+        this.address = address;
+        this.seeds = seeds;
+        this.blogCount = blogCount;
+        this.attentionCount = attentionCount;
+        this.fansCount = fansCount;
     }
 
     public String getSkill() {

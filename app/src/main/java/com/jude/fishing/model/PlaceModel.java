@@ -1,6 +1,7 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.bean.Comment;
 import com.jude.fishing.model.bean.PlaceBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 
@@ -13,12 +14,30 @@ import rx.Observable;
  */
 public class PlaceModel extends AbsModel {
 
-        public static PlaceModel getInstance() {
-                return getInstance(PlaceModel.class);
-        }
+    public static PlaceModel getInstance() {
+            return getInstance(PlaceModel.class);
+    }
+
     public Observable<PlaceBrief[]> getPlaces(int page){
         return Observable.just(createVirtualPlace()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
+
+    public Observable<PlaceBrief[]> getCollectionPlaces(int id){
+            return Observable.just(createVirtualPlace()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Comment[]> getUserPlacesComments(int id){
+        return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    Comment[] createVirtualComment(int count){
+        Comment[] comments = new Comment[count];
+        for (int i = 0; i < comments.length; i++) {
+            comments[i] = new Comment(i,"南山鱼塘","http://img2.imgtn.bdimg.com/it/u=2340511935,3141513885&fm=21&gp=0.jpg",4,"你现在还有心工作了吧？毕竟接下来这半个月的时间可基本上都是假期，身边的不少人都已经计划好要去哪里玩了。我在这里想说的是，如果你的行程中有下面这十个景点的话.",1442925906);
+        }
+        return comments;
+    }
+
 
     PlaceBrief[] createVirtualPlace(){
         return new PlaceBrief[]{

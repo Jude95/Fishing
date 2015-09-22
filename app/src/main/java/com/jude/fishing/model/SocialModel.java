@@ -2,7 +2,10 @@ package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.bean.PersonDetail;
 import com.jude.fishing.model.service.DefaultTransform;
+
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -35,5 +38,35 @@ public class SocialModel extends AbsModel {
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());
+    }
+
+    public Observable attention(int id){
+        return Observable.create(new Observable.OnSubscribe<Object>() {
+            @Override
+            public void call(Subscriber<? super Object> subscriber) {
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    public Observable unAttention(int id){
+        return Observable.create(new Observable.OnSubscribe<Object>() {
+            @Override
+            public void call(Subscriber<? super Object> subscriber) {
+                subscriber.onNext(null);
+                subscriber.onCompleted();
+            }
+        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    public Observable<PersonDetail> getUserDetail(int id){
+        return Observable.create(new Observable.OnSubscribe<PersonDetail>() {
+            @Override
+            public void call(Subscriber<? super PersonDetail> subscriber) {
+                subscriber.onNext(AccountModel.getInstance().createVirtualAccount());
+                subscriber.onCompleted();
+            }
+        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 }

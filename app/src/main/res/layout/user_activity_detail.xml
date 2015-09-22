@@ -6,24 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:minHeight="?actionBarSize"
-        android:background="@android:color/transparent"
-        app:theme="@style/AppTheme.Dark" />
 
-    <ScrollView
+
+    <com.jude.fishing.widget.ObservableScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:id="@+id/head"
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
                 <com.facebook.drawee.view.SimpleDraweeView
@@ -135,6 +129,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -213,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:text="签名"/>
                     <TextView
+                        android:id="@+id/sign"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_margin"
@@ -240,27 +236,43 @@
                         android:layout_height="wrap_content"
                         android:text="他的热闹"/>
 
-                    <com.jude.fishing.widget.LinearWrapContentRecyclerView
-                        android:id="@+id/blog_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+                <com.jude.fishing.widget.LinearWrapContentRecyclerView
+                    android:id="@+id/blog_list"
+                    android:layout_marginLeft="46dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="48dp"/>
             </LinearLayout>
         </LinearLayout>
 
 
-    </ScrollView>
+    </com.jude.fishing.widget.ObservableScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:minHeight="?actionBarSize"
+        android:background="@android:color/transparent"
+        app:theme="@style/AppTheme.Dark" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:background="@color/white">
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@drawable/shadow_top"/>
         <LinearLayout
+            android:id="@+id/operation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -282,7 +294,7 @@
                 </LinearLayout>
 
 
-                <TextView
+                <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
                     android:background="@color/gray"/>

@@ -89,6 +89,12 @@
             android:label="关注"/>
         <activity android:name=".module.user.FansActivity"
             android:label="粉丝"/>
+        <activity android:name=".module.place.CollectionPlaceActivity"
+            android:label="收藏"/>
+        <activity android:name=".module.place.UserPlaceCommentsActivity"
+            android:label="我的评价"/>
+        <activity android:name=".module.place.PlaceAddActivity"
+            android:label="添加钓点"/>
     </application>
 
 </manifest>

@@ -1,9 +1,11 @@
 package com.jude.fishing.model.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Mr.Jude on 2015/9/11.
  */
-public class Seed {
+public class Seed implements Serializable{
     private String id;
     private String authorId;
     private String authorAvatar;
@@ -15,10 +17,9 @@ public class Seed {
     private int praiseCount;
     private boolean praiseStatus;
     private int commentCount;
-    private Comment[] comments;
 
 
-    public Seed(String id, String authorId, String authorAvatar,String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount, Comment[] comments) {
+    public Seed(String id, String authorId, String authorAvatar,String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount) {
         this.id = id;
         this.authorId = authorId;
         this.authorAvatar = authorAvatar;
@@ -30,7 +31,6 @@ public class Seed {
         this.praiseCount = praiseCount;
         this.praiseStatus = praiseStatus;
         this.commentCount = commentCount;
-        this.comments = comments;
     }
 
     public String getId() {
@@ -119,13 +119,5 @@ public class Seed {
 
     public void setCommentCount(int commentCount) {
         this.commentCount = commentCount;
-    }
-
-    public Comment[] getComments() {
-        return comments;
-    }
-
-    public void setComments(Comment[] comments) {
-        this.comments = comments;
     }
 }
