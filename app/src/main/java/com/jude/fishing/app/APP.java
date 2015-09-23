@@ -3,6 +3,7 @@ package com.jude.fishing.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
 import com.jude.beam.expansion.list.ListConfig;
@@ -42,7 +43,7 @@ public class APP extends Application {
                 Fresco.initialize(this);
                 JUtils.initialize(this);
                 JUtils.setDebug(true, "Fishing");
-                Fresco.initialize(this);
+//                Fresco.initialize(this);
                 JFileManager.getInstance().init(this, Dir.values());
                 MobclickAgent.updateOnlineConfig(this);
 
