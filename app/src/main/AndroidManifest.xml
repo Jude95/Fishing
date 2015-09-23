@@ -123,6 +123,18 @@
         <activity
             android:name=".module.setting.AboutActivity"
             android:label="关于我们" />
+        <activity
+            android:name=".module.place.UserPlaceActivity"
+            android:label="我的钓点" />
+        <activity
+            android:name=".module.social.AroundActivity"
+            android:label="附近的人" />
+        <activity
+            android:name=".module.social.UserFindActivity"
+            android:label="搜索用户"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".module.place.PlaceDetailActivity"
+            android:label="钓点详情"/>
     </application>
 
 </manifest>

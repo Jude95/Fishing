@@ -4,7 +4,7 @@ package com.jude.fishing.model.bean;
  * Created by Mr.Jude on 2015/9/11.
  */
 public class PlaceBrief {
-    private String id;
+    private int id;
     private String name;
     private String preview;
     private String address;
@@ -19,7 +19,7 @@ public class PlaceBrief {
     private double lon;
 
 
-    public PlaceBrief(String id, String name, String preview, String address, float score, int distance, int costType, String fishType, int poolType, int[] serviceType) {
+    public PlaceBrief(int id, String name, String preview, String address, float score, int distance, int costType, String fishType, int poolType, int[] serviceType) {
         this.id = id;
         this.name = name;
         this.preview = preview;
@@ -36,7 +36,7 @@ public class PlaceBrief {
         return cost;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

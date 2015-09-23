@@ -2,6 +2,7 @@ package com.jude.fishing.module.main;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.bean.Account;
 import com.jude.fishing.module.setting.SettingActivity;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -67,6 +69,16 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment_drawer, container, false);
         ButterKnife.inject(this, view);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            ((RelativeLayout.LayoutParams)imgFace.getLayoutParams()).setMargins(
+                    JUtils.dip2px(16),
+                    JUtils.dip2px(16)+JUtils.getStatusBarHeight(),
+                    JUtils.dip2px(16),
+                    JUtils.dip2px(16)
+                    );
+        }
+        imgFace.setOnClickListener(v -> getPresenter().checkLogin());
         viewAccount.setOnClickListener(v -> getPresenter().checkLogin());
         place.setOnClickListener(v -> getPresenter().showPlaceFragment());
         blog.setOnClickListener(v -> getPresenter().showBlogFragment());

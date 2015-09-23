@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Constant;
 import com.jude.fishing.model.bean.PlaceBrief;
+import com.jude.fishing.model.bean.PlaceDetail;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
@@ -36,13 +38,21 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
     @InjectView(R.id.address)
     TextView address;
 
+    int id;
+
     public PlaceViewHolder(ViewGroup parent) {
         super(parent, R.layout.place_item_main);
-        ButterKnife.inject(this,itemView);
+        ButterKnife.inject(this, itemView);
+        itemView.setOnClickListener(v->{
+            Intent i = new Intent(parent.getContext(), PlaceDetailActivity.class);
+            i.putExtra("id",id);
+            parent.getContext().startActivity(i);
+        });
     }
 
     @Override
     public void setData(PlaceBrief data) {
+        id = data.getId();
         preview.setImageURI(Uri.parse(data.getPreview()));
         name.setText(data.getName());
         score.setText(data.getScore() + "");

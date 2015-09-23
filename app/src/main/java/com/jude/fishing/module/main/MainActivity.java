@@ -1,9 +1,11 @@
 package com.jude.fishing.module.main;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -24,6 +26,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     @InjectView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +41,12 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
                 , 0);
         drawerLayout.post(() -> mDrawerToggle.syncState());
         drawerLayout.setDrawerListener(mDrawerToggle);
+
     }
 
     public void closeDrawer(){
         drawerLayout.closeDrawers();
     }
+
 
 }

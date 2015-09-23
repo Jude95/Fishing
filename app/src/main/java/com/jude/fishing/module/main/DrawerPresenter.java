@@ -8,8 +8,6 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.bean.Account;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
-import com.jude.fishing.module.social.CollectFragment;
-import com.jude.fishing.module.social.FriendsFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserFragment;
@@ -23,8 +21,6 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
     private PlaceFragment mPlaceFragment;
     private BlogFragment mBlogFragment;
     private MessageFragment mMessageFragment;
-    private FriendsFragment mFriendsFragment;
-    private CollectFragment mCollectFragment;
     private UserFragment mUserFragment;
 
     @Override

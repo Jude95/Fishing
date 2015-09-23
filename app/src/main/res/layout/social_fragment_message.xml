@@ -10,15 +10,42 @@
         android:name="io.rong.imkit.fragment.ConversationListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/write"
+    <com.github.clans.fab.FloatingActionMenu
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:layout_margin="16dp"
         android:src="@drawable/fab_add"
-        app:fab_colorNormal="?colorAccent"
-        app:fab_colorPressed="?colorAccent"
-        app:fab_size="normal" />
+        app:menu_colorNormal="?colorAccent"
+        app:menu_colorPressed="?colorAccent"
+        app:menu_fab_size="normal" >
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/around"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_around"
+            app:fab_label="附近的人"
+            app:fab_colorNormal="?colorAccent"
+            app:fab_colorPressed="?colorAccent"
+            />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_contact"
+            app:fab_label="手机联系人"
+            app:fab_colorNormal="?colorAccent"
+            app:fab_colorPressed="?colorAccent"
+            />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            app:fab_label="用户查找"
+            app:fab_colorNormal="?colorAccent"
+            app:fab_colorPressed="?colorAccent"
+            />
+    </com.github.clans.fab.FloatingActionMenu>
 
 </FrameLayout>

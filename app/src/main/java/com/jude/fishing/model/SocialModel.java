@@ -20,6 +20,27 @@ public class SocialModel extends AbsModel {
         return getInstance(SocialModel.class);
     }
 
+
+    public Observable<PersonBrief[]> searchUser(String word){
+        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+            @Override
+            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
+                subscriber.onCompleted();
+            }
+        }).compose(new DefaultTransform<>());
+    }
+
+    public Observable<PersonBrief[]> getAround(int page){
+        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+            @Override
+            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
+                subscriber.onCompleted();
+            }
+        }).compose(new DefaultTransform<>());
+    }
+
     public Observable<PersonBrief[]> getAttentions(int uid){
         return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
             @Override

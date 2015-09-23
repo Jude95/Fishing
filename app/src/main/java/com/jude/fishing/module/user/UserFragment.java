@@ -19,6 +19,7 @@ import com.jude.fishing.R;
 import com.jude.fishing.model.bean.Account;
 import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.module.place.CollectionPlaceActivity;
+import com.jude.fishing.module.place.UserPlaceActivity;
 import com.jude.fishing.module.place.UserPlaceCommentsActivity;
 
 import butterknife.ButterKnife;
@@ -61,6 +62,8 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     LinearLayout collect;
     @InjectView(R.id.evaluate)
     LinearLayout evaluate;
+    @InjectView(R.id.place)
+    LinearLayout place;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,8 +80,9 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         containerBlog.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserBlogActivity.class)));
         containerFans.setOnClickListener(v -> startActivity(new Intent(getActivity(), FansActivity.class)));
         containerAttention.setOnClickListener(v -> startActivity(new Intent(getActivity(), AttentionActivity.class)));
-        collect.setOnClickListener(v-> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));
-        evaluate.setOnClickListener(v-> startActivity(new Intent(getActivity(), UserPlaceCommentsActivity.class)));
+        collect.setOnClickListener(v -> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));
+        evaluate.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserPlaceCommentsActivity.class)));
+        place.setOnClickListener(v->startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
         return root;
     }
 
