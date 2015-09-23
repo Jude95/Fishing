@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jude.fishing" >
+    package="com.jude.fishing">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -22,6 +23,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -29,8 +31,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme">
 
         <!-- 友盟 -->
         <meta-data
@@ -42,12 +43,10 @@
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="ae762f0449f100e542ba611f1e318a77" />
-        <!-- 融云-->
+        <!-- 融云 -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="3argexb6rttve" />
-
-
         <meta-data
             android:name="MODEL"
             android:value="
@@ -58,8 +57,7 @@
             com.jude.fishing.model.PlaceModel,
             com.jude.fishing.model.RemoteFileModel,
             com.jude.fishing.model.RongYunModel,
-            com.jude.fishing.model.SocialModel"
-            />
+            com.jude.fishing.model.SocialModel" />
 
         <activity
             android:name=".module.main.MainActivity"
@@ -71,30 +69,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.setting.UpdateLogActivity"
-            android:label="更新记录"/>
-        <activity android:name=".module.user.LoginActivity"
-            android:label="登录"/>
-        <activity android:name=".module.user.RegisterActivity"
-            android:label="手机号快速注册"/>
-        <activity android:name=".module.user.RegisterVerifyActivity"
-            android:label="手机号快速注册"/>
-        <activity android:name=".module.blog.WriteActivity"
-            android:label="发布热闹"/>
-        <activity android:name=".module.user.UserDetailActivity"
-            android:label="个人资料"/>
-        <activity android:name=".module.blog.UserBlogActivity"
-            android:label="热闹"/>
-        <activity android:name=".module.user.AttentionActivity"
-            android:label="关注"/>
-        <activity android:name=".module.user.FansActivity"
-            android:label="粉丝"/>
-        <activity android:name=".module.place.CollectionPlaceActivity"
-            android:label="收藏"/>
-        <activity android:name=".module.place.UserPlaceCommentsActivity"
-            android:label="我的评价"/>
-        <activity android:name=".module.place.PlaceAddActivity"
-            android:label="添加钓点"/>
+        <activity
+            android:name=".module.setting.UpdateLogActivity"
+            android:label="更新记录" />
+        <activity
+            android:name=".module.user.LoginActivity"
+            android:label="登录" />
+        <activity
+            android:name=".module.user.RegisterActivity"
+            android:label="手机号快速注册" />
+        <activity
+            android:name=".module.user.RegisterVerifyActivity"
+            android:label="手机号快速注册" />
+        <activity
+            android:name=".module.blog.WriteActivity"
+            android:label="发布热闹" />
+        <activity
+            android:name=".module.user.UserDetailActivity"
+            android:label="个人资料" />
+        <activity
+            android:name=".module.blog.UserBlogActivity"
+            android:label="热闹" />
+        <activity
+            android:name=".module.user.AttentionActivity"
+            android:label="关注" />
+        <activity
+            android:name=".module.user.FansActivity"
+            android:label="粉丝" />
+        <activity
+            android:name=".module.place.CollectionPlaceActivity"
+            android:label="收藏" />
+        <activity
+            android:name=".module.place.UserPlaceCommentsActivity"
+            android:label="我的评价" />
+        <activity
+            android:name=".module.place.PlaceAddActivity"
+            android:label="添加钓点" />
+        <activity
+            android:name=".module.setting.SettingActivity"
+            android:label="@string/title_activity_setting" />
+        <activity
+            android:name=".module.setting.PwdChangeActivity"
+            android:label="修改密码" />
+        <activity
+            android:name=".module.setting.BindChangeActivity"
+            android:label="修改绑定" />
+        <activity
+            android:name=".module.setting.MsgSetActivity"
+            android:label="信息设置" />
+        <activity
+            android:name=".module.setting.FeedActivity"
+            android:label="用户反馈" />
+        <activity
+            android:name=".module.setting.AboutActivity"
+            android:label="关于我们" />
     </application>
 
 </manifest>

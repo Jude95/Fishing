@@ -18,7 +18,7 @@ import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.bean.Account;
-import com.jude.fishing.module.setting.UpdateLogActivity;
+import com.jude.fishing.module.setting.SettingActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -72,7 +72,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         blog.setOnClickListener(v -> getPresenter().showBlogFragment());
         message.setOnClickListener(v -> getPresenter().showMessageFragment());
         user.setOnClickListener(v -> getPresenter().showUserFragment());
-        setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), UpdateLogActivity.class)));
+        setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
         logout.setOnClickListener(v -> AccountModel.getInstance().logout());
         return view;
     }

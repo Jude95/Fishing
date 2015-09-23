@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="您的意见" />
+
+    <EditText
+        android:id="@+id/et_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_white"
+        android:gravity="top"
+        android:hint="米娜请为【空钩】提一点意见吧，您的意见是对我们最大的鼓励~"
+        android:minHeight="120dp"
+        android:padding="16dp"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="联系方式" />
+
+    <EditText
+        android:id="@+id/et_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_white"
+        android:gravity="top"
+        android:hint="手机/邮箱"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+</LinearLayout>

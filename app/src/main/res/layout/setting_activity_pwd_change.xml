@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <EditText
+        android:id="@+id/et_old_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@drawable/bg_round_white"
+        android:hint="请输入原始密码"
+        android:inputType="textPassword"
+        android:maxLength="12"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_round_white"
+        android:hint="请输入新密码"
+        android:inputType="textPassword"
+        android:maxLength="12"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_new_pwd2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_round_white"
+        android:hint="请再次输入新密码"
+        android:inputType="textPassword"
+        android:maxLength="12"
+        android:padding="16dp"
+        android:singleLine="true"
+        android:textSize="16sp" />
+
+    <com.jude.tagview.TAGView
+        android:id="@+id/tg_ok"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/activity_margin"
+        app:tag_color="?colorPrimary"
+        app:tag_text="修改好了"
+        app:tag_text_size="18sp" />
+
+</LinearLayout>
