@@ -30,12 +30,13 @@
             android:background="#e5e5e5" />
 
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/et_age"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入您的钓龄"
+            android:inputType="number"
             android:padding="8dp"
             android:singleLine="true"
             android:textSize="14sp" />
@@ -64,7 +65,7 @@
             android:background="#e5e5e5" />
 
         <EditText
-            android:id="@+id/et_region"
+            android:id="@+id/et_good_at"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
@@ -88,7 +89,7 @@
         android:textSize="14sp" />
 
     <com.jude.tagview.TAGView
-        android:id="@+id/tg_next"
+        android:id="@+id/tg_done"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="@dimen/activity_margin"
