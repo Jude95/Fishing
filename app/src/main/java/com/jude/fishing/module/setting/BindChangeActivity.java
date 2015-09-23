@@ -16,6 +16,8 @@ import cn.smssdk.gui.TimeListener;
 @RequiresPresenter(BindChangePresenter.class)
 public class BindChangeActivity extends BeamBaseActivity<BindChangePresenter> implements TimeListener {
 
+    @InjectView(R.id.et_password)
+    EditText password;
     @InjectView(R.id.et_phone)
     EditText phone;
     @InjectView(R.id.et_code)
@@ -35,13 +37,20 @@ public class BindChangeActivity extends BeamBaseActivity<BindChangePresenter> im
         changeBind.setOnClickListener(v -> changeBind());
     }
 
+    // 重新绑定手机
     private void changeBind() {
         if (code.getText().toString().isEmpty()) {
             JUtils.Toast("请输入验证码");
             return;
         }
+        if (password.getText().toString().length() < 6 || password.getText().toString().length() > 12) {
+            JUtils.Toast("请输入6-12位密码");
+            return;
+        }
+//        getPresenter().send(code.getText().toString(), password.getText().toString());
     }
 
+    // 重新获取验证码
     private void retry() {
         if (phone.getText().toString().trim().length() != 11) {
             JUtils.Toast("请输入正确手机号");

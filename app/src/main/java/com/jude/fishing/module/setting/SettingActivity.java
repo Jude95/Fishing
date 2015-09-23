@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
-import com.jude.fishing.module.user.LoginActivity;
 import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
@@ -31,8 +30,6 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
     LinearLayout update;
     @InjectView(R.id.ll_about)
     LinearLayout about;
-    @InjectView(R.id.ll_logout)
-    LinearLayout logout;
     @InjectView(R.id.tv_version)
     TextView version;
 
@@ -47,7 +44,6 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
         msgSet.setOnClickListener(v -> startActivity(new Intent(this, MsgSetActivity.class)));
         feed.setOnClickListener(v -> startActivity(new Intent(this, FeedActivity.class)));
         about.setOnClickListener(v -> startActivity(new Intent(this, AboutActivity.class)));
-        logout.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
 
         version.setText("当前版本：" + JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
     }
