@@ -123,6 +123,12 @@
         <activity
             android:name=".module.setting.AboutActivity"
             android:label="关于我们" />
+        <activity
+            android:name=".module.user.UserDataActivity"
+            android:label="完善资料（1/2）" />
+        <activity
+            android:name=".module.user.UserData2Activity"
+            android:label="完善资料（2/2）" />
     </application>
 
 </manifest>

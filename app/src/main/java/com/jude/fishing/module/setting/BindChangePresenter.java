@@ -12,6 +12,7 @@ import cn.smssdk.gui.SMSManager;
  */
 public class BindChangePresenter extends Presenter<BindChangeActivity> {
     SMSManager smsManager;
+    String phone;
 
     @Override
     protected void onCreate(BindChangeActivity view, Bundle savedState) {
@@ -26,10 +27,12 @@ public class BindChangePresenter extends Presenter<BindChangeActivity> {
     }
 
     public void reSendMessage(String phone) {
+
         smsManager.sendMessage(getView(), phone);
     }
 
-    public void send(String code) {
-        getView().getExpansion().showProgressDialog("注册中");
+    public void send(String code, String password) {
+        getView().getExpansion().showProgressDialog("重新绑定");
+
     }
 }

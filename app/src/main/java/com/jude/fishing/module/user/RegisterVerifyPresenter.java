@@ -1,10 +1,15 @@
 package com.jude.fishing.module.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
 
+import java.util.concurrent.TimeUnit;
+
 import cn.smssdk.gui.SMSManager;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by Mr.Jude on 2015/9/13.
@@ -33,6 +38,13 @@ public class RegisterVerifyPresenter extends Presenter<RegisterVerifyActivity> {
 
     public void send(String code,String password){
         getView().getExpansion().showProgressDialog("注册中");
+        //TODO 注册
+        Observable.create(subscriber -> {
+            subscriber.onNext("");
+        }).delay(2, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers.mainThread()).subscribe(s -> {
+            getView().finish();
+            getView().startActivity(new Intent(getView(), UserDataActivity.class));
+        });
     }
 
 }
