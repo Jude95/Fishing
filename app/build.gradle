@@ -63,7 +63,7 @@ dependencies {
     compile 'com.jude:tagview:2.1.1'
     compile 'com.github.clans:fab:1.6.0'
     compile project(':SMSSDK')
-    compile 'com.jude:exgridview:1.0.3'
+    compile 'com.jude:exgridview:1.0.4'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 
 }
