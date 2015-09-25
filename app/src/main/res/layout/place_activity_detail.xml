@@ -20,6 +20,7 @@
                 android:background="@color/white"
                 app:rollviewpager_play_delay="3000"
                 app:rollviewpager_hint_mode="number"
+                app:rollviewpager_hint_paddingRight="16dp"
                 app:rollviewpager_hint_gravity="right"/>
 
             <View
@@ -215,15 +216,14 @@
                 android:background="@color/gray"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:padding="16dp"
                 android:background="@color/white">
                 <TextView
                     android:id="@+id/content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     tools:text="两个多月以前，还是盛夏的七月。我帮关系亲密的K先生搬家，从下午一直搬到晚上。大致收拾好之后，我俩都累得爬不起来了，摊在沙发上开始玩手机。突然，K先生问我，你有没有想过你会这么单身下去，单身一辈子啊？我先是摇头，之后又点头。摇头是因为确实没想过一辈子会怎样，因为一辈子太长；点头是因为确实想过一直单身怎么办。"/>
 

@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
+import com.jude.beam.expansion.ViewExpansionDelegateProvider;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
@@ -48,10 +49,11 @@ public class APP extends Application {
                 MobclickAgent.updateOnlineConfig(this);
 
                 Beam.init(this);
-                Beam.registerActivityLifetCyclerDelegate(ActivityDelegate.class);
+                Beam.registerActivityLifeCycleDelegate(ActivityDelegate.class);
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview));
+
             }
         }
     }

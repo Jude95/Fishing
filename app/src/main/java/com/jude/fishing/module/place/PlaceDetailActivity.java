@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.config.Constant;
 import com.jude.fishing.model.bean.PlaceDetail;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.rollviewpager.RollPagerView;
@@ -55,20 +56,21 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_activity_detail);
-//        getExpansion().showProgressPage();
+        getExpansion().showProgressPage();
         ButterKnife.inject(this);
         picture.setAdapter(adapter = new PictureAdapter());
     }
 
     @Override
     public void setData(PlaceDetail data) {
-//        getExpansion().dismissProgressPage();
+        getExpansion().dismissProgressPage();
         score.setScore(data.getScore());
         scoreText.setText(data.getScore()+"");
         address.setText(data.getAddress());
         fishType.setText(data.getFishType());
         tel.setText(data.getTel());
-        price.setText(data.getCost());
+        price.setText("人均消费:"+data.getCost()+"元");
+
         content.setText(data.getContent());
         adapter.setPath(data.getPicture());
     }
@@ -79,6 +81,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         public void setPath(String[] path) {
             this.path = path;
             notifyDataSetChanged();
+            JUtils.Log("setPath");
         }
 
         @Override

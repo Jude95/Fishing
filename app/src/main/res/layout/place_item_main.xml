@@ -36,7 +36,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             app:tag_text="天"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="12dp"
             app:tag_stroke_width="1dp"
             app:tag_text_color="@color/orange"
             app:tag_color="@color/orange"/>
