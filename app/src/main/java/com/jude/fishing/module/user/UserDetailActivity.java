@@ -87,8 +87,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             isAttended = !isAttended;
             attention.setText(isAttended ? "已关注" : "关注");
         });
+        getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
-        getSupportActionBar().setBackgroundDrawable(mActionbarDrawable);
+        getToolbar().setBackgroundDrawable(mActionbarDrawable);
         setToolbarAlpha(0);
         scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
             @Override
@@ -112,6 +113,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
 
     @Override
     public void setData(PersonDetail data) {
+        getExpansion().dismissProgressPage();
         if (data == null) getExpansion().showErrorPage();
         if (data.getBackground() != null)
             background.setImageURI(Uri.parse(data.getBackground()));

@@ -6,8 +6,8 @@ import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
-import com.jude.beam.expansion.ViewExpansionDelegateProvider;
 import com.jude.beam.expansion.list.ListConfig;
+import com.jude.beam.expansion.overlay.ViewConfig;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
 import com.jude.utils.JFileManager;
@@ -53,7 +53,10 @@ public class APP extends Application {
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview));
-
+                ViewConfig.setDefaultViewConfig(new ViewConfig()
+                .setProgressRes(R.layout.activity_progress)
+                .setErrorRes(R.layout.activity_error)
+                );
             }
         }
     }

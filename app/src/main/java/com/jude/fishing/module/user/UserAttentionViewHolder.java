@@ -1,5 +1,6 @@
 package com.jude.fishing.module.user;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,13 +27,21 @@ public class UserAttentionViewHolder extends BaseViewHolder<PersonBrief> {
     @InjectView(R.id.attention)
     TAGView attention;
 
+    int id;
+
     public UserAttentionViewHolder(ViewGroup parent) {
         super(parent, R.layout.user_item_attention);
-        ButterKnife.inject(this,itemView);
+        ButterKnife.inject(this, itemView);
+        itemView.setOnClickListener(v->{
+            Intent i = new Intent(itemView.getContext(),UserDetailActivity.class);
+            i.putExtra("id",id);
+            itemView.getContext().startActivity(i);
+        });
     }
 
     @Override
     public void setData(PersonBrief data) {
+        id = data.getUID();
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
