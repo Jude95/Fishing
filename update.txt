@@ -1,4 +1,15 @@
 ========================
+2015/9/26 06:10
+versionCode 10
+versionName "0.1.0 Build"
+
+完善修钓点详情界面
+为所有界面增加加载页面
+为所以界面增加错误页面
+修复statusbar的高度bug
+修复部分机型的actionbar高度bug
+
+========================
 2015/9/23 22:15
 versionCode 9
 versionName "0.0.9 Build"

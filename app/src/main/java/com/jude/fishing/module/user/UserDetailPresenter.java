@@ -3,6 +3,7 @@ package com.jude.fishing.module.user;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.SocialModel;
 import com.jude.fishing.model.bean.PersonDetail;
 
@@ -16,8 +17,8 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
     protected void onCreate(UserDetailActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         id = getView().getIntent().getIntExtra("id",0);
-//        if (id == 0)AccountModel.getInstance().registerAccountUpdate(this);
-//        else SocialModel.getInstance().getUserDetail(id).subscribe(this);
+        if (id == 0) AccountModel.getInstance().registerAccountUpdate(this);
+        else SocialModel.getInstance().getUserDetail(id).subscribe(this);
     }
 
     public void attention(){

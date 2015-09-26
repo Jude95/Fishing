@@ -3,13 +3,18 @@ package com.jude.fishing.app;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.widget.FrameLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
+import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beam.expansion.overlay.ViewConfig;
+import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
+import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
+import com.jude.fishing.utils.DataCleaner;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -47,12 +52,18 @@ public class APP extends Application {
 //                Fresco.initialize(this);
                 JFileManager.getInstance().init(this, Dir.values());
                 MobclickAgent.updateOnlineConfig(this);
-
+                DataCleaner.Update(1);
                 Beam.init(this);
                 Beam.registerActivityLifeCycleDelegate(ActivityDelegate.class);
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview));
+                ViewExpansionDelegateProvider.DEFAULT = new ViewExpansionDelegateProvider() {
+                    @Override
+                    public ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity beamBaseActivity, FrameLayout frameLayout) {
+                        return new PaddingTopViewExpansion(beamBaseActivity,frameLayout);
+                    }
+                };
                 ViewConfig.setDefaultViewConfig(new ViewConfig()
                 .setProgressRes(R.layout.activity_progress)
                 .setErrorRes(R.layout.activity_error)
