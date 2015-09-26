@@ -1,8 +1,6 @@
 package com.jude.fishing.module.user;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +20,6 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.R;
 import com.jude.fishing.model.bean.PersonDetail;
 import com.jude.fishing.model.bean.Seed;
-import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.fishing.widget.ObservableScrollView;
@@ -82,28 +79,28 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_detail);
-        ButterKnife.inject(this);
-        attention.setOnClickListener(v -> {
-            isAttended = !isAttended;
-            attention.setText(isAttended ? "已关注" : "关注");
-        });
+//        ButterKnife.inject(this);
+//        attention.setOnClickListener(v -> {
+//            isAttended = !isAttended;
+//            attention.setText(isAttended ? "已关注" : "关注");
+//        });
         getExpansion().showProgressPage();
-        mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
-        getToolbar().setBackgroundDrawable(mActionbarDrawable);
-        setToolbarAlpha(0);
-        scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
-            @Override
-            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
-                if (y > head.getHeight() - toolbar.getHeight()) {
-                    setToolbarAlpha(1);
-                } else {
-                    setToolbarAlpha(0);
-                }
-            }
-        });
-        containerAttention.setOnClickListener(v -> startActivity(new Intent(this, AttentionActivity.class)));
-        containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
-        containerFans.setOnClickListener(v -> startActivity(new Intent(this, FansActivity.class)));
+//        mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
+//        getToolbar().setBackgroundDrawable(mActionbarDrawable);
+//        setToolbarAlpha(0);
+//        scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+//            @Override
+//            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+//                if (y > head.getHeight() - toolbar.getHeight()) {
+//                    setToolbarAlpha(1);
+//                } else {
+//                    setToolbarAlpha(0);
+//                }
+//            }
+//        });
+//        containerAttention.setOnClickListener(v -> startActivity(new Intent(this, AttentionActivity.class)));
+//        containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
+//        containerFans.setOnClickListener(v -> startActivity(new Intent(this, FansActivity.class)));
     }
 
     protected void setToolbarAlpha(float alpha) {
