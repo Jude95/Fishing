@@ -1,20 +1,25 @@
 package com.jude.fishing.module.blog;
 
-import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jude.beam.bijection.RequiresPresenter;
+import com.jude.beam.expansion.list.BeamListActivity;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.Seed;
+import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.bean.SeedComment;
+import com.jude.fishing.model.bean.SeedDetail;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import java.util.ArrayList;
 
@@ -22,9 +27,11 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Mr.Jude on 2015/9/12.
+ * Created by zhuchenxi on 15/9/27.
  */
-public class SeedViewHolder extends BaseViewHolder<Seed> {
+@RequiresPresenter(BlogDetailPresenter.class)
+public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, SeedComment> {
+
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -33,8 +40,8 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     TextView time;
     @InjectView(R.id.content)
     TextView content;
-    @InjectView(R.id.image)
-    ExGridView image;
+    @InjectView(R.id.pictures)
+    ExGridView pictures;
     @InjectView(R.id.address)
     TextView address;
     @InjectView(R.id.praise_image)
@@ -47,24 +54,12 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     TextView commentCount;
     @InjectView(R.id.tool)
     LinearLayout tool;
-    NetImageAdapter adapter;
+    @InjectView(R.id.praise_member)
+    ExGridView praiseMember;
 
-    private int id;
-
-    public SeedViewHolder(ViewGroup parent) {
-        super(parent, R.layout.blog_item_main);
-        ButterKnife.inject(this, itemView);
-        image.setAdapter(adapter = new NetImageAdapter(parent.getContext()));
-        itemView.setOnClickListener(v->{
-            Intent i = new Intent(v.getContext(),BlogDetailActivity.class);
-            i.putExtra("id",id);
-            v.getContext().startActivity(i);
-        });
-    }
-
-    @Override
-    public void setData(Seed data) {
-        id = data.getId();
+    public View getBlogDetailView(SeedDetail data, ViewGroup parent) {
+        View view = getLayoutInflater().inflate(R.layout.blog_item_head, parent, false);
+        ButterKnife.inject(this,view);
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
@@ -72,12 +67,26 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
-        adapter.clear();
+
         ArrayList<Uri> arr = new ArrayList<>();
         for (String img : data.getImages()) {
             arr.add(Uri.parse(img));
         }
-        adapter.addAll(arr);
+        pictures.setAdapter(new NetImageAdapter(parent.getContext(), arr));
 
+        for (PersonBrief personBrief : data.getPraiseMember()) {
+            SimpleDraweeView draweeView = new SimpleDraweeView(this);
+            draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40),JUtils.dip2px(40)));
+            draweeView.setImageURI(Uri.parse(personBrief.getAvatar()));
+            praiseMember.addView(draweeView);
+        }
+
+        return view;
     }
+
+    @Override
+    protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
+        return new SeedCommentViewHolder(viewGroup);
+    }
+
 }

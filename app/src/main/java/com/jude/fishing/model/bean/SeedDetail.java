@@ -15,7 +15,9 @@ public class SeedDetail extends Seed{
         return praiseMember;
     }
 
-    public SeedDetail(String id, String authorId, String authorAvatar, String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount) {
+    public SeedDetail(int id, int authorId, String authorAvatar, String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount,PersonBrief[] praiseMember, SeedComment[] comment) {
         super(id, authorId, authorAvatar, authorName, time, address, content, images, praiseCount, praiseStatus, commentCount);
+        this.comment = comment;
+        this.praiseMember = praiseMember;
     }
 }

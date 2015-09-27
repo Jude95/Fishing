@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Created by Mr.Jude on 2015/9/11.
  */
 public class Seed implements Serializable{
-    private String id;
-    private String authorId;
+    private int id;
+    private int authorId;
     private String authorAvatar;
     private String authorName;
     private long time;
@@ -19,7 +19,7 @@ public class Seed implements Serializable{
     private int commentCount;
 
 
-    public Seed(String id, String authorId, String authorAvatar,String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount) {
+    public Seed(int id, int authorId, String authorAvatar,String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount) {
         this.id = id;
         this.authorId = authorId;
         this.authorAvatar = authorAvatar;
@@ -33,11 +33,11 @@ public class Seed implements Serializable{
         this.commentCount = commentCount;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +49,11 @@ public class Seed implements Serializable{
         this.authorName = authorName;
     }
 
-    public String getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 

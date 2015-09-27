@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Collection;
+
 /**
  * Created by Mr.Jude on 2015/9/16.
  */
@@ -19,6 +21,10 @@ public class NetImageAdapter extends ArrayAdapter<Uri> {
 
     public NetImageAdapter(Context context, Uri[] objects) {
         super(context, 0, objects);
+    }
+
+    public NetImageAdapter(Context context, Collection<Uri> objects) {
+        super(context, 0, objects.toArray(new Uri[0]));
     }
 
     @Override

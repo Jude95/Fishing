@@ -3,7 +3,7 @@ package com.jude.fishing.model.bean;
 /**
  * Created by Mr.Jude on 2015/9/12.
  */
-public class Comment {
+public class PlaceComment {
     private int placeId;
     private String placeName;
     private String placePreview;
@@ -35,7 +35,7 @@ public class Comment {
         return time;
     }
 
-    public Comment(int placeId, String placeName, String placePreview, int score, String content, long time) {
+    public PlaceComment(int placeId, String placeName, String placePreview, int score, String content, long time) {
 
         this.placeId = placeId;
         this.placeName = placeName;

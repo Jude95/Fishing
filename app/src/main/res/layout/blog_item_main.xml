@@ -62,13 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/content"
-                >
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_login"
-                    />
-            </com.jude.exgridview.ExGridView>
+                />
 
             <LinearLayout
                 android:id="@+id/tool"

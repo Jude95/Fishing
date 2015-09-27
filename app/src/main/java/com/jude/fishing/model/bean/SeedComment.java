@@ -9,71 +9,89 @@ public class SeedComment {
     private int authorId;
     private String authorName ;
     private String authorAvatar ;
-    private String time ;
+    private long time ;
     private String content ;
-    private SeedComment[] child ;
+    private SeedComment[] child = new SeedComment[0];
+
+    public SeedComment(String authorAvatar, int authorId, String authorName, int id, int originalId, long time, String content) {
+        this.authorAvatar = authorAvatar;
+        this.authorId = authorId;
+        this.authorName = authorName;
+        this.id = id;
+        this.originalId = originalId;
+        this.time = time;
+        this.content = content;
+    }
 
     public String getAuthorAvatar() {
         return authorAvatar;
     }
 
-    public void setAuthorAvatar(String authorAvatar) {
+    public SeedComment setAuthorAvatar(String authorAvatar) {
         this.authorAvatar = authorAvatar;
+        return this;
     }
 
     public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public SeedComment setAuthorId(int authorId) {
         this.authorId = authorId;
+        return this;
     }
 
     public String getAuthorName() {
         return authorName;
     }
 
-    public void setAuthorName(String authorName) {
+    public SeedComment setAuthorName(String authorName) {
         this.authorName = authorName;
+        return this;
     }
 
     public SeedComment[] getChild() {
         return child;
     }
 
-    public void setChild(SeedComment[] child) {
+    public SeedComment setChild(SeedComment[] child) {
         this.child = child;
+        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public SeedComment setContent(String content) {
         this.content = content;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public SeedComment setId(int id) {
         this.id = id;
+        return this;
     }
 
     public int getOriginalId() {
         return originalId;
     }
 
-    public void setOriginalId(int originalId) {
+    public SeedComment setOriginalId(int originalId) {
         this.originalId = originalId;
+        return this;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public SeedComment setTime(long time) {
         this.time = time;
+        return this;
     }
 }

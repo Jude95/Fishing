@@ -141,6 +141,8 @@
         <activity
             android:name=".module.user.UserData2Activity"
             android:label="完善资料（2/2）" />
+        <activity android:name=".module.blog.BlogDetailActivity"
+            android:label="热闹"/>
     </application>
 
 </manifest>
