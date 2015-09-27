@@ -70,6 +70,10 @@ public class AccountModel extends AbsModel {
         setAccount(null);
     }
 
+    public Observable modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
+        return Observable.just(null).delay(500,TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
     void saveAccount(Account account){
         if (account == null){
             JFileManager.getInstance().getFolder(Dir.Object).deleteChild(FILE_ACCOUNT);
