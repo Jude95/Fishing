@@ -12,7 +12,7 @@ public class UserData2Presenter extends Presenter<UserData2Activity> {
     @Override
     protected void onCreate(UserData2Activity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        getView().getIntent().getStringExtra("nick");
+        getView().getIntent().getStringExtra("name");
         getView().getIntent().getStringExtra("region");
         getView().getIntent().getBooleanExtra("isMale", true);
     }

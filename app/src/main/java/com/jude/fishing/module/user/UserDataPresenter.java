@@ -12,7 +12,7 @@ import com.jude.library.imageprovider.OnImageSelectListener;
  * Created by heqiang on 2015/9/23.
  */
 public class UserDataPresenter extends Presenter<UserDataActivity> {
-
+    private Uri avatar;
     private ImageProvider provider;
     OnImageSelectListener listener = new OnImageSelectListener() {
 
@@ -24,7 +24,23 @@ public class UserDataPresenter extends Presenter<UserDataActivity> {
         @Override
         public void onImageLoaded(Uri uri) {
             getView().getExpansion().dismissProgressDialog();
-            getView().setAvatar(uri);
+            provider.corpImage(uri, 200, 200, new OnImageSelectListener() {
+                @Override
+                public void onImageSelect() {
+
+                }
+
+                @Override
+                public void onImageLoaded(Uri uri) {
+                    avatar = uri;
+                    getView().setAvatar(uri);
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
 
         @Override

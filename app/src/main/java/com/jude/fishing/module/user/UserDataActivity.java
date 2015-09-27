@@ -63,7 +63,7 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implem
             return;
         }
         Intent intent = new Intent(this, UserData2Activity.class);
-        intent.putExtra("nick", nickName.getText().toString().trim());
+        intent.putExtra("name", nickName.getText().toString().trim());
         intent.putExtra("region", region.getText().toString().trim());
         intent.putExtra("isMale", rbMale.isChecked());
         // TODO: 2015/9/23 什么时间做图片上传
