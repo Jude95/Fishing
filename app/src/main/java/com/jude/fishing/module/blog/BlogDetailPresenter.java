@@ -8,6 +8,7 @@ import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.model.BlogModel;
 import com.jude.fishing.model.bean.SeedComment;
+import com.jude.utils.JUtils;
 
 /**
  * Created by zhuchenxi on 15/9/27.
@@ -29,6 +30,7 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
 
                 }
             });
+            JUtils.Log("onCreate"+seedDetail.getComment());
             return seedDetail.getComment();
         }).subscribe(getRefreshSubscriber());
     }

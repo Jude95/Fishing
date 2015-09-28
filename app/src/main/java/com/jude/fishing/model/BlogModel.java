@@ -42,7 +42,7 @@ public class BlogModel extends AbsModel {
     }
 
     SeedDetail createVirtualSeedDetail(){
-        return new SeedDetail(11,1,"http://i1.hdslb.com/52_52/account/face/25263/2526354/myface.jpg","天然呆的陌言君"
+        return new SeedDetail(11,20,"http://i1.hdslb.com/account/face/34250/720902a1/myface.png","天然呆的陌言君"
         ,1443341930,"Texas","秉持着“约会永远不迟到”理念的她还保持着七年以前的好传统，早早就提前到了咖啡馆占据了一个比较角落又靠近窗的有利位置，一边刷quora一边等我们来。"
         ,new String[]{
                 "http://3.im.guokr.com/QAePH2iy3thGQG2SVHUFKcInsyM_NDUh_oOjSZbU5NlKAQAA6wAAAEpQ.jpg",

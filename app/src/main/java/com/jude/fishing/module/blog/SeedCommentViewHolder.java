@@ -3,7 +3,9 @@ package com.jude.fishing.module.blog;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -11,9 +13,10 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.bean.SeedComment;
 import com.jude.fishing.utils.RecentDateFormat;
-import com.jude.fishing.utils.UserClickbleSpan;
+import com.jude.fishing.utils.UserClickableSpan;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +42,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
     public SeedCommentViewHolder(ViewGroup parent) {
         super(parent, R.layout.blog_item_comment);
         ButterKnife.inject(this, itemView);
+        child.setOrientation(LinearLayout.VERTICAL);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
-        createTextView(child,dealChildArray(data));
+        createTextView(child, dealChildArray(data));
     }
 
     private void createTextView(ViewGroup parent,ArrayList<SeedComment> mTempArrayList){
@@ -57,17 +61,20 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
             SeedComment originalComment = findCommentById(mTempArrayList,seedComment.getOriginalId());
             if (originalComment==null){
                 spannableInfo = new SpannableString(authorName + " : " + seedComment.getContent());
-                spannableInfo.setSpan(new UserClickbleSpan(parent.getContext(), seedComment.getAuthorId()), 0, authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableInfo.setSpan(new UserClickableSpan(parent.getContext(), seedComment.getAuthorId()), 0, authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }else{
                 String originalName = originalComment.getAuthorName();
                 spannableInfo = new SpannableString(authorName +"回复"+originalName+ " : " + seedComment.getContent());
-                spannableInfo.setSpan(new UserClickbleSpan(parent.getContext(), seedComment.getAuthorId()), 0, authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                spannableInfo.setSpan(new UserClickbleSpan(parent.getContext(), originalComment.getAuthorId()), authorName.length()+2, authorName.length()+2+originalName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableInfo.setSpan(new UserClickableSpan(parent.getContext(), seedComment.getAuthorId()), 0, authorName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableInfo.setSpan(new UserClickableSpan(parent.getContext(), originalComment.getAuthorId()), authorName.length()+2, authorName.length()+2+originalName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             TextView textView  = new TextView(parent.getContext());
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setPadding(0,JUtils.dip2px(2),0,0);
             textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setText(spannableInfo);
+            JUtils.Log("createTextView:"+spannableInfo.toString());
             parent.addView(textView);
         }
     }
@@ -91,8 +98,8 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
     }
 
     private void addSeedComment(SeedComment comment){
-        if (comment.getChild().length==0){
-            mTempArrayList.add(comment);
+        mTempArrayList.add(comment);
+        if (comment.getChild()==null||comment.getChild().length==0){
             return;
         }
         for (SeedComment seedComment : comment.getChild()) {

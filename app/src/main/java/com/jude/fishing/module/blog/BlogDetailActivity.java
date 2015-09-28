@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
@@ -78,6 +79,7 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
             SimpleDraweeView draweeView = new SimpleDraweeView(this);
             draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40),JUtils.dip2px(40)));
             draweeView.setImageURI(Uri.parse(personBrief.getAvatar()));
+            draweeView.getHierarchy().setRoundingParams(RoundingParams.asCircle());
             praiseMember.addView(draweeView);
         }
 

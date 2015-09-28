@@ -36,6 +36,7 @@
 
     <com.jude.exgridview.ExGridView
         android:id="@+id/pictures"
+        android:layout_marginTop="@dimen/activity_margin"
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_marginRight="@dimen/activity_margin"
         android:layout_width="match_parent"
@@ -98,7 +99,10 @@
     <com.jude.exgridview.ExGridView
         android:id="@+id/praise_member"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool"
+        android:layout_margin="@dimen/activity_margin"
+        app:grid_column="8"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
