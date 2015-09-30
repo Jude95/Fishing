@@ -1,29 +1,28 @@
 package com.jude.fishing.module.place;
 
-import android.os.Bundle;
-
-import com.jude.beam.expansion.list.BeamListFragmentPresenter;
-import com.jude.fishing.model.PlaceModel;
-import com.jude.fishing.model.bean.PlaceBrief;
+import com.jude.beam.bijection.Presenter;
 
 /**
- * Created by Mr.Jude on 2015/9/11.
+ * Created by Mr.Jude on 2015/9/28.
  */
-public class PlacePresenter extends BeamListFragmentPresenter<PlaceFragment,PlaceBrief> {
+public class PlacePresenter extends Presenter<PlaceFragment>{
+    private PlaceMapFragment mMap;
+    private PlaceListFragment mList;
 
-    @Override
-    protected void onCreate(PlaceFragment view, Bundle savedState) {
-        super.onCreate(view, savedState);
-        onRefresh();
+    public PlaceMapFragment getMapFragment(){
+        if (mMap==null)mMap = new PlaceMapFragment();
+        return mMap;
+    }
+
+    public PlaceListFragment getListFragment(){
+        if (mList == null)mList = new PlaceListFragment();
+        return mList;
     }
 
     @Override
-    public void onRefresh() {
-        PlaceModel.getInstance().getPlaces(0).unsafeSubscribe(getRefreshSubscriber());
+    protected void onCreateView(PlaceFragment view) {
+        super.onCreateView(view);
+        getView().setMapFragment();
     }
 
-    @Override
-    public void onLoadMore() {
-        PlaceModel.getInstance().getPlaces(getCurPage()).unsafeSubscribe(getMoreSubscriber());
-    }
 }

@@ -12,6 +12,11 @@ import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.bean.Location;
 import com.jude.library.imageprovider.Utils;
 import com.jude.utils.JFileManager;
+import com.jude.utils.JUtils;
+
+import rx.Subscription;
+import rx.functions.Action1;
+import rx.subjects.BehaviorSubject;
 
 /**
  * Created by Mr.Jude on 2015/1/28.
@@ -24,6 +29,13 @@ public class LocationModel extends AbsModel{
 
     public static LocationModel getInstance(){
         return getInstance(LocationModel.class);
+    }
+
+    private BehaviorSubject<Location> mLocationSubject = BehaviorSubject.create();
+
+
+    public Subscription registerLocationChange(Action1<Location> action1){
+        return mLocationSubject.subscribe(action1);
     }
 
     public Location getCurLocation(){
@@ -42,11 +54,12 @@ public class LocationModel extends AbsModel{
         mLocationManagerProxy = LocationManagerProxy.getInstance(ctx);
         mLocationManagerProxy.setGpsEnable(false);
         mLocationManagerProxy.requestLocationData(
-                LocationProviderProxy.AMapNetwork, 500*1000, 15, new AMapLocationListener() {
+                LocationProviderProxy.AMapNetwork, 5*1000, 15, new AMapLocationListener() {
                     @Override
                     public void onLocationChanged(AMapLocation aMapLocation) {
+                        mLocationSubject.onNext(new Location(aMapLocation));
                         location.setLocation(aMapLocation);
-                        Utils.Log("Save location.AdCode is " + aMapLocation.getAdCode());
+                        JUtils.Log("Save location.AdCode is " + aMapLocation.getAdCode());
                         JFileManager.getInstance().getFolder(Dir.Object).writeObjectToFile(location,FILENAME);
                         uploadAddress();
                     }

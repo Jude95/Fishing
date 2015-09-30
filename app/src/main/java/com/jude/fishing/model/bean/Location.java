@@ -22,6 +22,11 @@ public class Location implements Serializable{
     private int regionCode = 110000;
 
 
+    public Location(){}
+
+    public Location(AMapLocation location) {
+        setLocation(location);
+    }
 
     public int getRegionCode() {
         return regionCode;
@@ -50,6 +55,14 @@ public class Location implements Serializable{
         province = location.getProvince();
         street = location.getStreet();
         regionCode = Integer.parseInt(location.getAdCode());
+    }
+
+    public android.location.Location toLocation(){
+        android.location.Location location = new android.location.Location("");
+        location.setAltitude(altitude);
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        return location;
     }
 
     public String getAddress() {

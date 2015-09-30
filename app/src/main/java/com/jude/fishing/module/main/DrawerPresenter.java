@@ -8,6 +8,7 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.bean.Account;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
+import com.jude.fishing.module.place.PlaceListFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserFragment;

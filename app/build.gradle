@@ -39,6 +39,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -67,4 +72,6 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.jude:rollviewpager:1.0.4'
     compile 'com.pnikosis:materialish-progress:1.7'
+    compile files('libs/Android_Map_V3.0.20150831.jar')
+    compile files('libs/AMap_2DMap_v2.6.0_20150916.jar')
 }

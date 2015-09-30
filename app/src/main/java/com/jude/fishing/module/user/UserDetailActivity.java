@@ -22,6 +22,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.R;
 import com.jude.fishing.model.bean.PersonDetail;
 import com.jude.fishing.model.bean.Seed;
+import com.jude.fishing.module.blog.BlogDetailActivity;
 import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
@@ -174,13 +175,21 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         @InjectView(R.id.tool)
         LinearLayout tool;
 
+        private int id;
+
         public BlogImageViewHolder(ViewGroup parent) {
             super(parent, R.layout.blog_item_simple_image);
             ButterKnife.inject(this, itemView);
+            itemView.setOnClickListener(v->{
+                Intent i = new Intent(v.getContext(),BlogDetailActivity.class);
+                i.putExtra("id",id);
+                v.getContext().startActivity(i);
+            });
         }
 
         @Override
         public void setData(Seed data) {
+            id = data.getId();
             preview.setImageURI(Uri.parse(data.getImages()[0]));
             content.setText(data.getContent());
             address.setText(data.getAddress());
@@ -211,13 +220,21 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         @InjectView(R.id.tool)
         LinearLayout tool;
 
+        private int id;
+
         public BlogTextViewHolder(ViewGroup parent) {
             super(parent, R.layout.blog_item_simple_image);
             ButterKnife.inject(this, itemView);
+            itemView.setOnClickListener(v -> {
+                Intent i = new Intent(v.getContext(), BlogDetailActivity.class);
+                i.putExtra("id", id);
+                v.getContext().startActivity(i);
+            });
         }
 
         @Override
         public void setData(Seed data) {
+            id = data.getId();
             preview.setText(data.getContent().charAt(0) + "");
             content.setText(data.getContent());
             address.setText(data.getAddress());

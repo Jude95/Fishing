@@ -32,7 +32,10 @@
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
+        <!-- 高德-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="474871845dfffa03a26cfcb0ab4fb4f1"/>
         <!-- 友盟 -->
         <meta-data
             android:name="UMENG_APPKEY"
@@ -47,6 +50,7 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="3argexb6rttve" />
+
         <meta-data
             android:name="MODEL"
             android:value="
