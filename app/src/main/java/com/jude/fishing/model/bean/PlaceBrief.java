@@ -16,20 +16,36 @@ public class PlaceBrief {
     private int poolType;
     private int[] serviceType;
     private double lat;
-    private double lon;
+    private double lng;
 
+    public PlaceBrief(int id, String name, String preview, String address, float score, int distance, int cost, int costType, String fishType, int poolType, int[] serviceType) {
+        this.id = id;
+        this.name = name;
+        this.preview = preview;
+        this.address = address;
+        this.score = score;
+        this.cost = cost;
+        this.distance = distance;
+        this.costType = costType;
+        this.fishType = fishType;
+        this.poolType = poolType;
+        this.serviceType = serviceType;
+    }
 
-    public PlaceBrief(int id, String name, String preview, String address, float score, int distance, int costType, String fishType, int poolType, int[] serviceType) {
+    public PlaceBrief(int id, String name, String preview, String address, float score, int distance, int cost, int costType, String fishType, int poolType, int[] serviceType, double lat, double lng) {
         this.id = id;
         this.name = name;
         this.preview = preview;
         this.address = address;
         this.score = score;
         this.distance = distance;
+        this.cost = cost;
         this.costType = costType;
         this.fishType = fishType;
         this.poolType = poolType;
         this.serviceType = serviceType;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public int getCost() {
@@ -75,4 +91,14 @@ public class PlaceBrief {
     public int[] getServiceType() {
         return serviceType;
     }
+
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
 }

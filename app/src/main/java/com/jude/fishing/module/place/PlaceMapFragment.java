@@ -7,26 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.MyLocationStyle;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
+import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
 import com.jude.fishing.model.LocationModel;
-import com.jude.utils.JUtils;
-
-import rx.Subscription;
+import com.jude.fishing.model.bean.PlaceBrief;
 
 /**
  * Created by Mr.Jude on 2015/9/28.
  */
 @RequiresPresenter(PlaceMapPresenter.class)
-public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> {
+public class PlaceMapFragment extends BeamDataFragment<PlaceMapPresenter,PlaceBrief[]> {
     private MapView mMapView;
     private AMap aMap;
     private UiSettings mUiSettings;
@@ -46,13 +45,38 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> {
         aMap = mMapView.getMap();
         mUiSettings = aMap.getUiSettings();
         mUiSettings.setZoomControlsEnabled(false);
-        mUiSettings.setMyLocationButtonEnabled(true);
-        moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(),16);
+        mUiSettings.setMyLocationButtonEnabled(false);
+        moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), 16);
+        Marker myLocation = initMyPoint();
+        LocationModel.getInstance().registerLocationChange(location -> {
+            myLocation.setPosition(location.toLatLng());
+            myLocation.setSnippet(location.getAddress());
+        });
     }
 
+    public Marker initMyPoint(){
+        MarkerOptions markerOption = new MarkerOptions();
+        markerOption.icon(BitmapDescriptorFactory
+                .fromResource(R.drawable.location_marker));
+        markerOption.title("我的位置");
+        return aMap.addMarker(markerOption);
+    }
 
-    private void addMarker(double lat, double lng){
+    @Override
+    public void setData(PlaceBrief[] data) {
+        aMap.clear();
+        for (PlaceBrief placeBrief : data) {
+            addMarker(placeBrief);
+        }
+    }
 
+    public void addMarker(PlaceBrief place){
+        MarkerOptions markerOption = new MarkerOptions();
+        markerOption.position(new LatLng(place.getLat(), place.getLng()));
+        markerOption.title(place.getName()).snippet(place.getAddress());
+        markerOption.icon(BitmapDescriptorFactory
+                .fromResource(place.getCostType()==0?R.drawable.location_point_green:R.drawable.location_point_blue));
+        aMap.addMarker(markerOption);
     }
 
 

@@ -1,6 +1,7 @@
 package com.jude.fishing.model.bean;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.maps2d.model.LatLng;
 
 import java.io.Serializable;
 
@@ -63,6 +64,10 @@ public class Location implements Serializable{
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         return location;
+    }
+
+    public LatLng toLatLng(){
+        return new LatLng(latitude,longitude);
     }
 
     public String getAddress() {
