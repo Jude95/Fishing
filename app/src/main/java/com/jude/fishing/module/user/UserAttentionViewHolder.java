@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.tagview.TAGView;
 
 import butterknife.ButterKnife;

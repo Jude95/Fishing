@@ -6,7 +6,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.module.user.UserAttentionViewHolder;
 
 /**

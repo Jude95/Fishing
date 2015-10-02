@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
-import com.jude.fishing.model.bean.Account;
-import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.utils.JFileManager;
 

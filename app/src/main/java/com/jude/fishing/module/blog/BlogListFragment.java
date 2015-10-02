@@ -7,7 +7,7 @@ import com.jude.beam.expansion.list.BeamListFragment;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.Seed;
+import com.jude.fishing.model.entities.Seed;
 
 /**
  * Created by Mr.Jude on 2015/9/17.

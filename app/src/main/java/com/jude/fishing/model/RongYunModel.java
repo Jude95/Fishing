@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 
 import com.jude.beam.model.AbsModel;
-import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.utils.JUtils;
 
 import io.rong.imkit.RongIM;

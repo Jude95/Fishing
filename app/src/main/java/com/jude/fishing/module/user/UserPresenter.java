@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
 import com.jude.fishing.model.AccountModel;
-import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.model.entities.Account;
 
 /**
  * Created by Mr.Jude on 2015/9/11.

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.SeedComment;
+import com.jude.fishing.model.entities.SeedComment;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.utils.UserClickableSpan;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;

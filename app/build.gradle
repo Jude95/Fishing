@@ -12,8 +12,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10
-        versionName "0.1.0 Build"
+        versionCode 11
+        versionName "0.1.1 Build"
     }
 
     signingConfigs {
@@ -72,6 +72,6 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.jude:rollviewpager:1.0.4'
     compile 'com.pnikosis:materialish-progress:1.7'
-    compile files('libs/Android_Map_V3.0.20150831.jar')
     compile files('libs/AMap_2DMap_v2.6.0_20150916.jar')
+    compile 'com.squareup.sqlbrite:sqlbrite:0.4.0'
 }

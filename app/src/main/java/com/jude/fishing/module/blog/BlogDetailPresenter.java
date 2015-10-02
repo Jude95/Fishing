@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.model.BlogModel;
-import com.jude.fishing.model.bean.SeedComment;
+import com.jude.fishing.model.entities.SeedComment;
 import com.jude.utils.JUtils;
 
 /**

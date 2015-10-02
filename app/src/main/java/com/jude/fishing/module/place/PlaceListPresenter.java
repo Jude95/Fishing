@@ -3,8 +3,9 @@ package com.jude.fishing.module.place;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.list.BeamListFragmentPresenter;
+import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.PlaceModel;
-import com.jude.fishing.model.bean.PlaceBrief;
+import com.jude.fishing.model.entities.PlaceBrief;
 
 /**
  * Created by Mr.Jude on 2015/9/11.
@@ -19,11 +20,8 @@ public class PlaceListPresenter extends BeamListFragmentPresenter<PlaceListFragm
 
     @Override
     public void onRefresh() {
-        PlaceModel.getInstance().getPlaces(0).unsafeSubscribe(getRefreshSubscriber());
+        PlaceModel.getInstance().getPlaces(LocationModel.getInstance().getCurLocation().getLatitude(),LocationModel.getInstance().getCurLocation().getLongitude()).unsafeSubscribe(getRefreshSubscriber());
     }
 
-    @Override
-    public void onLoadMore() {
-        PlaceModel.getInstance().getPlaces(getCurPage()).unsafeSubscribe(getMoreSubscriber());
-    }
+
 }

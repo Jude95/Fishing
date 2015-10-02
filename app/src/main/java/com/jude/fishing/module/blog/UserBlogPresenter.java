@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.fishing.model.BlogModel;
-import com.jude.fishing.model.bean.Seed;
+import com.jude.fishing.model.entities.Seed;
 
 /**
  * Created by Mr.Jude on 2015/9/19.

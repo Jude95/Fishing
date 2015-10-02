@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.PlaceComment;
+import com.jude.fishing.model.entities.PlaceComment;
 
 /**
  * Created by Mr.Jude on 2015/9/22.

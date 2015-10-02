@@ -1,9 +1,9 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
-import com.jude.fishing.model.bean.Seed;
-import com.jude.fishing.model.bean.SeedComment;
-import com.jude.fishing.model.bean.SeedDetail;
+import com.jude.fishing.model.entities.Seed;
+import com.jude.fishing.model.entities.SeedComment;
+import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 
 import java.util.concurrent.TimeUnit;

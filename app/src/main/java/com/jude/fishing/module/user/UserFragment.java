@@ -16,7 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
-import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.module.place.CollectionPlaceActivity;
 import com.jude.fishing.module.place.UserPlaceActivity;

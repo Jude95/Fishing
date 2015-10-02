@@ -17,7 +17,6 @@ import com.jude.fishing.config.Dir;
 import com.jude.fishing.utils.DataCleaner;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
-import com.umeng.analytics.MobclickAgent;
 
 import io.rong.imkit.RongIM;
 
@@ -49,10 +48,9 @@ public class APP extends Application {
                 Fresco.initialize(this);
                 JUtils.initialize(this);
                 JUtils.setDebug(true, "Fishing");
-//                Fresco.initialize(this);
                 JFileManager.getInstance().init(this, Dir.values());
-                MobclickAgent.updateOnlineConfig(this);
-                DataCleaner.Update(1);
+                DataCleaner.Update(this, 3);
+
                 Beam.init(this);
                 Beam.registerActivityLifeCycleDelegate(ActivityDelegate.class);
                 ListConfig.setDefaultListConfig(new ListConfig().

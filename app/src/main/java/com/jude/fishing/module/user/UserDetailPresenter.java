@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.SocialModel;
-import com.jude.fishing.model.bean.PersonDetail;
+import com.jude.fishing.model.entities.PersonDetail;
 
 /**
  * Created by Mr.Jude on 2015/9/18.

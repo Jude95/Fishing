@@ -1,8 +1,8 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
-import com.jude.fishing.model.bean.PersonBrief;
-import com.jude.fishing.model.bean.PersonDetail;
+import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 
 import java.util.concurrent.TimeUnit;

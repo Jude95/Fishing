@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.fishing.model.bean.PersonBrief;
+import com.jude.fishing.model.entities.PersonBrief;
 
 /**
  * Created by zhuchenxi on 15/9/20.

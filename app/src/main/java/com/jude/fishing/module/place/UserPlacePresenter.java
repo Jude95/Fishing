@@ -2,10 +2,9 @@ package com.jude.fishing.module.place;
 
 import android.os.Bundle;
 
-import com.jude.beam.bijection.Presenter;
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.fishing.model.PlaceModel;
-import com.jude.fishing.model.bean.PlaceBrief;
+import com.jude.fishing.model.entities.PlaceBrief;
 
 /**
  * Created by Mr.Jude on 2015/9/23.

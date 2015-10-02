@@ -9,8 +9,7 @@ import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
-import com.jude.fishing.model.bean.Location;
-import com.jude.library.imageprovider.Utils;
+import com.jude.fishing.model.entities.Location;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 
@@ -33,6 +32,10 @@ public class LocationModel extends AbsModel{
 
     private BehaviorSubject<Location> mLocationSubject = BehaviorSubject.create();
 
+
+    public double getDistance(double lat,double lng){
+        return JUtils.distance(location.getLatitude(),location.getLongitude(),lat,lng);
+    }
 
     public Subscription registerLocationChange(Action1<Location> action1){
         return mLocationSubject.subscribe(action1);

@@ -1,4 +1,4 @@
-package com.jude.fishing.model.bean;
+package com.jude.fishing.model.entities;
 
 /**
  * Created by Mr.Jude on 2015/9/12.

@@ -18,7 +18,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
-import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.setting.SettingActivity;
 import com.jude.utils.JUtils;
 

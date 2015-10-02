@@ -2,7 +2,7 @@ package com.jude.fishing.module.user;
 
 import com.jude.beam.bijection.Presenter;
 import com.jude.fishing.model.AccountModel;
-import com.jude.fishing.model.bean.Account;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.service.ServiceResponse;
 
 /**
