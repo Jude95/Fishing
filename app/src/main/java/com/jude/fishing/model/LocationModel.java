@@ -34,7 +34,7 @@ public class LocationModel extends AbsModel{
 
 
     public double getDistance(double lat,double lng){
-        return JUtils.distance(location.getLatitude(),location.getLongitude(),lat,lng);
+        return JUtils.distance(location.getLongitude(),location.getLatitude(),lng,lat);
     }
 
     public Subscription registerLocationChange(Action1<Location> action1){

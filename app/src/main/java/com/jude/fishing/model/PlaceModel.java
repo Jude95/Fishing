@@ -16,7 +16,6 @@ import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -42,23 +41,23 @@ public class PlaceModel extends AbsModel {
     }
 
     public Observable<PlaceBrief> getAllPlaces(){
-        return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME, "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
+        return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
+                "SELECT * FROM " + PlaceDBTable.TABLE_NAME
+                +" ORDER BY ((lat - 29.823975) * (lat - 29.823975) + (lng - 107.064447) * (lng - 107.064447))")
                 .flatMap(query -> query.asRows(DBConfig.PLACE_DB_TABLE::from));
     }
 
     public Observable<PlaceBrief[]> getPlaces(double lat, double lng){
-        JUtils.Log("lat:"+lat+"  lng:"+lng);
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                         "SELECT *  FROM "+PlaceDBTable.TABLE_NAME
-                        //+ " ORDER BY ((lat - 29.823975)*(lat - 29.823975)+(lng - 107.064447)*(lng - 107.064447))"
+                        + " ORDER BY ((lat - 29.823975)*(lat - 29.823975)+(lng - 107.064447)*(lng - 107.064447))"
         )
         .flatMap(query -> {
             ArrayList<PlaceBrief> arrayList = new ArrayList<>();
             Cursor cursor = query.run();
-            while (cursor.moveToNext()){
+            while (cursor.moveToNext()) {
                 arrayList.add(DBConfig.PLACE_DB_TABLE.from(cursor));
             }
-            Collections.sort(arrayList, (placeBrief, t1) -> (int) (JUtils.distance(lng,lat,placeBrief.getLng(),placeBrief.getLat())-JUtils.distance(lng,lat,t1.getLng(),t1.getLat())));
             return Observable.just(arrayList);
         }).map(placeBriefs -> placeBriefs.toArray(new PlaceBrief[placeBriefs.size()]));
     }

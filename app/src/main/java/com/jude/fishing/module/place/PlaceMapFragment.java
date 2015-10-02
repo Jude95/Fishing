@@ -16,6 +16,7 @@ import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -28,6 +29,7 @@ import com.jude.fishing.utils.DistanceFormat;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -39,6 +41,8 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     private AMap aMap;
     private UiSettings mUiSettings;
     private HashMap<Marker,PlaceBrief> mMarkerMap;
+
+    private static final int MIN_ZOOM_MARKER_COUNT = 5;
 
     private final static int[] ZOOM_LEVEL={
             500000,500000,500000,500000,500000,200000,100000,50000,30000,20000,10000,5000,2000,1000,500,200,100,50,25,10
@@ -82,7 +86,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 ((TextView) (infoContent.findViewById(R.id.name))).setText(placeBrief.getName());
                 ((ScoreView) (infoContent.findViewById(R.id.score_image))).setScore(placeBrief.getScore());
                 ((TextView) (infoContent.findViewById(R.id.score))).setText(placeBrief.getScore() + "");
-                ((TextView) (infoContent.findViewById(R.id.distance))).setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(placeBrief.getLat(),placeBrief.getLng())) + "/" + placeBrief.getCost() + "¥");
+                ((TextView) (infoContent.findViewById(R.id.distance))).setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(placeBrief.getLat(), placeBrief.getLng())) + "/" + placeBrief.getCost() + "¥");
                 return infoContent;
             }
 
@@ -121,7 +125,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         return aMap.addMarker(markerOption);
     }
 
-
+    ArrayList<PlaceBrief> zoomMarkerList = new ArrayList<>();
     public void addMarker(PlaceBrief place) {
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.position(new LatLng(place.getLat(), place.getLng()));
@@ -129,7 +133,17 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(place.getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         Marker marker = aMap.addMarker(markerOption);
-        mMarkerMap.put(marker,place);
+        mMarkerMap.put(marker, place);
+        if (zoomMarkerList.size()<MIN_ZOOM_MARKER_COUNT) zoomMarkerList.add(place);
+        if (zoomMarkerList.size()==MIN_ZOOM_MARKER_COUNT) zoomMarker(zoomMarkerList);
+    }
+
+    private void zoomMarker(ArrayList<PlaceBrief> place){
+        LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
+        for (PlaceBrief placeBrief : place) {
+            boundsBuild.include(new LatLng(placeBrief.getLat(),placeBrief.getLng()));
+        }
+        aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
     }
 
 
