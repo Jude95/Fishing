@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/avatar"
         tools:text="Jude"
-        android:textColor="@color/blue"
         android:layout_alignTop="@+id/avatar"
         />
 

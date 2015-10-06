@@ -1,4 +1,4 @@
-package com.jude.fishing.module.blog;
+package com.jude.fishing.module.place;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,23 +6,21 @@ import android.view.ViewGroup;
 
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
-import com.jude.fishing.model.BlogModel;
-import com.jude.fishing.model.entities.SeedComment;
-import com.jude.utils.JUtils;
+import com.jude.fishing.model.PlaceModel;
+import com.jude.fishing.model.entities.EvaluateComment;
 
 /**
- * Created by zhuchenxi on 15/9/27.
+ * Created by zhuchenxi on 15/10/3.
  */
-public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailActivity,SeedComment> {
-
+public class EvaluateCommentPresenter extends BeamListActivityPresenter<EvaluateCommentActivity,EvaluateComment> {
     @Override
-    protected void onCreate(BlogDetailActivity view, Bundle savedState) {
+    protected void onCreate(EvaluateCommentActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        BlogModel.getInstance().getSeedDetail(getView().getIntent().getIntExtra("id",0)).map(seedDetail -> {
+        PlaceModel.getInstance().getEvaluateDetail(getView().getIntent().getIntExtra("id", 0)).map(seedDetail -> {
             getAdapter().addHeader(new RecyclerArrayAdapter.ItemView() {
                 @Override
                 public View onCreateView(ViewGroup viewGroup) {
-                    return getView().getBlogDetailView(seedDetail,viewGroup);
+                    return getView().getEvaluateDetailView(seedDetail, viewGroup);
                 }
 
                 @Override
@@ -30,7 +28,6 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
 
                 }
             });
-            JUtils.Log("onCreate"+seedDetail.getComments());
             return seedDetail.getComments();
         }).subscribe(getRefreshSubscriber());
     }

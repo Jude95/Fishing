@@ -259,7 +259,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
-            android:src="@drawable/nav_user_eva"/>
+            android:src="@drawable/nav_user_place"/>
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"

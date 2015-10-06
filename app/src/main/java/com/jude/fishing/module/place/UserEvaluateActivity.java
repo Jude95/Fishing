@@ -6,13 +6,13 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.fishing.model.entities.PlaceComment;
+import com.jude.fishing.model.entities.Evaluate;
 
 /**
  * Created by Mr.Jude on 2015/9/22.
  */
-@RequiresPresenter(UserPlaceCommentsPresenter.class)
-public class UserPlaceCommentsActivity extends BeamListActivity<UserPlaceCommentsPresenter,PlaceComment>{
+@RequiresPresenter(UserEvaluatePresenter.class)
+public class UserEvaluateActivity extends BeamListActivity<UserEvaluatePresenter,Evaluate>{
 
     @Override
     protected ListConfig getConfig() {
@@ -21,6 +21,6 @@ public class UserPlaceCommentsActivity extends BeamListActivity<UserPlaceComment
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new UserPlaceCommentViewHolder(parent);
+        return new UserEvaluateViewHolder(parent);
     }
 }

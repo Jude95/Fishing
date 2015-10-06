@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        xmlns:card="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="6dp"
+        card:cardElevation="2dp"
+        card:cardBackgroundColor="@android:color/white"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                fresco:roundAsCircle="true"
+                />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="Jude"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_toRightOf="@id/avatar"/>
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="今天 07:24"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_below="@id/name"
+                android:layout_toRightOf="@id/avatar"/>
+
+            <com.jude.fishing.widget.ScoreView
+                android:id="@+id/score"
+                android:layout_width="96dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/avatar"
+                android:layout_alignBottom="@+id/avatar"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@id/avatar"
+                android:textSize="16sp"
+                android:text="一开始这个网络的权重完全是随机产生的，所以生物会在平面中做各种毫无意义的动作：原地不动、转圈、蒙头向前冲。进化的规则是：如果碰到越多的“食物”，它越有可能活下来。我初始化了几十个这样的生物，丢到这个环境里运行，每次留下吃到食物多的，删掉吃掉食物少的（自然选择）。淘汰掉不良个体后，我把优良个体复制几份，然后随机改动一些里面的参数（基因突变）。这样，随着进化次数的增加，生物开始“学会”主动寻找食物，并且在有限的步数中尽可能走快捷的路线、少撞墙。"/>
+
+            <com.jude.exgridview.ExGridView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/content"
+                />
+
+            <LinearLayout
+                android:id="@+id/tool"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/image">
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="重庆市南岸区邮电大学内"
+                    android:layout_marginRight="48dp"
+                    android:textSize="13dp"
+                    style="@style/TextAppearance.AppCompat.Caption"/>
+                <ImageView
+                    android:id="@+id/comment_image"
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/ic_comment_gray"/>
+                <TextView
+                    android:id="@+id/comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:minWidth="30dp"
+                    android:text="12"
+                    android:padding="4dp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</FrameLayout>

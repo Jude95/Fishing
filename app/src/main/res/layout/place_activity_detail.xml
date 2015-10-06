@@ -57,7 +57,7 @@
                     android:layout_width="56dp"
                     android:layout_height="32dp"
                     app:tag_color="?colorPrimary"
-                    app:tag_text="评价"
+                    app:tag_text="收藏"
                     />
             </LinearLayout>
 
@@ -264,16 +264,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:background="@color/gray"/>
-            <LinearLayout
+
+            <com.jude.exgridview.ExGridView
+                android:id="@+id/server"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@color/white">
-
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/white"
+                app:grid_column="6"
+                app:grid_as_square="false"/>
 
             <View
                 android:layout_width="match_parent"

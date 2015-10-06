@@ -7,8 +7,10 @@ import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.db.DBConfig;
 import com.jude.fishing.model.db.DBHelper;
 import com.jude.fishing.model.db.PlaceDBTable;
+import com.jude.fishing.model.entities.Evaluate;
+import com.jude.fishing.model.entities.EvaluateComment;
+import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
-import com.jude.fishing.model.entities.PlaceComment;
 import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.utils.JUtils;
@@ -62,6 +64,9 @@ public class PlaceModel extends AbsModel {
         }).map(placeBriefs -> placeBriefs.toArray(new PlaceBrief[placeBriefs.size()]));
     }
 
+    public Observable<EvaluateDetail> getEvaluateDetail(int id){
+        return Observable.just(createVirtualEvaluateDetail());
+    }
 
     public void syncPlace(){
         Observable.from(createVirtualPlaces(5)).subscribe(placeBrief -> mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief)));
@@ -75,7 +80,11 @@ public class PlaceModel extends AbsModel {
             return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<PlaceComment[]> getUserPlacesComments(int id){
+    public Observable<Evaluate[]> getPlacesComments(int id,int page){
+        return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Evaluate[]> getUserPlacesComments(int id){
         return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
@@ -101,10 +110,48 @@ public class PlaceModel extends AbsModel {
                 });
     }
 
-    PlaceComment[] createVirtualComment(int count){
-        PlaceComment[] comments = new PlaceComment[count];
+    EvaluateDetail createVirtualEvaluateDetail(){
+        return new EvaluateDetail("南坪","http://i1.hdslb.com/account/face/674913/bd533fd1/myface.png",1,"盛夏的青皮橘",4,
+                "是这样的，“刘慈欣文笔不好”这个说法，最开始是一些写作方面的高手大家提出来的，但是他们说的是“相对欠缺”，因为相对于三体在构思和技术内核上的绚烂，大刘在人物塑造方面确实是略显失色，遣词造句方面也弱但比人物塑造强。人家说的是一个桶有长板有短板，但总体来说还是一个很牛的桶。",
+                2,new String[]{
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=13888c7b8e1001e94e3c1407880f7b06/ea6f0d24ab18972b6443c558e5cd7b899f510aa4.jpg",
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=34ca51e6ae345982c58ae59a3cf5310b/bdeda0c27d1ed21bade3eb77ae6eddc450da3ff7.jpg",
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=031c6af24cc2d562f208d0e5d71090f3/78dedd33c895d143176f20b170f082025baf0784.jpg",
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=8efac50a5ddf8db1bc2e7c6c3922dddb/f5851a178a82b901980a07a1708da9773812ef73.jpg",
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=4b49604cf31f3a295ac8d5c6a924bce3/95ba7d310a55b3192cd943e740a98226cefc17fd.jpg",
+                "http://imgsrc.baidu.com/forum/w%3D580/sign=83ee50607e1ed21b79c92eed9d6fddae/6f82b6fb43166d224b30d406452309f79152d252.jpg"
+        },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855,new EvaluateComment[]{
+                        createVirtualEvaluateComment(0, 1).setChild(new EvaluateComment[]{
+                                createVirtualEvaluateComment(1, 4).setChild(new EvaluateComment[]{
+                                        createVirtualEvaluateComment(4, 5).setChild(new EvaluateComment[]{
+                                                createVirtualEvaluateComment(5, 6)
+                                        }),
+                                }),
+                        }),
+                        createVirtualEvaluateComment(0, 2).setChild(new EvaluateComment[]{
+                                createVirtualEvaluateComment(2, 7)
+                        }),
+                        createVirtualEvaluateComment(0, 3),
+        });
+    }
+
+    EvaluateComment createVirtualEvaluateComment(int originalId, int id){
+        return new EvaluateComment("http://i2.hdslb.com/account/face/8762083/8120757f/myface.png",2,"西瓜的味",id,originalId,1443342840,"问世间鬼畜为何物");
+    }
+    
+    Evaluate[] createVirtualComment(int count){
+        Evaluate[] comments = new Evaluate[count];
         for (int i = 0; i < comments.length; i++) {
-            comments[i] = new PlaceComment(i,"南山鱼塘","http://img2.imgtn.bdimg.com/it/u=2340511935,3141513885&fm=21&gp=0.jpg",4,"你现在还有心工作了吧？毕竟接下来这半个月的时间可基本上都是假期，身边的不少人都已经计划好要去哪里玩了。我在这里想说的是，如果你的行程中有下面这十个景点的话.",1442925906);
+            comments[i] = new Evaluate("南坪","http://i1.hdslb.com/account/face/674913/bd533fd1/myface.png",1,"盛夏的青皮橘",4,
+                    "是这样的，“刘慈欣文笔不好”这个说法，最开始是一些写作方面的高手大家提出来的，但是他们说的是“相对欠缺”，因为相对于三体在构思和技术内核上的绚烂，大刘在人物塑造方面确实是略显失色，遣词造句方面也弱但比人物塑造强。人家说的是一个桶有长板有短板，但总体来说还是一个很牛的桶。",
+                    2,new String[]{
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=13888c7b8e1001e94e3c1407880f7b06/ea6f0d24ab18972b6443c558e5cd7b899f510aa4.jpg",
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=34ca51e6ae345982c58ae59a3cf5310b/bdeda0c27d1ed21bade3eb77ae6eddc450da3ff7.jpg",
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=031c6af24cc2d562f208d0e5d71090f3/78dedd33c895d143176f20b170f082025baf0784.jpg",
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=8efac50a5ddf8db1bc2e7c6c3922dddb/f5851a178a82b901980a07a1708da9773812ef73.jpg",
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=4b49604cf31f3a295ac8d5c6a924bce3/95ba7d310a55b3192cd943e740a98226cefc17fd.jpg",
+                    "http://imgsrc.baidu.com/forum/w%3D580/sign=83ee50607e1ed21b79c92eed9d6fddae/6f82b6fb43166d224b30d406452309f79152d252.jpg"
+            },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855);
         }
         return comments;
     }

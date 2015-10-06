@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.jude.tagview.TAGView
+        android:id="@+id/server_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:tag_color="?colorPrimary"
+        app:tag_text_color="?colorPrimary"
+        app:tag_stroke_width="1.5dp"
+        app:tag_as_circle="true"/>
+    <TextView
+        android:id="@+id/server_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/black_gray"/>
+
+</LinearLayout>

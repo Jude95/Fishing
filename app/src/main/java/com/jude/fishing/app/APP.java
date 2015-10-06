@@ -55,7 +55,8 @@ public class APP extends Application {
                 Beam.registerActivityLifeCycleDelegate(ActivityDelegate.class);
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
-                        setContainerLayoutRes(R.layout.activity_recyclerview));
+                        setContainerLayoutRes(R.layout.activity_recyclerview).
+                        setContainerProgressRes(R.layout.include_loading));
                 ViewExpansionDelegateProvider.DEFAULT = new ViewExpansionDelegateProvider() {
                     @Override
                     public ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity beamBaseActivity, FrameLayout frameLayout) {

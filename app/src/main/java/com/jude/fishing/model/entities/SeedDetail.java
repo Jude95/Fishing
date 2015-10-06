@@ -5,10 +5,10 @@ package com.jude.fishing.model.entities;
  */
 public class SeedDetail extends Seed{
     private PersonBrief[] praiseMember;
-    private SeedComment[] comment;
+    private SeedComment[] comments;
 
-    public SeedComment[] getComment() {
-        return comment;
+    public SeedComment[] getComments() {
+        return comments;
     }
 
     public PersonBrief[] getPraiseMember() {
@@ -17,7 +17,7 @@ public class SeedDetail extends Seed{
 
     public SeedDetail(int id, int authorId, String authorAvatar, String authorName, long time, String address, String content, String[] images, int praiseCount, boolean praiseStatus, int commentCount,PersonBrief[] praiseMember, SeedComment[] comment) {
         super(id, authorId, authorAvatar, authorName, time, address, content, images, praiseCount, praiseStatus, commentCount);
-        this.comment = comment;
+        this.comments = comment;
         this.praiseMember = praiseMember;
     }
 }

@@ -8,9 +8,9 @@ public class Constant {
             "免费","斤塘","天塘"
     };
     public static final String[] PlacePoolType = {
-            "池塘","江河","湖/水库","海洋"
+            "池塘","江河","湖","海洋"
     };
     public static final String[] PlaceServiceType = {
-            "可夜钓","博大物","可住宿","课餐饮"
+            "夜钓","大鱼","住宿","餐饮"
     };
 }

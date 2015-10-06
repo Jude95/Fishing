@@ -104,7 +104,7 @@
             android:name=".module.place.CollectionPlaceActivity"
             android:label="收藏" />
         <activity
-            android:name=".module.place.UserPlaceCommentsActivity"
+            android:name=".module.place.UserEvaluateActivity"
             android:label="我的评价" />
         <activity
             android:name=".module.place.PlaceAddActivity"
@@ -147,6 +147,12 @@
             android:label="完善资料（2/2）" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="热闹"/>
+        <activity android:name=".module.place.EvaluateActivity"
+            android:label="评价列表"/>
+        <activity android:name=".module.place.EvaluateCommentActivity"
+            android:label="评价详情"/>
+        <activity android:name=".module.place.WriteEvaluateActivity"
+            android:label="编辑评价"/>
     </application>
 
 </manifest>

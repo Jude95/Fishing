@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
@@ -85,7 +86,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         message.setOnClickListener(v -> getPresenter().showMessageFragment());
         user.setOnClickListener(v -> getPresenter().showUserFragment());
         setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
-        logout.setOnClickListener(v -> AccountModel.getInstance().logout());
+        logout.setOnClickListener(v -> showLogoutDialog());
         return view;
     }
 
@@ -106,4 +107,23 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         lastView = view;
     }
 
+    private void showLogoutDialog(){
+        MaterialDialog dialog = new MaterialDialog.Builder(getContext()).
+                title("注销登录").
+                content("您确定要退出登录吗？").
+                positiveText("注销").
+                negativeText("取消").
+                callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        AccountModel.getInstance().logout();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).show();
+    }
 }

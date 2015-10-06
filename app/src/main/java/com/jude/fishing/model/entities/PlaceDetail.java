@@ -6,7 +6,17 @@ package com.jude.fishing.model.entities;
 public class PlaceDetail extends PlaceBrief{
     private String tel;
     private String content;
+    private int evaluateCount;
+    private boolean collectStatus;
     private String[] picture;
+
+    public boolean isCollectStatus() {
+        return collectStatus;
+    }
+
+    public int getEvaluateCount() {
+        return evaluateCount;
+    }
 
     public String getTel() {
         return tel;
