@@ -13,8 +13,8 @@ import com.jude.utils.JUtils;
  * Created by zhuchenxi on 15/9/26.
  */
 public class PaddingTopViewExpansion extends DefaultViewExpansionDelegate {
-    public PaddingTopViewExpansion(BeamBaseActivity activity, FrameLayout container) {
-        super(activity, container);
+    public PaddingTopViewExpansion(BeamBaseActivity activity) {
+        super(activity);
     }
 
     @Override

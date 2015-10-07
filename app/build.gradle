@@ -58,7 +58,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
-    compile 'com.jude:beam:2.2.13'
+    compile 'com.jude:beam:2.3.3'
     compile 'com.jude:swipebackhelper:2.0.0'
     compile 'com.jude:imageprovider:1.0.7'
     compile 'com.jude:utils:1.0.7'
@@ -75,4 +75,7 @@ dependencies {
     compile files('libs/AMap_2DMap_v2.6.0_20150916.jar')
     compile 'com.squareup.sqlbrite:sqlbrite:0.4.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+    compile('com.afollestad.material-dialogs:core:0.8.2.0@aar') {
+        transitive = true
+    }
 }

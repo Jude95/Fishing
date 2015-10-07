@@ -24,6 +24,6 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
 
     @Override
     public void onRefresh() {
-        BlogModel.getInstance().getSeed(0,getCurPage()).unsafeSubscribe(getRefreshSubscriber());
+        BlogModel.getInstance().getSeed(0,0).unsafeSubscribe(getRefreshSubscriber());
     }
 }

@@ -1,5 +1,6 @@
 package com.jude.fishing.app;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
@@ -7,6 +8,8 @@ import android.widget.FrameLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
+import com.jude.beam.bijection.ActivityLifeCycleDelegate;
+import com.jude.beam.bijection.ActivityLifeCycleDelegateProvider;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beam.expansion.overlay.ViewConfig;
@@ -52,20 +55,21 @@ public class APP extends Application {
                 DataCleaner.Update(this, 3);
 
                 Beam.init(this);
-                Beam.registerActivityLifeCycleDelegate(ActivityDelegate.class);
+                Beam.setActivityLifeCycleDelegateProvider(ActivityDelegate::new);
+                Beam.setViewExpansionDelegateProvider(new ViewExpansionDelegateProvider() {
+                    @Override
+                    public ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity activity) {
+                        return new PaddingTopViewExpansion(activity);
+                    }
+                });
+
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview).
                         setContainerProgressRes(R.layout.include_loading));
-                ViewExpansionDelegateProvider.DEFAULT = new ViewExpansionDelegateProvider() {
-                    @Override
-                    public ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity beamBaseActivity, FrameLayout frameLayout) {
-                        return new PaddingTopViewExpansion(beamBaseActivity,frameLayout);
-                    }
-                };
-                ViewConfig.setDefaultViewConfig(new ViewConfig()
-                .setProgressRes(R.layout.activity_progress)
-                .setErrorRes(R.layout.activity_error)
+                ViewConfig.setDefaultViewConfig(new ViewConfig().
+                                setProgressRes(R.layout.activity_progress).
+                                setErrorRes(R.layout.activity_error)
                 );
             }
         }
