@@ -2,7 +2,6 @@ package com.jude.fishing.model.service;
 
 
 import com.jude.fishing.BuildConfig;
-import com.jude.fishing.config.API;
 import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.RestAdapter;
@@ -36,7 +35,6 @@ public class ServiceClient {
 
     private static RestAdapter createAdapter(){
         return new RestAdapter.Builder()
-                .setEndpoint(API.URL.BASEURL)
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .setConverter(new WrapperConverter())
                 .setClient(new OkClient(getOkHttpClient()))

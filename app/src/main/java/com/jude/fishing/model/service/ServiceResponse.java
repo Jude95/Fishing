@@ -1,5 +1,6 @@
 package com.jude.fishing.model.service;
 
+import com.jude.fishing.config.API;
 import com.jude.utils.JUtils;
 
 import retrofit.converter.ConversionException;
@@ -20,9 +21,9 @@ public abstract class ServiceResponse<T> implements Observer<T> {
         if (e instanceof ServiceException){
             onServiceError(((ServiceException)e).getStatus(),((ServiceException) e).getInfo());
         }else if (e instanceof ConversionException){
-            onServiceError(-888,"数据解析错误");
+            onServiceError(API.CODE.ANALYSIS_ERROR,"数据解析错误");
         }else{
-            onServiceError(-999,"网络错误");
+            onServiceError(API.CODE.NET_INVALID,"网络错误");
         }
     }
 

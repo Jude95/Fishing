@@ -19,11 +19,12 @@ public class API {
 
     public static class CODE {
         public static final int SUCCEED = 0;
-        public static final int PARAMS_ERROR = 1;
-        public static final int SERVER_ERROR = 1001;
-        public static final int LOGINSTATUS_DENIED = 1002;
-        public static final int ACCOUNT_DENIED = 1002;
-        public static final int PARAMS_INVALID = -1;
-        public static final int PERMISSION_DENIED = -3;
+        public static final int SERVER_ERROR = 1;
+        public static final int PARAMS_ERROR = 2;
+        public static final int PARAMS_INVALID = 3;
+        public static final int USER_INVALID = 5;
+        public static final int PERMISSION_DENIED = 6;
+        public static final int ANALYSIS_ERROR = 8;
+        public static final int NET_INVALID = 9;
     }
 }
