@@ -19,6 +19,7 @@ public class ServiceClient {
     public static OkHttpClient getOkHttpClient(){
         if (okHttpClient==null){
             okHttpClient = new OkHttpClient();
+            okHttpClient.networkInterceptors().add(new HeaderInterceptors());
         }
         return okHttpClient;
     }

@@ -7,6 +7,7 @@ import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
+import com.jude.fishing.model.service.HeaderInterceptors;
 import com.jude.utils.JFileManager;
 
 import java.util.concurrent.TimeUnit;
@@ -85,6 +86,8 @@ public class AccountModel extends AbsModel {
     void setAccount(Account account){
         userAccountData = account;
         userAccountDataBehaviorSubject.onNext(account);
+        HeaderInterceptors.TOKEN = account.getToken();
+        HeaderInterceptors.UID = account.getUID()+"";
     }
 
     public PersonBrief[] createVirtualPersonBriefs(int count){
