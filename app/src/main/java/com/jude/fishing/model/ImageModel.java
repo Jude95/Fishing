@@ -31,18 +31,24 @@ public class ImageModel extends AbsModel {
         mUploadManager = new UploadManager();
     }
 
-    public static String getSmallImage(String path){
+    public String getSmallImage(String path){
         return path+"?imageView2/0/w/360";
     }
 
-    public static String getLargeImage(String path){
+    public String getLargeImage(String path){
         return path+"?imageView2/0/w/1024";
     }
 
-    public static String getSizeImage(String path,int width){
-        return path+"?imageView2/0/w/"+width;
+    public String getSizeImage(String path,int width){
+        return path+"?imageView2/0/w/360"+width;
     }
 
+
+    /**
+     *
+     * @param file 需上传文件
+     * @return 上传文件访问地址
+     */
     public Observable<String> putImage(final File file){
         final String realName = "u"+ UID +System.currentTimeMillis()+".jpg";
         final String path = ADDRESS+realName;
@@ -59,8 +65,8 @@ public class ImageModel extends AbsModel {
     }
 
     public Observable<String> putImage(final File[] file){
-        final String realName = "u"+ UID +System.currentTimeMillis()+".jpg";
-        final String path = ADDRESS+realName;
+        String realName = "u"+System.currentTimeMillis()+".jpg";
+        String path = ADDRESS+realName;
         return ServiceClient.getService().getQiNiuToken().flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
@@ -75,5 +81,7 @@ public class ImageModel extends AbsModel {
             }
         }));
     }
+
+
 
 }

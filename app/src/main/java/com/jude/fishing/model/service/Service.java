@@ -25,4 +25,22 @@ public interface Service {
     Observable<PlaceBrief[]> SyncPlace(
             @Field("time")String lastTime);
 
+    @FormUrlEncoded
+    @POST(API.URL.GetPlace)
+    Observable<PlaceBrief[]> PublishPlace(
+            @Field("id")int id,
+            @Field("name")String name,
+            @Field("preview")String preview,
+            @Field("address")String address,
+            @Field("cost")int cost,
+            @Field("costType")int costType,
+            @Field("fishType")String fishType,
+            @Field("poolType")int poolType,
+            @Field("serviceType")String serviceType,
+            @Field("tel")String tel,
+            @Field("content")String content,
+            @Field("picture")String[] picture,
+            @Field("lat")double lat,
+            @Field("lng")double lng
+            );
 }

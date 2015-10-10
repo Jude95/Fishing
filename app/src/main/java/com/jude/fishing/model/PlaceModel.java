@@ -66,6 +66,11 @@ public class PlaceModel extends AbsModel {
         }).map(placeBriefs -> placeBriefs.toArray(new PlaceBrief[placeBriefs.size()]));
     }
 
+
+    public Observable publishPlace(PlaceDetail placeDetail){
+        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),placeDetail.getPicture(),placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
+    }
+
     public Observable<EvaluateDetail> getEvaluateDetail(int id){
         return Observable.just(createVirtualEvaluateDetail());
     }

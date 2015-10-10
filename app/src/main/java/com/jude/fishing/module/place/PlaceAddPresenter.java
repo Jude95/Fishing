@@ -2,21 +2,36 @@ package com.jude.fishing.module.place;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.TextUtils;
 
 import com.amap.api.maps.model.LatLng;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
+import com.jude.fishing.model.ImageModel;
+import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.PlaceDetail;
+import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.utils.JUtils;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Mr.Jude on 2015/9/22.
  */
 public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivity,PlaceDetail> {
     public static final int PLACE = 1001;
+    public static final int PHOTO = 1002;
+
     private PlaceDetail mPlaceDetail = new PlaceDetail();
+
+    private ArrayList<Uri> mPreUpload = new ArrayList<>();
+    private ArrayList<Uri> mHasUpload = new ArrayList<>();
 
     @Override
     protected void onCreateView(PlaceAddActivity view) {
         super.onCreateView(view);
+        dealPicture();
         publishObject(mPlaceDetail);
     }
 
@@ -26,6 +41,15 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
 
     public void startPlaceSelect(){
         getView().startActivityForResult(new Intent(getView(),PlaceSelectActivity.class),PLACE);
+    }
+
+    public void startPhotoSelect(){
+        Intent intent = new Intent(getView(), PlacePhotoSelectActivity.class);
+        ArrayList<Uri> uris = new ArrayList<>();
+        uris.addAll(mPreUpload);
+        uris.addAll(mHasUpload);
+        intent.putParcelableArrayListExtra("uri",uris);
+        getView().startActivityForResult(intent, PHOTO);
     }
 
     public void setName(String name){
@@ -76,6 +100,8 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
     }
 
 
+
+
     @Override
     protected void onResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE&&resultCode == Activity.RESULT_OK){
@@ -86,10 +112,91 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             }
             mPlaceDetail.setAddress(data.getStringExtra("address"));
             publishObject(mPlaceDetail);
+            return;
+        }
+        if (requestCode == PHOTO&&resultCode == Activity.RESULT_OK){
+            mHasUpload.clear();
+            mPreUpload.clear();
+            ArrayList<Uri> uri = data.getParcelableArrayListExtra("uri");
+            if (uri!=null){
+                JUtils.Log("Get");
+                for (Uri temp : uri) {
+                    if (temp.getScheme().equals("http")){
+                        mHasUpload.add(temp);
+                    }else{
+                        mPreUpload.add(temp);
+                    }
+                }
+                getView().setPictureCount(uri.size());
+            }else {
+                JUtils.Log("Error");
+            }
         }
     }
 
+    private void dealPicture(){
+        if (mPlaceDetail.getPicture()!=null){
+            for (String s : mPlaceDetail.getPicture()) {
+                mHasUpload.add(Uri.parse(s));
+            }
+            mPlaceDetail.setPicture(null);
+        }
+    }
+
+    int uploadSize = 0;
     public void submit(){
+
+        if (TextUtils.isEmpty(mPlaceDetail.getName())){
+            JUtils.Toast("请填写钓点名字");
+            return;
+        }
+        if (TextUtils.isEmpty(mPlaceDetail.getAddress())){
+            JUtils.Toast("请选择钓点地址");
+            return;
+        }
+        if (TextUtils.isEmpty(mPlaceDetail.getFishType())){
+            JUtils.Toast("请填写钓点鱼种");
+            return;
+        }
+        if (mPreUpload.size()+mHasUpload.size()==0){
+            JUtils.Toast("请至少添加一张图片");
+            return;
+        }
+
+        String[] urls = new String[mHasUpload.size()+mPreUpload.size()];
+        for (int i = 0; i < mHasUpload.size(); i++) {
+            urls[i] = mHasUpload.get(i).getPath();
+        }
+        mPlaceDetail.setPicture(urls);
+        File[] files = new File[mPreUpload.size()];
+        for (int i = 0; i < mPreUpload.size(); i++) {
+            files[i] = new File(mPreUpload.get(i).toString());
+        }
+        uploadSize = 0;
+        getView().getExpansion().showProgressDialog("开始上传");
+        ImageModel.getInstance().putImage(files)
+                .doOnError(throwable -> {
+                    getView().getExpansion().dismissProgressDialog();
+                    JUtils.Toast("图片上传失败");
+                })
+                .filter(s -> {
+                    getView().getExpansion().showProgressDialog("上传图片中,第" + (mHasUpload.size() + uploadSize) + "/" + mPlaceDetail.getPicture().length + "张");
+                    mPlaceDetail.getPicture()[mHasUpload.size() + uploadSize] = s;
+                    return true;
+                })
+                .buffer(files.length)
+                .flatMap(strings -> {
+                    getView().getExpansion().showProgressDialog("上传服务器中");
+                    return PlaceModel.getInstance().publishPlace(mPlaceDetail);
+                })
+                .subscribe(new ServiceResponse() {
+                    @Override
+                    public void onNext(Object o) {
+                        getView().getExpansion().dismissProgressDialog();
+                        JUtils.Toast("提交成功");
+                        getView().finish();
+                    }
+                });
 
     }
 

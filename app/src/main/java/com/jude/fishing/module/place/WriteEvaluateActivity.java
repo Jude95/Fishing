@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
-import com.jude.exgridview.AddView;
 import com.jude.exgridview.ImagePieceView;
 import com.jude.exgridview.PieceViewGroup;
 import com.jude.fishing.R;
@@ -42,9 +41,9 @@ public class WriteEvaluateActivity extends BeamBaseActivity<WriteEvaluatePresent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_activity_evaluate_write);
         ButterKnife.inject(this);
-        AddView addView = images.setOnAskViewListener(this::showSelectorDialog);
-        addView.setAddImageRes(R.drawable.pic_add);
-        addView.setOKImageRes(R.drawable.pic_ok);
+        images.setOnAskViewListener(this::showSelectorDialog);
+        images.setAddImageRes(R.drawable.pic_add);
+        images.setOKImageRes(R.drawable.pic_ok);
         images.setOnViewDeleteListener(getPresenter());
         score.setOnScoreSelectedListener(getPresenter());
     }

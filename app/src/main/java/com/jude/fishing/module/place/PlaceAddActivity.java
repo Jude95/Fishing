@@ -89,8 +89,14 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
         viewPool.setOnClickListener(v -> showPoolTypeEdit());
         viewServer.setOnClickListener(v -> showServerTypeEdit());
         viewAddress.setOnClickListener(v->getPresenter().startPlaceSelect());
+        viewPictureCount.setOnClickListener(v->getPresenter().startPhotoSelect());
+        submit.setOnClickListener(v->getPresenter().submit());
     }
 
+
+    public void setPictureCount(int count){
+        tvPictureCount.setText(count + "张");
+    }
 
     @Override
     public void setData(PlaceDetail data) {
@@ -113,8 +119,7 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
         if (data.getCostType() < Constant.PlaceCostType.length)
             tvCostType.setText(Constant.PlaceCostType[data.getCostType()]);
 
-        if (data.getPicture() == null) tvPictureCount.setText("0张");
-        else tvPictureCount.setText(data.getPicture().length + "张");
+
 
         if (data.getPoolType() < Constant.PlacePoolType.length)
             tvPool.setText(Constant.PlacePoolType[data.getPoolType()]);

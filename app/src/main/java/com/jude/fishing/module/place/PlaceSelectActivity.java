@@ -52,7 +52,7 @@ public class PlaceSelectActivity extends BeamBaseActivity<PlaceSelectPresenter> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.place_activity_select);
+        setContentView(R.layout.place_activity_select_location);
         ButterKnife.inject(this);
         mMapView.onCreate(savedInstanceState);
         initMap();

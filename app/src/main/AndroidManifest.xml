@@ -152,6 +152,8 @@
             android:label="编辑评价"/>
         <activity android:name=".module.place.PlaceSelectActivity"
             android:label="钓点选择"/>
+        <activity android:name=".module.place.PlacePhotoSelectActivity"
+            android:label="图片添加"/>
     </application>
 
 </manifest>
