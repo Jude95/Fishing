@@ -1,7 +1,7 @@
 package com.jude.fishing.model.entities;
 
 import com.amap.api.location.AMapLocation;
-import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps.model.LatLng;
 
 import java.io.Serializable;
 

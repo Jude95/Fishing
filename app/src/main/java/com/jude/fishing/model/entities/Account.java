@@ -10,11 +10,13 @@ public class Account extends PersonDetail implements Serializable{
     private String token;
     private String rongToken;
 
-    public Account(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, Seed[] seeds, int blogCount, int attentionCount, int fansCount, String phone, String rongToken) {
+    public Account(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, Seed[] seeds, int blogCount, int attentionCount, int fansCount, String phone, String token, String rongToken) {
         super(avatar, id, name, relation, sign, skill, age, background, address, seeds, blogCount, attentionCount, fansCount);
         this.phone = phone;
+        this.token = token;
         this.rongToken = rongToken;
     }
+
     public String getToken() {
         return token;
     }

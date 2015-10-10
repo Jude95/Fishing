@@ -150,6 +150,8 @@
             android:label="评价详情"/>
         <activity android:name=".module.place.WriteEvaluateActivity"
             android:label="编辑评价"/>
+        <activity android:name=".module.place.PlaceSelectActivity"
+            android:label="钓点选择"/>
     </application>
 
 </manifest>

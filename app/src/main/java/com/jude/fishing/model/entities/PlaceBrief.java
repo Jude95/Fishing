@@ -15,6 +15,56 @@ public class PlaceBrief {
     private int poolType;
     private String serviceType;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPreview(String preview) {
+        this.preview = preview;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void setCostType(int costType) {
+        this.costType = costType;
+    }
+
+    public void setFishType(String fishType) {
+        this.fishType = fishType;
+    }
+
+    public void setPoolType(int poolType) {
+        this.poolType = poolType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public PlaceBrief() {
+    }
 
     private double lat;
     private double lng;

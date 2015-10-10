@@ -12,8 +12,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 14
-        versionName "0.1.4 Build"
+        versionCode 15
+        versionName "0.1.5 Build"
     }
 
     signingConfigs {
@@ -58,7 +58,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
-    compile 'com.jude:beam:2.3.3'
+    compile 'com.jude:beam:2.3.4'
     compile 'com.jude:swipebackhelper:2.0.0'
     compile 'com.jude:imageprovider:1.0.7'
     compile 'com.jude:utils:1.0.7'
@@ -78,4 +78,9 @@ dependencies {
     compile('com.afollestad.material-dialogs:core:0.8.2.0@aar') {
         transitive = true
     }
+    compile files('libs/AMap_Search_v2.6.0_20150914.jar')
+    compile files('libs/AMap_Navi_v1.4.0_20150916.jar')
+    compile files('libs/AMap_Location_v1.4.1_20150917.jar')
+    compile files('libs/Android_Map_V3.0.20150831.jar')
+    compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
 }
