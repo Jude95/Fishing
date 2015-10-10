@@ -13,6 +13,7 @@ import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.service.DefaultTransform;
+import com.jude.fishing.model.service.ServiceClient;
 import com.jude.utils.JUtils;
 import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
@@ -26,6 +27,8 @@ import rx.Observable;
  * Created by Mr.Jude on 2015/9/12.
  */
 public class PlaceModel extends AbsModel {
+    public static final String PLACE_LAST_SYNC_TIME = "placeLastSyncTime";
+
     private BriteDatabase mDbBrite;
     public static PlaceModel getInstance() {
             return getInstance(PlaceModel.class);
@@ -44,15 +47,14 @@ public class PlaceModel extends AbsModel {
 
     public Observable<PlaceBrief> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
-                "SELECT * FROM " + PlaceDBTable.TABLE_NAME
-                +" ORDER BY ((lat - 29.823975) * (lat - 29.823975) + (lng - 107.064447) * (lng - 107.064447))")
+                "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
                 .flatMap(query -> query.asRows(DBConfig.PLACE_DB_TABLE::from));
     }
 
-    public Observable<PlaceBrief[]> getPlaces(double lat, double lng){
+    public Observable<PlaceBrief[]> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                         "SELECT *  FROM "+PlaceDBTable.TABLE_NAME
-                        + " ORDER BY ((lat - 29.823975)*(lat - 29.823975)+(lng - 107.064447)*(lng - 107.064447))"
+                        + " ORDER BY ((lat - "+lat+")*(lat - "+lat+")+(lng - "+lng+")*(lng - "+lng+"))"
         )
         .flatMap(query -> {
             ArrayList<PlaceBrief> arrayList = new ArrayList<>();
@@ -69,7 +71,13 @@ public class PlaceModel extends AbsModel {
     }
 
     public void syncPlace(){
-        Observable.from(createVirtualPlaces(5)).subscribe(placeBrief -> mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief)));
+        ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
+                .flatMap(Observable::from)
+                .subscribe(placeBrief -> {
+                    if (mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief))>0){
+                        JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME,System.currentTimeMillis()/1000+"").apply();
+                    }
+                });
     }
 
     public Observable<PlaceBrief[]> getUserPlaces(){

@@ -1,15 +1,11 @@
 package com.jude.fishing.app;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.widget.FrameLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
-import com.jude.beam.bijection.ActivityLifeCycleDelegate;
-import com.jude.beam.bijection.ActivityLifeCycleDelegateProvider;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beam.expansion.overlay.ViewConfig;
@@ -52,7 +48,7 @@ public class APP extends Application {
                 JUtils.initialize(this);
                 JUtils.setDebug(true, "Fishing");
                 JFileManager.getInstance().init(this, Dir.values());
-                DataCleaner.Update(this, 3);
+                DataCleaner.Update(this, 4);
 
                 Beam.init(this);
                 Beam.setActivityLifeCycleDelegateProvider(ActivityDelegate::new);

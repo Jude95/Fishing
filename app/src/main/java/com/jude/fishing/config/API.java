@@ -6,8 +6,8 @@ package com.jude.fishing.config;
 public class API {
     public static class URL{
         public static final String BASE_URL = "http:small-fish.daoapp.io/index.php";
-        public static final String UpdateLog = "https://raw.githubusercontent.com/Jude95/Fishing/master/update.txt";
-
+        public static final String QiNiuToken = "/common/qiniuToken";
+        public static final String GetPlace = "/place/getPlace";
 
     }
 

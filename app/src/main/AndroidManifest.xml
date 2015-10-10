@@ -74,9 +74,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".module.setting.UpdateLogActivity"
-            android:label="更新记录" />
-        <activity
             android:name=".module.user.LoginActivity"
             android:label="登录" />
         <activity

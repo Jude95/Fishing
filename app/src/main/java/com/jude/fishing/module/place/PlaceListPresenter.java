@@ -20,7 +20,7 @@ public class PlaceListPresenter extends BeamListFragmentPresenter<PlaceListFragm
 
     @Override
     public void onRefresh() {
-        PlaceModel.getInstance().getPlaces(LocationModel.getInstance().getCurLocation().getLatitude(),LocationModel.getInstance().getCurLocation().getLongitude()).unsafeSubscribe(getRefreshSubscriber());
+        PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude()).unsafeSubscribe(getRefreshSubscriber());
     }
 
 

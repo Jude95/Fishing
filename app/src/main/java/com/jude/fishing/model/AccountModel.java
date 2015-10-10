@@ -86,8 +86,16 @@ public class AccountModel extends AbsModel {
     void setAccount(Account account){
         userAccountData = account;
         userAccountDataBehaviorSubject.onNext(account);
-        HeaderInterceptors.TOKEN = account.getToken();
-        HeaderInterceptors.UID = account.getUID()+"";
+        if (account!=null){
+            ImageModel.UID = account.getUID()+"";
+            HeaderInterceptors.TOKEN = account.getToken();
+            HeaderInterceptors.UID = account.getUID()+"";
+        }else {
+            ImageModel.UID = "";
+            HeaderInterceptors.TOKEN = "";
+            HeaderInterceptors.UID = "";
+        }
+
     }
 
     public PersonBrief[] createVirtualPersonBriefs(int count){
