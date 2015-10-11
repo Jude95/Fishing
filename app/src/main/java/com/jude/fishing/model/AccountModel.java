@@ -46,23 +46,11 @@ public class AccountModel extends AbsModel {
         return userAccountDataBehaviorSubject.subscribe(accountAction1);
     }
     public Observable<Account> login(String name,String password){
-//        Observable<Account> observable = Observable.create(new Observable.OnSubscribe<Account>() {
-//            @Override
-//            public void call(Subscriber<? super Account> subscriber) {
-//                subscriber.onNext(createVirtualAccount());
-//                subscriber.onCompleted();
-//            }
-//        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
-        Observable<Account> observable = ServiceClient.getService().login(name,password).compose(new DefaultTransform<>());
-
-        observable.subscribe(new Action1<Account>() {
-            @Override
-            public void call(Account account) {
-                saveAccount(account);
-                setAccount(account);
-            }
+        return ServiceClient.getService().login(name,password).compose(new DefaultTransform<>()).filter(account -> {
+            saveAccount(account);
+            setAccount(account);
+            return true;
         });
-        return observable;
     }
 
     public void logout(){
