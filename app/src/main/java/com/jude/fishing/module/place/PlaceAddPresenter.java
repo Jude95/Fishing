@@ -175,6 +175,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                 .doOnError(throwable -> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");
+                    JUtils.Log(throwable.getLocalizedMessage());
                 })
                 .filter(s -> {
                     getView().getExpansion().showProgressDialog("上传图片中,第" + (mHasUpload.size() + uploadSize) + "/" + mPlaceDetail.getPicture().length + "张");

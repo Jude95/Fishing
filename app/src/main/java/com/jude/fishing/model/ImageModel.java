@@ -50,11 +50,11 @@ public class ImageModel extends AbsModel {
      * @return 上传文件访问地址
      */
     public Observable<String> putImage(final File file){
-        final String realName = "u"+ UID +System.currentTimeMillis()+".jpg";
-        final String path = ADDRESS+realName;
         return ServiceClient.getService().getQiNiuToken().flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
+                String realName = "u"+UID+System.currentTimeMillis()+file.hashCode()+".jpg";
+                String path = ADDRESS+realName;
                 mUploadManager.put(file, realName, token.getToken(), (key, info, response) -> {
                     if (info.isOK())subscriber.onNext(path);
                     else subscriber.onError(new NetworkErrorException(info.error));
@@ -65,13 +65,14 @@ public class ImageModel extends AbsModel {
     }
 
     public Observable<String> putImage(final File[] file){
-        String realName = "u"+System.currentTimeMillis()+".jpg";
-        String path = ADDRESS+realName;
+
         return ServiceClient.getService().getQiNiuToken().flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 final int[] counter = {0};
                 for (File temp : file) {
+                    String realName = "u"+UID+System.currentTimeMillis()+temp.hashCode()+".jpg";
+                    String path = ADDRESS+realName;
                     mUploadManager.put(temp, realName, token.getToken(), (key, info, response) -> {
                         if (info.isOK())subscriber.onNext(path);
                         else subscriber.onError(new NetworkErrorException(info.error));

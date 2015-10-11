@@ -19,7 +19,6 @@ public class ServiceClient {
     public static OkHttpClient getOkHttpClient(){
         if (okHttpClient==null){
             okHttpClient = new OkHttpClient();
-            okHttpClient.networkInterceptors().add(new HeaderInterceptors());
         }
         return okHttpClient;
     }
@@ -40,6 +39,7 @@ public class ServiceClient {
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .setConverter(new WrapperConverter())
                 .setClient(new OkClient(getOkHttpClient()))
+                .setRequestInterceptor(new HeaderInterceptors())
                 .build();
     }
 }
