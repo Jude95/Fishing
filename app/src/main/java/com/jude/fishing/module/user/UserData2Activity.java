@@ -21,7 +21,7 @@ public class UserData2Activity extends BeamBaseActivity<UserData2Presenter> {
     @InjectView(R.id.et_age)
     EditText age;
     @InjectView(R.id.et_good_at)
-    EditText goodAt;
+    EditText skill;
     @InjectView(R.id.et_sign)
     EditText sign;
     @InjectView(R.id.tg_done)
@@ -37,11 +37,23 @@ public class UserData2Activity extends BeamBaseActivity<UserData2Presenter> {
     }
 
     private void checkInput() {
+        if (age.getText().toString().trim().isEmpty()){
+            JUtils.Toast("请输入您的钓龄");
+            return;
+        }
         int ageNum = Integer.valueOf(age.getText().toString().trim());
         if (ageNum < 0 || ageNum > 100) {
             JUtils.Toast("请输入正确的钓龄");
             return;
         }
-        // TODO: 2015/9/23 是否为空检查
+        if (skill.getText().toString().trim().isEmpty()) {
+            JUtils.Toast("请输入您擅长的项目");
+            return;
+        }
+        if (sign.getText().toString().trim().isEmpty() && sign.getText().toString().trim().length() < 150) {
+            JUtils.Toast("请输入150字以内的签名");
+            return;
+        }
+        getPresenter().send(ageNum, skill.getText().toString().trim(), sign.getText().toString().trim());
     }
 }

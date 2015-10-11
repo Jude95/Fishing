@@ -26,6 +26,7 @@ public class BindChangeActivity extends BeamBaseActivity<BindChangePresenter> im
     TAGView retry;
     @InjectView(R.id.tg_change_bind)
     TAGView changeBind;
+    boolean isFirst = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class BindChangeActivity extends BeamBaseActivity<BindChangePresenter> im
             JUtils.Toast("请输入6-12位密码");
             return;
         }
-//        getPresenter().send(code.getText().toString(), password.getText().toString());
+        getPresenter().send(code.getText().toString(), password.getText().toString());
     }
 
     // 重新获取验证码
@@ -61,10 +62,12 @@ public class BindChangeActivity extends BeamBaseActivity<BindChangePresenter> im
 
     @Override
     public void onLastTimeNotify(int lastSecond) {
-        if (lastSecond > 0)
+        if (lastSecond > 0) {
+            isFirst = false;
             retry.setText(lastSecond + "秒后重新发送");
-        else
+        } else if (!isFirst) {
             retry.setText("重新发送");
+        }
     }
 
     @Override
