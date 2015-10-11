@@ -1,7 +1,6 @@
 package com.jude.fishing.model.service;
 
 import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
@@ -18,6 +17,7 @@ public class HeaderInterceptors implements Interceptor {
         return chain.proceed(chain.request().newBuilder()
                 .addHeader("token", TOKEN)
                 .addHeader("uid",UID)
+                .addHeader("type","android")
                 .build());
     }
 }

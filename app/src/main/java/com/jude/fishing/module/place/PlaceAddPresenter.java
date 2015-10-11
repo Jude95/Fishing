@@ -40,7 +40,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
     }
 
     public void startPlaceSelect(){
-        getView().startActivityForResult(new Intent(getView(),PlaceSelectActivity.class),PLACE);
+        getView().startActivityForResult(new Intent(getView(),PlaceLocationSelectActivity.class),PLACE);
     }
 
     public void startPhotoSelect(){
@@ -119,17 +119,14 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             mPreUpload.clear();
             ArrayList<Uri> uri = data.getParcelableArrayListExtra("uri");
             if (uri!=null){
-                JUtils.Log("Get");
                 for (Uri temp : uri) {
-                    if (temp.getScheme().equals("http")){
+                    if (temp.getScheme()!=null&&temp.getScheme().equals("http")){
                         mHasUpload.add(temp);
                     }else{
                         mPreUpload.add(temp);
                     }
                 }
                 getView().setPictureCount(uri.size());
-            }else {
-                JUtils.Log("Error");
             }
         }
     }
@@ -187,6 +184,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                 .buffer(files.length)
                 .flatMap(strings -> {
                     getView().getExpansion().showProgressDialog("上传服务器中");
+                    mPlaceDetail.setPreview(mPlaceDetail.getPicture()[0]);
                     return PlaceModel.getInstance().publishPlace(mPlaceDetail);
                 })
                 .subscribe(new ServiceResponse() {

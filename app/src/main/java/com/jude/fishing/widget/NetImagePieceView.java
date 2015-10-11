@@ -1,7 +1,9 @@
 package com.jude.fishing.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -73,6 +75,11 @@ public class NetImagePieceView extends PieceView {
                 .build();
         mDraweeHolder.setController(controller);
         setBackgroundDrawable(mDraweeHolder.getHierarchy().getTopLevelDrawable());
+    }
+
+    public void setImage(Bitmap bitmap){
+        BitmapDrawable drawable = new BitmapDrawable(getResources(),bitmap);
+        setBackgroundDrawable(drawable);
     }
 
     @Override

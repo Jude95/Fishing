@@ -7,6 +7,7 @@ import com.jude.fishing.model.entities.Token;
 
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
 import rx.Observable;
 
@@ -16,8 +17,7 @@ import rx.Observable;
  */
 public interface Service {
 
-    @FormUrlEncoded
-    @POST(API.URL.QiNiuToken)
+    @GET(API.URL.QiNiuToken)
     Observable<Token> getQiNiuToken();
 
     @FormUrlEncoded
@@ -26,7 +26,7 @@ public interface Service {
             @Field("time")String lastTime);
 
     @FormUrlEncoded
-    @POST(API.URL.GetPlace)
+    @POST(API.URL.AddPlace)
     Observable<PlaceBrief[]> PublishPlace(
             @Field("id")int id,
             @Field("name")String name,

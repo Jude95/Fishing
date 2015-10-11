@@ -28,7 +28,7 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
         @Override
         public void onImageLoaded(Uri uri) {
             getView().getExpansion().dismissProgressDialog();
-            getView().addImage(uri);
+            getView().addImage(ImageProvider.readImageWithSize(uri,300,300));
             uriArrayList.add(uri);
         }
 
@@ -50,7 +50,7 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
     protected void onCreateView(PlacePhotoSelectActivity view) {
         super.onCreateView(view);
         for (Uri temp : uriArrayList) {
-            getView().addImage(temp);
+            getView().addImage(ImageProvider.readImageWithSize(temp,300,300));
         }
     }
 

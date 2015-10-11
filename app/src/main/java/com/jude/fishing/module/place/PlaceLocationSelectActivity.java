@@ -32,8 +32,8 @@ import butterknife.InjectView;
 /**
  * Created by Mr.Jude on 2015/10/10.
  */
-@RequiresPresenter(PlaceSelectPresenter.class)
-public class PlaceSelectActivity extends BeamBaseActivity<PlaceSelectPresenter> implements AMap.OnMapClickListener, GeocodeSearch.OnGeocodeSearchListener {
+@RequiresPresenter(PlaceLocationSelectPresenter.class)
+public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationSelectPresenter> implements AMap.OnMapClickListener, GeocodeSearch.OnGeocodeSearchListener {
     @InjectView(R.id.map)
     MapView mMapView;
     @InjectView(R.id.address)

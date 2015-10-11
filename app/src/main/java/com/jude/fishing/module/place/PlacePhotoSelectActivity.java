@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,6 +41,12 @@ public class PlacePhotoSelectActivity extends BeamBaseActivity<PlacePhotoSelectP
     public void addImage(Uri uri) {
         NetImagePieceView pieceView = new NetImagePieceView(this);
         pieceView.setImage(uri);
+        mPieceViewGroup.addView(pieceView);
+    }
+
+    public void addImage(Bitmap bitmap) {
+        NetImagePieceView pieceView = new NetImagePieceView(this);
+        pieceView.setImage(bitmap);
         mPieceViewGroup.addView(pieceView);
     }
 

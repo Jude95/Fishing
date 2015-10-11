@@ -59,7 +59,7 @@
             com.jude.fishing.model.BlogModel,
             com.jude.fishing.model.LocationModel,
             com.jude.fishing.model.PlaceModel,
-            com.jude.fishing.model.RemoteFileModel,
+            com.jude.fishing.model.ImageModel,
             com.jude.fishing.model.RongYunModel,
             com.jude.fishing.model.SocialModel" />
 
@@ -150,7 +150,7 @@
             android:label="评价详情"/>
         <activity android:name=".module.place.WriteEvaluateActivity"
             android:label="编辑评价"/>
-        <activity android:name=".module.place.PlaceSelectActivity"
+        <activity android:name=".module.place.PlaceLocationSelectActivity"
             android:label="钓点选择"/>
         <activity android:name=".module.place.PlacePhotoSelectActivity"
             android:label="图片添加"/>
