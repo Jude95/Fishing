@@ -10,6 +10,16 @@ public class API {
         public static final String GetPlace = "/place/getPlace";
         public static final String AddPlace = "/place/add";
 
+
+        public static final String CheckTel = "/user/checkTel";
+        public static final String Register = "/user/register";
+        public static final String Login = "/user/login";
+        public static final String ModInfo = "/user/modInfo";
+        public static final String ModPass = "/user/modPass";
+        public static final String BindTel = "/user/bindTel";
+
+        public static final String Attend = "/user/attend";
+        public static final String UnAttend = "/user/unAttend";
     }
 
     public static class WRAPPER {

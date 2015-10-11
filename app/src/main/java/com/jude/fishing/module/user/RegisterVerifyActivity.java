@@ -42,7 +42,7 @@ public class RegisterVerifyActivity extends BeamBaseActivity<RegisterVerifyPrese
             JUtils.Toast("请输入验证码");
             return;
         }
-        getPresenter().send(code.getText().toString(),"");
+        getPresenter().send(code.getText().toString());
     }
     @Override
     public void onLastTimeNotify(int lastSecond) {

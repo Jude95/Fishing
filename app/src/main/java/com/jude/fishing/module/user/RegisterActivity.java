@@ -1,6 +1,5 @@
 package com.jude.fishing.module.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.CheckBox;
@@ -55,11 +54,7 @@ public class RegisterActivity extends BeamBaseActivity<RegisterPresenter> {
             JUtils.Toast("2次密码不一致");
             return;
         }
-        Intent i = new Intent(this, RegisterVerifyActivity.class);
-        i.putExtra("number", number.getText().toString());
-        i.putExtra("password", password.getText().toString());
-        startActivity(i);
-        finish();
+        getPresenter().checkTel(number.getText().toString(),password.getText().toString());
     }
 
 }
