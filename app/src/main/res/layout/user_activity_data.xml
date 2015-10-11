@@ -81,6 +81,7 @@
             android:id="@+id/rg_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checkedButton="@+id/rb_male"
             android:orientation="horizontal">
 
             <RadioButton
@@ -88,7 +89,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="32dp"
-                android:checked="true"
                 android:text="绅士" />
 
             <RadioButton

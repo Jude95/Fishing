@@ -8,13 +8,11 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.HeaderInterceptors;
+import com.jude.fishing.model.service.ServiceClient;
 import com.jude.utils.JFileManager;
-
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
@@ -48,13 +46,14 @@ public class AccountModel extends AbsModel {
         return userAccountDataBehaviorSubject.subscribe(accountAction1);
     }
     public Observable<Account> login(String name,String password){
-        Observable<Account> observable = Observable.create(new Observable.OnSubscribe<Account>() {
-            @Override
-            public void call(Subscriber<? super Account> subscriber) {
-                subscriber.onNext(createVirtualAccount());
-                subscriber.onCompleted();
-            }
-        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+//        Observable<Account> observable = Observable.create(new Observable.OnSubscribe<Account>() {
+//            @Override
+//            public void call(Subscriber<? super Account> subscriber) {
+//                subscriber.onNext(createVirtualAccount());
+//                subscriber.onCompleted();
+//            }
+//        }).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+        Observable<Account> observable = ServiceClient.getService().login(name,password).compose(new DefaultTransform<>());
 
         observable.subscribe(new Action1<Account>() {
             @Override
@@ -71,8 +70,8 @@ public class AccountModel extends AbsModel {
         setAccount(null);
     }
 
-    public Observable modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
-        return Observable.just(null).delay(500,TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
+        return ServiceClient.getService().modInfo(avatar,name,gender,address,age,skill,sign).compose(new DefaultTransform<>());
     }
 
     void saveAccount(Account account){
@@ -113,4 +112,19 @@ public class AccountModel extends AbsModel {
 
     }
 
+    public Observable<Object> register(String tel,String password,String code){
+        return ServiceClient.getService().register(tel,password,code).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> modPass(String oldPwd, String newPwd){
+        return ServiceClient.getService().modPass(oldPwd, newPwd).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> checkTel(String tel){
+        return ServiceClient.getService().checkTel(tel).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> bindTel(String tel,String code,String password){
+        return ServiceClient.getService().bindTel(tel,code,password).compose(new DefaultTransform<>());
+    }
 }
