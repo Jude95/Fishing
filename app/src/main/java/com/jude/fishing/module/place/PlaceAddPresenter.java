@@ -110,6 +110,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                 mPlaceDetail.setLat(point.latitude);
                 mPlaceDetail.setLng(point.longitude);
             }
+            mPlaceDetail.setBriefAddr(data.getStringExtra("briefAddress"));
             mPlaceDetail.setAddress(data.getStringExtra("address"));
             publishObject(mPlaceDetail);
             return;

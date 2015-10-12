@@ -34,6 +34,7 @@ public interface Service {
             @Field("id")int id,
             @Field("name")String name,
             @Field("preview")String preview,
+            @Field("briefAddr")String briefAddr,
             @Field("address")String address,
             @Field("cost")int cost,
             @Field("costType")int costType,

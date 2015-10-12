@@ -64,7 +64,7 @@ public class PlaceModel extends AbsModel {
     public Observable publishPlace(PlaceDetail placeDetail){
         String picture  = new Gson().toJson(placeDetail.getPicture());
         if (picture.endsWith(","))picture = picture.substring(0,picture.length()-1);
-        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),picture,placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
+        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getBriefAddr(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),picture,placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
     }
 
     public Observable<EvaluateDetail> getEvaluateDetail(int id){

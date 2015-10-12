@@ -48,6 +48,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     private GeocodeSearch mGeocoderSearch;
     private LatLng mPoint;
     private String mAddress;
+    private String mBriefAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
             Intent i = new Intent();
             i.putExtra("point",mPoint);
             i.putExtra("address",mAddress);
+            i.putExtra("briefAddress",mBriefAddress);
             setResult(Activity.RESULT_OK, i);
             finish();
         });
@@ -113,6 +115,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
         address.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
         mAddress = regeocodeResult.getRegeocodeAddress().getFormatAddress();
+        mBriefAddress = regeocodeResult.getRegeocodeAddress().getTownship();
     }
 
     @Override

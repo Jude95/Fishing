@@ -68,6 +68,10 @@ public class PlaceBrief {
         return briefAddr;
     }
 
+    public void setBriefAddr(String briefAddr) {
+        this.briefAddr = briefAddr;
+    }
+
     public PlaceBrief() {
     }
 
