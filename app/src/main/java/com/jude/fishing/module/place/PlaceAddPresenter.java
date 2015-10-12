@@ -195,6 +195,12 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                         JUtils.Toast("提交成功");
                         getView().finish();
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        getView().getExpansion().dismissProgressDialog();
+                    }
                 });
 
     }

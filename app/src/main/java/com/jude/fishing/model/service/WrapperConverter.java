@@ -2,6 +2,7 @@ package com.jude.fishing.model.service;
 
 import com.google.gson.Gson;
 import com.jude.fishing.config.API;
+import com.jude.utils.JUtils;
 
 import org.json.JSONObject;
 
@@ -43,9 +44,12 @@ public class WrapperConverter implements Converter {
                 String info = "";
                 if (jsonObject.has(API.WRAPPER.INFO))
                     info = jsonObject.getString(API.WRAPPER.INFO);
+
+                JUtils.Log("ServiceException");
                 throw new ServiceException(status,info);
             }
         } catch (Exception e) {
+            JUtils.Log("ConversionException");
             throw new ConversionException(e);
         }
     }

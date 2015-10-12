@@ -5,6 +5,7 @@ import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -21,40 +22,40 @@ public class SocialModel extends AbsModel {
     }
 
 
-    public Observable<PersonBrief[]> searchUser(String word){
-        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+    public Observable<List<PersonBrief>> searchUser(String word){
+        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
             @Override
-            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
                 subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());
     }
 
-    public Observable<PersonBrief[]> getAround(int page){
-        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+    public Observable<List<PersonBrief>> getAround(int page){
+        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
             @Override
-            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
                 subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());
     }
 
-    public Observable<PersonBrief[]> getAttentions(int uid){
-        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+    public Observable<List<PersonBrief>> getAttentions(int uid){
+        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
             @Override
-            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
                 subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }
         }).compose(new DefaultTransform<>());
     }
 
-    public Observable<PersonBrief[]> getFans(int uid){
-        return Observable.create(new Observable.OnSubscribe<PersonBrief[]>() {
+    public Observable<List<PersonBrief>> getFans(int uid){
+        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
             @Override
-            public void call(Subscriber<? super PersonBrief[]> subscriber) {
+            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
                 subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
                 subscriber.onCompleted();
             }

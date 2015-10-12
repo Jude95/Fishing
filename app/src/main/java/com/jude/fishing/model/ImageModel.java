@@ -2,6 +2,7 @@ package com.jude.fishing.model;
 
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.net.Uri;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.service.ServiceClient;
@@ -31,16 +32,25 @@ public class ImageModel extends AbsModel {
         mUploadManager = new UploadManager();
     }
 
-    public String getSmallImage(String path){
-        return path+"?imageView2/0/w/360";
+    public Uri getSmallImage(String path){
+        if (path.startsWith(ADDRESS))
+            return Uri.parse(path+"?imageView2/0/w/360");
+        else
+            return Uri.parse(path);
     }
 
-    public String getLargeImage(String path){
-        return path+"?imageView2/0/w/1024";
+    public Uri getLargeImage(String path){
+        if (path.startsWith(ADDRESS))
+            return Uri.parse(path+"?imageView2/0/w/1024");
+        else
+            return Uri.parse(path);
     }
 
-    public String getSizeImage(String path,int width){
-        return path+"?imageView2/0/w/360"+width;
+    public Uri getSizeImage(String path,int width){
+        if (path.startsWith(ADDRESS))
+            return Uri.parse(path+"?imageView2/0/w/"+width);
+        else
+            return Uri.parse(path);
     }
 
 

@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "fishing.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 7;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null,DATABASE_VERSION);

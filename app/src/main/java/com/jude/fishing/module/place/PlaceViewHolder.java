@@ -2,7 +2,6 @@ package com.jude.fishing.module.place;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Constant;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.utils.DistanceFormat;
@@ -72,7 +72,7 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
         id = data.getId();
         distance.setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(data.getLat(),data.getLng())));
         cost.setText("人均"+data.getCost()+"¥");
-        preview.setImageURI(Uri.parse(data.getPreview()));
+        preview.setImageURI(ImageModel.getInstance().getSmallImage(data.getPreview()));
         name.setText(data.getName());
         score.setText(data.getScore() + "");
         scoreImage.setScore(data.getScore());
@@ -82,7 +82,7 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
             if (Constant.PlaceServiceType.length > id)
                 tagContainer.addView(createTag(Constant.PlaceServiceType[id]));
         }
-        address.setText(data.getAddress());
+        address.setText(data.getBriefAddr());
     }
 
     View createTag(String content) {

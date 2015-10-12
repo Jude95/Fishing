@@ -6,6 +6,8 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.Token;
 
+import java.util.List;
+
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
@@ -23,12 +25,12 @@ public interface Service {
 
     @FormUrlEncoded
     @POST(API.URL.GetPlace)
-    Observable<PlaceBrief[]> SyncPlace(
+    Observable<List<PlaceBrief>> SyncPlace(
             @Field("time")String lastTime);
 
     @FormUrlEncoded
     @POST(API.URL.AddPlace)
-    Observable<PlaceBrief[]> PublishPlace(
+    Observable PublishPlace(
             @Field("id")int id,
             @Field("name")String name,
             @Field("preview")String preview,
@@ -40,7 +42,7 @@ public interface Service {
             @Field("serviceType")String serviceType,
             @Field("tel")String tel,
             @Field("content")String content,
-            @Field("picture")String[] picture,
+            @Field("picture")String picture,
             @Field("lat")double lat,
             @Field("lng")double lng
             );

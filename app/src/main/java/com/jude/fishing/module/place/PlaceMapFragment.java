@@ -98,11 +98,11 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         mMarkerMap = new HashMap<>();
     }
 
-    private void moveToAdjustPlace(PlaceBrief[] data){
+    private void moveToAdjustPlace(ArrayList<PlaceBrief> place){
         double maxDistance = 0;
         double myLat = LocationModel.getInstance().getCurLocation().getLatitude();
         double myLng = LocationModel.getInstance().getCurLocation().getLongitude();
-        for (PlaceBrief placeBrief : data) {
+        for (PlaceBrief placeBrief : place) {
             double distance = JUtils.distance(myLat,myLng,placeBrief.getLat(),placeBrief.getLng());
             if (distance>maxDistance){
                 maxDistance = distance;
@@ -128,6 +128,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     ArrayList<PlaceBrief> zoomMarkerList = new ArrayList<>();
     public void addMarker(PlaceBrief place) {
         MarkerOptions markerOption = new MarkerOptions();
+        JUtils.Log("lat:" + place.getLat()+"lng" + place.getLng());
         markerOption.position(new LatLng(place.getLat(), place.getLng()));
         markerOption.title(place.getName()).snippet(place.getAddress());
         markerOption.icon(BitmapDescriptorFactory
@@ -135,15 +136,20 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         Marker marker = aMap.addMarker(markerOption);
         mMarkerMap.put(marker, place);
         if (zoomMarkerList.size()<MIN_ZOOM_MARKER_COUNT) zoomMarkerList.add(place);
-        if (zoomMarkerList.size()==MIN_ZOOM_MARKER_COUNT) zoomMarker(zoomMarkerList);
+        if (zoomMarkerList.size()==MIN_ZOOM_MARKER_COUNT) moveToAdjustPlace(zoomMarkerList);
     }
 
+
+    /**
+     *  会报“the map must have a size”错误，why
+     * @param place
+     */
     private void zoomMarker(ArrayList<PlaceBrief> place){
-        LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
-        for (PlaceBrief placeBrief : place) {
-            boundsBuild.include(new LatLng(placeBrief.getLat(),placeBrief.getLng()));
-        }
-        aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
+            LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
+            for (PlaceBrief placeBrief : place) {
+                boundsBuild.include(new LatLng(placeBrief.getLat(), placeBrief.getLng()));
+            }
+            aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
     }
 
 

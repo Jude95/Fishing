@@ -12,12 +12,11 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
 
 
     public static final String TABLE_NAME = "place";
-    public static final String COLUMN_ID = "id";
 
-    public static final String COLUMN_PID = "pid";
+    public static final String COLUMN_ID = "pid";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PREVIEW = "preview";
-    public static final String COLUMN_ADDRESS = "address";
+    public static final String COLUMN_ADDRESS = "briefAddr";
     public static final String COLUMN_SCORE = "score";
     public static final String COLUMN_COST = "cost";
     public static final String COLUMN_COST_TYPE = "costType";
@@ -33,8 +32,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
 
     public String create() {
         return "CREATE TABLE " + TABLE_NAME + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ," +
-                COLUMN_PID + " INT NOT NULL,"+
+                COLUMN_ID + " INT PRIMARY KEY NOT NULL,"+
                 COLUMN_NAME + " CHAR(10) NOT NULL," +
                 COLUMN_PREVIEW + " CHAR(100) NOT NULL,"+
                 COLUMN_ADDRESS + " CHAR(30) NOT NULL," +
@@ -52,10 +50,10 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
     @Override
     public ContentValues to(PlaceBrief object) {
         ContentValues vals = new ContentValues();
-        vals.put(COLUMN_PID, object.getId());
+        vals.put(COLUMN_ID, object.getId());
         vals.put(COLUMN_NAME, object.getName());
         vals.put(COLUMN_PREVIEW, object.getPreview());
-        vals.put(COLUMN_ADDRESS, object.getAddress());
+        vals.put(COLUMN_ADDRESS, object.getBriefAddr());
         vals.put(COLUMN_SCORE, object.getScore());
         vals.put(COLUMN_COST, object.getCost());
         vals.put(COLUMN_FISH_TYPE, object.getFishType());
@@ -70,7 +68,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
     @Override
     public PlaceBrief from(Cursor cursor) {
         PlaceBrief placeBrief = new PlaceBrief(
-                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PID)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PREVIEW)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ADDRESS)),

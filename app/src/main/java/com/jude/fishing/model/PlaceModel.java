@@ -1,8 +1,8 @@
 package com.jude.fishing.model;
 
 import android.content.Context;
-import android.database.Cursor;
 
+import com.google.gson.Gson;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.db.DBConfig;
 import com.jude.fishing.model.db.DBHelper;
@@ -19,6 +19,8 @@ import com.squareup.sqlbrite.BriteDatabase;
 import com.squareup.sqlbrite.SqlBrite;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
@@ -45,30 +47,24 @@ public class PlaceModel extends AbsModel {
         syncPlace();
     }
 
-    public Observable<PlaceBrief> getAllPlaces(){
+    public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
-                .flatMap(query -> query.asRows(DBConfig.PLACE_DB_TABLE::from));
+                .mapToList(DBConfig.PLACE_DB_TABLE::from);
     }
 
-    public Observable<PlaceBrief[]> getPlacesByDistance(double lat, double lng){
+    public Observable<List<PlaceBrief>> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
-                        "SELECT *  FROM "+PlaceDBTable.TABLE_NAME
-                        + " ORDER BY ((lat - "+lat+")*(lat - "+lat+")+(lng - "+lng+")*(lng - "+lng+"))"
-        )
-        .flatMap(query -> {
-            ArrayList<PlaceBrief> arrayList = new ArrayList<>();
-            Cursor cursor = query.run();
-            while (cursor.moveToNext()) {
-                arrayList.add(DBConfig.PLACE_DB_TABLE.from(cursor));
-            }
-            return Observable.just(arrayList);
-        }).map(placeBriefs -> placeBriefs.toArray(new PlaceBrief[placeBriefs.size()]));
+                "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
+                        + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
+                .mapToList(DBConfig.PLACE_DB_TABLE::from);
     }
 
 
     public Observable publishPlace(PlaceDetail placeDetail){
-        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),placeDetail.getPicture(),placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
+        String picture  = new Gson().toJson(placeDetail.getPicture());
+        if (picture.endsWith(","))picture = picture.substring(0,picture.length()-1);
+        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),picture,placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
     }
 
     public Observable<EvaluateDetail> getEvaluateDetail(int id){
@@ -77,27 +73,36 @@ public class PlaceModel extends AbsModel {
 
     public void syncPlace(){
         ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
+                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
                 .flatMap(Observable::from)
                 .subscribe(placeBrief -> {
-                    if (mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief))>0){
-                        JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME,System.currentTimeMillis()/1000+"").apply();
+                    try {
+                        mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief));
+                        JUtils.Log("DB","inserted:"+placeBrief.getName());
+                    } catch (Exception e) {
+                        try {
+                            mDbBrite.update(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief), PlaceDBTable.COLUMN_ID + "=" + placeBrief.getId());
+                            JUtils.Log("DB", "updated" + placeBrief.getName());
+                        } catch (Exception e1) {
+                            JUtils.Log("DB", "ERROR:"+e1.getLocalizedMessage());
+                        }
                     }
                 });
     }
 
-    public Observable<PlaceBrief[]> getUserPlaces(){
+    public Observable<List<PlaceBrief>> getUserPlaces(){
         return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<PlaceBrief[]> getCollectionPlaces(int id){
+    public Observable<List<PlaceBrief>> getCollectionPlaces(int id){
             return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<Evaluate[]> getPlacesComments(int id,int page){
+    public Observable<List<Evaluate>> getPlacesComments(int id,int page){
         return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<Evaluate[]> getUserPlacesComments(int id){
+    public Observable<List<Evaluate>> getUserPlacesComments(int id){
         return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
@@ -133,7 +138,7 @@ public class PlaceModel extends AbsModel {
                 "http://imgsrc.baidu.com/forum/w%3D580/sign=8efac50a5ddf8db1bc2e7c6c3922dddb/f5851a178a82b901980a07a1708da9773812ef73.jpg",
                 "http://imgsrc.baidu.com/forum/w%3D580/sign=4b49604cf31f3a295ac8d5c6a924bce3/95ba7d310a55b3192cd943e740a98226cefc17fd.jpg",
                 "http://imgsrc.baidu.com/forum/w%3D580/sign=83ee50607e1ed21b79c92eed9d6fddae/6f82b6fb43166d224b30d406452309f79152d252.jpg"
-        },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855,new EvaluateComment[]{
+        },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855, Arrays.asList(
                         createVirtualEvaluateComment(0, 1).setChild(new EvaluateComment[]{
                                 createVirtualEvaluateComment(1, 4).setChild(new EvaluateComment[]{
                                         createVirtualEvaluateComment(4, 5).setChild(new EvaluateComment[]{
@@ -144,18 +149,18 @@ public class PlaceModel extends AbsModel {
                         createVirtualEvaluateComment(0, 2).setChild(new EvaluateComment[]{
                                 createVirtualEvaluateComment(2, 7)
                         }),
-                        createVirtualEvaluateComment(0, 3),
-        });
+                        createVirtualEvaluateComment(0, 3)
+                ));
     }
 
     EvaluateComment createVirtualEvaluateComment(int originalId, int id){
         return new EvaluateComment("http://i2.hdslb.com/account/face/8762083/8120757f/myface.png",2,"西瓜的味",id,originalId,1443342840,"问世间鬼畜为何物");
     }
     
-    Evaluate[] createVirtualComment(int count){
-        Evaluate[] comments = new Evaluate[count];
-        for (int i = 0; i < comments.length; i++) {
-            comments[i] = new Evaluate("南坪","http://i1.hdslb.com/account/face/674913/bd533fd1/myface.png",1,"盛夏的青皮橘",4,
+    List<Evaluate> createVirtualComment(int count){
+        List<Evaluate> comments = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            comments.add(new Evaluate("南坪","http://i1.hdslb.com/account/face/674913/bd533fd1/myface.png",1,"盛夏的青皮橘",4,
                     "是这样的，“刘慈欣文笔不好”这个说法，最开始是一些写作方面的高手大家提出来的，但是他们说的是“相对欠缺”，因为相对于三体在构思和技术内核上的绚烂，大刘在人物塑造方面确实是略显失色，遣词造句方面也弱但比人物塑造强。人家说的是一个桶有长板有短板，但总体来说还是一个很牛的桶。",
                     2,new String[]{
                     "http://imgsrc.baidu.com/forum/w%3D580/sign=13888c7b8e1001e94e3c1407880f7b06/ea6f0d24ab18972b6443c558e5cd7b899f510aa4.jpg",
@@ -164,20 +169,20 @@ public class PlaceModel extends AbsModel {
                     "http://imgsrc.baidu.com/forum/w%3D580/sign=8efac50a5ddf8db1bc2e7c6c3922dddb/f5851a178a82b901980a07a1708da9773812ef73.jpg",
                     "http://imgsrc.baidu.com/forum/w%3D580/sign=4b49604cf31f3a295ac8d5c6a924bce3/95ba7d310a55b3192cd943e740a98226cefc17fd.jpg",
                     "http://imgsrc.baidu.com/forum/w%3D580/sign=83ee50607e1ed21b79c92eed9d6fddae/6f82b6fb43166d224b30d406452309f79152d252.jpg"
-            },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855);
+            },6,"亚特兰大","https://pic3.zhimg.com/33025a18d9ffa28fff4a85762dea8ff2_xld.png",4,1143861855));
         }
         return comments;
     }
 
-    PlaceBrief[] createVirtualPlaces(int count){
+    List<PlaceBrief> createVirtualPlaces(int count){
         double lat = LocationModel.getInstance().getCurLocation().getLatitude();
         double lng = LocationModel.getInstance().getCurLocation().getLongitude();
-        PlaceBrief[] placeBriefs = new PlaceBrief[count];
-        for (int i = 0; i < placeBriefs.length; i++) {
-            placeBriefs[i] = new PlaceBrief(
+        List<PlaceBrief> placeBriefs = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            placeBriefs.add(new PlaceBrief(
                     i,"南山鱼塘","http://img5.imgtn.bdimg.com/it/u=2219957519,4104610372&fm=21&gp=0.jpg","南山",
                     3.8f, (int) (Math.random()*500), (int) (Math.random()*2),"沼跃鱼",1,"0,1",lat+(Math.random()-0.5)*10,lng+(Math.random()-0.5)*10
-            );
+            ));
         }
         return placeBriefs;
     }

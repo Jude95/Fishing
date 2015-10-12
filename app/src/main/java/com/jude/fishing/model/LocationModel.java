@@ -62,7 +62,7 @@ public class LocationModel extends AbsModel{
                     public void onLocationChanged(AMapLocation aMapLocation) {
                         mLocationSubject.onNext(new Location(aMapLocation));
                         location.setLocation(aMapLocation);
-                        JUtils.Log("Save location.AdCode is " + aMapLocation.getAdCode());
+                        JUtils.Log("Location","Save location.AdCode is " + aMapLocation.getAdCode());
                         JFileManager.getInstance().getFolder(Dir.Object).writeObjectToFile(location,FILENAME);
                         uploadAddress();
                     }

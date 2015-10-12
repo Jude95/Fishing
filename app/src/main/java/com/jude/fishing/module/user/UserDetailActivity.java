@@ -30,6 +30,8 @@ import com.jude.fishing.widget.ObservableScrollView;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -138,7 +140,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
 
     class BlogSimpleAdapter extends RecyclerArrayAdapter<Seed> {
 
-        public BlogSimpleAdapter(Context context, Seed[] objects) {
+        public BlogSimpleAdapter(Context context, List<Seed> objects) {
             super(context, objects);
         }
 

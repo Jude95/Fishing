@@ -11,6 +11,9 @@ import com.jude.fishing.model.service.HeaderInterceptors;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.utils.JFileManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -85,10 +88,10 @@ public class AccountModel extends AbsModel {
 
     }
 
-    public PersonBrief[] createVirtualPersonBriefs(int count){
-        PersonBrief[] personBriefs = new PersonBrief[count];
+    public List<PersonBrief> createVirtualPersonBriefs(int count){
+        List<PersonBrief> personBriefs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            personBriefs[i] = new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗");
+            personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
         }
         return personBriefs;
     }

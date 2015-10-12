@@ -8,6 +8,7 @@ public class PlaceBrief {
     private String name;
     private String preview;
     private String address;
+    private String briefAddr;
     private float score;
     private int cost;
     private int costType;
@@ -61,6 +62,10 @@ public class PlaceBrief {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String getBriefAddr() {
+        return briefAddr;
     }
 
     public PlaceBrief() {
