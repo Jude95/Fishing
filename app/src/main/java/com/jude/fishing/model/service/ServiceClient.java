@@ -36,6 +36,7 @@ public class ServiceClient {
     private static RestAdapter createAdapter(){
         return new RestAdapter.Builder()
                 .setEndpoint(API.URL.BASE_URL)
+                .setRequestInterceptor(new HeaderInterceptors())
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .setConverter(new WrapperConverter())
                 .setClient(new OkClient(getOkHttpClient()))

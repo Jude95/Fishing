@@ -4,6 +4,8 @@ package com.jude.fishing.module.setting;
 import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
+import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.service.ServiceResponse;
 
 import cn.smssdk.gui.SMSManager;
 
@@ -27,12 +29,22 @@ public class BindChangePresenter extends Presenter<BindChangeActivity> {
     }
 
     public void reSendMessage(String phone) {
-
+        this.phone = phone;
         smsManager.sendMessage(getView(), phone);
     }
 
     public void send(String code, String password) {
         getView().getExpansion().showProgressDialog("重新绑定");
+        AccountModel.getInstance().bindTel(phone,code,password).subscribe(new ServiceResponse<Object>() {
+            @Override
+            public void onNext(Object o) {
+                getView().finish();
+            }
 
+            @Override
+            public void onCompleted() {
+                getView().getExpansion().dismissProgressDialog();
+            }
+        });
     }
 }

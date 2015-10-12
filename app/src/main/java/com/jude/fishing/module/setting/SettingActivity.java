@@ -39,8 +39,8 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
         setContentView(R.layout.setting_activity_set);
         ButterKnife.inject(this);
 
-        changePwd.setOnClickListener(v -> startActivity(new Intent(this, PwdChangeActivity.class)));
-        bindPhone.setOnClickListener(v -> startActivity(new Intent(this, BindChangeActivity.class)));
+        changePwd.setOnClickListener(v -> getPresenter().changePwd());
+        bindPhone.setOnClickListener(v -> getPresenter().bindPhone());
         msgSet.setOnClickListener(v -> startActivity(new Intent(this, MsgSetActivity.class)));
         feed.setOnClickListener(v -> startActivity(new Intent(this, FeedActivity.class)));
         about.setOnClickListener(v -> startActivity(new Intent(this, AboutActivity.class)));

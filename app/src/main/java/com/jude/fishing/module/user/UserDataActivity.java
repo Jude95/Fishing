@@ -1,6 +1,5 @@
 package com.jude.fishing.module.user;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.EditText;
@@ -22,7 +21,7 @@ import butterknife.InjectView;
  * Created by heqiang on 2015/9/23.
  */
 @RequiresPresenter(UserDataPresenter.class)
-public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implements RadioGroup.OnCheckedChangeListener {
+public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> {
 
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
@@ -40,7 +39,7 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implem
     RadioButton rbFemale;
     @InjectView(R.id.tg_next)
     TAGView next;
-    Uri avatarUri;
+    Uri avatarUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +48,14 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implem
         ButterKnife.inject(this);
 
         addPhoto.setOnClickListener(v -> showSelectorDialog());
-        sexGroup.setOnCheckedChangeListener(this);
         next.setOnClickListener(v -> checkInput());
     }
 
     private void checkInput() {
+        if (avatarUri==null){
+            JUtils.Toast("请添加一张头像");
+            return;
+        }
         if (nickName.getText().toString().trim().isEmpty()) {
             JUtils.Toast("大虾，请来一个昵称");
             return;
@@ -62,12 +64,7 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implem
             JUtils.Toast("请选择所在地区");
             return;
         }
-        Intent intent = new Intent(this, UserData2Activity.class);
-        intent.putExtra("name", nickName.getText().toString().trim());
-        intent.putExtra("region", region.getText().toString().trim());
-        intent.putExtra("isMale", rbMale.isChecked());
-        // TODO: 2015/9/23 什么时间做图片上传
-        startActivity(intent);
+        getPresenter().sendUserData(nickName.getText().toString().trim(),region.getText().toString().trim(),rbMale.isChecked());
     }
 
     public void showSelectorDialog() {
@@ -80,14 +77,5 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> implem
     public void setAvatar(Uri uri) {
         avatarUri = uri;
         avatar.setImageURI(uri);
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if (checkedId == R.id.rb_male) {
-            sexGroup.check(R.id.rb_male);
-        } else {
-            sexGroup.check(R.id.rb_female);
-        }
     }
 }
