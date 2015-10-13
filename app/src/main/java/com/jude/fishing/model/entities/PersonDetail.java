@@ -15,6 +15,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
     private int blogCount;
     private int attentionCount;
     private int fansCount;
+    private int gender;
 
 
     public List<Seed> getSeeds() {
@@ -61,4 +62,23 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return background;
     }
 
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 }

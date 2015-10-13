@@ -3,6 +3,8 @@ package com.jude.fishing.model.service;
 
 import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.Token;
 
@@ -110,4 +112,17 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.UnAttend)
     Observable<Object> unAttend(@Field("id")int id);
+
+    @POST(API.URL.MyAttend)
+    Observable<PersonBrief> myAttend();
+
+    @POST(API.URL.MyFans)
+    Observable<PersonBrief> myFans();
+
+    @FormUrlEncoded
+    @POST(API.URL.GetUserInfo)
+    Observable<PersonDetail> getUserInfo(@Field("id")int id);
+
+    @POST(API.URL.GetMyInfo)
+    Observable<PersonDetail> getMyInfo();
 }

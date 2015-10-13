@@ -138,10 +138,7 @@
             android:label="钓点详情"/>
         <activity
             android:name=".module.user.UserDataActivity"
-            android:label="完善资料（1/2）" />
-        <activity
-            android:name=".module.user.UserData2Activity"
-            android:label="完善资料（2/2）" />
+            android:label="完善资料" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="热闹"/>
         <activity android:name=".module.place.EvaluateActivity"

@@ -96,5 +96,9 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     public void setData(Account data) {
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         name.setText(data.getName());
+        sign.setText(data.getSign());
+        blog.setText(data.getBlogCount()+"");
+        attention.setText(data.getAttentionCount()+"");
+        fans.setText(data.getFansCount()+"");
     }
 }
