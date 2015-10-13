@@ -50,6 +50,7 @@ public class AccountModel extends AbsModel {
     }
     public Observable<Account> login(String name,String password){
         return ServiceClient.getService().login(name,password).compose(new DefaultTransform<>()).filter(account -> {
+            account.setRelation(-1);
             saveAccount(account);
             setAccount(account);
             return true;
@@ -101,6 +102,11 @@ public class AccountModel extends AbsModel {
                 "http://img3.imgtn.bdimg.com/it/u=3619136483,1678174220&fm=21&gp=0.jpg","jack slow fuck",BlogModel.getInstance().createVirtualSeedList(3),
                 5,8,10,"156*****295","","");
 
+    }
+
+    public void updateAccount(Account account){
+        saveAccount(account);
+        userAccountDataBehaviorSubject.onNext(account);
     }
 
     public Observable<Object> register(String tel,String password,String code){

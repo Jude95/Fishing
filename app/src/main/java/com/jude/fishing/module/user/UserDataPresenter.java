@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
@@ -13,11 +15,15 @@ import com.jude.utils.JUtils;
 
 import java.io.File;
 
+import rx.Observable;
+import rx.functions.Func1;
+
 /**
  * Created by heqiang on 2015/9/23.
  */
 public class UserDataPresenter extends Presenter<UserDataActivity> {
     private Uri avatar;
+    private String avatarUrl;
     private ImageProvider provider;
     OnImageSelectListener listener = new OnImageSelectListener() {
 
@@ -80,26 +86,55 @@ public class UserDataPresenter extends Presenter<UserDataActivity> {
         provider.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void sendUserData(String name, String region, boolean isMale) {
+    public void sendUserData(String name, String region, int gender, int age, String skill, String sign) {
         getView().getExpansion().showProgressDialog("上传图片中...");
-        ImageModel.getInstance().putImage(new File(avatar.getPath())).subscribe(new ServiceResponse<String>() {
-            @Override
-            public void onNext(String path) {
-                getView().getExpansion().dismissProgressDialog();
-                Intent intent = new Intent(getView(), UserData2Activity.class);
-                intent.putExtra("avatar", path);
-                intent.putExtra("name", name);
-                intent.putExtra("region", region);
-                intent.putExtra("isMale", isMale);
-                getView().startActivity(intent);
-                getView().finish();
-            }
+        ImageModel.getInstance().putImage(new File(avatar.getPath()))
+                .doOnError(throwable -> {
+                    getView().getExpansion().dismissProgressDialog();
+                    JUtils.Toast("图片上传失败");
+                })
+                .map(new Func1<String, Observable<Object>>() {
+                    @Override
+                    public Observable<Object> call(String path) {
+                        getView().getExpansion().showProgressDialog("修改资料中...");
+                        avatarUrl = path;
+                        return AccountModel.getInstance().modifyUserData(path, name, gender, region, age, skill, sign);
+                    }
+                })
+                .filter(new Func1<Object, Boolean>() {
+                    @Override
+                    public Boolean call(Object o) {
+                        Account account = AccountModel.getInstance().getAccount();
+                        if (account != null) {
+                            account.setAvatar(avatarUrl);
+                            account.setName(name);
+                            account.setGender(gender);
+                            account.setAddress(region);
+                            account.setAge(age);
+                            account.setSkill(skill);
+                            account.setSign(sign);
+                            AccountModel.getInstance().updateAccount(account);
+                        }
+                        return true;
+                    }
+                })
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        JUtils.Toast("提交成功");
+                        getView().finish();
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                getView().getExpansion().dismissProgressDialog();
-                JUtils.Toast("图片上传失败");
-            }
-        });
+                    @Override
+                    public void onCompleted() {
+                        getView().getExpansion().dismissProgressDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().getExpansion().dismissProgressDialog();
+                        super.onError(e);
+                    }
+                });
     }
 }

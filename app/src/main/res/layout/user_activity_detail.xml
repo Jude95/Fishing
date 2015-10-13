@@ -262,6 +262,7 @@
         app:theme="@style/AppTheme.Dark" />
 
     <LinearLayout
+        android:id="@+id/operation"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="vertical"
@@ -272,7 +273,6 @@
             android:layout_height="2dp"
             android:background="@drawable/shadow_top"/>
         <LinearLayout
-            android:id="@+id/operation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -301,6 +301,7 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_attention"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -310,6 +311,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_user_attention"/>
                 <TextView
+                    android:id="@+id/tv_op_attention"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"

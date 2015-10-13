@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -77,19 +79,26 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     ObservableScrollView scrollView;
     @InjectView(R.id.head)
     RelativeLayout head;
+    @InjectView(R.id.ll_attention)
+    LinearLayout attentionOperation;
+    @InjectView(R.id.tv_op_attention)
+    TextView tvOpAttention;
 
     private boolean isAttended;
     private Drawable mActionbarDrawable;
+
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_detail);
         ButterKnife.inject(this);
-        attention.setOnClickListener(v -> {
-            isAttended = !isAttended;
-            attention.setText(isAttended ? "已关注" : "关注");
+        attentionOperation.setOnClickListener(v -> {
+            if (isAttended) getPresenter().unAttention();
+            else getPresenter().attention();
         });
+        id = getIntent().getIntExtra("id", 0);
         getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
         getToolbar().setBackgroundDrawable(mActionbarDrawable);
@@ -107,6 +116,11 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         containerAttention.setOnClickListener(v -> startActivity(new Intent(this, AttentionActivity.class)));
         containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
         containerFans.setOnClickListener(v -> startActivity(new Intent(this, FansActivity.class)));
+    }
+
+    public void changeAttention() {
+        isAttended = !isAttended;
+        tvOpAttention.setText(isAttended ? "已关注" : "关注");
     }
 
     protected void setToolbarAlpha(float alpha) {
@@ -129,13 +143,13 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         address.setText(data.getAddress());
         age.setText(data.getAge() + "年");
         skill.setText(data.getSkill());
-        blogList.setAdapter(new BlogSimpleAdapter(this, data.getSeeds()));
         if (data.getRelation() == -1) {
             operation.setVisibility(View.GONE);
         } else {
-            isAttended = data.getRelation() == 0;
-            attention.setText(isAttended ? "已关注" : "关注");
+            isAttended = data.getRelation() == 1;
+            tvOpAttention.setText(isAttended ? "已关注" : "关注");
         }
+        blogList.setAdapter(new BlogSimpleAdapter(this, data.getSeeds()));
     }
 
     class BlogSimpleAdapter extends RecyclerArrayAdapter<Seed> {
@@ -182,9 +196,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         public BlogImageViewHolder(ViewGroup parent) {
             super(parent, R.layout.blog_item_simple_image);
             ButterKnife.inject(this, itemView);
-            itemView.setOnClickListener(v->{
-                Intent i = new Intent(v.getContext(),BlogDetailActivity.class);
-                i.putExtra("id",id);
+            itemView.setOnClickListener(v -> {
+                Intent i = new Intent(v.getContext(), BlogDetailActivity.class);
+                i.putExtra("id", id);
                 v.getContext().startActivity(i);
             });
         }
@@ -244,5 +258,22 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             praiseCount.setText(data.getPraiseCount() + "");
             commentCount.setText(data.getCommentCount() + "");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_user_data, menu);
+        if (0 != id) {
+            menu.findItem(R.id.edit).setVisible(false);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.edit) {
+            startActivity(new Intent(UserDetailActivity.this, UserDataActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

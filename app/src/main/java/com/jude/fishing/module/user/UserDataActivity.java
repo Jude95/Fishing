@@ -37,8 +37,14 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> {
     RadioButton rbMale;
     @InjectView(R.id.rb_female)
     RadioButton rbFemale;
-    @InjectView(R.id.tg_next)
-    TAGView next;
+    @InjectView(R.id.et_age)
+    EditText age;
+    @InjectView(R.id.et_good_at)
+    EditText skill;
+    @InjectView(R.id.et_sign)
+    EditText sign;
+    @InjectView(R.id.tg_done)
+    TAGView done;
     Uri avatarUri = null;
 
     @Override
@@ -48,11 +54,11 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> {
         ButterKnife.inject(this);
 
         addPhoto.setOnClickListener(v -> showSelectorDialog());
-        next.setOnClickListener(v -> checkInput());
+        done.setOnClickListener(v -> checkInput());
     }
 
     private void checkInput() {
-        if (avatarUri==null){
+        if (avatarUri == null) {
             JUtils.Toast("请添加一张头像");
             return;
         }
@@ -64,7 +70,29 @@ public class UserDataActivity extends BeamBaseActivity<UserDataPresenter> {
             JUtils.Toast("请选择所在地区");
             return;
         }
-        getPresenter().sendUserData(nickName.getText().toString().trim(),region.getText().toString().trim(),rbMale.isChecked());
+        if (age.getText().toString().trim().isEmpty()) {
+            JUtils.Toast("请输入您的钓龄");
+            return;
+        }
+        int ageNum = Integer.valueOf(age.getText().toString().trim());
+        if (ageNum < 0 || ageNum > 100) {
+            JUtils.Toast("请输入正确的钓龄");
+            return;
+        }
+        if (skill.getText().toString().trim().isEmpty()) {
+            JUtils.Toast("请输入您擅长的项目");
+            return;
+        }
+        if (sign.getText().toString().trim().isEmpty() && sign.getText().toString().trim().length() < 150) {
+            JUtils.Toast("请输入150字以内的签名");
+            return;
+        }
+        getPresenter().sendUserData(nickName.getText().toString().trim(),
+                region.getText().toString().trim(),
+                rbMale.isChecked() ? 1 : 0,
+                ageNum,
+                skill.getText().toString().trim(),
+                sign.getText().toString().trim());
     }
 
     public void showSelectorDialog() {

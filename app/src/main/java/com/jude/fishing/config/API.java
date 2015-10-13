@@ -17,9 +17,14 @@ public class API {
         public static final String ModInfo = "/user/modInfo";
         public static final String ModPass = "/user/modPass";
         public static final String BindTel = "/user/bindTel";
+        public static final String GetUserInfo = "/user/getUserinfo";
+        public static final String GetMyInfo = "/user/getmyinfo";
 
         public static final String Attend = "/user/attend";
         public static final String UnAttend = "/user/unAttend";
+
+        public static final String MyAttend = "/user/myAttend";
+        public static final String MyFans = "/user/myFans";
     }
 
     public static class WRAPPER {

@@ -49,4 +49,19 @@ public class PersonBrief implements Serializable{
         return sign;
     }
 
+    public void setRelation(int relation) {
+        this.relation = relation;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 }
