@@ -172,9 +172,11 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         }
         mPlaceDetail.setPicture(urls);
 
+        JUtils.Log(mPreUpload.get(0).getPath()+" File"+new File(mPreUpload.get(0).getPath()).exists());
+
         File[] files = new File[mPreUpload.size()];
         for (int i = 0; i < mPreUpload.size(); i++) {
-            files[i] = new File(mPreUpload.get(i).toString());
+            files[i] = new File(mPreUpload.get(i).getPath());
         }
         getView().getExpansion().showProgressDialog("开始上传");
         ImageModel.getInstance().putImage(files)
@@ -184,7 +186,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                     JUtils.Log("Error:"+throwable.getLocalizedMessage());
                 })
                 .doOnNext(s -> {
-                    JUtils.Log("上传成功1张"+s);
+                    getView().getExpansion().showProgressDialog("上传图片第"+(mPlaceDetail.getPicture().size()-mHasUpload.size())+"/"+mPreUpload.size()+"张");
                     mPlaceDetail.getPicture().add(s);
                 })
                 .toList()

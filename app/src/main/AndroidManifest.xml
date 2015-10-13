@@ -62,16 +62,19 @@
             com.jude.fishing.model.ImageModel,
             com.jude.fishing.model.RongYunModel,
             com.jude.fishing.model.SocialModel" />
-
-        <activity
-            android:name=".module.main.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/MainTheme">
+        <activity android:name=".module.main.LaunchActivity"
+            android:theme="@style/LaunchTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".module.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/MainTheme">
         </activity>
         <activity
             android:name=".module.user.LoginActivity"

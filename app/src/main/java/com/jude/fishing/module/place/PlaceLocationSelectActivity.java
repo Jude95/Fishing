@@ -30,11 +30,14 @@ import com.jude.swipbackhelper.SwipeBackHelper;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+
+
+
 /**
  * Created by Mr.Jude on 2015/10/10.
  */
 @RequiresPresenter(PlaceLocationSelectPresenter.class)
-public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationSelectPresenter> implements AMap.OnMapClickListener, GeocodeSearch.OnGeocodeSearchListener {
+public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationSelectPresenter> implements AMap.OnMapClickListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnMarkerClickListener {
     @InjectView(R.id.map)
     MapView mMapView;
     @InjectView(R.id.address)
@@ -45,6 +48,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     CardView info;
 
     private AMap aMap;
+    private Marker mMyLocation;
     private UiSettings mUiSettings;
     private GeocodeSearch mGeocoderSearch;
     private LatLng mPoint;
@@ -59,11 +63,11 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         ButterKnife.inject(this);
         mMapView.onCreate(savedInstanceState);
         initMap();
-        ok.setOnClickListener(v->{
+        ok.setOnClickListener(v -> {
             Intent i = new Intent();
-            i.putExtra("point",mPoint);
-            i.putExtra("address",mAddress);
-            i.putExtra("briefAddress",mBriefAddress);
+            i.putExtra("point", mPoint);
+            i.putExtra("address", mAddress);
+            i.putExtra("briefAddress", mBriefAddress);
             setResult(Activity.RESULT_OK, i);
             finish();
         });
@@ -76,11 +80,12 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mUiSettings.setScaleControlsEnabled(true);
         mUiSettings.setMyLocationButtonEnabled(false);
         moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), 13);
-        Marker myLocation = initMyPoint();
+        mMyLocation = initMyPoint();
         LocationModel.getInstance().registerLocationChange(location -> {
-            myLocation.setPosition(location.toLatLng());
+            mMyLocation.setPosition(location.toLatLng());
         });
         aMap.setOnMapClickListener(this);
+        aMap.setOnMarkerClickListener(this);
         mGeocoderSearch = new GeocodeSearch(this);
         mGeocoderSearch.setOnGeocodeSearchListener(this);
     }
@@ -112,6 +117,15 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mGeocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(latLng.latitude,latLng.longitude), 50,GeocodeSearch.AMAP));
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker.equals(mMyLocation)){
+            if (mLastMarker != null) mLastMarker.destroy();
+            mPoint = marker.getPosition();
+            mGeocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(marker.getPosition().latitude,marker.getPosition().longitude), 50,GeocodeSearch.AMAP));
+        }
+        return true;
+    }
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
@@ -124,4 +138,6 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
 
     }
+
+
 }

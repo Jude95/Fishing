@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
 import com.jude.fishing.model.PlaceModel;
-import com.jude.utils.JUtils;
 
 import rx.Observable;
 
@@ -24,7 +23,6 @@ public class PlaceMapPresenter extends Presenter<PlaceMapFragment> {
         PlaceModel.getInstance().getAllPlaces()
                 .flatMap(Observable::from)
                 .subscribe(placeBrief -> {
-                    JUtils.Log("Map:"+placeBrief.getName());
                     getView().addMarker(placeBrief);
                 });
     }

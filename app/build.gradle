@@ -59,8 +59,8 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
     compile 'com.jude:beam:2.4.1'
-    compile 'com.jude:swipebackhelper:2.0.0'
-    compile 'com.jude:imageprovider:1.0.7'
+    compile 'com.jude:swipebackhelper:2.0.1'
+    compile 'com.jude:imageprovider:1.0.8'
     compile 'com.jude:utils:1.0.7'
     compile project(':umengfamily')
     compile project(':IMKit')
@@ -68,7 +68,7 @@ dependencies {
     compile 'com.jude:tagview:2.1.3'
     compile 'com.github.clans:fab:1.6.0'
     compile project(':SMSSDK')
-    compile 'com.jude:exgridview:1.1.3'
+    compile 'com.jude:exgridview:1.1.4'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.jude:rollviewpager:1.0.4'
     compile 'com.pnikosis:materialish-progress:1.7'

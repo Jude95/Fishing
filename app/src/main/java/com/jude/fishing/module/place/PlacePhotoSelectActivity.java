@@ -26,6 +26,7 @@ public class PlacePhotoSelectActivity extends BeamBaseActivity<PlacePhotoSelectP
         setContentView(R.layout.place_activity_select_photo);
         mPieceViewGroup = $(R.id.pictures);
         mPieceViewGroup.setOnAskViewListener(this::showSelectorDialog);
+        mPieceViewGroup.setOnViewDeleteListener(getPresenter());
         mPieceViewGroup.setAddImageRes(R.drawable.pic_add);
         mPieceViewGroup.setOKImageRes(R.drawable.pic_ok);
         mPieceViewGroup.setOnViewDeleteListener(getPresenter());

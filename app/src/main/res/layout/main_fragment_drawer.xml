@@ -23,10 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="196dp"
                 android:layout_marginBottom="8dp"
-
-
-
-                android:background="@drawable/img_login"
+                android:background="@drawable/img_drawer"
                 android:orientation="vertical">
 
                 <View

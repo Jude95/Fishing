@@ -15,13 +15,12 @@ public class PlaceListPresenter extends BeamListFragmentPresenter<PlaceListFragm
     @Override
     protected void onCreate(PlaceListFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
-        PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
-                .unsafeSubscribe(getRefreshSubscriber());
+        onRefresh();
     }
 
     @Override
     public void onRefresh() {
-        PlaceModel.getInstance().syncPlace();
-        getView().stopRefresh();
+        PlaceModel.getInstance().updatePlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
+                .unsafeSubscribe(getRefreshSubscriber());
     }
 }

@@ -9,7 +9,9 @@ import com.jude.beam.bijection.Presenter;
 import com.jude.exgridview.PieceViewGroup;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
+import com.jude.utils.JUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -28,8 +30,9 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
         @Override
         public void onImageLoaded(Uri uri) {
             getView().getExpansion().dismissProgressDialog();
-            getView().addImage(ImageProvider.readImageWithSize(uri,300,300));
+            getView().addImage(ImageProvider.readImageWithSize(uri, 300, 300));
             uriArrayList.add(uri);
+            JUtils.Log(uri.getPath() + " exist:" + new File(uri.getPath()).exists());
         }
 
         @Override
@@ -82,6 +85,7 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
 
     @Override
     public void onViewDelete(int i) {
+        JUtils.Log("delete");
         uriArrayList.remove(i);
     }
 }

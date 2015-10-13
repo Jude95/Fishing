@@ -53,13 +53,21 @@ public class PlaceModel extends AbsModel {
                 .mapToList(DBConfig.PLACE_DB_TABLE::from);
     }
 
+    public Observable<List<PlaceBrief>> getTestPlaces(double lat, double lng){
+        return Observable.just(createVirtualPlaces(10));
+    }
+
     public Observable<List<PlaceBrief>> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
                         + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
-                .mapToList(DBConfig.PLACE_DB_TABLE::from);
+                .mapToList(DBConfig.PLACE_DB_TABLE::from)
+                .first();
     }
 
+    public Observable<List<PlaceBrief>> updatePlacesByDistance(double lat, double lng){
+        return syncPlace().flatMap(placeBriefs -> getPlacesByDistance(lat,lng)).compose(new DefaultTransform<>());
+    }
 
     public Observable<Object> publishPlace(PlaceDetail placeDetail){
         String picture  = new Gson().toJson(placeDetail.getPicture());
@@ -85,22 +93,26 @@ public class PlaceModel extends AbsModel {
         return Observable.just(createVirtualEvaluateDetail());
     }
 
-    public void syncPlace(){
-        ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
-                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
-                .flatMap(Observable::from)
-                .subscribe(placeBrief -> {
-                    try {
-                        mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief));
-                        JUtils.Log("DB","inserted:"+placeBrief.getName());
-                    } catch (Exception e) {
+    public Observable<List<PlaceBrief>> syncPlace(){
+        return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
+                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 10000 + "").apply())
+                .doOnNext(placeBriefs -> {
+                    BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
+                    for (PlaceBrief placeBrief : placeBriefs) {
                         try {
-                            mDbBrite.update(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief), PlaceDBTable.COLUMN_ID + "=" + placeBrief.getId());
-                            JUtils.Log("DB", "updated" + placeBrief.getName());
-                        } catch (Exception e1) {
-                            JUtils.Log("DB", "ERROR:"+e1.getLocalizedMessage());
+                            mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief));
+                            JUtils.Log("DB", "inserted:" + placeBrief.getName());
+                        } catch (Exception e) {
+                            try {
+                                mDbBrite.update(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief), PlaceDBTable.COLUMN_ID + "=" + placeBrief.getId());
+                                JUtils.Log("DB", "updated" + placeBrief.getName());
+                            } catch (Exception e1) {
+                                JUtils.Log("DB", "ERROR:" + e1.getLocalizedMessage());
+                            }
                         }
                     }
+                    transaction.markSuccessful();
+                    transaction.end();
                 });
     }
 

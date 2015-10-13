@@ -78,9 +78,12 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
         scoreImage.setScore(data.getScore());
         tagContainer.removeAllViews();
         for (String service : data.getServiceType().split(",")) {
-            int id = Integer.parseInt(service);
-            if (Constant.PlaceServiceType.length > id)
-                tagContainer.addView(createTag(Constant.PlaceServiceType[id]));
+            try {
+                int id = Integer.parseInt(service);
+                if (Constant.PlaceServiceType.length > id)
+                    tagContainer.addView(createTag(Constant.PlaceServiceType[id]));
+            }catch (Exception e){
+            }
         }
         address.setText(data.getBriefAddr());
     }

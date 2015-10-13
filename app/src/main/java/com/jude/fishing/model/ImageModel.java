@@ -82,6 +82,8 @@ public class ImageModel extends AbsModel {
             public void call(Subscriber<? super String> subscriber) {
                 final int[] counter = {0};
                 for (File temp : file) {
+                    JUtils.Log(temp.getPath()+" exist:"+temp.exists());
+
                     String realName = "u"+UID+System.currentTimeMillis()+temp.hashCode()+".jpg";
                     String path = ADDRESS+realName;
                     mUploadManager.put(temp, realName, token.getToken(), (key, info, response) -> {

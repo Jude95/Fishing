@@ -24,6 +24,7 @@
     </style>
 
     <style name="LaunchTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@drawable/img_launch</item>
     </style>
 
     <style name="MainTheme" parent="AppTheme">

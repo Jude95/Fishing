@@ -4,6 +4,7 @@ import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListFragment;
+import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.PlaceBrief;
@@ -13,6 +14,11 @@ import com.jude.fishing.model.entities.PlaceBrief;
  */
 @RequiresPresenter(PlaceListPresenter.class)
 public class PlaceListFragment extends BeamListFragment<PlaceListPresenter,PlaceBrief> {
+
+    @Override
+    protected ListConfig getConfig() {
+        return super.getConfig();
+    }
 
     @Override
     public int getLayout() {
