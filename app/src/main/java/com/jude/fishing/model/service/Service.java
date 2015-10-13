@@ -30,7 +30,7 @@ public interface Service {
 
     @FormUrlEncoded
     @POST(API.URL.AddPlace)
-    Observable PublishPlace(
+    Observable<Object> PublishPlace(
             @Field("id")int id,
             @Field("name")String name,
             @Field("preview")String preview,

@@ -25,6 +25,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.LocationModel;
+import com.jude.swipbackhelper.SwipeBackHelper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -54,6 +55,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_activity_select_location);
+        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         mMapView.onCreate(savedInstanceState);
         initMap();

@@ -67,8 +67,15 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         publishObject(mPlaceDetail);
     }
 
-    public void setFishType(String fishType) {
-        mPlaceDetail.setFishType(fishType);
+    public void setFishType(Integer[] types) {
+        String typeStr = "";
+        for (Integer type : types) {
+            typeStr+=type+",";
+        }
+        if (types.length>1){
+            typeStr = typeStr.substring(0, typeStr.length() - 1);
+        }
+        mPlaceDetail.setFishType(typeStr);
         publishObject(mPlaceDetail);
     }
 
@@ -141,7 +148,6 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         }
     }
 
-    int uploadSize = 0;
     public void submit(){
 
         if (TextUtils.isEmpty(mPlaceDetail.getName())){
@@ -160,36 +166,34 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             JUtils.Toast("请至少添加一张图片");
             return;
         }
-
-        String[] urls = new String[mHasUpload.size()+mPreUpload.size()];
-        for (int i = 0; i < mHasUpload.size(); i++) {
-            urls[i] = mHasUpload.get(i).getPath();
+        ArrayList<String> urls = new ArrayList<>();
+        for (Uri uri : mHasUpload) {
+            urls.add(uri.getPath());
         }
         mPlaceDetail.setPicture(urls);
+
         File[] files = new File[mPreUpload.size()];
         for (int i = 0; i < mPreUpload.size(); i++) {
             files[i] = new File(mPreUpload.get(i).toString());
         }
-        uploadSize = 0;
         getView().getExpansion().showProgressDialog("开始上传");
         ImageModel.getInstance().putImage(files)
                 .doOnError(throwable -> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");
-                    JUtils.Log(throwable.getLocalizedMessage());
+                    JUtils.Log("Error:"+throwable.getLocalizedMessage());
                 })
-                .filter(s -> {
-                    getView().getExpansion().showProgressDialog("上传图片中,第" + (mHasUpload.size() + uploadSize) + "/" + mPlaceDetail.getPicture().length + "张");
-                    mPlaceDetail.getPicture()[mHasUpload.size() + uploadSize] = s;
-                    return true;
+                .doOnNext(s -> {
+                    JUtils.Log("上传成功1张"+s);
+                    mPlaceDetail.getPicture().add(s);
                 })
-                .buffer(files.length)
+                .toList()
                 .flatMap(strings -> {
                     getView().getExpansion().showProgressDialog("上传服务器中");
-                    mPlaceDetail.setPreview(mPlaceDetail.getPicture()[0]);
+                    mPlaceDetail.setPreview(mPlaceDetail.getPicture().get(0));
                     return PlaceModel.getInstance().publishPlace(mPlaceDetail);
                 })
-                .subscribe(new ServiceResponse() {
+                .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
                         getView().getExpansion().dismissProgressDialog();
@@ -200,6 +204,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
+                        JUtils.Log("Error:"+e.getLocalizedMessage());
                         getView().getExpansion().dismissProgressDialog();
                     }
                 });

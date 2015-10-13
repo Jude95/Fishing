@@ -61,10 +61,24 @@ public class PlaceModel extends AbsModel {
     }
 
 
-    public Observable publishPlace(PlaceDetail placeDetail){
+    public Observable<Object> publishPlace(PlaceDetail placeDetail){
         String picture  = new Gson().toJson(placeDetail.getPicture());
-        if (picture.endsWith(","))picture = picture.substring(0,picture.length()-1);
-        return ServiceClient.getService().PublishPlace(placeDetail.getId(),placeDetail.getName(),placeDetail.getPreview(),placeDetail.getBriefAddr(),placeDetail.getAddress(),placeDetail.getCost(),placeDetail.getCostType(),placeDetail.getFishType(),placeDetail.getPoolType(),placeDetail.getServiceType(),placeDetail.getTel(),placeDetail.getContent(),picture,placeDetail.getLat(),placeDetail.getLng()).compose(new DefaultTransform<>());
+        return ServiceClient.getService().PublishPlace(
+                placeDetail.getId(),
+                placeDetail.getName(),
+                placeDetail.getPreview(),
+                placeDetail.getBriefAddr(),
+                placeDetail.getAddress(),
+                placeDetail.getCost(),
+                placeDetail.getCostType(),
+                placeDetail.getFishType(),
+                placeDetail.getPoolType(),
+                placeDetail.getServiceType(),
+                placeDetail.getTel(),
+                placeDetail.getContent(),
+                picture,
+                placeDetail.getLat(),
+                placeDetail.getLng()).compose(new DefaultTransform<>());
     }
 
     public Observable<EvaluateDetail> getEvaluateDetail(int id){
@@ -117,7 +131,7 @@ public class PlaceModel extends AbsModel {
                 "认识她的时候，她是有男友的，还是我哥们儿。不过自从她男友劈腿两人分手之后，她一直没精神。她往日里生活的精致，在这儿一年中，都跟着她的前男友一起离开她了。我安慰过她几次，却也无能为力。毕竟这样的事儿，还是得靠她自己。旁人能做的也就只有鼓励一二，了表心意。\n" +
                         "\n" +
                         "而今天她终于可以振作起来了，我一定得去啊！我走进夜晚里，一路上又生出疑惑，今天觉得她没什么异样啊，怎么突然就找到真爱了？",
-                new String[]{
+                Arrays.asList(
                    "http://img0.pconline.com.cn/pconline/1503/04/6177579_01_thumb.jpg",
                         "http://img0.pconline.com.cn/pconline/1503/04/6177579_02_thumb.jpg",
                         "http://img0.pconline.com.cn/pconline/1503/04/6177579_03_thumb.jpg",
@@ -125,7 +139,7 @@ public class PlaceModel extends AbsModel {
                         "http://img0.pconline.com.cn/pconline/1503/04/6177579_05_thumb.jpg",
                         "http://img0.pconline.com.cn/pconline/1503/04/6177579_06_thumb.jpg",
                         "http://img0.pconline.com.cn/pconline/1503/04/6177579_07_thumb.jpg"
-                });
+                ));
     }
 
     EvaluateDetail createVirtualEvaluateDetail(){

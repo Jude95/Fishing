@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -77,16 +80,32 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     public void setData(PlaceDetail data) {
         getExpansion().dismissProgressPage();
         evaluateCount = data.getEvaluateCount();
-        commentCount.setText(data.getEvaluateCount()+"");
+        commentCount.setText(data.getEvaluateCount() + "");
         score.setScore(data.getScore());
         scoreText.setText(data.getScore() + "");
         address.setText(data.getAddress());
-        fishType.setText(data.getFishType());
         tel.setText(data.getTel());
         price.setText("人均消费:" + data.getCost() + "元");
 
         content.setText(data.getContent());
         adapter.setPath(data.getPicture());
+
+        String fish = "";
+        if (!TextUtils.isEmpty(data.getFishType())) {
+            for (String s : data.getFishType().split(",")) {
+                try {
+                    if (Integer.parseInt(s) < Constant.FishType.length) {
+                        fish += Constant.FishType[Integer.parseInt(s)] + ",";
+                    }
+                }catch (Exception e){}
+            }
+            fish = fish.substring(0, fish.length() - 1);
+        } else {
+            fish = "未知";
+        }
+        fishType.setText(fish);
+
+
 
         if (data.getPoolType()< Constant.PlacePoolType.length)
             server.addView(createServerView(Constant.PlacePoolType[data.getPoolType()],
@@ -103,6 +122,8 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
                         server));
             }
         }
+
+
     }
 
     private View createServerView(String text,ViewGroup parent){
@@ -144,9 +165,9 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     }
 
     class PictureAdapter extends StaticPagerAdapter {
-        private String[] path;
+        private List<String> path;
 
-        public void setPath(String[] path) {
+        public void setPath(List<String> path) {
             this.path = path;
             notifyDataSetChanged();
         }
@@ -155,13 +176,13 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         public View getView(ViewGroup container, int position) {
             SimpleDraweeView simpleDraweeView = new SimpleDraweeView(container.getContext());
             simpleDraweeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            simpleDraweeView.setImageURI(Uri.parse(path[position]));
+            simpleDraweeView.setImageURI(Uri.parse(path.get(position)));
             return simpleDraweeView;
         }
 
         @Override
         public int getCount() {
-            return path == null ? 0 : path.length;
+            return path == null ? 0 : path.size();
         }
     }
 }

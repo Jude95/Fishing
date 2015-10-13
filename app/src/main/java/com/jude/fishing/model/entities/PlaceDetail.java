@@ -1,5 +1,7 @@
 package com.jude.fishing.model.entities;
 
+import java.util.List;
+
 /**
  * Created by Mr.Jude on 2015/9/23.
  */
@@ -26,13 +28,13 @@ public class PlaceDetail extends PlaceBrief{
         this.collectStatus = collectStatus;
     }
 
-    public void setPicture(String[] picture) {
+    public void setPicture(List<String> picture) {
         this.picture = picture;
     }
 
     private int evaluateCount;
     private boolean collectStatus;
-    private String[] picture;
+    private List<String> picture;
 
     public boolean isCollectStatus() {
         return collectStatus;
@@ -50,11 +52,11 @@ public class PlaceDetail extends PlaceBrief{
         return content;
     }
 
-    public String[] getPicture() {
+    public List<String> getPicture() {
         return picture;
     }
 
-    public PlaceDetail(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng, String tel, String content, String[] picture) {
+    public PlaceDetail(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng, String tel, String content, List<String> picture) {
         super(id, name, preview, address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
         this.tel = tel;
         this.content = content;

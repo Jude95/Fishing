@@ -59,6 +59,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
             tvName.setText("未登录,点击登陆");
             tvSign.setText("");
         }else{
+
             imgFace.setImageURI(Uri.parse(info.getAvatar()));
             tvName.setText(info.getName());
             tvSign.setText(info.getSign());

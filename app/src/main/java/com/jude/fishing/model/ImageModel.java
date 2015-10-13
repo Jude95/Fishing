@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.service.ServiceClient;
+import com.jude.utils.JUtils;
 import com.qiniu.android.storage.UploadManager;
 
 import java.io.File;
@@ -84,8 +85,9 @@ public class ImageModel extends AbsModel {
                     String realName = "u"+UID+System.currentTimeMillis()+temp.hashCode()+".jpg";
                     String path = ADDRESS+realName;
                     mUploadManager.put(temp, realName, token.getToken(), (key, info, response) -> {
+                        JUtils.Log("Uploaded "+path+info.isOK()+" "+info.toString());
                         if (info.isOK())subscriber.onNext(path);
-                        else subscriber.onError(new NetworkErrorException(info.error));
+                        else subscriber.onError(new NetworkErrorException("Error:"+info.error));
                         if (++counter[0]==file.length)subscriber.onCompleted();
                     }, null);
                 }

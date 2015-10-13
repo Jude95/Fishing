@@ -3,7 +3,6 @@ package com.jude.fishing.module.place;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +15,8 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.module.user.LoginActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,7 +52,10 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.add){
-            startActivity(new Intent(getActivity(),PlaceAddActivity.class));
+            if (AccountModel.getInstance().getAccount()!=null)
+                startActivity(new Intent(getActivity(),PlaceAddActivity.class));
+            else
+                startActivity(new Intent(getActivity(),LoginActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

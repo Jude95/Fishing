@@ -104,7 +104,6 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
         tvName.setText(TextUtils.isEmpty(data.getName()) ? "点击填写名字" : data.getName());
         tvContact.setText(TextUtils.isEmpty(data.getTel()) ? "点击填写联系电话" : data.getTel());
         tvContent.setText(TextUtils.isEmpty(data.getContent()) ? "点击填写钓点介绍" : data.getContent());
-        tvFish.setText(TextUtils.isEmpty(data.getFishType()) ? "点击填写鱼种" : data.getFishType());
 
         if (data.getCostType() == 0) {
             dividerCost.setVisibility(View.GONE);
@@ -123,6 +122,21 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
 
         if (data.getPoolType() < Constant.PlacePoolType.length)
             tvPool.setText(Constant.PlacePoolType[data.getPoolType()]);
+
+        String fish = "";
+        if (!TextUtils.isEmpty(data.getFishType())) {
+            for (String s : data.getFishType().split(",")) {
+                try{
+                    if (Integer.parseInt(s) < Constant.FishType.length) {
+                        fish += Constant.FishType[Integer.parseInt(s)] + ",";
+                    }
+                }catch (Exception e){}
+            }
+            fish = fish.substring(0, fish.length() - 1);
+        } else {
+            fish = "请选择鱼种";
+        }
+        tvFish.setText(fish);
 
         String server = "";
         if (!TextUtils.isEmpty(data.getServiceType())) {
@@ -157,18 +171,7 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
                 }).show();
     }
 
-    private void showFishTypeEdit() {
-        new MaterialDialog.Builder(this)
-                .title("输入鱼种类型")
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .inputRange(2, 20)
-                .input("", getPresenter().getPlaceDetail().getFishType(), new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        getPresenter().setFishType(input.toString());
-                    }
-                }).show();
-    }
+
 
     private void showContactEdit() {
         new MaterialDialog.Builder(this)
@@ -236,6 +239,33 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         getPresenter().setPoolType(which);
+                        return true;
+                    }
+                })
+                .positiveText("确定")
+                .show();
+    }
+
+    private void showFishTypeEdit() {
+        String[] types;
+        if (getPresenter().getPlaceDetail().getServiceType() != null)
+            types = getPresenter().getPlaceDetail().getServiceType().split(",");
+        else
+            types = new String[0];
+
+        Integer[] fishType = new Integer[types.length];
+        for (int i = 0; i < types.length; i++) {
+            fishType[i] = Integer.parseInt(types[i]);
+        }
+
+        new MaterialDialog.Builder(this)
+                .title("请选择鱼种")
+                .items(Constant.FishType)
+                .itemsCallbackMultiChoice(fishType, new MaterialDialog.ListCallbackMultiChoice() {
+
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, Integer[] integers, CharSequence[] charSequences) {
+                        getPresenter().setFishType(integers);
                         return true;
                     }
                 })
