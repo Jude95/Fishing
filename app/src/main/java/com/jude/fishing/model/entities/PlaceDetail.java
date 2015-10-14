@@ -57,7 +57,7 @@ public class PlaceDetail extends PlaceBrief{
     }
 
     public PlaceDetail(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng, String tel, String content, List<String> picture) {
-        super(id, name, preview, address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
+        super(id, name, preview, address,address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
         this.tel = tel;
         this.content = content;
         this.picture = picture;

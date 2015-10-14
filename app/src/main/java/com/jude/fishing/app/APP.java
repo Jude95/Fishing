@@ -48,7 +48,7 @@ public class APP extends Application {
                 JUtils.initialize(this);
                 JUtils.setDebug(true, "Fishing");
                 JFileManager.getInstance().init(this, Dir.values());
-                DataCleaner.Update(this, 10);
+                DataCleaner.Update(this, 12);
 
                 Beam.init(this);
                 Beam.setActivityLifeCycleDelegateProvider(ActivityDelegate::new);

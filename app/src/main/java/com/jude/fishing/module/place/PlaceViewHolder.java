@@ -86,6 +86,7 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
             }
         }
         address.setText(data.getBriefAddr());
+        JUtils.Log("Address:"+data.getBriefAddr());
     }
 
     View createTag(String content) {

@@ -95,7 +95,7 @@ public class PlaceModel extends AbsModel {
 
     public Observable<List<PlaceBrief>> syncPlace(){
         return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
-                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 10000 + "").apply())
+                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
                 .doOnNext(placeBriefs -> {
                     BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
                     for (PlaceBrief placeBrief : placeBriefs) {
@@ -206,7 +206,7 @@ public class PlaceModel extends AbsModel {
         List<PlaceBrief> placeBriefs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             placeBriefs.add(new PlaceBrief(
-                    i,"南山鱼塘","http://img5.imgtn.bdimg.com/it/u=2219957519,4104610372&fm=21&gp=0.jpg","南山",
+                    i,"南山鱼塘","http://img5.imgtn.bdimg.com/it/u=2219957519,4104610372&fm=21&gp=0.jpg","南山","南山",
                     3.8f, (int) (Math.random()*500), (int) (Math.random()*2),"沼跃鱼",1,"0,1",lat+(Math.random()-0.5)*10,lng+(Math.random()-0.5)*10
             ));
         }

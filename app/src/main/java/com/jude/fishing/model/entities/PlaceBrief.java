@@ -91,10 +91,11 @@ public class PlaceBrief {
         this.serviceType = serviceType;
     }
 
-    public PlaceBrief(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng) {
+    public PlaceBrief(int id, String name, String preview, String briefAddr, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng) {
         this.id = id;
         this.name = name;
         this.preview = preview;
+        this.briefAddr = briefAddr;
         this.address = address;
         this.score = score;
         this.cost = cost;
