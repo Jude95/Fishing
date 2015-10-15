@@ -22,8 +22,6 @@ import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
 import com.jude.utils.JUtils;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -69,11 +67,7 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
 
-        ArrayList<Uri> arr = new ArrayList<>();
-        for (String img : data.getImages()) {
-            arr.add(Uri.parse(img));
-        }
-        pictures.setAdapter(new NetImageAdapter(parent.getContext(), arr));
+        pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
 
         for (PersonBrief personBrief : data.getPraiseMember()) {
             SimpleDraweeView draweeView = new SimpleDraweeView(this);

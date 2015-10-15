@@ -59,7 +59,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     private Marker mMyLocation;
     private int mStatus = 0;
 
-    private static final int MIN_ZOOM_MARKER_COUNT = 2;
+    private static final int MIN_ZOOM_MARKER_COUNT = 3;
     private static final int MIN_ZOOM= 13;
 
     private final static int[] ZOOM_LEVEL = {
@@ -73,14 +73,10 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         ButterKnife.inject(this,view);
         mMapView.onCreate(savedInstanceState);
         zoomIn.setOnClickListener(v -> {
-            aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-                    aMap.getCameraPosition().target, aMap.getCameraPosition().zoom + 1, 0, 0
-            )));
+            aMap.animateCamera(CameraUpdateFactory.zoomIn());
         });
         zoomOut.setOnClickListener(v -> {
-            aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-                    aMap.getCameraPosition().target, aMap.getCameraPosition().zoom - 1, 0, 0
-            )));
+            aMap.animateCamera(CameraUpdateFactory.zoomOut());
         });
         location.setOnClickListener(v -> {
             moveTo(mMyLocation.getPosition().latitude, mMyLocation.getPosition().longitude);
@@ -145,15 +141,18 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         double myLat = LocationModel.getInstance().getCurLocation().getLatitude();
         double myLng = LocationModel.getInstance().getCurLocation().getLongitude();
         for (PlaceBrief placeBrief : place) {
-            double distance = JUtils.distance(myLat, myLng, placeBrief.getLat(), placeBrief.getLng());
+            double distance = JUtils.distance(myLng,myLat, placeBrief.getLng(), placeBrief.getLat());
             if (distance > maxDistance) {
                 maxDistance = distance;
             }
+            JUtils.Log("distance:"+distance);
+
         }
+        JUtils.Log("maxDistance:"+maxDistance);
         int unit = (int) (maxDistance / 8);
         for (int i = ZOOM_LEVEL.length - 1; i >= 1; i--) {
             if (unit > ZOOM_LEVEL[i] && unit < ZOOM_LEVEL[i-1]) {
-                moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), Math.max(i,MIN_ZOOM));
+                moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), Math.max(i-1,MIN_ZOOM));
                 return;
             }
         }
@@ -187,8 +186,8 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 .fromResource(place.getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         Marker marker = aMap.addMarker(markerOption);
         mMarkerMap.put(marker, place);
-        if (zoomMarkerList.size() < MIN_ZOOM_MARKER_COUNT) zoomMarkerList.add(place);
-        if (zoomMarkerList.size() == MIN_ZOOM_MARKER_COUNT) zoomMarker(zoomMarkerList);
+        if (mMarkerMap.size() < MIN_ZOOM_MARKER_COUNT+1) zoomMarkerList.add(place);
+        if (mMarkerMap.size()== MIN_ZOOM_MARKER_COUNT+1) moveToAdjustPlace(zoomMarkerList);
     }
 
 
@@ -205,7 +204,6 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 boundsBuild.include(new LatLng(placeBrief.getLat(), placeBrief.getLng()));
             }
             aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
-            moveTo(mMyLocation.getPosition().latitude,mMyLocation.getPosition().longitude);
         });
     }
 

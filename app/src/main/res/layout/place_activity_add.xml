@@ -176,7 +176,11 @@
                     android:gravity="center_vertical"
                     style="@style/Base.TextAppearance.AppCompat.Body2"
                     android:textColor="@android:color/darker_gray"/>
-
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_drop"
+                    android:layout_marginRight="16dp"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

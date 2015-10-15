@@ -1,7 +1,6 @@
 package com.jude.fishing.module.place;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -68,9 +67,7 @@ public class UserEvaluateViewHolder extends BaseViewHolder<Evaluate> {
         commentCount.setText(data.getCommentCount()+"");
         content.setText(data.getContent());
         adapter.clear();
-        for (String s : data.getImages()) {
-            adapter.add(Uri.parse(s));
-        }
+        adapter.addAll(data.getImages());
         adapter.notifyDataSetChanged();
     }
 }

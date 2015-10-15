@@ -34,6 +34,7 @@ public class ImageModel extends AbsModel {
     }
 
     public Uri getSmallImage(String path){
+        if (path==null)return null;
         if (path.startsWith(ADDRESS))
             return Uri.parse(path+"?imageView2/0/w/360");
         else
@@ -41,6 +42,7 @@ public class ImageModel extends AbsModel {
     }
 
     public Uri getLargeImage(String path){
+        if (path==null)return null;
         if (path.startsWith(ADDRESS))
             return Uri.parse(path+"?imageView2/0/w/1024");
         else
@@ -48,6 +50,7 @@ public class ImageModel extends AbsModel {
     }
 
     public Uri getSizeImage(String path,int width){
+        if (path==null)return null;
         if (path.startsWith(ADDRESS))
             return Uri.parse(path+"?imageView2/0/w/"+width);
         else

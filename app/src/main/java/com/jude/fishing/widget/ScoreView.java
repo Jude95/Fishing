@@ -20,6 +20,9 @@ public class ScoreView extends LinearLayout implements View.OnClickListener{
 
     public void setOnScoreSelectedListener(OnScoreSelectedListener listener){
         this.mOnScoreSelectedListener = listener;
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).setOnClickListener(this);
+        }
     }
 
     public ScoreView(Context context) {
@@ -41,10 +44,9 @@ public class ScoreView extends LinearLayout implements View.OnClickListener{
         setOrientation(HORIZONTAL);
         for (int i = 0; i < 5; i++) {
             ImageView imageView = new ImageView(getContext());
-            imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,1));
+            imageView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT, 1));
             imageView.setImageResource(R.drawable.ic_score_unfocus);
-            imageView.setTag(i+1);
-            imageView.setOnClickListener(this);
+            imageView.setTag(i + 1);
             addView(imageView);
         }
     }

@@ -1,7 +1,6 @@
 package com.jude.fishing.module.place;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,12 +10,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JTimeTransform;
-import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -66,19 +65,14 @@ public class EvaluateViewHolder extends BaseViewHolder<Evaluate> {
     public void setData(Evaluate data) {
         id = data.getId();
         score.setScore(data.getScore());
-        avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
+        avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         address.setText(data.getAddress());
         adapter.clear();
-        for (String img : data.getImages()) {
-            adapter.add(Uri.parse(img));
-        }
+        adapter.addAll(data.getImages());
         adapter.notifyDataSetChanged();
-        JUtils.Log("Adapter:" + adapter.getCount());
-        JUtils.Log("View:"+image.getChildCount());
-        
     }
 }

@@ -57,6 +57,7 @@
                     android:layout_width="56dp"
                     android:layout_height="32dp"
                     app:tag_color="?colorPrimary"
+                    app:tag_padding="8dp"
                     app:tag_text="收藏"
                     />
             </LinearLayout>

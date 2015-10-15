@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
+import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
@@ -19,8 +20,6 @@ import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JTimeTransform;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -62,11 +61,8 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         score.setScore(data.getScore());
-        ArrayList<Uri> arr = new ArrayList<>();
-        for (String img : data.getImages()) {
-            arr.add(Uri.parse(img));
-        }
-        pictures.setAdapter(new NetImageAdapter(parent.getContext(), arr));
+
+        pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
 
         return view;
     }
@@ -77,4 +73,8 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         return new EvaluateCommentViewHolder(viewGroup);
     }
 
+    @Override
+    protected ListConfig getConfig() {
+        return super.getConfig().setNoMoreAble(false);
+    }
 }

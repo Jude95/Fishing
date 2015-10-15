@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Mr.Jude on 2015/9/12.
  */
 public class Evaluate {
+    @SerializedName("pid")
     private int placeId;
     private String placeName;
     private String placePreview;

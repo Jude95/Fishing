@@ -51,7 +51,7 @@ public class WriteEvaluateActivity extends BeamBaseActivity<WriteEvaluatePresent
     }
 
     public void checkInput(){
-        if (content.getText().length()<5){
+        if (content.getText().length()<3){
             JUtils.Toast("评价请多一点吧，(●'◡'●)ﾉ♥");
             return;
         }

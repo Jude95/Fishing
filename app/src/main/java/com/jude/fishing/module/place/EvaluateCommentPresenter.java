@@ -16,6 +16,11 @@ public class EvaluateCommentPresenter extends BeamListActivityPresenter<Evaluate
     @Override
     protected void onCreate(EvaluateCommentActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
+        onRefresh();
+    }
+
+    @Override
+    public void onRefresh() {
         PlaceModel.getInstance().getEvaluateDetail(getView().getIntent().getIntExtra("id", 0)).map(seedDetail -> {
             getAdapter().addHeader(new RecyclerArrayAdapter.ItemView() {
                 @Override

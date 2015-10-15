@@ -16,8 +16,6 @@ import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
 
-import java.util.ArrayList;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -55,6 +53,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         super(parent, R.layout.blog_item_main);
         ButterKnife.inject(this, itemView);
         image.setAdapter(adapter = new NetImageAdapter(parent.getContext()));
+        adapter.setNotifyOnChange(false);
         itemView.setOnClickListener(v->{
             Intent i = new Intent(v.getContext(),BlogDetailActivity.class);
             i.putExtra("id",id);
@@ -73,11 +72,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
         adapter.clear();
-        ArrayList<Uri> arr = new ArrayList<>();
-        for (String img : data.getImages()) {
-            arr.add(Uri.parse(img));
-        }
-        adapter.addAll(arr);
-
+        adapter.addAll(data.getImages());
+        adapter.notifyDataSetChanged();
     }
 }

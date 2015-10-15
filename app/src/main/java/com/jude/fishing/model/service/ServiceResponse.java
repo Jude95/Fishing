@@ -17,7 +17,6 @@ public abstract class ServiceResponse<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        JUtils.Log("Error: "+((ServiceException) e.getCause()).getStatus()+":"+ServiceException.class.getName());
         if (e.getCause() instanceof ServiceException){
             onServiceError(((ServiceException) e.getCause()).getStatus(), ((ServiceException) e.getCause()).getInfo());
         }else{

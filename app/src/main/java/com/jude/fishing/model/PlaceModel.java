@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Mr.Jude on 2015/9/12.
@@ -49,14 +50,18 @@ public class PlaceModel extends AbsModel {
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
-                .mapToList(cursor ->  PlaceDBTable.getInstance().from(cursor));
+                .mapToList(cursor ->  PlaceDBTable.getInstance().from(cursor))
+                .subscribeOn(Schedulers.io())
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<List<PlaceBrief>> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
                         + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
-                .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor));
+                .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
+                .subscribeOn(Schedulers.io())
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<List<PlaceBrief>> updatePlacesByDistance(double lat, double lng){
@@ -66,30 +71,10 @@ public class PlaceModel extends AbsModel {
                 .compose(new DefaultTransform<>());
     }
 
-    public Observable<Object> publishPlace(PlaceDetail placeDetail){
-        String picture  = new Gson().toJson(placeDetail.getPicture());
-        return ServiceClient.getService().PublishPlace(
-                placeDetail.getId(),
-                placeDetail.getName(),
-                placeDetail.getPreview(),
-                placeDetail.getAddressBrief(),
-                placeDetail.getAddress(),
-                placeDetail.getCost(),
-                placeDetail.getCostType(),
-                placeDetail.getFishType(),
-                placeDetail.getPoolType(),
-                placeDetail.getServiceType(),
-                placeDetail.getTel(),
-                placeDetail.getContent(),
-                picture,
-                placeDetail.getLat(),
-                placeDetail.getLng()).compose(new DefaultTransform<>());
-    }
-
 
     public Observable<List<PlaceBrief>> syncPlace(){
         return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
-                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
+                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 10000 + "").apply())
                 .doOnNext(placeBriefs -> {
                     BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
                     for (PlaceBrief placeBrief : placeBriefs) {
@@ -113,6 +98,26 @@ public class PlaceModel extends AbsModel {
 
     public Observable<PlaceDetail> getPlaceDetail(int id){
         return ServiceClient.getService().getPlaceDetail(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> publishPlace(PlaceDetail placeDetail){
+        String picture  = new Gson().toJson(placeDetail.getPicture());
+        return ServiceClient.getService().PublishPlace(
+                placeDetail.getId(),
+                placeDetail.getName(),
+                placeDetail.getPreview(),
+                placeDetail.getAddressBrief(),
+                placeDetail.getAddress(),
+                placeDetail.getCost(),
+                placeDetail.getCostType(),
+                placeDetail.getFishType(),
+                placeDetail.getPoolType(),
+                placeDetail.getServiceType(),
+                placeDetail.getTel(),
+                placeDetail.getContent(),
+                picture,
+                placeDetail.getLat(),
+                placeDetail.getLng()).compose(new DefaultTransform<>());
     }
 
     public Observable<List<PlaceBrief>> getUserPlaces(){

@@ -12,7 +12,9 @@ import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Evaluate;
+import com.jude.fishing.module.user.LoginActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -49,7 +51,13 @@ public class EvaluateActivity extends BeamListActivity<EvaluatePresenter, Evalua
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
         write.setOnClickListener(v->{
-            startActivity(new Intent(this,WriteEvaluateActivity.class));
+            if (AccountModel.getInstance().getAccount()==null){
+                startActivity(new Intent(this, LoginActivity.class));
+                return;
+            }
+            Intent i = new Intent(this,WriteEvaluateActivity.class);
+            i.putExtra("id",getIntent().getIntExtra("id",0));
+            startActivity(i);
         });
     }
 }

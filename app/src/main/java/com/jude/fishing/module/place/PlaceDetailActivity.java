@@ -83,12 +83,12 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
             startActivity(intent);
         });
         collect.setOnClickListener(v -> {
-            if (getPresenter().collect()){
-                collect.setStrokeWidth(JUtils.dip2px(4));
+            if (getPresenter().collect()) {
+                collect.setStrokeWidth(JUtils.dip2px(3));
                 collect.setTextColor(getResources().getColor(R.color.blue));
                 collect.setText("取消收藏");
                 JUtils.Toast("已收藏");
-            }else {
+            } else {
                 collect.setStrokeWidth(JUtils.dip2px(0));
                 collect.setTextColor(getResources().getColor(R.color.white));
                 collect.setText("收藏");
@@ -109,6 +109,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         getExpansion().dismissProgressPage();
         getSupportActionBar().setTitle(data.getName());
         evaluateCount = data.getEvaluateCount();
+        JUtils.Log("evaluateCount:"+evaluateCount);
         if (commentCount!=null)
             commentCount.setText(data.getEvaluateCount() + "");
         score.setScore(data.getScore());
@@ -125,7 +126,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         adapter.setPath(data.getPicture());
 
         if (data.isCollected()){
-            collect.setStrokeWidth(JUtils.dip2px(1));
+            collect.setStrokeWidth(JUtils.dip2px(3));
             collect.setTextColor(getResources().getColor(R.color.blue));
             collect.setText("取消收藏");
         }else {
@@ -175,7 +176,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     private View createServerView(String text,ViewGroup parent){
         View v = getLayoutInflater().inflate(R.layout.place_item_server,parent,false);
         TAGView tagView = (TAGView) v.findViewById(R.id.server_icon);
-        tagView.setText(text.charAt(0)+"");
+        tagView.setText(text.charAt(0) + "");
         tagView.setBackgroundColor(Color.parseColor(SERVER_COLORS[parent.getChildCount()]));
         tagView.setTextColor(Color.parseColor(SERVER_COLORS[parent.getChildCount()]));
 
@@ -192,6 +193,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         commentCount.setBackgroundColor(Color.TRANSPARENT);
         commentCount.setIcon(R.drawable.ic_comment);
         commentCount.setImageWidth(JUtils.dip2px(24));
+
         commentCount.setText(evaluateCount+"");
         commentCount.setOnClickListener(v->{
             Intent i = new Intent(this,EvaluateActivity.class);
@@ -201,13 +203,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.comment){
 
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     class PictureAdapter extends StaticPagerAdapter {
         private List<String> path;
