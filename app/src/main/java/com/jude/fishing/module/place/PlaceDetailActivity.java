@@ -1,7 +1,10 @@
 package com.jude.fishing.module.place;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -45,8 +48,8 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     ScoreView score;
     @InjectView(R.id.score_text)
     TextView scoreText;
-    @InjectView(R.id.evaluate)
-    TAGView evaluate;
+    @InjectView(R.id.collect)
+    TAGView collect;
     @InjectView(R.id.address)
     TextView address;
     @InjectView(R.id.fish_type)
@@ -65,7 +68,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
 
     private int evaluateCount;
     public static final String[] SERVER_COLORS = {
-            "#fda76d","#708be0","#66c96a", "#f67f7f","#d6a0d6","#87bfff"
+            "#fda76d", "#708be0", "#66c96a", "#f67f7f", "#d6a0d6", "#87bfff"
     };
 
     @Override
@@ -75,6 +78,24 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         getExpansion().showProgressPage();
         ButterKnife.inject(this);
         picture.setAdapter(adapter = new PictureAdapter());
+        tel.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
+            startActivity(intent);
+        });
+        collect.setOnClickListener(v -> {
+            if (getPresenter().collect()){
+                collect.setStrokeWidth(JUtils.dip2px(4));
+                collect.setTextColor(getResources().getColor(R.color.blue));
+                collect.setText("取消收藏");
+                JUtils.Toast("已收藏");
+            }else {
+                collect.setStrokeWidth(JUtils.dip2px(0));
+                collect.setTextColor(getResources().getColor(R.color.white));
+                collect.setText("收藏");
+                JUtils.Toast("已取消收藏");
+            }
+        });
+
     }
 
     @Override
@@ -102,6 +123,16 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
             content.setText(data.getContent());
         }
         adapter.setPath(data.getPicture());
+
+        if (data.isCollected()){
+            collect.setStrokeWidth(JUtils.dip2px(1));
+            collect.setTextColor(getResources().getColor(R.color.blue));
+            collect.setText("取消收藏");
+        }else {
+            collect.setStrokeWidth(JUtils.dip2px(0));
+            collect.setTextColor(getResources().getColor(R.color.white));
+            collect.setText("收藏");
+        }
 
         String fish = "";
         if (!TextUtils.isEmpty(data.getFishType())) {

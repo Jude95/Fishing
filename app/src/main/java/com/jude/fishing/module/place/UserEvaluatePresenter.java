@@ -14,6 +14,6 @@ public class UserEvaluatePresenter extends BeamListActivityPresenter<UserEvaluat
     @Override
     protected void onCreate(UserEvaluateActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        PlaceModel.getInstance().getUserPlacesComments(getView().getIntent().getIntExtra("id",0)).subscribe(getRefreshSubscriber());
+        PlaceModel.getInstance().getMyEvaluate().subscribe(getRefreshSubscriber());
     }
 }

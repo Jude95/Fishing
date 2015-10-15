@@ -53,7 +53,7 @@
                     tools:text="4.2"/>
 
                 <com.jude.tagview.TAGView
-                    android:id="@+id/evaluate"
+                    android:id="@+id/collect"
                     android:layout_width="56dp"
                     android:layout_height="32dp"
                     app:tag_color="?colorPrimary"

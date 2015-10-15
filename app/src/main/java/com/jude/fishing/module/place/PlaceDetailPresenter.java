@@ -10,10 +10,23 @@ import com.jude.fishing.model.entities.PlaceDetail;
  * Created by Mr.Jude on 2015/9/23.
  */
 public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailActivity,PlaceDetail> {
-
+    private boolean collected;
+    private int id;
     @Override
     protected void onCreate(PlaceDetailActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        PlaceModel.getInstance().getPlaceDetail(getView().getIntent().getIntExtra("id",0)).subscribe(this);
+        id = getView().getIntent().getIntExtra("id",0);
+        PlaceModel.getInstance().getPlaceDetail(getView().getIntent().getIntExtra("id",0))
+                .doOnNext(placeDetail -> collected = placeDetail.isCollected())
+                .subscribe(this);
+    }
+
+    public boolean collect(){
+        if (collected)
+            PlaceModel.getInstance().unCollectPlace(id).subscribe();
+        else
+            PlaceModel.getInstance().collectPlace(id).subscribe();
+        collected = !collected;
+        return collected;
     }
 }

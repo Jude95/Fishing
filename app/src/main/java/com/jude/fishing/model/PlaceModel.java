@@ -86,9 +86,6 @@ public class PlaceModel extends AbsModel {
                 placeDetail.getLng()).compose(new DefaultTransform<>());
     }
 
-    public Observable<EvaluateDetail> getEvaluateDetail(int id){
-        return Observable.just(createVirtualEvaluateDetail());
-    }
 
     public Observable<List<PlaceBrief>> syncPlace(){
         return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
@@ -118,20 +115,39 @@ public class PlaceModel extends AbsModel {
         return ServiceClient.getService().getPlaceDetail(id).compose(new DefaultTransform<>());
     }
 
-
     public Observable<List<PlaceBrief>> getUserPlaces(){
-        return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+        return ServiceClient.getService().myPlaceCollect().compose(new DefaultTransform<>());
     }
 
-    public Observable<List<PlaceBrief>> getCollectionPlaces(int id){
-            return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    public Observable<List<PlaceBrief>> getMyCollectionPlaces(){
+        return ServiceClient.getService().myPlaceCollect().compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Evaluate>> getPlacesComments(int id,int page){
-        return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    public Observable<List<Evaluate>> getEvaluates(int id, int page){
+        return ServiceClient.getService().getEvaluate(id, page).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Evaluate>> getUserPlacesComments(int id){
+    public Observable<EvaluateDetail> getEvaluateDetail(int id){
+        return ServiceClient.getService().getEvaluateDetail(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> publishEvaluate(int pid,String content,List<String> images,int score){
+        String imageStr = "";
+        if (images!=null){
+            imageStr = new Gson().toJson(images);
+        }
+        return ServiceClient.getService().publishEvaluate(pid, content, imageStr, score).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> collectPlace(int id){
+        return ServiceClient.getService().collectPlace(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> unCollectPlace(int id){
+        return ServiceClient.getService().unCollectPlace(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Evaluate>> getMyEvaluate(){
         return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 

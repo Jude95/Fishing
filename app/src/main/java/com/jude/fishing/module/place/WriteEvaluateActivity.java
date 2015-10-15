@@ -14,6 +14,7 @@ import com.jude.exgridview.PieceViewGroup;
 import com.jude.fishing.R;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.tagview.TAGView;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,6 +47,15 @@ public class WriteEvaluateActivity extends BeamBaseActivity<WriteEvaluatePresent
         images.setOKImageRes(R.drawable.pic_ok);
         images.setOnViewDeleteListener(getPresenter());
         score.setOnScoreSelectedListener(getPresenter());
+        send.setOnClickListener(v->checkInput());
+    }
+
+    public void checkInput(){
+        if (content.getText().length()<5){
+            JUtils.Toast("评价请多一点吧，(●'◡'●)ﾉ♥");
+            return;
+        }
+        getPresenter().submit(content.getText().toString());
     }
 
     public void showSelectorDialog() {

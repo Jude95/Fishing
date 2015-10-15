@@ -49,12 +49,13 @@ public class AccountModel extends AbsModel {
         return userAccountDataBehaviorSubject.subscribe(accountAction1);
     }
     public Observable<Account> login(String name,String password){
-        return ServiceClient.getService().login(name,password).compose(new DefaultTransform<>()).filter(account -> {
-            account.setRelation(-1);
-            saveAccount(account);
-            setAccount(account);
-            return true;
-        });
+        return ServiceClient.getService().login(name,password)
+                .compose(new DefaultTransform<>())
+                .doOnNext(account -> {
+                    account.setRelation(-1);
+                    saveAccount(account);
+                    setAccount(account);
+                });
     }
 
     public void logout(){

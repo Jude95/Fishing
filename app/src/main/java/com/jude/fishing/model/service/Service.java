@@ -3,6 +3,8 @@ package com.jude.fishing.model.service;
 
 import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.Evaluate;
+import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
@@ -54,6 +56,41 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.GetPlaceDetail)
     Observable<PlaceDetail> getPlaceDetail(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetEvaluate)
+    Observable<List<Evaluate>> getEvaluate(
+            @Field("id") int id,
+            @Field("page") int page);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetEvaluateDetail)
+    Observable<EvaluateDetail> getEvaluateDetail(
+            @Field("id") int id);
+
+    @FormUrlEncoded
+    @POST(API.URL.PublishEvaluate)
+    Observable<Object> publishEvaluate(
+            @Field("pid") int pid,
+            @Field("content") String content,
+            @Field("images") String images,
+            @Field("score") int score);
+
+    @FormUrlEncoded
+    @POST(API.URL.CollectPlace)
+    Observable<Object> collectPlace(
+            @Field("id") int id);
+
+
+    @FormUrlEncoded
+    @POST(API.URL.UnCollectPlace)
+    Observable<Object> unCollectPlace(
+            @Field("id") int id);
+
+
+    @GET(API.URL.MyColectPlace)
+    Observable<List<PlaceBrief>> myPlaceCollect();
+
 
     @FormUrlEncoded
     @POST(API.URL.Register)

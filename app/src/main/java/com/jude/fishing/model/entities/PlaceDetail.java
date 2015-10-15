@@ -1,5 +1,7 @@
 package com.jude.fishing.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,8 @@ public class PlaceDetail extends PlaceBrief{
     private String content;
     private String address;
     private int evaluateCount;
-    private boolean collectStatus;
+    @SerializedName("collectStatus")
+    private boolean collected;
     private List<String> picture;
 
 
@@ -30,8 +33,8 @@ public class PlaceDetail extends PlaceBrief{
         this.evaluateCount = evaluateCount;
     }
 
-    public void setCollectStatus(boolean collectStatus) {
-        this.collectStatus = collectStatus;
+    public void setCollected(boolean collected) {
+        this.collected = collected;
     }
 
     public void setPicture(List<String> picture) {
@@ -40,8 +43,8 @@ public class PlaceDetail extends PlaceBrief{
 
 
 
-    public boolean isCollectStatus() {
-        return collectStatus;
+    public boolean isCollected() {
+        return collected;
     }
 
     public int getEvaluateCount() {

@@ -18,11 +18,11 @@ public class EvaluatePresenter extends BeamListActivityPresenter<EvaluateActivit
 
     @Override
     public void onRefresh() {
-        PlaceModel.getInstance().getPlacesComments(getView().getIntent().getIntExtra("id",0),0).unsafeSubscribe(getRefreshSubscriber());
+        PlaceModel.getInstance().getEvaluates(getView().getIntent().getIntExtra("id", 0), 0).unsafeSubscribe(getRefreshSubscriber());
     }
 
     @Override
     public void onLoadMore() {
-        PlaceModel.getInstance().getPlacesComments(getView().getIntent().getIntExtra("id",0), getCurPage()).unsafeSubscribe(getMoreSubscriber());
+        PlaceModel.getInstance().getEvaluates(getView().getIntent().getIntExtra("id", 0), getCurPage()).unsafeSubscribe(getMoreSubscriber());
     }
 }

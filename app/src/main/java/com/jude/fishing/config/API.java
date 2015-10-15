@@ -10,6 +10,12 @@ public class API {
         public static final String GetPlace = "/place/getPlace";
         public static final String AddPlace = "/place/add";
         public static final String GetPlaceDetail = "/place/getItem";
+        public static final String GetEvaluate = "/place/scoreList";
+        public static final String GetEvaluateDetail = "/place/scoreDetail";
+        public static final String PublishEvaluate = "/place/score";
+        public static final String CollectPlace = "/place/collect";
+        public static final String UnCollectPlace = "/place/unCollect";
+        public static final String MyColectPlace = "/place/myCollect";
 
         public static final String CheckTel = "/user/checkTel";
         public static final String Register = "/user/register";
@@ -35,12 +41,23 @@ public class API {
 
     public static class CODE {
         public static final int SUCCEED = 0;
-        public static final int SERVER_ERROR = 1;
-        public static final int PARAMS_ERROR = 2;
-        public static final int PARAMS_INVALID = 3;
-        public static final int USER_INVALID = 5;
-        public static final int PERMISSION_DENIED = 6;
-        public static final int ANALYSIS_ERROR = 8;
-        public static final int NET_INVALID = 9;
+
+        public static final int ANALYSIS_ERROR = -1;
+        public static final int NET_INVALID = -2;
+
+
+        public static final int SMS_ERROR = 1;
+        public static final int RONG_ERROR = 2;
+        public static final int QINIU_ERROR = 3;
+        public static final int PARAMS_ERROR = 9;
+        public static final int PARAMS_INVALID = 10;
+
+        public static final int SERVER_ERROR = 100;
+
+        public static final int LOGIN_INVALID= 400;
+        public static final int PERMISSION_DENIED = 401;
+
+        public static final int USER_INVALID = 1001;
+
     }
 }

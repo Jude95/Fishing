@@ -14,7 +14,7 @@ public class CollectionPlacePresenter extends BeamListActivityPresenter<Collecti
     @Override
     protected void onCreate(CollectionPlaceActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        PlaceModel.getInstance().getCollectionPlaces(getView().getIntent().getIntExtra("id",0)).subscribe(getRefreshSubscriber());
+        PlaceModel.getInstance().getMyCollectionPlaces().subscribe(getRefreshSubscriber());
     }
 
 }

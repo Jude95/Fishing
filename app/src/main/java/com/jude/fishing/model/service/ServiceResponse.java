@@ -18,9 +18,10 @@ public abstract class ServiceResponse<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (e.getLocalizedMessage().equals(ServiceException.class.getName())){
-            onServiceError(((ServiceException)e).getStatus(),((ServiceException) e).getInfo());
-        }else if (e.getLocalizedMessage().equals(ConversionException.class.getName())){
+        JUtils.Log("Error: "+e.getLocalizedMessage()+":"+ServiceException.class.getName());
+        if (e.getCause() instanceof ServiceException){
+            onServiceError(((ServiceException) e.getCause()).getStatus(), ((ServiceException) e.getCause()).getInfo());
+        }else if (e.getCause() instanceof ConversionException){
             onServiceError(API.CODE.ANALYSIS_ERROR,"数据解析错误");
         }else{
             onServiceError(API.CODE.NET_INVALID,"网络错误");
@@ -28,6 +29,7 @@ public abstract class ServiceResponse<T> implements Observer<T> {
     }
 
     public void onServiceError(int status,String info){
+        JUtils.Log("server error:"+status+" ,info:"+info);
         JUtils.Toast(info);
     }
 

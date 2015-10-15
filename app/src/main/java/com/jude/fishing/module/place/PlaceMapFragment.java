@@ -205,6 +205,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 boundsBuild.include(new LatLng(placeBrief.getLat(), placeBrief.getLng()));
             }
             aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
+            moveTo(mMyLocation.getPosition().latitude,mMyLocation.getPosition().longitude);
         });
     }
 
