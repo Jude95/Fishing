@@ -12,17 +12,14 @@ import com.jude.utils.JUtils;
 public class PwdChangePresenter extends Presenter<PwdChangeActivity> {
     public void changePwd(String oldPwd, String newPwd) {
         getView().getExpansion().showProgressDialog("请稍候...");
-        AccountModel.getInstance().modPass(oldPwd, newPwd).subscribe(new ServiceResponse<Object>() {
-            @Override
-            public void onNext(Object o) {
-                JUtils.Toast("修改密码成功");
-                getView().finish();
-            }
-
-            @Override
-            public void onCompleted() {
-                getView().getExpansion().dismissProgressDialog();
-            }
-        });
+        AccountModel.getInstance().modPass(oldPwd, newPwd)
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        JUtils.Toast("修改密码成功");
+                        getView().finish();
+                    }
+                });
     }
 }

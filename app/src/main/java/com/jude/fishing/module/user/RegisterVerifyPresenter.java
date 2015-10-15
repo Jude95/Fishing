@@ -38,18 +38,15 @@ public class RegisterVerifyPresenter extends Presenter<RegisterVerifyActivity> {
 
     public void send(String code) {
         getView().getExpansion().showProgressDialog("注册中");
-        AccountModel.getInstance().register(number, password, code).subscribe(new ServiceResponse<Object>() {
-            @Override
-            public void onNext(Object o) {
-                getView().startActivity(new Intent(getView(), UserDataActivity.class));
-                getView().finish();
-            }
-
-            @Override
-            public void onCompleted() {
-                getView().getExpansion().dismissProgressDialog();
-            }
-        });
+        AccountModel.getInstance().register(number, password, code)
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        getView().startActivity(new Intent(getView(), UserDataActivity.class));
+                        getView().finish();
+                    }
+                });
     }
 
 }
