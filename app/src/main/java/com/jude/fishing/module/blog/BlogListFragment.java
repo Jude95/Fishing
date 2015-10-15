@@ -1,6 +1,9 @@
 package com.jude.fishing.module.blog;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -25,6 +28,15 @@ public class BlogListFragment extends BeamListFragment<BlogListPresenter,Seed> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JUtils.Log("View onCreate");
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        JUtils.Log("onCreateView begin");
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        JUtils.Log("onCreateView end");
+        return v;
     }
 
     @Override
