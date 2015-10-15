@@ -18,9 +18,9 @@ public abstract class ServiceResponse<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        if (e instanceof ServiceException){
+        if (e.getLocalizedMessage().equals(ServiceException.class.getName())){
             onServiceError(((ServiceException)e).getStatus(),((ServiceException) e).getInfo());
-        }else if (e instanceof ConversionException){
+        }else if (e.getLocalizedMessage().equals(ConversionException.class.getName())){
             onServiceError(API.CODE.ANALYSIS_ERROR,"数据解析错误");
         }else{
             onServiceError(API.CODE.NET_INVALID,"网络错误");
