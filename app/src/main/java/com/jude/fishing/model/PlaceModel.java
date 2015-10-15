@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.jude.beam.model.AbsModel;
-import com.jude.fishing.model.db.DBConfig;
 import com.jude.fishing.model.db.DBHelper;
 import com.jude.fishing.model.db.PlaceDBTable;
 import com.jude.fishing.model.entities.Evaluate;
@@ -44,29 +43,27 @@ public class PlaceModel extends AbsModel {
 
     @Override
     protected void onAppCreateOnBackThread(Context ctx) {
-        syncPlace();
+        syncPlace().subscribe();
     }
 
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
-                .mapToList(DBConfig.PLACE_DB_TABLE::from);
-    }
-
-    public Observable<List<PlaceBrief>> getTestPlaces(double lat, double lng){
-        return Observable.just(createVirtualPlaces(10));
+                .mapToList(cursor ->  PlaceDBTable.getInstance().from(cursor));
     }
 
     public Observable<List<PlaceBrief>> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
                         + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
-                .mapToList(DBConfig.PLACE_DB_TABLE::from)
-                .first();
+                .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor));
     }
 
     public Observable<List<PlaceBrief>> updatePlacesByDistance(double lat, double lng){
-        return syncPlace().flatMap(placeBriefs -> getPlacesByDistance(lat,lng)).compose(new DefaultTransform<>());
+        return syncPlace()
+                .flatMap(placeBriefs -> getPlacesByDistance(lat, lng))
+                .first()
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<Object> publishPlace(PlaceDetail placeDetail){
@@ -75,7 +72,7 @@ public class PlaceModel extends AbsModel {
                 placeDetail.getId(),
                 placeDetail.getName(),
                 placeDetail.getPreview(),
-                placeDetail.getBriefAddr(),
+                placeDetail.getAddressBrief(),
                 placeDetail.getAddress(),
                 placeDetail.getCost(),
                 placeDetail.getCostType(),
@@ -100,14 +97,15 @@ public class PlaceModel extends AbsModel {
                     BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
                     for (PlaceBrief placeBrief : placeBriefs) {
                         try {
-                            mDbBrite.insert(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief));
+                            mDbBrite.insert(PlaceDBTable.TABLE_NAME, PlaceDBTable.getInstance().to(placeBrief));
                             JUtils.Log("DB", "inserted:" + placeBrief.getName());
                         } catch (Exception e) {
+                            JUtils.Log("DB", "inserted ERROR:" + e.getLocalizedMessage());
                             try {
-                                mDbBrite.update(PlaceDBTable.TABLE_NAME, DBConfig.PLACE_DB_TABLE.to(placeBrief), PlaceDBTable.COLUMN_ID + "=" + placeBrief.getId());
+                                mDbBrite.update(PlaceDBTable.TABLE_NAME, PlaceDBTable.getInstance().to(placeBrief), PlaceDBTable.COLUMN_ID + "=" + placeBrief.getId());
                                 JUtils.Log("DB", "updated" + placeBrief.getName());
                             } catch (Exception e1) {
-                                JUtils.Log("DB", "ERROR:" + e1.getLocalizedMessage());
+                                JUtils.Log("DB", "updated ERROR:" + e1.getLocalizedMessage());
                             }
                         }
                     }
@@ -115,6 +113,11 @@ public class PlaceModel extends AbsModel {
                     transaction.end();
                 });
     }
+
+    public Observable<PlaceDetail> getPlaceDetail(int id){
+        return ServiceClient.getService().getPlaceDetail(id).compose(new DefaultTransform<>());
+    }
+
 
     public Observable<List<PlaceBrief>> getUserPlaces(){
         return Observable.just(createVirtualPlaces(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
@@ -132,9 +135,6 @@ public class PlaceModel extends AbsModel {
         return Observable.just(createVirtualComment(10)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<PlaceDetail> getPlaceDetail(int id){
-        return Observable.just(createVirtualPlaceDetail()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
-    }
 
 
     PlaceDetail createVirtualPlaceDetail(){
@@ -206,7 +206,7 @@ public class PlaceModel extends AbsModel {
         List<PlaceBrief> placeBriefs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             placeBriefs.add(new PlaceBrief(
-                    i,"南山鱼塘","http://img5.imgtn.bdimg.com/it/u=2219957519,4104610372&fm=21&gp=0.jpg","南山","南山",
+                    i,"南山鱼塘","http://img5.imgtn.bdimg.com/it/u=2219957519,4104610372&fm=21&gp=0.jpg","南山",
                     3.8f, (int) (Math.random()*500), (int) (Math.random()*2),"沼跃鱼",1,"0,1",lat+(Math.random()-0.5)*10,lng+(Math.random()-0.5)*10
             ));
         }

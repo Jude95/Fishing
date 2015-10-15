@@ -9,7 +9,7 @@ public class API {
         public static final String QiNiuToken = "/common/qiniuToken";
         public static final String GetPlace = "/place/getPlace";
         public static final String AddPlace = "/place/add";
-
+        public static final String GetPlaceDetail = "/place/getItem";
 
         public static final String CheckTel = "/user/checkTel";
         public static final String Register = "/user/register";

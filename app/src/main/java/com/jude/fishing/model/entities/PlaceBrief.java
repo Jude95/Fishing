@@ -1,5 +1,7 @@
 package com.jude.fishing.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Mr.Jude on 2015/9/11.
  */
@@ -7,8 +9,8 @@ public class PlaceBrief {
     private int id;
     private String name;
     private String preview;
-    private String address;
-    private String briefAddr;
+    @SerializedName("briefAddr")
+    private String addressBrief;
     private float score;
     private int cost;
     private int costType;
@@ -26,10 +28,6 @@ public class PlaceBrief {
 
     public void setPreview(String preview) {
         this.preview = preview;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public void setScore(float score) {
@@ -64,12 +62,12 @@ public class PlaceBrief {
         this.lng = lng;
     }
 
-    public String getBriefAddr() {
-        return briefAddr;
+    public String getAddressBrief() {
+        return addressBrief;
     }
 
-    public void setBriefAddr(String briefAddr) {
-        this.briefAddr = briefAddr;
+    public void setAddressBrief(String addressBrief) {
+        this.addressBrief = addressBrief;
     }
 
     public PlaceBrief() {
@@ -78,11 +76,10 @@ public class PlaceBrief {
     private double lat;
     private double lng;
 
-    public PlaceBrief(int id, String name, String preview, String address, float score, int distance, int cost, int costType, String fishType, int poolType, String serviceType) {
+    public PlaceBrief(int id, String name, String preview,  float score, int distance, int cost, int costType, String fishType, int poolType, String serviceType) {
         this.id = id;
         this.name = name;
         this.preview = preview;
-        this.address = address;
         this.score = score;
         this.cost = cost;
         this.costType = costType;
@@ -91,12 +88,11 @@ public class PlaceBrief {
         this.serviceType = serviceType;
     }
 
-    public PlaceBrief(int id, String name, String preview, String briefAddr, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng) {
+    public PlaceBrief(int id, String name, String preview, String briefAddr,  float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng) {
         this.id = id;
         this.name = name;
         this.preview = preview;
-        this.briefAddr = briefAddr;
-        this.address = address;
+        this.addressBrief = briefAddr;
         this.score = score;
         this.cost = cost;
         this.costType = costType;
@@ -121,10 +117,6 @@ public class PlaceBrief {
 
     public String getPreview() {
         return preview;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public float getScore() {

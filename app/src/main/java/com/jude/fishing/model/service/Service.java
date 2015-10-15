@@ -6,6 +6,7 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
+import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.entities.Token;
 
 import java.util.List;
@@ -49,6 +50,11 @@ public interface Service {
             @Field("lat")double lat,
             @Field("lng")double lng
             );
+
+    @FormUrlEncoded
+    @POST(API.URL.GetPlaceDetail)
+    Observable<PlaceDetail> getPlaceDetail(@Field("id") int id);
+
     @FormUrlEncoded
     @POST(API.URL.Register)
     Observable<Object> register(@Field("tel") String tel,

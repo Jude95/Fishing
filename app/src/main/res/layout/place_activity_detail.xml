@@ -60,7 +60,18 @@
                     app:tag_text="收藏"
                     />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+            <com.jude.exgridview.ExGridView
+                android:id="@+id/server"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:background="@color/white"
+                app:grid_column="6"
+                app:grid_as_square="false"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -95,31 +106,6 @@
                     android:layout_width="16dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_arrow_right"/>
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@color/white">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/place_fish"/>
-                <TextView
-                    android:id="@+id/fish_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:singleLine="true"
-                    tools:text="沼跃鱼"/>
 
             </LinearLayout>
             <View
@@ -177,6 +163,56 @@
                     tools:text="人均150￥"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/shadow_bottom"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/shadow_top"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/place_fish"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="鱼种"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/fish_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    tools:text="两个多月以前，还是盛夏的七月。我帮关系亲密的K先生搬家，从下午一直搬到晚上。大致收拾好之后，我俩都累得爬不起来了，摊在沙发上开始玩手机。突然，K先生问我，你有没有想过你会这么单身下去，单身一辈子啊？我先是摇头，之后又点头。摇头是因为确实没想过一辈子会怎样，因为一辈子太长；点头是因为确实想过一直单身怎么办。"/>
+
+            </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -228,51 +264,6 @@
                     tools:text="两个多月以前，还是盛夏的七月。我帮关系亲密的K先生搬家，从下午一直搬到晚上。大致收拾好之后，我俩都累得爬不起来了，摊在沙发上开始玩手机。突然，K先生问我，你有没有想过你会这么单身下去，单身一辈子啊？我先是摇头，之后又点头。摇头是因为确实没想过一辈子会怎样，因为一辈子太长；点头是因为确实想过一直单身怎么办。"/>
 
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="2dp"
-                android:background="@drawable/shadow_bottom"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/shadow_top"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:background="@color/white">
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/place_server"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:singleLine="true"
-                    android:text="服务"/>
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray"/>
-
-            <com.jude.exgridview.ExGridView
-                android:id="@+id/server"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:background="@color/white"
-                app:grid_column="6"
-                app:grid_as_square="false"/>
 
             <View
                 android:layout_width="match_parent"

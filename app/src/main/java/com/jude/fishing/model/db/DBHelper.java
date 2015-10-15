@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "fishing.db";
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 10;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null,DATABASE_VERSION);
@@ -17,12 +17,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DBConfig.PLACE_DB_TABLE.create());
+        db.execSQL(PlaceDBTable.getInstance().create());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE "+ PlaceDBTable.TABLE_NAME);
-        db.execSQL(DBConfig.PLACE_DB_TABLE.create());
+        db.execSQL(PlaceDBTable.getInstance().create());
     }
 }

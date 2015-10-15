@@ -9,14 +9,16 @@ import com.jude.fishing.model.entities.PlaceBrief;
  * Created by zhuchenxi on 15/10/2.
  */
 public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
-
+    private static PlaceDBTable instance = new PlaceDBTable();
+    public static PlaceDBTable getInstance() {
+        return instance;
+    }
 
     public static final String TABLE_NAME = "place";
 
     public static final String COLUMN_ID = "pid";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_PREVIEW = "preview";
-    public static final String COLUMN_ADDRESS = "address";
     public static final String COLUMN_BRIEFADDR = "briefAddr";
     public static final String COLUMN_SCORE = "score";
     public static final String COLUMN_COST = "cost";
@@ -36,7 +38,6 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
                 COLUMN_ID + " INT PRIMARY KEY NOT NULL,"+
                 COLUMN_NAME + " CHAR(10) NOT NULL," +
                 COLUMN_PREVIEW + " CHAR(100) NOT NULL,"+
-                COLUMN_ADDRESS + " CHAR(30) NOT NULL," +
                 COLUMN_BRIEFADDR + " CHAR(30) NOT NULL," +
                 COLUMN_SCORE + " FLOAT NOT NULL,"+
                 COLUMN_COST + " INT NOT NULL,"+
@@ -55,8 +56,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
         vals.put(COLUMN_ID, object.getId());
         vals.put(COLUMN_NAME, object.getName());
         vals.put(COLUMN_PREVIEW, object.getPreview());
-        vals.put(COLUMN_ADDRESS, object.getAddress());
-        vals.put(COLUMN_BRIEFADDR, object.getBriefAddr());
+        vals.put(COLUMN_BRIEFADDR, object.getAddressBrief());
         vals.put(COLUMN_SCORE, object.getScore());
         vals.put(COLUMN_COST, object.getCost());
         vals.put(COLUMN_FISH_TYPE, object.getFishType());
@@ -75,7 +75,6 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PREVIEW)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_BRIEFADDR)),
-                cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ADDRESS)),
                 cursor.getFloat(cursor.getColumnIndexOrThrow(COLUMN_SCORE)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_COST)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_COST_TYPE)),

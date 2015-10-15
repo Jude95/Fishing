@@ -38,7 +38,6 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
     LinearLayout tagContainer;
     @InjectView(R.id.address)
     TextView address;
-
     @InjectView(R.id.cost_type)
     TAGView costType;
     @InjectView(R.id.pool_type)
@@ -85,8 +84,8 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
             }catch (Exception e){
             }
         }
-        address.setText(data.getBriefAddr());
-        JUtils.Log("Address:"+data.getBriefAddr());
+        address.setText(data.getAddressBrief());
+        JUtils.Log("Address:"+data.getAddressBrief());
     }
 
     View createTag(String content) {
