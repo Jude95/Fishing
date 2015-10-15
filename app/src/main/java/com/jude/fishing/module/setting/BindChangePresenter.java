@@ -35,16 +35,13 @@ public class BindChangePresenter extends Presenter<BindChangeActivity> {
 
     public void send(String code, String password) {
         getView().getExpansion().showProgressDialog("重新绑定");
-        AccountModel.getInstance().bindTel(phone,code,password).subscribe(new ServiceResponse<Object>() {
-            @Override
-            public void onNext(Object o) {
-                getView().finish();
-            }
-
-            @Override
-            public void onCompleted() {
-                getView().getExpansion().dismissProgressDialog();
-            }
-        });
+        AccountModel.getInstance().bindTel(phone,code,password)
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        getView().finish();
+                    }
+                });
     }
 }

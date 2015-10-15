@@ -15,7 +15,6 @@ import com.jude.utils.JUtils;
 
 import java.io.File;
 
-import rx.Observable;
 import rx.functions.Func1;
 
 /**
@@ -93,13 +92,10 @@ public class UserDataPresenter extends Presenter<UserDataActivity> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");
                 })
-                .map(new Func1<String, Observable<Object>>() {
-                    @Override
-                    public Observable<Object> call(String path) {
-                        getView().getExpansion().showProgressDialog("修改资料中...");
-                        avatarUrl = path;
-                        return AccountModel.getInstance().modifyUserData(path, name, gender, region, age, skill, sign);
-                    }
+                .map(path -> {
+                    getView().getExpansion().showProgressDialog("修改资料中...");
+                    avatarUrl = path;
+                    return AccountModel.getInstance().modifyUserData(path, name, gender, region, age, skill, sign);
                 })
                 .filter(new Func1<Object, Boolean>() {
                     @Override
@@ -118,22 +114,12 @@ public class UserDataPresenter extends Presenter<UserDataActivity> {
                         return true;
                     }
                 })
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
                         JUtils.Toast("提交成功");
                         getView().finish();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        getView().getExpansion().dismissProgressDialog();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        getView().getExpansion().dismissProgressDialog();
-                        super.onError(e);
                     }
                 });
     }

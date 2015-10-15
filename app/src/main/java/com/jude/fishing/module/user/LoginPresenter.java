@@ -19,12 +19,6 @@ public class LoginPresenter extends Presenter<LoginActivity> {
                     public void onNext(Account account) {
                         getView().finish();
                     }
-
-                    @Override
-                    public void onServiceError(int status, String info) {
-                        super.onServiceError(status, info);
-
-                    }
                 });
     }
 }

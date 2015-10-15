@@ -5,6 +5,7 @@ import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.entities.SeedComment;
 import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.service.DefaultTransform;
+import com.jude.fishing.model.service.ServiceClient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,22 @@ public class BlogModel extends AbsModel {
 
     public Observable<List<Seed>> getSeed(int type,int page){
         return Observable.just(createVirtualSeedList(20)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Seed>> getWeiboGround(int page){
+        return ServiceClient.getService().getWeiboGround(page).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Seed>> getWeiboFriend(int page){
+        return ServiceClient.getService().getWeiboFriend(page).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Seed>> getWeiboNearby(int page,int count,double lat,double lng){
+        return ServiceClient.getService().getWeiboNearby(page,count,lat,lng).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Seed>> getWeiboMy(int page){
+        return ServiceClient.getService().getWeiboMy(page).compose(new DefaultTransform<>());
     }
 
     public Observable<SeedDetail> getSeedDetail(int id){

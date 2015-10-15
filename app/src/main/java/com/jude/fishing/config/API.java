@@ -31,6 +31,11 @@ public class API {
 
         public static final String MyAttend = "/user/myAttend";
         public static final String MyFans = "/user/myFans";
+
+        public static final String GetWeiboGround = "/weibo/getListGround";
+        public static final String GetWeiboFriend = "/weibo/getListFriend";
+        public static final String GetWeiboNearby = "/weibo/getListNear";
+        public static final String GetWeiboMy = "/weibo/getListMy";
     }
 
     public static class WRAPPER {

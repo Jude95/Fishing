@@ -9,6 +9,7 @@ import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.PlaceDetail;
+import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.entities.Token;
 
 import java.util.List;
@@ -168,4 +169,29 @@ public interface Service {
 
     @POST(API.URL.GetMyInfo)
     Observable<PersonDetail> getMyInfo();
+
+    /**
+     * 获取广场微博
+     * @param page 页码
+     * @param count 可选值 默认20
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(API.URL.GetWeiboGround)
+    Observable<List<Seed>> getWeiboGround(@Field("page")int page);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetWeiboFriend)
+    Observable<List<Seed>> getWeiboFriend(@Field("page")int page);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetWeiboNearby)
+    Observable<List<Seed>> getWeiboNearby(@Field("page")int page,
+                                          @Field("count")int count,
+                                          @Field("lat") double lat,
+                                          @Field("lng") double lng);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetWeiboMy)
+    Observable<List<Seed>> getWeiboMy(@Field("page")int page);
 }
