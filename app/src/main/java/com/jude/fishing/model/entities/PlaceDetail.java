@@ -8,6 +8,12 @@ import java.util.List;
 public class PlaceDetail extends PlaceBrief{
     private String tel;
     private String content;
+    private String address;
+    private int evaluateCount;
+    private boolean collectStatus;
+    private List<String> picture;
+
+
 
     public PlaceDetail() {
     }
@@ -32,9 +38,7 @@ public class PlaceDetail extends PlaceBrief{
         this.picture = picture;
     }
 
-    private int evaluateCount;
-    private boolean collectStatus;
-    private List<String> picture;
+
 
     public boolean isCollectStatus() {
         return collectStatus;
@@ -56,9 +60,18 @@ public class PlaceDetail extends PlaceBrief{
         return picture;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public PlaceDetail(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng, String tel, String content, List<String> picture) {
-        super(id, name, preview, address,address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
+        super(id, name, preview, address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
         this.tel = tel;
+        this.address = address;
         this.content = content;
         this.picture = picture;
     }

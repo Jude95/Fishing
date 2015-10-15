@@ -40,7 +40,7 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/28.
  */
 @RequiresPresenter(PlaceMapPresenter.class)
-public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements AMap.OnMarkerClickListener, AMap.OnMapClickListener, AMap.OnInfoWindowClickListener {
+public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements AMap.OnMarkerClickListener, AMap.OnMapClickListener {
 
     @InjectView(R.id.map)
     MapView mMapView;
@@ -77,22 +77,22 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                     aMap.getCameraPosition().target, aMap.getCameraPosition().zoom + 1, 0, 0
             )));
         });
-        zoomOut.setOnClickListener(v->{
+        zoomOut.setOnClickListener(v -> {
             aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
                     aMap.getCameraPosition().target, aMap.getCameraPosition().zoom - 1, 0, 0
             )));
         });
-        location.setOnClickListener(v->{
-            moveTo(mMyLocation.getPosition().latitude,mMyLocation.getPosition().longitude);
+        location.setOnClickListener(v -> {
+            moveTo(mMyLocation.getPosition().latitude, mMyLocation.getPosition().longitude);
         });
-        type.setOnClickListener(v->{
-            if (mStatus==0){
+        type.setOnClickListener(v -> {
+            if (mStatus == 0) {
                 aMap.setMapType(AMap.MAP_TYPE_SATELLITE);
-                mStatus=1;
+                mStatus = 1;
                 type.setImageResource(R.drawable.ic_map_paper);
-            }else{
+            } else {
                 aMap.setMapType(AMap.MAP_TYPE_NORMAL);
-                mStatus=2;
+                mStatus = 0;
                 type.setImageResource(R.drawable.ic_map_moon);
             }
         });
@@ -108,12 +108,8 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         mUiSettings.setScaleControlsEnabled(true);
         mUiSettings.setMyLocationButtonEnabled(false);
         moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), 13);
-        mMyLocation = initMyPoint();
-        LocationModel.getInstance().registerLocationChange(location -> {
-            mMyLocation.setPosition(location.toLatLng());
-            mMyLocation.setSnippet(location.getAddress());
-        });
-        aMap.setOnInfoWindowClickListener(this);
+        initMyPoint();
+
         aMap.setOnMarkerClickListener(this);
         aMap.setOnMapClickListener(this);
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
@@ -124,11 +120,15 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 View infoContent = getActivity().getLayoutInflater().inflate(
                         R.layout.place_window_info, null);
                 ((SimpleDraweeView) (infoContent.findViewById(R.id.preview))).setImageURI(ImageModel.getInstance().getSmallImage(placeBrief.getPreview()));
-
                 ((TextView) (infoContent.findViewById(R.id.name))).setText(placeBrief.getName());
                 ((ScoreView) (infoContent.findViewById(R.id.score_image))).setScore(placeBrief.getScore());
                 ((TextView) (infoContent.findViewById(R.id.score))).setText(placeBrief.getScore() + "");
                 ((TextView) (infoContent.findViewById(R.id.distance))).setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(placeBrief.getLat(), placeBrief.getLng())) + "/" + placeBrief.getCost() + "¥");
+                infoContent.setOnClickListener(v -> {
+                    Intent i = new Intent(getContext(), PlaceDetailActivity.class);
+                    i.putExtra("id", mMarkerMap.get(marker).getId());
+                    getContext().startActivity(i);
+                });
                 return infoContent;
             }
 
@@ -159,26 +159,36 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         }
     }
 
-    private Marker initMyPoint() {
+    private void initMyPoint() {
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.location_marker));
-        markerOption.title("我的位置");
-        return aMap.addMarker(markerOption);
+        markerOption.title("我的位置")
+        ;
+        mMyLocation = aMap.addMarker(markerOption);
+        LocationModel.getInstance().registerLocationChange(location -> {
+            mMyLocation.setPosition(location.toLatLng());
+            mMyLocation.setSnippet(location.getAddress());
+        });
     }
 
-    ArrayList<PlaceBrief> zoomMarkerList = new ArrayList<>();
+    public void clearMarker(){
+        aMap.clear();
+        initMyPoint();
+    }
 
+
+    ArrayList<PlaceBrief> zoomMarkerList = new ArrayList<>();
     public void addMarker(PlaceBrief place) {
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.position(new LatLng(place.getLat(), place.getLng()));
-        markerOption.title(place.getName()).snippet(place.getAddress());
+        markerOption.title(place.getName()).snippet(place.getAddressBrief());
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(place.getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         Marker marker = aMap.addMarker(markerOption);
         mMarkerMap.put(marker, place);
         if (zoomMarkerList.size() < MIN_ZOOM_MARKER_COUNT) zoomMarkerList.add(place);
-        if (zoomMarkerList.size() == MIN_ZOOM_MARKER_COUNT) moveToAdjustPlace(zoomMarkerList);
+        if (zoomMarkerList.size() == MIN_ZOOM_MARKER_COUNT) zoomMarker(zoomMarkerList);
     }
 
 
@@ -188,11 +198,14 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
      * @param place
      */
     private void zoomMarker(ArrayList<PlaceBrief> place) {
-        LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
-        for (PlaceBrief placeBrief : place) {
-            boundsBuild.include(new LatLng(placeBrief.getLat(), placeBrief.getLng()));
-        }
-        aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
+        mMapView.post(() -> {
+            LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
+            boundsBuild.include(mMyLocation.getPosition());
+            for (PlaceBrief placeBrief : place) {
+                boundsBuild.include(new LatLng(placeBrief.getLat(), placeBrief.getLng()));
+            }
+            aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
+        });
     }
 
 
@@ -243,13 +256,6 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     @Override
     public void onMapClick(LatLng latLng) {
         if (lastMarker != null) lastMarker.hideInfoWindow();
-    }
-
-    @Override
-    public void onInfoWindowClick(Marker marker) {
-        Intent i = new Intent(getContext(), PlaceDetailActivity.class);
-        i.putExtra("id", mMarkerMap.get(marker).getId());
-        getContext().startActivity(i);
     }
 
     @Override

@@ -67,15 +67,15 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         publishObject(mPlaceDetail);
     }
 
-    public void setFishType(Integer[] types) {
-        String typeStr = "";
-        for (Integer type : types) {
-            typeStr+=type+",";
+    public void setFishType(Integer[] fishs) {
+        String fishStr = "";
+        for (Integer fish : fishs) {
+            fishStr+=fish+",";
         }
-        if (types.length>1){
-            typeStr = typeStr.substring(0, typeStr.length() - 1);
+        if (fishs.length>1){
+            fishStr = fishStr.substring(0, fishStr.length() - 1);
         }
-        mPlaceDetail.setFishType(typeStr);
+        mPlaceDetail.setFishType(fishStr);
         publishObject(mPlaceDetail);
     }
 
@@ -117,7 +117,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                 mPlaceDetail.setLat(point.latitude);
                 mPlaceDetail.setLng(point.longitude);
             }
-            mPlaceDetail.setBriefAddr(data.getStringExtra("briefAddress"));
+            mPlaceDetail.setAddressBrief(data.getStringExtra("briefAddress"));
             mPlaceDetail.setAddress(data.getStringExtra("address"));
             publishObject(mPlaceDetail);
             return;

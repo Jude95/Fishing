@@ -2,7 +2,6 @@ package com.jude.fishing.module.place;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -18,6 +17,7 @@ import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Constant;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.rollviewpager.RollPagerView;
@@ -59,6 +59,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     TextView content;
     @InjectView(R.id.server)
     ExGridView server;
+
     TAGView commentCount;
     PictureAdapter adapter;
 
@@ -77,17 +78,29 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     }
 
     @Override
+    public void setError(Throwable e) {
+        JUtils.Log("Fucker"+e.getLocalizedMessage());
+        getExpansion().showErrorPage();
+    }
+
+    @Override
     public void setData(PlaceDetail data) {
         getExpansion().dismissProgressPage();
+        getSupportActionBar().setTitle(data.getName());
         evaluateCount = data.getEvaluateCount();
-        commentCount.setText(data.getEvaluateCount() + "");
+        if (commentCount!=null)
+            commentCount.setText(data.getEvaluateCount() + "");
         score.setScore(data.getScore());
         scoreText.setText(data.getScore() + "");
         address.setText(data.getAddress());
         tel.setText(data.getTel());
         price.setText("人均消费:" + data.getCost() + "元");
 
-        content.setText(data.getContent());
+        if (TextUtils.isEmpty(data.getContent())){
+            content.setText("暂无");
+        }else{
+            content.setText(data.getContent());
+        }
         adapter.setPath(data.getPicture());
 
         String fish = "";
@@ -116,14 +129,16 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
                     server));
 
         for (String s : data.getServiceType().split(",")) {
-            int index = Integer.parseInt(s);
-            if (index<Constant.PlaceServiceType.length){
-                server.addView(createServerView(Constant.PlaceServiceType[index],
-                        server));
+            try{
+                int index = Integer.parseInt(s);
+                if (index<Constant.PlaceServiceType.length){
+                    server.addView(createServerView(Constant.PlaceServiceType[index],
+                            server));
+                }
+            }catch (Exception e){
+
             }
         }
-
-
     }
 
     private View createServerView(String text,ViewGroup parent){
@@ -145,7 +160,6 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         commentCount = (TAGView) menu.findItem(R.id.comment).getActionView();
         commentCount.setBackgroundColor(Color.TRANSPARENT);
         commentCount.setIcon(R.drawable.ic_comment);
-        commentCount.setText("128");
         commentCount.setImageWidth(JUtils.dip2px(24));
         commentCount.setText(evaluateCount+"");
         commentCount.setOnClickListener(v->{
@@ -176,7 +190,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         public View getView(ViewGroup container, int position) {
             SimpleDraweeView simpleDraweeView = new SimpleDraweeView(container.getContext());
             simpleDraweeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            simpleDraweeView.setImageURI(Uri.parse(path.get(position)));
+            simpleDraweeView.setImageURI(ImageModel.getInstance().getSizeImage(path.get(position),640));
             return simpleDraweeView;
         }
 
