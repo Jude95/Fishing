@@ -12,16 +12,18 @@ public class LoginPresenter extends Presenter<LoginActivity> {
 
     public void login(String name,String password){
         getView().getExpansion().showProgressDialog("登录中");
-        AccountModel.getInstance().login(name,password).subscribe(new ServiceResponse<Account>() {
-            @Override
-            public void onNext(Account account) {
-                getView().finish();
-            }
+        AccountModel.getInstance().login(name,password)
+                .finallyDo(()->getView().getExpansion().dismissProgressDialog())
+                .subscribe(new ServiceResponse<Account>() {
+                    @Override
+                    public void onNext(Account account) {
+                        getView().finish();
+                    }
 
-            @Override
-            public void onCompleted() {
-                getView().getExpansion().dismissProgressDialog();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
     }
 }
