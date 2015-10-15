@@ -2,8 +2,8 @@ package com.jude.fishing.model.service;
 
 import com.google.gson.Gson;
 import com.jude.fishing.config.API;
-import com.jude.utils.JUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -32,25 +32,36 @@ public class WrapperConverter implements Converter {
     public Object fromBody(TypedInput body, Type type) throws ConversionException {
         String result = getString(body);
 
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            int status = jsonObject.getInt(API.WRAPPER.STATUS);
-            if (status == API.CODE.SUCCEED){
-                if (jsonObject.has(API.WRAPPER.DATA))
-                    return getGson().fromJson(jsonObject.getString(API.WRAPPER.DATA), type);
-                else
-                    return null;
-            }else{
-                String info = "";
-                if (jsonObject.has(API.WRAPPER.INFO))
-                    info = jsonObject.getString(API.WRAPPER.INFO);
+        JSONObject jsonObject = null;
+        int status = 0;
 
-                JUtils.Log("ServiceException");
-                throw new ServiceException(status,info);
-            }
-        } catch (Exception e) {
-            JUtils.Log("ConversionException");
-            throw new ConversionException(e);
+        try {
+            jsonObject = new JSONObject(result);
+            status = jsonObject.getInt(API.WRAPPER.STATUS);
+        } catch (JSONException e) {
+            throw new ServiceException(API.CODE.ANALYSIS_ERROR,"数据解析错误");
+        }
+
+
+        if (status == API.CODE.SUCCEED){
+            if (jsonObject.has(API.WRAPPER.DATA))
+                try {
+                    return getGson().fromJson(jsonObject.getString(API.WRAPPER.DATA), type);
+                } catch (JSONException e) {
+                    throw new ServiceException(API.CODE.ANALYSIS_ERROR,"数据解析错误");
+                }
+            else
+                return null;
+
+        }else{
+
+            String info = "";
+            if (jsonObject.has(API.WRAPPER.INFO))
+                try {
+                    info = jsonObject.getString(API.WRAPPER.INFO);
+                } catch (JSONException e) {
+                }
+            throw new ServiceException(status,info);
         }
     }
 

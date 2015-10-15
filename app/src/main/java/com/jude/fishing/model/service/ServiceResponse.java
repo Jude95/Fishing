@@ -3,7 +3,6 @@ package com.jude.fishing.model.service;
 import com.jude.fishing.config.API;
 import com.jude.utils.JUtils;
 
-import retrofit.converter.ConversionException;
 import rx.Observer;
 
 /**
@@ -18,11 +17,9 @@ public abstract class ServiceResponse<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
-        JUtils.Log("Error: "+e.getLocalizedMessage()+":"+ServiceException.class.getName());
+        JUtils.Log("Error: "+((ServiceException) e.getCause()).getStatus()+":"+ServiceException.class.getName());
         if (e.getCause() instanceof ServiceException){
             onServiceError(((ServiceException) e.getCause()).getStatus(), ((ServiceException) e.getCause()).getInfo());
-        }else if (e.getCause() instanceof ConversionException){
-            onServiceError(API.CODE.ANALYSIS_ERROR,"数据解析错误");
         }else{
             onServiceError(API.CODE.NET_INVALID,"网络错误");
         }
