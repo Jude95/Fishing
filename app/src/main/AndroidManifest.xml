@@ -85,6 +85,8 @@
         <activity
             android:name=".module.user.RegisterVerifyActivity"
             android:label="手机号快速注册" />
+        <activity android:name=".module.user.ForgetPwdActivity"
+            android:label="忘记密码"/>
         <activity
             android:name=".module.blog.WriteActivity"
             android:label="发布热闹" />

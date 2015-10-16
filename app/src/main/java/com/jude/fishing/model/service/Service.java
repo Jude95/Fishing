@@ -150,6 +150,12 @@ public interface Service {
                                @Field("password")String password);
 
     @FormUrlEncoded
+    @POST(API.URL.ResetPass)
+    Observable<Object> resetPass(@Field("tel")String tel,
+                                 @Field("code")String code,
+                                 @Field("password")String password);
+
+    @FormUrlEncoded
     @POST(API.URL.Attend)
     Observable<Object> attend(@Field("id")int id);
 
@@ -194,4 +200,12 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.GetWeiboMy)
     Observable<List<Seed>> getWeiboMy(@Field("page")int page);
+
+    @FormUrlEncoded
+    @POST(API.URL.AddWeibo)
+    Observable<Object> addWeibo(@Field("content")String content,
+                                @Field("images")String images,
+                                @Field("address")int address,
+                                @Field("lng")double lng,
+                                @Field("lat")double lat);
 }

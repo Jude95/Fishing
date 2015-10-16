@@ -123,6 +123,10 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> bindTel(String tel,String code,String password){
-        return ServiceClient.getService().bindTel(tel,code,password).compose(new DefaultTransform<>());
+        return ServiceClient.getService().bindTel(tel, code, password).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> resetPass(String tel,String code,String password){
+        return ServiceClient.getService().resetPass(tel,code,password).compose(new DefaultTransform<>());
     }
 }
