@@ -25,7 +25,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="8dp"
-            android:src="@drawable/ic_map_moon"
+            android:src="@drawable/ic_map_moon_orange"
             android:background="@drawable/bg_round_alpha"/>
 
     </LinearLayout>
@@ -44,7 +44,7 @@
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_location_orange"
                 android:background="@drawable/bg_round_alpha"/>
 
 
@@ -54,7 +54,7 @@
                 android:layout_height="40dp"
                 android:padding="8dp"
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_add_gray"
+                android:src="@drawable/ic_add_orange"
                 android:background="@drawable/bg_round_alpha"/>
 
             <ImageView
@@ -64,7 +64,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/bg_round_alpha"
-                android:src="@drawable/ic_minus_gray"/>
+                android:src="@drawable/ic_minus_orange"/>
         </LinearLayout>
 
 

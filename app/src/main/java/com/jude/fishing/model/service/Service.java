@@ -92,6 +92,12 @@ public interface Service {
     @GET(API.URL.MyColectPlace)
     Observable<List<PlaceBrief>> myPlaceCollect();
 
+    @FormUrlEncoded
+    @POST(API.URL.EvaluateComment)
+    Observable<Object> EvaluateComment(
+            @Field("sid") int sid,
+            @Field("fid") int fid,
+            @Field("content") String content);
 
     @FormUrlEncoded
     @POST(API.URL.Register)

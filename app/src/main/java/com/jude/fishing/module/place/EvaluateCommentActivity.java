@@ -1,12 +1,14 @@
 package com.jude.fishing.module.place;
 
 import android.net.Uri;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
@@ -20,6 +22,7 @@ import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -61,16 +64,35 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         score.setScore(data.getScore());
-
-        pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
-
+        if (data.getImages()!=null)
+            pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
+        view.setOnClickListener(v->{
+            showCommentEdit(data.getAuthorId(),data.getAuthorName());
+        });
         return view;
     }
 
 
+    public void showCommentEdit(int fid,String fname) {
+        new MaterialDialog.Builder(this)
+                .title("输入对"+fname+"的回复")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .inputRange(2, 10)
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        if (input.toString().trim().isEmpty()) {
+                            JUtils.Toast("回复不能为空");
+                            return;
+                        }
+                        getPresenter().sentComment(input.toString(),fid);
+                    }
+                }).show();
+    }
+
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
-        return new EvaluateCommentViewHolder(viewGroup);
+        return new EvaluateCommentViewHolder(viewGroup,this);
     }
 
     @Override

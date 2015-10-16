@@ -10,6 +10,12 @@ import rx.Observer;
  * 服务器返回的回调
  */
 public abstract class ServiceResponse<T> implements Observer<T> {
+
+    @Override
+    public void onNext(T t) {
+
+    }
+
     @Override
     public void onCompleted() {
 

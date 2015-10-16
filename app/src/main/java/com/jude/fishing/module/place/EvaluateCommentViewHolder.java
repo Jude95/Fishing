@@ -39,8 +39,11 @@ public class EvaluateCommentViewHolder extends BaseViewHolder<EvaluateComment> {
     @InjectView(R.id.child)
     LinearWrapContentRecyclerView child;
 
-    public EvaluateCommentViewHolder(ViewGroup parent) {
+    private EvaluateCommentActivity mActivity;
+
+    public EvaluateCommentViewHolder(ViewGroup parent,EvaluateCommentActivity activity) {
         super(parent, R.layout.blog_item_comment);
+        mActivity = activity;
         ButterKnife.inject(this, itemView);
         child.setOrientation(LinearLayout.VERTICAL);
     }
@@ -51,6 +54,7 @@ public class EvaluateCommentViewHolder extends BaseViewHolder<EvaluateComment> {
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
+        itemView.setOnClickListener(v-> mActivity.showCommentEdit(data.getId(),data.getAuthorName()));
         createTextView(child, dealChildArray(data));
     }
 
@@ -71,10 +75,10 @@ public class EvaluateCommentViewHolder extends BaseViewHolder<EvaluateComment> {
 
             TextView textView  = new TextView(parent.getContext());
             textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setPadding(0, JUtils.dip2px(2),0,0);
+            textView.setPadding(0, JUtils.dip2px(2), 0, 0);
             textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setText(spannableInfo);
-            JUtils.Log("createTextView:"+spannableInfo.toString());
+            textView.setOnClickListener(v->mActivity.showCommentEdit(EvaluateComment.getId(),EvaluateComment.getAuthorName()));
             parent.addView(textView);
         }
     }

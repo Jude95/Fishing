@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -137,6 +138,7 @@ public class WriteEvaluatePresenter extends Presenter<WriteEvaluateActivity> imp
                     @Override
                     public void onNext(Object o) {
                         JUtils.Toast("提交成功");
+                        getView().setResult(Activity.RESULT_OK);
                         getView().finish();
                     }
                 });

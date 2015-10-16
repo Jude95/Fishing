@@ -2,10 +2,12 @@ package com.jude.fishing.model.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Mr.Jude on 2015/9/11.
  */
-public class PlaceBrief {
+public class PlaceBrief implements Serializable{
     private int id;
     private String name;
     private String preview;

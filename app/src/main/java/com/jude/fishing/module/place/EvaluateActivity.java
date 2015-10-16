@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -57,7 +58,16 @@ public class EvaluateActivity extends BeamListActivity<EvaluatePresenter, Evalua
             }
             Intent i = new Intent(this,WriteEvaluateActivity.class);
             i.putExtra("id",getIntent().getIntExtra("id",0));
-            startActivity(i);
+            startActivityForResult(i, 10086);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10086 && resultCode == Activity.RESULT_OK){
+            getListView().getSwipeToRefresh().setRefreshing(true);
+            getPresenter().onRefresh();
+        }
     }
 }

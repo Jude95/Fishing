@@ -74,7 +74,7 @@ public class PlaceModel extends AbsModel {
 
     public Observable<List<PlaceBrief>> syncPlace(){
         return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
-                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 10000 + "").apply())
+                .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
                 .doOnNext(placeBriefs -> {
                     BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
                     for (PlaceBrief placeBrief : placeBriefs) {
@@ -134,6 +134,10 @@ public class PlaceModel extends AbsModel {
 
     public Observable<EvaluateDetail> getEvaluateDetail(int id){
         return ServiceClient.getService().getEvaluateDetail(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> sendEvaluateComment(int sid,int fid,String content){
+        return ServiceClient.getService().EvaluateComment(sid,fid,content).compose(new DefaultTransform<>());
     }
 
     public Observable<Object> publishEvaluate(int pid,String content,List<String> images,int score){

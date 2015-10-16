@@ -2,12 +2,13 @@ package com.jude.fishing.model.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Mr.Jude on 2015/9/23.
  */
-public class PlaceDetail extends PlaceBrief{
+public class PlaceDetail extends PlaceBrief implements Serializable{
     private String tel;
     private String content;
     private String address;

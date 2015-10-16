@@ -192,7 +192,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
 
 
     /**
-     *  会报“the map must have a size”错误，why
+     *  不用post会报“the map must have a size”错误，why
      *
      * @param place
      */
