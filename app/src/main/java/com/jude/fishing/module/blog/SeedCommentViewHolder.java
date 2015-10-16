@@ -60,6 +60,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
+        child.removeAllViews();
         createTextView(child, dealChildArray(data));
     }
 

@@ -55,6 +55,7 @@ public class EvaluateCommentViewHolder extends BaseViewHolder<EvaluateComment> {
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
         itemView.setOnClickListener(v-> mActivity.showCommentEdit(data.getId(),data.getAuthorName()));
+        child.removeAllViews();
         createTextView(child, dealChildArray(data));
     }
 

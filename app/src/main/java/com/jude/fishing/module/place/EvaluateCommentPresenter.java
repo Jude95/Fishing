@@ -8,10 +8,8 @@ import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.EvaluateComment;
-import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.service.ServiceResponse;
-
-import rx.functions.Action1;
+import com.jude.utils.JUtils;
 
 /**
  * Created by zhuchenxi on 15/10/3.
@@ -29,12 +27,7 @@ public class EvaluateCommentPresenter extends BeamListActivityPresenter<Evaluate
     @Override
     public void onRefresh() {
         PlaceModel.getInstance().getEvaluateDetail(id)
-                .doOnNext(new Action1<EvaluateDetail>() {
-                    @Override
-                    public void call(EvaluateDetail evaluateDetail) {
-                        getAdapter().removeHeader(mHeader);
-                    }
-                })
+                .doOnNext(evaluateDetail -> getAdapter().removeHeader(mHeader))
                 .map(seedDetail -> {
                     getAdapter().addHeader(mHeader = new RecyclerArrayAdapter.ItemView() {
                         @Override
@@ -47,8 +40,11 @@ public class EvaluateCommentPresenter extends BeamListActivityPresenter<Evaluate
 
                         }
                     });
+
+                    JUtils.Log("onRefresh" + (seedDetail.getComments()==null));
                     return seedDetail.getComments();
                 })
+                .doOnError(throwable -> JUtils.Log("Evaluate:" + throwable.getLocalizedMessage()))
                 .unsafeSubscribe(getRefreshSubscriber());
     }
 

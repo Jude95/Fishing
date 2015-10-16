@@ -75,21 +75,19 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         new MaterialDialog.Builder(this)
                 .title("输入对"+fname+"的回复")
                 .inputType(InputType.TYPE_CLASS_TEXT)
-                .inputRange(2, 10)
-                .input("", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
-                        if (input.toString().trim().isEmpty()) {
-                            JUtils.Toast("回复不能为空");
-                            return;
-                        }
-                        getPresenter().sentComment(input.toString(),fid);
+                .inputRange(0, 100)
+                .input("", "", (dialog, input) -> {
+                    if (input.toString().trim().isEmpty()) {
+                        JUtils.Toast("回复不能为空");
+                        return;
                     }
+                    getPresenter().sentComment(input.toString(),fid);
                 }).show();
     }
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
+        JUtils.Log("getViewHolder");
         return new EvaluateCommentViewHolder(viewGroup,this);
     }
 

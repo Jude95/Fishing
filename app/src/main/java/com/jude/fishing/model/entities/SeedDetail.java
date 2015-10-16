@@ -1,5 +1,7 @@
 package com.jude.fishing.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  */
 public class SeedDetail extends Seed{
     private List<PersonBrief> praiseMember;
+    @SerializedName("comment")
     private List<SeedComment> comments;
 
     public List<SeedComment> getComments() {
