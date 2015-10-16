@@ -228,7 +228,7 @@ public interface Service {
     @POST(API.URL.AddWeibo)
     Observable<Object> addWeibo(@Field("content")String content,
                                 @Field("images")String images,
-                                @Field("address")int address,
+                                @Field("address")String address,
                                 @Field("lng")double lng,
                                 @Field("lat")double lat);
 }
