@@ -24,6 +24,7 @@ public class API {
         public static final String ModInfo = "/user/modInfo";
         public static final String ModPass = "/user/modPass";
         public static final String BindTel = "/user/bindTel";
+        public static final String ResetPass = "/user/resetPass";
         public static final String GetUserInfo = "/user/getUserinfo";
         public static final String GetMyInfo = "/user/getmyinfo";
 
@@ -37,6 +38,7 @@ public class API {
         public static final String GetWeiboFriend = "/weibo/getListFriend";
         public static final String GetWeiboNearby = "/weibo/getListNear";
         public static final String GetWeiboMy = "/weibo/getListMy";
+        public static final String AddWeibo = "/weibo/add";
     }
 
     public static class WRAPPER {

@@ -40,6 +40,7 @@ public class LoginActivity extends BeamBaseActivity<LoginPresenter> {
         ButterKnife.inject(this);
         register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
         login.setOnClickListener(v-> checkInput());
+        findPassword.setOnClickListener(v->startActivity(new Intent(this,ForgetPwdActivity.class)));
     }
 
     private void checkInput(){
