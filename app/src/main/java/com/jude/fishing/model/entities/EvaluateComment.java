@@ -1,11 +1,15 @@
 package com.jude.fishing.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by zhuchenxi on 15/10/3.
  */
 public class EvaluateComment {
     private int id ;
+    @SerializedName("fid")
     private int originalId;
+    @SerializedName("uid")
     private int authorId;
     private String authorName ;
     private String authorAvatar ;
