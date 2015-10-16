@@ -46,6 +46,10 @@ public class BlogModel extends AbsModel {
         return Observable.just(createVirtualSeedDetail()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
+    public Observable<Object> addWeibo(String content,String images,String address,double lng,double lat){
+        return ServiceClient.getService().addWeibo(content,images,address,lng,lat).compose(new DefaultTransform<>());
+    }
+
     List<Seed> createVirtualSeedList(int count){
         List<Seed> seeds = new ArrayList<>();
         for (int i = 0; i < count; i++) {

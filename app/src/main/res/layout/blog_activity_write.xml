@@ -1,49 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include layout="@layout/include_toolbar"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_margin"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin">
 
         <EditText
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="96dp"
             android:background="@null"
             android:gravity="top"
-            android:textSize="14sp"
-            android:hint="说点什么吧"/>
+            android:hint="说点什么吧"
+            android:minHeight="96dp"
+            android:textSize="14sp" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:layout_marginTop="@dimen/activity_margin"
             android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/activity_margin"
 
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
 
         <com.jude.exgridview.PieceViewGroup
             android:id="@+id/images"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/shadow_bottom"/>
+        android:background="@drawable/shadow_bottom" />
+
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawableLeft="@drawable/location_point_green"
+        android:gravity="center_vertical"
+        android:visibility="gone"/>
+
     <com.jude.tagview.TAGView
         android:id="@+id/send"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_margin"
         app:tag_color="?colorPrimary"
         app:tag_text="发布"
-        android:layout_marginTop="@dimen/activity_margin"
-        app:tag_text_size="18sp"/>
+        app:tag_text_size="18sp" />
 </LinearLayout>

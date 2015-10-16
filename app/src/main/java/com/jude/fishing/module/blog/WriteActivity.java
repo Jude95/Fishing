@@ -3,6 +3,9 @@ package com.jude.fishing.module.blog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.bijection.RequiresPresenter;
@@ -11,6 +14,7 @@ import com.jude.exgridview.ImagePieceView;
 import com.jude.exgridview.PieceViewGroup;
 import com.jude.fishing.R;
 import com.jude.tagview.TAGView;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,6 +32,10 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
     TAGView send;
     @InjectView(R.id.images)
     PieceViewGroup images;
+    @InjectView(R.id.content)
+    EditText content;
+    @InjectView(R.id.tv_location)
+    TextView tvLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,15 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
         images.setAddImageRes(R.drawable.pic_add);
         images.setOKImageRes(R.drawable.pic_ok);
         images.setOnViewDeleteListener(getPresenter());
+        send.setOnClickListener(v->checkInput());
+    }
+
+    private void checkInput() {
+        if (content.getText().toString().trim().isEmpty()){
+            JUtils.Toast("说点什么吧");
+            return;
+        }
+        getPresenter().writeWeibo(content.getText().toString().trim());
     }
 
     public void showSelectorDialog() {
@@ -51,6 +68,11 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
         ImagePieceView pieceView = new ImagePieceView(this);
         pieceView.setImageBitmap(bitmap);
         images.addView(pieceView);
+    }
+
+    public void setAddress(String address){
+        tvLoc.setVisibility(View.VISIBLE);
+        tvLoc.setText(address);
     }
 
 }
