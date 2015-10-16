@@ -45,29 +45,23 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
 
     @Override
     public void onLoadMore() {
-//        BlogModel.getInstance().getSeed(0,getCurPage()).unsafeSubscribe(getMoreSubscriber());
         if (0 == style) {
             BlogModel.getInstance().getWeiboGround(getCurPage()).unsafeSubscribe(getMoreSubscriber());
         } else if (1 == style) {
             BlogModel.getInstance().getWeiboFriend(getCurPage()).unsafeSubscribe(getMoreSubscriber());
         } else if (2 == style) {
             BlogModel.getInstance().getWeiboNearby(getCurPage(),20,location.getLatitude(),location.getLongitude()).unsafeSubscribe(getMoreSubscriber());
-        } else {
-            BlogModel.getInstance().getWeiboMy(getCurPage()).unsafeSubscribe(getMoreSubscriber());
         }
     }
 
     @Override
     public void onRefresh() {
-//        BlogModel.getInstance().getSeed(0,0).unsafeSubscribe(getRefreshSubscriber());
         if (0 == style) {
             BlogModel.getInstance().getWeiboGround(0).unsafeSubscribe(getRefreshSubscriber());
         } else if (1 == style) {
             BlogModel.getInstance().getWeiboFriend(0).unsafeSubscribe(getRefreshSubscriber());
         } else if (2 == style) {
             BlogModel.getInstance().getWeiboNearby(0,20,location.getLatitude(),location.getLongitude()).unsafeSubscribe(getRefreshSubscriber());
-        } else {
-            BlogModel.getInstance().getWeiboMy(0).unsafeSubscribe(getRefreshSubscriber());
         }
     }
 }

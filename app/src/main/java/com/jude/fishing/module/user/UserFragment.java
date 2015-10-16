@@ -65,6 +65,8 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     @InjectView(R.id.place)
     LinearLayout place;
 
+    int uid;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,12 +80,18 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         ButterKnife.inject(this, root);
         containerUser.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserDetailActivity.class)));
         containerBlog.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserBlogActivity.class)));
-        containerFans.setOnClickListener(v -> startActivity(new Intent(getActivity(), FansActivity.class)));
-        containerAttention.setOnClickListener(v -> startActivity(new Intent(getActivity(), AttentionActivity.class)));
+        containerFans.setOnClickListener(v -> goToActivity(FansActivity.class));
+        containerAttention.setOnClickListener(v -> goToActivity(AttentionActivity.class));
         collect.setOnClickListener(v -> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));
         evaluate.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserEvaluateActivity.class)));
-        place.setOnClickListener(v->startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
+        place.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
         return root;
+    }
+
+    private void goToActivity(Class clz) {
+        Intent intent = new Intent(getActivity(), clz);
+        intent.putExtra("id",uid);
+        startActivity(intent);
     }
 
     @Override
@@ -94,11 +102,12 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
 
     @Override
     public void setData(Account data) {
+        uid = data.getUID();
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
         blog.setText(data.getBlogCount()+"");
-        attention.setText(data.getAttentionCount()+"");
-        fans.setText(data.getFansCount()+"");
+        attention.setText(data.getCared());
+        fans.setText(data.getFans());
     }
 }

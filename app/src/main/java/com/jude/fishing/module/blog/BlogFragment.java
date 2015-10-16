@@ -76,7 +76,7 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -85,7 +85,6 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
                 case 0:return "热闹广场";
                 case 1:return "朋友圈";
                 case 2:return "附近热闹";
-                case 3:return "我的热闹";
                 default:throw new RuntimeException("页数不存在");
             }
         }

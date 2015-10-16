@@ -83,11 +83,15 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     LinearLayout attentionOperation;
     @InjectView(R.id.tv_op_attention)
     TextView tvOpAttention;
+    @InjectView(R.id.ll_chat)
+    LinearLayout chat;
 
     private boolean isAttended;
     private Drawable mActionbarDrawable;
 
     int id;
+    String userName;
+    int uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +117,10 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
                 }
             }
         });
-        containerAttention.setOnClickListener(v -> startActivity(new Intent(this, AttentionActivity.class)));
+        containerAttention.setOnClickListener(v -> getPresenter().goToActivity(AttentionActivity.class,uid));
         containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
-        containerFans.setOnClickListener(v -> startActivity(new Intent(this, FansActivity.class)));
+        containerFans.setOnClickListener(v -> getPresenter().goToActivity(FansActivity.class,uid));
+        chat.setOnClickListener(v->getPresenter().chat(userName));
     }
 
     public void changeAttention() {
@@ -134,11 +139,13 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         if (data == null) getExpansion().showErrorPage();
         if (data.getBackground() != null)
             background.setImageURI(Uri.parse(data.getBackground()));
+        userName = data.getName();
+        uid = data.getUID();
         name.setText(data.getName());
         avatar.setImageURI(Uri.parse(data.getAvatar()));
-        attention.setText(data.getAttentionCount() + "");
+        attention.setText(data.getCared());
         sign.setText(data.getSign());
-        fans.setText(data.getFansCount() + "");
+        fans.setText(data.getFans());
         blog.setText(data.getBlogCount() + "");
         address.setText(data.getAddress());
         age.setText(data.getAge() + "年");

@@ -43,23 +43,25 @@ public class SocialModel extends AbsModel {
     }
 
     public Observable<List<PersonBrief>> getAttentions(int uid){
-        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
-            @Override
-            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
-                subscriber.onCompleted();
-            }
-        }).compose(new DefaultTransform<>());
+        return ServiceClient.getService().myAttend(uid).compose(new DefaultTransform<>());
+//        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
+//            @Override
+//            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
+//                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
+//                subscriber.onCompleted();
+//            }
+//        }).compose(new DefaultTransform<>());
     }
 
     public Observable<List<PersonBrief>> getFans(int uid){
-        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
-            @Override
-            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
-                subscriber.onCompleted();
-            }
-        }).compose(new DefaultTransform<>());
+        return ServiceClient.getService().myFans(uid).compose(new DefaultTransform<>());
+//        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
+//            @Override
+//            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
+//                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
+//                subscriber.onCompleted();
+//            }
+//        }).compose(new DefaultTransform<>());
     }
 
     public Observable<Object> attention(int id){
