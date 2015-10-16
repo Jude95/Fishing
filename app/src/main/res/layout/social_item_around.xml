@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="78dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        app:roundAsCircle="true"
+        app:placeholderImage="@drawable/img_head_null"
+        app:placeholderImageScaleType="centerInside"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_alignTop="@+id/avatar"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginTop="6dp"
+        tool:text="林原则也"/>
+    <TextView
+        android:id="@+id/sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_toLeftOf="@+id/attention"
+        android:layout_marginBottom="4dp"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_alignBottom="@+id/avatar"
+        tool:text="我喜欢人类，最喜欢最喜欢了"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textColor="@color/gray_deep"/>
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:textColor="@color/orange"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        tool:text="12km"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="64dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"/>
+
+</RelativeLayout>

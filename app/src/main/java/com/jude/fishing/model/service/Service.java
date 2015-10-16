@@ -5,6 +5,7 @@ import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
+import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
@@ -104,6 +105,22 @@ public interface Service {
     Observable<Object> register(@Field("tel") String tel,
                                 @Field("password") String password,
                                 @Field("code") String code);
+
+
+    @FormUrlEncoded
+    @POST(API.URL.UpdateLocation)
+    Observable<Object> UpdateLocation(
+            @Field("lat") double lat,
+            @Field("lng") double lng,
+            @Field("address") String address);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetNearBy)
+    Observable<List<PersonAround>> GetNearBy(
+            @Field("lat") double lat,
+            @Field("lng") double lng,
+            @Field("page") int page
+            );
 
     @FormUrlEncoded
     @POST(API.URL.Login)

@@ -6,14 +6,13 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
-import com.jude.fishing.model.entities.PersonBrief;
-import com.jude.fishing.module.user.UserAttentionViewHolder;
+import com.jude.fishing.model.entities.PersonAround;
 
 /**
  * Created by Mr.Jude on 2015/9/23.
  */
 @RequiresPresenter(AroundPresenter.class)
-public class AroundActivity extends BeamListActivity<AroundPresenter,PersonBrief> {
+public class AroundActivity extends BeamListActivity<AroundPresenter,PersonAround> {
     @Override
     protected ListConfig getConfig() {
         return super.getConfig().setLoadmoreAble(true);
@@ -21,6 +20,6 @@ public class AroundActivity extends BeamListActivity<AroundPresenter,PersonBrief
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new UserAttentionViewHolder(parent);
+        return new UserAroundViewHolder(parent);
     }
 }

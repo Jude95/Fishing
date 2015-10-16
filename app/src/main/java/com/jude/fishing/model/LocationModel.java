@@ -10,6 +10,8 @@ import com.amap.api.location.LocationProviderProxy;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Location;
+import com.jude.fishing.model.service.ServiceClient;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 
@@ -57,7 +59,7 @@ public class LocationModel extends AbsModel{
         mLocationManagerProxy = LocationManagerProxy.getInstance(ctx);
         mLocationManagerProxy.setGpsEnable(false);
         mLocationManagerProxy.requestLocationData(
-                LocationProviderProxy.AMapNetwork, 5*1000, 15, new AMapLocationListener() {
+                LocationProviderProxy.AMapNetwork, 500*1000, 15, new AMapLocationListener() {
                     @Override
                     public void onLocationChanged(AMapLocation aMapLocation) {
                         mLocationSubject.onNext(new Location(aMapLocation));
@@ -91,11 +93,8 @@ public class LocationModel extends AbsModel{
     }
 
     public void uploadAddress(){
-//        if (AccountModel.getInstance().getAccount() == null)return;
-//        RequestMap params = new RequestMap();
-//        params.put("lng",location.getLongitude()+"");
-//        params.put("lat",location.getLatitude()+"");
-//        params.put("address",location.getAddress());
-//        RequestManager.getInstance().post(API.URL.SyncLocation,params,null);
+        ServiceClient.getService().UpdateLocation(location.getLatitude(),location.getLongitude(),location.getAddress())
+                .subscribe(new ServiceResponse<Object>() {
+                });
     }
 }

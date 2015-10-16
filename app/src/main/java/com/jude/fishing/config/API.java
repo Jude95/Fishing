@@ -27,6 +27,9 @@ public class API {
         public static final String ResetPass = "/user/resetPass";
         public static final String GetUserInfo = "/user/getUserinfo";
         public static final String GetMyInfo = "/user/getmyinfo";
+        public static final String UpdateLocation = "/user/updateAddr";
+        public static final String GetNearBy = "/user/getNearby";
+
 
         public static final String Attend = "/user/attend";
         public static final String UnAttend = "/user/unAttend";

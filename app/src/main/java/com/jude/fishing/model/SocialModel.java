@@ -1,6 +1,7 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.DefaultTransform;
@@ -32,14 +33,12 @@ public class SocialModel extends AbsModel {
         }).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<PersonBrief>> getAround(int page){
-        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
-            @Override
-            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
-                subscriber.onCompleted();
-            }
-        }).compose(new DefaultTransform<>());
+    public Observable<List<PersonAround>> getAround(int page){
+        return ServiceClient.getService().GetNearBy(
+                LocationModel.getInstance().getCurLocation().getLatitude(),
+                LocationModel.getInstance().getCurLocation().getLongitude(),
+                page
+                ).compose(new DefaultTransform<>());
     }
 
     public Observable<List<PersonBrief>> getAttentions(int uid){
