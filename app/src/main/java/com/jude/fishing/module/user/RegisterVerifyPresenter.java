@@ -1,7 +1,6 @@
 package com.jude.fishing.module.user;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
@@ -44,7 +43,6 @@ public class RegisterVerifyPresenter extends Presenter<RegisterVerifyActivity> {
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        getView().startActivity(new Intent(getView(), UserDataActivity.class));
                         getView().setResult(Activity.RESULT_OK);
                         getView().finish();
                     }

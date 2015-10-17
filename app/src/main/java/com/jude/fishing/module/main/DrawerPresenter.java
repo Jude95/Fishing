@@ -2,6 +2,7 @@ package com.jude.fishing.module.main;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
 import com.jude.fishing.model.AccountModel;
@@ -10,6 +11,7 @@ import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
+import com.jude.fishing.module.user.UserDataActivity;
 import com.jude.fishing.module.user.UserFragment;
 
 /**
@@ -36,6 +38,14 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
             return false;
         }else{
             return true;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (AccountModel.getInstance().getAccount()!=null&&TextUtils.isEmpty(AccountModel.getInstance().getAccount().getName())){
+            getView().startActivity(new Intent(getView().getActivity(), UserDataActivity.class));
         }
     }
 
