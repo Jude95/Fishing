@@ -79,6 +79,10 @@ public class AccountModel extends AbsModel {
                 .compose(new DefaultTransform<>());
     }
 
+    public Observable<Object> changeUserBg(String bg){
+        return ServiceClient.getService().changeUserBg(bg).compose(new DefaultTransform<>());
+    }
+
     void saveAccount(Account account){
         if (account == null){
             JFileManager.getInstance().getFolder(Dir.Object).deleteChild(FILE_ACCOUNT);
@@ -109,7 +113,6 @@ public class AccountModel extends AbsModel {
         }
         return personBriefs;
     }
-
 
     public void updateAccount(Account account){
         saveAccount(account);

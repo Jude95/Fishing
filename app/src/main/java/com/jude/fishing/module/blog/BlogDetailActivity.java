@@ -1,16 +1,19 @@
 package com.jude.fishing.module.blog;
 
 import android.net.Uri;
+import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListActivity;
+import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
@@ -55,23 +58,32 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     LinearLayout tool;
     @InjectView(R.id.praise_member)
     ExGridView praiseMember;
+    @InjectView(R.id.ll_praise)
+    LinearLayout praiseContainer;
+    @InjectView(R.id.ll_comment)
+    LinearLayout commentContainer;
+    SeedDetail seedDetail;
 
     public View getBlogDetailView(SeedDetail data, ViewGroup parent) {
         View view = getLayoutInflater().inflate(R.layout.blog_item_head, parent, false);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
+        address.setText(data.getAddress());
+        praiseContainer.setOnClickListener(v -> getPresenter().blogPraise(seedDetail.getPraiseStatus()));
+        seedDetail = data;
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
+        commentContainer.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));
 
         pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
 
         for (PersonBrief personBrief : data.getPraiseMember()) {
             SimpleDraweeView draweeView = new SimpleDraweeView(this);
-            draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40),JUtils.dip2px(40)));
+            draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40), JUtils.dip2px(40)));
             draweeView.setImageURI(Uri.parse(personBrief.getAvatar()));
             draweeView.getHierarchy().setRoundingParams(RoundingParams.asCircle());
             praiseMember.addView(draweeView);
@@ -80,9 +92,36 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         return view;
     }
 
-    @Override
-    protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
-        return new SeedCommentViewHolder(viewGroup);
+    public void changePraise() {
+        seedDetail.setPraiseStatus(!seedDetail.getPraiseStatus());
+        praiseImage.setImageResource(seedDetail.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
+        int praiseNum = seedDetail.getPraiseCount();
+        if (seedDetail.getPraiseStatus()) seedDetail.setPraiseCount(praiseNum + 1);
+        else seedDetail.setPraiseCount(praiseNum - 1);
+        praiseCount.setText(seedDetail.getPraiseCount() + "");
     }
 
+    @Override
+    protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
+        return new SeedCommentViewHolder(viewGroup,this);
+    }
+
+    public void showCommentEdit(int fid, String fname) {
+        new MaterialDialog.Builder(this)
+                .title("输入对" + fname + "的回复")
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .inputRange(0, 100)
+                .input("", "", (dialog, input) -> {
+                    if (input.toString().trim().isEmpty()) {
+                        JUtils.Toast("回复不能为空");
+                        return;
+                    }
+                    getPresenter().sentComment(fid, input.toString());
+                }).show();
+    }
+
+    @Override
+    protected ListConfig getConfig() {
+        return super.getConfig().setRefreshAble(true);
+    }
 }

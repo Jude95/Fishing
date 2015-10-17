@@ -68,6 +68,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
+        address.setText(data.getAddress());
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");

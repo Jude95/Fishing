@@ -15,8 +15,6 @@ import com.jude.utils.JUtils;
 
 import java.io.File;
 
-import rx.functions.Func1;
-
 /**
  * Created by heqiang on 2015/9/23.
  */
@@ -92,27 +90,24 @@ public class UserDataPresenter extends Presenter<UserDataActivity> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");
                 })
-                .map(path -> {
+                .flatMap(path -> {
                     getView().getExpansion().showProgressDialog("修改资料中...");
                     avatarUrl = path;
                     return AccountModel.getInstance().modifyUserData(path, name, gender, region, age, skill, sign);
                 })
-                .filter(new Func1<Object, Boolean>() {
-                    @Override
-                    public Boolean call(Object o) {
-                        Account account = AccountModel.getInstance().getAccount();
-                        if (account != null) {
-                            account.setAvatar(avatarUrl);
-                            account.setName(name);
-                            account.setGender(gender);
-                            account.setAddress(region);
-                            account.setAge(age);
-                            account.setSkill(skill);
-                            account.setSign(sign);
-                            AccountModel.getInstance().updateAccount(account);
-                        }
-                        return true;
+                .filter(o -> {
+                    Account account = AccountModel.getInstance().getAccount();
+                    if (account != null) {
+                        account.setAvatar(avatarUrl);
+                        account.setName(name);
+                        account.setGender(gender);
+                        account.setAddress(region);
+                        account.setAge(age);
+                        account.setSkill(skill);
+                        account.setSign(sign);
+                        AccountModel.getInstance().updateAccount(account);
                     }
+                    return true;
                 })
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {

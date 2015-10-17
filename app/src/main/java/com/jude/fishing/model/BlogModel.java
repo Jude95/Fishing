@@ -27,27 +27,39 @@ public class BlogModel extends AbsModel {
     }
 
     public Observable<List<Seed>> getWeiboGround(int page){
-        return ServiceClient.getService().getWeiboGround(page).compose(new DefaultTransform<>());
+        return ServiceClient.getService().getBlogGround(page).compose(new DefaultTransform<>());
     }
 
     public Observable<List<Seed>> getWeiboFriend(int page){
-        return ServiceClient.getService().getWeiboFriend(page).compose(new DefaultTransform<>());
+        return ServiceClient.getService().getBlogFriend(page).compose(new DefaultTransform<>());
     }
 
     public Observable<List<Seed>> getWeiboNearby(int page,int count,double lat,double lng){
-        return ServiceClient.getService().getWeiboNearby(page,count,lat,lng).compose(new DefaultTransform<>());
+        return ServiceClient.getService().getBlogNearby(page, count, lat, lng).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Seed>> getWeiboMy(int page){
-        return ServiceClient.getService().getWeiboMy(page).compose(new DefaultTransform<>());
+    public Observable<List<Seed>> getBlogMy(int page){
+        return ServiceClient.getService().getBlogMy(page).compose(new DefaultTransform<>());
     }
 
     public Observable<SeedDetail> getSeedDetail(int id){
-        return Observable.just(createVirtualSeedDetail()).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
+        return ServiceClient.getService().getBlogDetail(id).compose(new DefaultTransform<>());
     }
 
-    public Observable<Object> addWeibo(String content,String images,String address,double lng,double lat){
-        return ServiceClient.getService().addWeibo(content,images,address,lng,lat).compose(new DefaultTransform<>());
+    public Observable<Object> blogPraise(int id){
+        return ServiceClient.getService().blogPraise(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> blogUnPraise(int id){
+        return ServiceClient.getService().blogUnPraise(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> addBlog(String content,String images,String address,double lng,double lat){
+        return ServiceClient.getService().addBlog(content, images, address, lng, lat).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> sendBlogComment(int id,int fid,String content){
+        return ServiceClient.getService().blogComment(id,fid,content).compose(new DefaultTransform<>());
     }
 
     List<Seed> createVirtualSeedList(int count){
