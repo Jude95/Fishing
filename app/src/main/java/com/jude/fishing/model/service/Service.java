@@ -186,11 +186,13 @@ public interface Service {
     @POST(API.URL.UnAttend)
     Observable<Object> unAttend(@Field("id")int id);
 
+    @FormUrlEncoded
     @POST(API.URL.MyAttend)
-    Observable<PersonBrief> myAttend();
+    Observable<List<PersonBrief>> myAttend(@Field("id")int id);
 
+    @FormUrlEncoded
     @POST(API.URL.MyFans)
-    Observable<PersonBrief> myFans();
+    Observable<List<PersonBrief>> myFans(@Field("id")int id);
 
     @FormUrlEncoded
     @POST(API.URL.GetUserInfo)

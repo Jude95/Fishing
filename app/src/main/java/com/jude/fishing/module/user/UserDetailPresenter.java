@@ -1,9 +1,11 @@
 package com.jude.fishing.module.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
@@ -44,5 +46,16 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                         getView().changeAttention();
                     }
                 });
+    }
+
+    public void chat(String name) {
+        RongYunModel.getInstance().chatPerson(getView(), String.valueOf(id), name);
+    }
+
+    //调用相关页面
+    public void goToActivity(Class clz,int uid) {
+        Intent intent = new Intent(getView(),clz);
+        intent.putExtra("id",uid);
+        getView().startActivity(intent);
     }
 }

@@ -13,8 +13,8 @@ public class PersonDetail extends PersonBrief implements Serializable {
     private String address;
     private List<Seed> seeds;
     private int blogCount;
-    private int attentionCount;
-    private int fansCount;
+    private String cared;
+    private String fans;
     private int gender;
 
 
@@ -30,15 +30,15 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return blogCount;
     }
 
-    public int getAttentionCount() {
-        return attentionCount;
+    public String getCared() {
+        return cared;
     }
 
-    public int getFansCount() {
-        return fansCount;
+    public String getFans() {
+        return fans;
     }
 
-    public PersonDetail(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, List<Seed> seeds, int blogCount, int attentionCount, int fansCount) {
+    public PersonDetail(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, List<Seed> seeds, int blogCount, String cared, String fans) {
         super(avatar, id, name, relation, sign);
         this.skill = skill;
         this.age = age;
@@ -46,8 +46,8 @@ public class PersonDetail extends PersonBrief implements Serializable {
         this.address = address;
         this.seeds = seeds;
         this.blogCount = blogCount;
-        this.attentionCount = attentionCount;
-        this.fansCount = fansCount;
+        this.cared = cared;
+        this.fans = fans;
     }
 
     public String getSkill() {

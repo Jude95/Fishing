@@ -10,10 +10,12 @@ import com.jude.fishing.model.entities.Seed;
  * Created by Mr.Jude on 2015/9/19.
  */
 public class UserBlogPresenter extends BeamListActivityPresenter<UserBlogActivity,Seed> {
+    int id;
 
     @Override
     protected void onCreate(UserBlogActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
+        id = getView().getIntent().getIntExtra("id",0);
         onRefresh();
     }
 
