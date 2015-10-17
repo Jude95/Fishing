@@ -11,13 +11,13 @@ public class PersonBrief implements Serializable{
     private String name;
     private String avatar;
     private String sign;
-    private int relation;//0未关注，1已关注
+    private boolean relation;//0未关注，1已关注
 
-    public int getRelation() {
+    public boolean getRelation() {
         return relation;
     }
 
-    public PersonBrief(String avatar, int id, String name, int relation, String sign) {
+    public PersonBrief(String avatar, int id, String name, boolean relation, String sign) {
         this.avatar = avatar;
         this.id = id;
         this.name = name;
@@ -49,7 +49,7 @@ public class PersonBrief implements Serializable{
         return sign;
     }
 
-    public void setRelation(int relation) {
+    public void setRelation(boolean relation) {
         this.relation = relation;
     }
 

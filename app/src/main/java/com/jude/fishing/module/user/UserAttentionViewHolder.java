@@ -45,8 +45,8 @@ public class UserAttentionViewHolder extends BaseViewHolder<PersonBrief> {
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
-        attention.setText(data.getRelation()==0?"关注":"已关注");
-        attention.setTextColor(itemView.getResources().getColor(data.getRelation()==0?R.color.green:R.color.gray_deep));
-        attention.setBackgroundColor(itemView.getResources().getColor(data.getRelation()==0?R.color.green:R.color.gray_deep));
+        attention.setText(data.getRelation()?"已关注":"关注");
+        attention.setTextColor(itemView.getResources().getColor(data.getRelation()?R.color.gray_deep:R.color.green));
+        attention.setBackgroundColor(itemView.getResources().getColor(data.getRelation()?R.color.gray_deep:R.color.green));
     }
 }

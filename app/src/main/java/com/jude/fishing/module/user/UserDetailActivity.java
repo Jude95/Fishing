@@ -120,7 +120,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             }
         });
         containerAttention.setOnClickListener(v -> getPresenter().goToActivity(AttentionActivity.class, uid));
-        containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
+        containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class,uid));
         containerFans.setOnClickListener(v -> getPresenter().goToActivity(FansActivity.class, uid));
         chat.setOnClickListener(v->getPresenter().chat(userName));
     }
@@ -152,11 +152,11 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         address.setText(data.getAddress());
         age.setText(data.getAge() + "年");
         skill.setText(data.getSkill());
-        if (data.getRelation() == -1) {
+        if (id==0) {
             operation.setVisibility(View.GONE);
             background.setOnClickListener(v -> showSelectorDialog());
         } else {
-            isAttended = data.getRelation() == 1;
+            isAttended = data.getRelation();
             tvOpAttention.setText(isAttended ? "已关注" : "关注");
         }
         blogList.setAdapter(new BlogSimpleAdapter(this, data.getSeeds()));

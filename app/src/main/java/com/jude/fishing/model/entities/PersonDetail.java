@@ -41,7 +41,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return fans;
     }
 
-    public PersonDetail(String avatar, int id, String name, int relation, String sign, String skill, int age, String background, String address, List<Seed> seeds, int blogCount, String cared, String fans) {
+    public PersonDetail(String avatar, int id, String name, boolean relation, String sign, String skill, int age, String background, String address, List<Seed> seeds, int blogCount, String cared, String fans) {
         super(avatar, id, name, relation, sign);
         this.skill = skill;
         this.age = age;

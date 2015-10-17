@@ -58,7 +58,6 @@ public class AccountModel extends AbsModel {
         return ServiceClient.getService().login(name,password)
                 .compose(new DefaultTransform<>())
                 .doOnNext(account -> {
-                    account.setRelation(-1);
                     saveAccount(account);
                     setAccount(account);
                 });
@@ -126,7 +125,7 @@ public class AccountModel extends AbsModel {
     public List<PersonBrief> createVirtualPersonBriefs(int count){
         List<PersonBrief> personBriefs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
+//            personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
         }
         return personBriefs;
     }

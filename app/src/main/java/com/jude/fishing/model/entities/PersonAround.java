@@ -8,7 +8,7 @@ public class PersonAround extends PersonBrief {
     private double lng;
     private int distance;
 
-    public PersonAround(String avatar, int id, String name, int relation, String sign) {
+    public PersonAround(String avatar, int id, String name, boolean relation, String sign) {
         super(avatar, id, name, relation, sign);
     }
 
