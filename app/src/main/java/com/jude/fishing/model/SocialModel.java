@@ -10,7 +10,6 @@ import com.jude.fishing.model.service.ServiceClient;
 import java.util.List;
 
 import rx.Observable;
-import rx.Subscriber;
 
 
 /**
@@ -24,13 +23,7 @@ public class SocialModel extends AbsModel {
 
 
     public Observable<List<PersonBrief>> searchUser(String word){
-        return Observable.create(new Observable.OnSubscribe<List<PersonBrief>>() {
-            @Override
-            public void call(Subscriber<? super List<PersonBrief>> subscriber) {
-                subscriber.onNext(AccountModel.getInstance().createVirtualPersonBriefs(20));
-                subscriber.onCompleted();
-            }
-        }).compose(new DefaultTransform<>());
+        return ServiceClient.getService().FindUser(word).compose(new DefaultTransform<>());
     }
 
     public Observable<List<PersonAround>> getAround(int page){
@@ -38,7 +31,7 @@ public class SocialModel extends AbsModel {
                 LocationModel.getInstance().getCurLocation().getLatitude(),
                 LocationModel.getInstance().getCurLocation().getLongitude(),
                 page
-                ).compose(new DefaultTransform<>());
+        ).compose(new DefaultTransform<>());
     }
 
     public Observable<List<PersonBrief>> getAttentions(int uid){
@@ -74,4 +67,5 @@ public class SocialModel extends AbsModel {
     public Observable<PersonDetail> getUserDetail(int uid){
         return ServiceClient.getService().getUserInfo(uid).compose(new DefaultTransform<>());
     }
+
 }

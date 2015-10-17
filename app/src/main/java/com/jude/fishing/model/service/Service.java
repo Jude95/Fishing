@@ -123,6 +123,12 @@ public interface Service {
             );
 
     @FormUrlEncoded
+    @POST(API.URL.FindUser)
+    Observable<List<PersonBrief>> FindUser(
+            @Field("key") String key
+    );
+
+    @FormUrlEncoded
     @POST(API.URL.Login)
     Observable<Account> login(@Field("tel") String tel, @Field("password") String password);
 

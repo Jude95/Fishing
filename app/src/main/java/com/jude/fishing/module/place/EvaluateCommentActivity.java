@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.text.InputType;
 import android.view.View;
@@ -16,8 +17,10 @@ import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateComment;
+import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
@@ -72,8 +75,12 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
 
 
     public void showCommentEdit(int fid,String fname) {
+        if (AccountModel.getInstance().getAccount()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         new MaterialDialog.Builder(this)
-                .title("输入对"+fname+"的回复")
+                .title("输入对 "+fname+" 的回复")
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .inputRange(0, 100)
                 .input("", "", (dialog, input) -> {

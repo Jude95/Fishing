@@ -20,7 +20,13 @@
         tools:text="Jude"
         android:layout_alignTop="@+id/avatar"
         />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin"
+        android:text="回复"
+        android:layout_alignParentRight="true"
+        android:textColor="@android:color/holo_blue_dark"/>
     <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"

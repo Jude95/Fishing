@@ -88,12 +88,10 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
                 collect.setStrokeWidth(JUtils.dip2px(3));
                 collect.setTextColor(getResources().getColor(R.color.blue));
                 collect.setText("取消收藏");
-                JUtils.Toast("已收藏");
             } else {
                 collect.setStrokeWidth(JUtils.dip2px(0));
                 collect.setTextColor(getResources().getColor(R.color.white));
                 collect.setText("收藏");
-                JUtils.Toast("已取消收藏");
             }
         });
         commentCount.setOnClickListener(v -> {

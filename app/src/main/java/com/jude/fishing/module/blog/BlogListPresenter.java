@@ -21,13 +21,13 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
         super.onCreate(view, savedState);
         style = getView().getArguments().getInt("style", 0);
         location = LocationModel.getInstance().getCurLocation();
-        JUtils.Log("onCreate"+style);
-        onRefresh();
+        JUtils.Log("onCreate" + style);
     }
 
     @Override
     protected void onCreateView(BlogListFragment view) {
         super.onCreateView(view);
+        onRefresh();
         JUtils.Log("onCreateView"+style);
     }
 

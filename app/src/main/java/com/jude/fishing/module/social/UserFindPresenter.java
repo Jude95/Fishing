@@ -16,6 +16,9 @@ public class UserFindPresenter extends BeamListActivityPresenter<UserFindActivit
     }
 
     public void search(String word){
-        SocialModel.getInstance().searchUser(word).subscribe(getRefreshSubscriber());
+        getView().getExpansion().showProgressDialog("查询中");
+        SocialModel.getInstance().searchUser(word)
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
+                .unsafeSubscribe(getRefreshSubscriber());
     }
 }

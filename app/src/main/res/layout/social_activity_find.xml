@@ -14,9 +14,10 @@
             android:id="@+id/word"
             android:layout_width="match_parent"
             android:paddingLeft="32dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_height="match_parent"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_height="match_parent"
+            android:hint="输入昵称或手机号"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="match_parent"

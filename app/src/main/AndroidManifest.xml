@@ -137,12 +137,13 @@
             android:label="附近的人" />
         <activity
             android:name=".module.social.UserFindActivity"
-            android:label="搜索用户"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing"
+            android:label="搜索用户"/>
         <activity android:name=".module.place.PlaceDetailActivity"
             android:label="钓点详情"/>
         <activity
             android:name=".module.user.UserDataActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="完善资料" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="热闹"/>
