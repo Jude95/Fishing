@@ -79,7 +79,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         View root = inflater.inflate(R.layout.user_fragment_main2, container, false);
         ButterKnife.inject(this, root);
         containerUser.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserDetailActivity.class)));
-        containerBlog.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserBlogActivity.class)));
+        containerBlog.setOnClickListener(v -> goToActivity(UserBlogActivity.class));
         containerFans.setOnClickListener(v -> goToActivity(FansActivity.class));
         containerAttention.setOnClickListener(v -> goToActivity(AttentionActivity.class));
         collect.setOnClickListener(v -> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));

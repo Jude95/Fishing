@@ -26,20 +26,20 @@ public class BlogModel extends AbsModel {
         return Observable.just(createVirtualSeedList(20)).delay(500, TimeUnit.MILLISECONDS).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Seed>> getWeiboGround(int page){
+    public Observable<List<Seed>> getBlogGround(int page){
         return ServiceClient.getService().getBlogGround(page).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Seed>> getWeiboFriend(int page){
+    public Observable<List<Seed>> getBlogFriend(int page){
         return ServiceClient.getService().getBlogFriend(page).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Seed>> getWeiboNearby(int page,int count,double lat,double lng){
+    public Observable<List<Seed>> getBlogNearby(int page,int count,double lat,double lng){
         return ServiceClient.getService().getBlogNearby(page, count, lat, lng).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<Seed>> getBlogMy(int page){
-        return ServiceClient.getService().getBlogMy(page).compose(new DefaultTransform<>());
+    public Observable<List<Seed>> getUserBlog(int id,int page){
+        return ServiceClient.getService().getUserBlog(id,page).compose(new DefaultTransform<>());
     }
 
     public Observable<SeedDetail> getSeedDetail(int id){

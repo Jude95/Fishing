@@ -46,22 +46,22 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
     @Override
     public void onLoadMore() {
         if (0 == style) {
-            BlogModel.getInstance().getWeiboGround(getCurPage()).unsafeSubscribe(getMoreSubscriber());
+            BlogModel.getInstance().getBlogGround(getCurPage()).unsafeSubscribe(getMoreSubscriber());
         } else if (1 == style) {
-            BlogModel.getInstance().getWeiboFriend(getCurPage()).unsafeSubscribe(getMoreSubscriber());
+            BlogModel.getInstance().getBlogNearby(getCurPage(), 20, location.getLatitude(), location.getLongitude()).unsafeSubscribe(getMoreSubscriber());
         } else if (2 == style) {
-            BlogModel.getInstance().getWeiboNearby(getCurPage(),20,location.getLatitude(),location.getLongitude()).unsafeSubscribe(getMoreSubscriber());
+            BlogModel.getInstance().getBlogFriend(getCurPage()).unsafeSubscribe(getMoreSubscriber());
         }
     }
 
     @Override
     public void onRefresh() {
         if (0 == style) {
-            BlogModel.getInstance().getWeiboGround(0).unsafeSubscribe(getRefreshSubscriber());
+            BlogModel.getInstance().getBlogGround(0).unsafeSubscribe(getRefreshSubscriber());
         } else if (1 == style) {
-            BlogModel.getInstance().getWeiboFriend(0).unsafeSubscribe(getRefreshSubscriber());
+            BlogModel.getInstance().getBlogNearby(0,20,location.getLatitude(),location.getLongitude()).unsafeSubscribe(getRefreshSubscriber());
         } else if (2 == style) {
-            BlogModel.getInstance().getWeiboNearby(0,20,location.getLatitude(),location.getLongitude()).unsafeSubscribe(getRefreshSubscriber());
+            BlogModel.getInstance().getBlogFriend(0).unsafeSubscribe(getRefreshSubscriber());
         }
     }
 }

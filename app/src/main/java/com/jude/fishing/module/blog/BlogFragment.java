@@ -15,7 +15,6 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.fishing.R;
-import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -66,7 +65,6 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
 
         @Override
         public Fragment getItem(int position) {
-            JUtils.Log("position:" + position);
             Fragment f =  new BlogListFragment();
             Bundle b = new Bundle();
             b.putInt("style",position);
@@ -76,15 +74,18 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
 
         @Override
         public int getCount() {
-            return 3;
+            if (getPresenter().checkLogin())
+                return 3;
+            else
+                return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position){
                 case 0:return "热闹广场";
-                case 1:return "朋友圈";
-                case 2:return "附近热闹";
+                case 1:return "附近热闹";
+                case 2:return "朋友圈";
                 default:throw new RuntimeException("页数不存在");
             }
         }

@@ -11,10 +11,14 @@ import com.jude.fishing.module.user.LoginActivity;
  */
 public class BlogPresenter extends Presenter<BlogFragment> {
     public void write() {
-        if (AccountModel.getInstance().getAccount()==null){
+        if (AccountModel.getInstance().getAccount() == null) {
             getView().startActivity(new Intent(getView().getActivity(), LoginActivity.class));
-        }else {
+        } else {
             getView().startActivity(new Intent(getView().getActivity(), WriteActivity.class));
         }
+    }
+
+    public boolean checkLogin() {
+        return AccountModel.getInstance().getAccount() != null;
     }
 }

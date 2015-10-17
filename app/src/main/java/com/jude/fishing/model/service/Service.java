@@ -237,8 +237,8 @@ public interface Service {
                                           @Field("lng") double lng);
 
     @FormUrlEncoded
-    @POST(API.URL.GetBlogMy)
-    Observable<List<Seed>> getBlogMy(@Field("page")int page);
+    @POST(API.URL.GetUserBlog)
+    Observable<List<Seed>> getUserBlog(@Field("id")int id,@Field("page")int page);
 
     @FormUrlEncoded
     @POST(API.URL.AddBlog)

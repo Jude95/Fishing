@@ -21,11 +21,11 @@ public class UserBlogPresenter extends BeamListActivityPresenter<UserBlogActivit
 
     @Override
     public void onRefresh() {
-        BlogModel.getInstance().getSeed(0,getCurPage()).unsafeSubscribe(getRefreshSubscriber());
+        BlogModel.getInstance().getUserBlog(id,0).unsafeSubscribe(getRefreshSubscriber());
     }
 
     @Override
     public void onLoadMore() {
-        BlogModel.getInstance().getSeed(0,getCurPage()).unsafeSubscribe(getMoreSubscriber());
+        BlogModel.getInstance().getUserBlog(id,getCurPage()).unsafeSubscribe(getMoreSubscriber());
     }
 }
