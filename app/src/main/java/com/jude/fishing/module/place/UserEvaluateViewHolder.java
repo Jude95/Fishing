@@ -64,9 +64,10 @@ public class UserEvaluateViewHolder extends BaseViewHolder<Evaluate> {
         name.setText(data.getPlaceName());
         score.setScore(data.getScore());
         address.setText(data.getAddress());
-        commentCount.setText(data.getCommentCount()+"");
+        commentCount.setText(data.getCommentCount() + "");
         content.setText(data.getContent());
         adapter.clear();
+        if(data.getImages()!=null)
         adapter.addAll(data.getImages());
         adapter.notifyDataSetChanged();
     }

@@ -16,7 +16,7 @@ public class API {
         public static final String CollectPlace = "/place/collect";
         public static final String UnCollectPlace = "/place/unCollect";
         public static final String MyColectPlace = "/place/myCollect";
-        public static final String MyEvaluate = "/place/myCollect";
+        public static final String MyEvaluate = "/place/myScoreList";
         public static final String EvaluateComment = "/place/comment";
         public static final String FindUser = "/user/findUser";
 

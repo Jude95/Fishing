@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
-import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
@@ -90,20 +89,6 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
         if (avatar == null) {
             avatarUrl = avatarStr;
             AccountModel.getInstance().modifyUserData(avatarUrl, name, gender, region, age, skill, sign)
-                    .filter(o -> {
-                        Account account = AccountModel.getInstance().getAccount();
-                        if (account != null) {
-                            account.setAvatar(avatarUrl);
-                            account.setName(name);
-                            account.setGender(gender);
-                            account.setAddress(region);
-                            account.setAge(age);
-                            account.setSkill(skill);
-                            account.setSign(sign);
-                            AccountModel.getInstance().updateAccount(account);
-                        }
-                        return true;
-                    })
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
@@ -122,20 +107,6 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
                         getView().getExpansion().showProgressDialog("修改资料中...");
                         avatarUrl = path;
                         return AccountModel.getInstance().modifyUserData(path, name, gender, region, age, skill, sign);
-                    })
-                    .filter(o -> {
-                        Account account = AccountModel.getInstance().getAccount();
-                        if (account != null) {
-                            account.setAvatar(avatarUrl);
-                            account.setName(name);
-                            account.setGender(gender);
-                            account.setAddress(region);
-                            account.setAge(age);
-                            account.setSkill(skill);
-                            account.setSign(sign);
-                            AccountModel.getInstance().updateAccount(account);
-                        }
-                        return true;
                     })
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
