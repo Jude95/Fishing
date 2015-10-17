@@ -93,6 +93,7 @@ public class LocationModel extends AbsModel{
     }
 
     public void uploadAddress(){
+        if (AccountModel.getInstance().getAccount()!=null)
         ServiceClient.getService().UpdateLocation(location.getLatitude(),location.getLongitude(),location.getAddress())
                 .subscribe(new ServiceResponse<Object>() {
                 });

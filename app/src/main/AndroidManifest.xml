@@ -171,7 +171,7 @@
             android:label="导航"/>
 
         <activity android:name=".module.social.ChatActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustResize"
             android:label="聊天">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

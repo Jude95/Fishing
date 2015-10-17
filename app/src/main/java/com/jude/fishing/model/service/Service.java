@@ -93,6 +93,10 @@ public interface Service {
     @GET(API.URL.MyColectPlace)
     Observable<List<PlaceBrief>> myPlaceCollect();
 
+
+    @GET(API.URL.MyEvaluate)
+    Observable<List<Evaluate>> myEvaluate();
+
     @FormUrlEncoded
     @POST(API.URL.EvaluateComment)
     Observable<Object> EvaluateComment(

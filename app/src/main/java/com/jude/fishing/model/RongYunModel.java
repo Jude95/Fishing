@@ -62,6 +62,10 @@ public class RongYunModel extends AbsModel {
 
     public void setRongYun(){
         try {
+//            RongIM.setUserInfoProvider(userId -> {
+//                PersonBrief p = PersonBriefModel.getInstance().getPersonBriefOnBlock(userId);
+//                return new UserInfo(p.getUID()+"", p.getName(), Uri.parse(p.getFace()));
+//            }, true);
 
         } catch (Exception e) {
             JUtils.Log("融云出错");

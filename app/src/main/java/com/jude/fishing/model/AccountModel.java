@@ -64,7 +64,19 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
-        return ServiceClient.getService().modInfo(avatar,name,gender,address,age,skill,sign).compose(new DefaultTransform<>());
+        return ServiceClient.getService().modInfo(avatar,name,gender,address,age,skill,sign)
+                .doOnNext(o -> {
+                    userAccountData.setAvatar(avatar);
+                    userAccountData.setAge(age);
+                    userAccountData.setName(name);
+                    userAccountData.setGender(gender);
+                    userAccountData.setAddress(address);
+                    userAccountData.setSkill(skill);
+                    userAccountData.setSign(sign);
+                    saveAccount(userAccountData);
+                    setAccount(userAccountData);
+                })
+                .compose(new DefaultTransform<>());
     }
 
     void saveAccount(Account account){
@@ -98,12 +110,6 @@ public class AccountModel extends AbsModel {
         return personBriefs;
     }
 
-    public Account createVirtualAccount(){
-        return new Account("http://i2.hdslb.com/user/18232/1823239/myface.jpg",0,"Jude",0,"喂不熟的人，忘不掉的狗","海底捞针，倒挂金钩",18,
-                "http://img3.imgtn.bdimg.com/it/u=3619136483,1678174220&fm=21&gp=0.jpg","jack slow fuck",BlogModel.getInstance().createVirtualSeedList(3),
-                5,"8","10","156*****295","","");
-
-    }
 
     public void updateAccount(Account account){
         saveAccount(account);
