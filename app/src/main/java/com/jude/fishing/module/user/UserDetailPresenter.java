@@ -1,27 +1,74 @@
 package com.jude.fishing.module.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.library.imageprovider.ImageProvider;
+import com.jude.library.imageprovider.OnImageSelectListener;
+import com.jude.utils.JUtils;
+
+import java.io.File;
 
 /**
  * Created by Mr.Jude on 2015/9/18.
  */
 public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailActivity, PersonDetail> {
     private int id;
+    private ImageProvider provider;
+    OnImageSelectListener listener = new OnImageSelectListener() {
+
+        @Override
+        public void onImageSelect() {
+            getView().getExpansion().showProgressDialog("加载中");
+        }
+
+        @Override
+        public void onImageLoaded(Uri uri) {
+            changeUserBg(uri.getPath());
+        }
+
+        @Override
+        public void onError() {
+
+        }
+    };
 
     @Override
     protected void onCreate(UserDetailActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
+        provider = new ImageProvider(getView());
         id = getView().getIntent().getIntExtra("id", 0);
         if (id == 0) AccountModel.getInstance().registerAccountUpdate(this);
         else SocialModel.getInstance().getUserDetail(id).subscribe(this);
+    }
+
+    public void editFace(int style) {
+        switch (style) {
+            case 0:
+                provider.getImageFromCamera(listener);
+                break;
+            case 1:
+                provider.getImageFromAlbum(listener);
+                break;
+            case 2:
+                provider.getImageFromNet(listener);
+                break;
+        }
+    }
+
+    @Override
+    protected void onResult(int requestCode, int resultCode, Intent data) {
+        super.onResult(requestCode, resultCode, data);
+        provider.onActivityResult(requestCode, resultCode, data);
     }
 
     public void attention() {
@@ -57,5 +104,34 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
         Intent intent = new Intent(getView(),clz);
         intent.putExtra("id",uid);
         getView().startActivity(intent);
+    }
+
+    String bgUri;
+    void changeUserBg(String uri){
+        ImageModel.getInstance().putImage(new File(uri))
+                .doOnError(throwable -> {
+                    getView().getExpansion().dismissProgressDialog();
+                    JUtils.Toast("图片上传失败");
+                })
+                .flatMap(path -> {
+                    bgUri = path;
+                    return AccountModel.getInstance().changeUserBg(path);
+                })
+                .filter(o -> {
+                    Account account = AccountModel.getInstance().getAccount();
+                    if (account != null) {
+                        account.setBackground(bgUri);
+                        AccountModel.getInstance().updateAccount(account);
+                    }
+                    return true;
+                })
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        JUtils.Toast("修改成功");
+                    }
+                });
+
     }
 }

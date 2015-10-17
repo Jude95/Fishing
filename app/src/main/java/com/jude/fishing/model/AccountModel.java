@@ -67,6 +67,10 @@ public class AccountModel extends AbsModel {
         return ServiceClient.getService().modInfo(avatar,name,gender,address,age,skill,sign).compose(new DefaultTransform<>());
     }
 
+    public Observable<Object> changeUserBg(String bg){
+        return ServiceClient.getService().changeUserBg(bg).compose(new DefaultTransform<>());
+    }
+
     void saveAccount(Account account){
         if (account == null){
             JFileManager.getInstance().getFolder(Dir.Object).deleteChild(FILE_ACCOUNT);
@@ -96,13 +100,6 @@ public class AccountModel extends AbsModel {
             personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
         }
         return personBriefs;
-    }
-
-    public Account createVirtualAccount(){
-        return new Account("http://i2.hdslb.com/user/18232/1823239/myface.jpg",0,"Jude",0,"喂不熟的人，忘不掉的狗","海底捞针，倒挂金钩",18,
-                "http://img3.imgtn.bdimg.com/it/u=3619136483,1678174220&fm=21&gp=0.jpg","jack slow fuck",BlogModel.getInstance().createVirtualSeedList(3),
-                5,"8","10","156*****295","","");
-
     }
 
     public void updateAccount(Account account){

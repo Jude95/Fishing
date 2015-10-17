@@ -153,7 +153,7 @@
         <activity
             android:name=".module.user.UserDataActivity"
             android:windowSoftInputMode="adjustNothing"
-            android:label="完善资料" />
+            android:label="修改资料" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="热闹"/>
         <activity android:name=".module.place.EvaluateActivity"

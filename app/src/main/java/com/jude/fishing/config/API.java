@@ -30,6 +30,7 @@ public class API {
         public static final String GetMyInfo = "/user/getmyinfo";
         public static final String UpdateLocation = "/user/updateAddr";
         public static final String GetNearBy = "/user/getNearby";
+        public static final String ModBg = "/user/modBg";
 
 
         public static final String Attend = "/user/attend";
@@ -38,11 +39,16 @@ public class API {
         public static final String MyAttend = "/user/myAttend";
         public static final String MyFans = "/user/myFans";
 
-        public static final String GetWeiboGround = "/weibo/getListGround";
-        public static final String GetWeiboFriend = "/weibo/getListFriend";
-        public static final String GetWeiboNearby = "/weibo/getListNear";
-        public static final String GetWeiboMy = "/weibo/getListMy";
-        public static final String AddWeibo = "/weibo/add";
+        public static final String GetBlogGround = "/weibo/getListGround";
+        public static final String GetBlogFriend = "/weibo/getListFriend";
+        public static final String GetBlogNearby = "/weibo/getListNear";
+        public static final String GetBlogMy = "/weibo/getListMy";
+        public static final String AddBlog = "/weibo/add";
+        public static final String GetBlogDetail = "/weibo/getItem";
+
+        public static final String BlogPraise = "/weibo/praise";
+        public static final String BlogUnPraise = "/weibo/unPraise";
+        public static final String BlogComment = "/weibo/comment";
     }
 
     public static class WRAPPER {

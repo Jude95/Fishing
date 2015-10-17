@@ -11,6 +11,7 @@ import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.entities.Seed;
+import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.entities.Token;
 
 import java.util.List;
@@ -214,29 +215,55 @@ public interface Service {
      * @return
      */
     @FormUrlEncoded
-    @POST(API.URL.GetWeiboGround)
-    Observable<List<Seed>> getWeiboGround(@Field("page")int page);
+    @POST(API.URL.GetBlogGround)
+    Observable<List<Seed>> getBlogGround(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetWeiboFriend)
-    Observable<List<Seed>> getWeiboFriend(@Field("page")int page);
+    @POST(API.URL.GetBlogFriend)
+    Observable<List<Seed>> getBlogFriend(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetWeiboNearby)
-    Observable<List<Seed>> getWeiboNearby(@Field("page")int page,
+    @POST(API.URL.GetBlogNearby)
+    Observable<List<Seed>> getBlogNearby(@Field("page")int page,
                                           @Field("count")int count,
                                           @Field("lat") double lat,
                                           @Field("lng") double lng);
 
     @FormUrlEncoded
-    @POST(API.URL.GetWeiboMy)
-    Observable<List<Seed>> getWeiboMy(@Field("page")int page);
+    @POST(API.URL.GetBlogMy)
+    Observable<List<Seed>> getBlogMy(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.AddWeibo)
-    Observable<Object> addWeibo(@Field("content")String content,
+    @POST(API.URL.AddBlog)
+    Observable<Object> addBlog(@Field("content")String content,
                                 @Field("images")String images,
                                 @Field("address")String address,
                                 @Field("lng")double lng,
                                 @Field("lat")double lat);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetBlogDetail)
+    Observable<SeedDetail> getBlogDetail(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST(API.URL.BlogPraise)
+    Observable<Object> blogPraise(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST(API.URL.BlogUnPraise)
+    Observable<Object> blogUnPraise(@Field("id")int id);
+
+    /**
+     * @param wid 微博id
+     * @param fid 父id，如果是直接评论就是0
+     * @param content 内容
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(API.URL.BlogComment)
+    Observable<Object> blogComment(@Field("wid")int wid,@Field("fid")int fid,@Field("content")String content);
+
+    @FormUrlEncoded
+    @POST(API.URL.ModBg)
+    Observable<Object> changeUserBg(@Field("bg")String bg);
 }

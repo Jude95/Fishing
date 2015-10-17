@@ -3,9 +3,7 @@ package com.jude.fishing.module.blog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.bijection.RequiresPresenter;
@@ -34,8 +32,6 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
     PieceViewGroup images;
     @InjectView(R.id.content)
     EditText content;
-    @InjectView(R.id.tv_location)
-    TextView tvLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +50,7 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
             JUtils.Toast("说点什么吧");
             return;
         }
-        getPresenter().writeWeibo(content.getText().toString().trim());
+        getPresenter().writeBlog(content.getText().toString().trim());
     }
 
     public void showSelectorDialog() {
@@ -68,11 +64,6 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
         ImagePieceView pieceView = new ImagePieceView(this);
         pieceView.setImageBitmap(bitmap);
         images.addView(pieceView);
-    }
-
-    public void setAddress(String address){
-        tvLoc.setVisibility(View.VISIBLE);
-        tvLoc.setText(address);
     }
 
 }

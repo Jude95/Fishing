@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataActivity;
@@ -117,9 +118,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
                 }
             }
         });
-        containerAttention.setOnClickListener(v -> getPresenter().goToActivity(AttentionActivity.class,uid));
+        containerAttention.setOnClickListener(v -> getPresenter().goToActivity(AttentionActivity.class, uid));
         containerBlog.setOnClickListener(v -> startActivity(new Intent(this, UserBlogActivity.class)));
-        containerFans.setOnClickListener(v -> getPresenter().goToActivity(FansActivity.class,uid));
+        containerFans.setOnClickListener(v -> getPresenter().goToActivity(FansActivity.class, uid));
         chat.setOnClickListener(v->getPresenter().chat(userName));
     }
 
@@ -152,6 +153,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         skill.setText(data.getSkill());
         if (data.getRelation() == -1) {
             operation.setVisibility(View.GONE);
+            background.setOnClickListener(v -> showSelectorDialog());
         } else {
             isAttended = data.getRelation() == 1;
             tvOpAttention.setText(isAttended ? "已关注" : "关注");
@@ -282,5 +284,12 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             startActivity(new Intent(UserDetailActivity.this, UserDataActivity.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showSelectorDialog() {
+        new MaterialDialog.Builder(this)
+                .title("选择图片来源")
+                .items(new String[]{"拍照", "相册", "网络"})
+                .itemsCallback((materialDialog, view, i, charSequence) -> getPresenter().editFace(i)).show();
     }
 }

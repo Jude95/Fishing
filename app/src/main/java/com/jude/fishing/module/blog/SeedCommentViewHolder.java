@@ -41,10 +41,12 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
     @InjectView(R.id.child)
     LinearWrapContentRecyclerView child;
 
+    BlogDetailActivity mActivity;
     int id;
-    public SeedCommentViewHolder(ViewGroup parent) {
+    public SeedCommentViewHolder(ViewGroup parent,BlogDetailActivity activity) {
         super(parent, R.layout.blog_item_comment);
         ButterKnife.inject(this, itemView);
+        mActivity = activity;
         child.setOrientation(LinearLayout.VERTICAL);
         avatar.setOnClickListener(v->{
             Intent i = new Intent(v.getContext(), UserDetailActivity.class);
@@ -56,6 +58,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
     @Override
     public void setData(SeedComment data) {
         id = data.getAuthorId();
+        itemView.setOnClickListener(v-> mActivity.showCommentEdit(data.getId(),data.getAuthorName()));
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
@@ -84,7 +87,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
             textView.setPadding(0,JUtils.dip2px(2),0,0);
             textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setText(spannableInfo);
-            JUtils.Log("createTextView:"+spannableInfo.toString());
+            textView.setOnClickListener(v -> mActivity.showCommentEdit(seedComment.getId(), seedComment.getAuthorName()));
             parent.addView(textView);
         }
     }

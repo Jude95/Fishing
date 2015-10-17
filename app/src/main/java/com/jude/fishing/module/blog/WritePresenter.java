@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.google.gson.Gson;
@@ -93,7 +92,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
         uriArrayList.remove(i);
     }
 
-    public void writeWeibo(String content) {
+    public void writeBlog(String content) {
         getView().getExpansion().showProgressDialog("请稍候");
         int size = uriArrayList.size();
         if (size > 0) {
@@ -115,7 +114,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
                         Gson gson = new Gson();
                         String gsonStr = gson.toJson(strings);
                         JUtils.Log(gsonStr);
-                        return BlogModel.getInstance().addWeibo(content, gsonStr, address, location.getLongitude(), location.getLatitude());
+                        return BlogModel.getInstance().addBlog(content, gsonStr, address, location.getLongitude(), location.getLatitude());
                     })
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
@@ -126,7 +125,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
                         }
                     });
         } else {
-            BlogModel.getInstance().addWeibo(content, "[]", address, location.getLongitude(), location.getLatitude())
+            BlogModel.getInstance().addBlog(content, "[]", address, location.getLongitude(), location.getLatitude())
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
@@ -140,11 +139,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
-        RegeocodeAddress regeocodeAddress = regeocodeResult.getRegeocodeAddress();
-        StringBuilder sb = new StringBuilder();
-        sb.append(regeocodeAddress.getProvince()).append(regeocodeAddress.getCity()).append(regeocodeAddress.getTownship());
-        address = sb.toString();
-        getView().setAddress(address);
+        address = regeocodeResult.getRegeocodeAddress().getTownship();
     }
 
     @Override

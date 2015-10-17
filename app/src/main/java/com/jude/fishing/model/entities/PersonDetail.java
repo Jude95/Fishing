@@ -1,5 +1,7 @@
 package com.jude.fishing.model.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class PersonDetail extends PersonBrief implements Serializable {
     private String skill;
     private int age;
+    @SerializedName("bg")
     private String background;
     private String address;
     private List<Seed> seeds;
@@ -80,5 +83,9 @@ public class PersonDetail extends PersonBrief implements Serializable {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 }
