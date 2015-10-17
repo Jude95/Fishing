@@ -111,7 +111,9 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> register(String tel,String password,String code){
-        return ServiceClient.getService().register(tel,password,code).compose(new DefaultTransform<>());
+        return ServiceClient.getService().register(tel,password,code)
+                .flatMap(o -> login(tel,password))
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<Object> modPass(String oldPwd, String newPwd){

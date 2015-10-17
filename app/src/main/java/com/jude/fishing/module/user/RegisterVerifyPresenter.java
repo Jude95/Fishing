@@ -1,5 +1,6 @@
 package com.jude.fishing.module.user;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -44,6 +45,7 @@ public class RegisterVerifyPresenter extends Presenter<RegisterVerifyActivity> {
                     @Override
                     public void onNext(Object o) {
                         getView().startActivity(new Intent(getView(), UserDataActivity.class));
+                        getView().setResult(Activity.RESULT_OK);
                         getView().finish();
                     }
                 });

@@ -1,5 +1,6 @@
 package com.jude.fishing.module.user;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import com.jude.beam.bijection.Presenter;
@@ -11,7 +12,7 @@ import com.jude.fishing.model.service.ServiceResponse;
  */
 public class RegisterPresenter extends Presenter<RegisterActivity> {
     public void checkTel(String tel, String password) {
-        getView().getExpansion().showProgressDialog("注册中...");
+        getView().getExpansion().showProgressDialog("注册中");
         AccountModel.getInstance().checkTel(tel)
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {
@@ -21,8 +22,15 @@ public class RegisterPresenter extends Presenter<RegisterActivity> {
                         i.putExtra("number", tel);
                         i.putExtra("password", password);
                         getView().startActivity(i);
-                        getView().finish();
                     }
                 });
+    }
+
+    @Override
+    protected void onResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK){
+            getView().setResult(Activity.RESULT_OK);
+            getView().finish();
+        }
     }
 }

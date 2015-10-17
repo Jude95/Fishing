@@ -78,17 +78,22 @@
         </activity>
         <activity
             android:name=".module.user.LoginActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="登录" />
         <activity
             android:name=".module.user.RegisterActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="手机号快速注册" />
         <activity
             android:name=".module.user.RegisterVerifyActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="手机号快速注册" />
         <activity android:name=".module.user.ForgetPwdActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="忘记密码"/>
         <activity
             android:name=".module.blog.WriteActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="发布热闹" />
         <activity
             android:name=".module.user.UserDetailActivity"
@@ -110,21 +115,25 @@
             android:label="我的评价" />
         <activity
             android:name=".module.place.PlaceAddActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="添加钓点" />
         <activity
             android:name=".module.setting.SettingActivity"
             android:label="@string/title_activity_setting" />
         <activity
             android:name=".module.setting.PwdChangeActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="修改密码" />
         <activity
             android:name=".module.setting.BindChangeActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="修改绑定" />
         <activity
             android:name=".module.setting.MsgSetActivity"
             android:label="信息设置" />
         <activity
             android:name=".module.setting.FeedActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="用户反馈" />
         <activity
             android:name=".module.setting.AboutActivity"
@@ -152,6 +161,7 @@
         <activity android:name=".module.place.EvaluateCommentActivity"
             android:label="评价详情"/>
         <activity android:name=".module.place.WriteEvaluateActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:label="编辑评价"/>
         <activity android:name=".module.place.PlaceLocationSelectActivity"
             android:label="钓点选择"/>
@@ -159,6 +169,19 @@
             android:label="图片添加"/>
         <activity android:name=".module.place.PlaceMapNavigationActivity"
             android:label="导航"/>
+
+        <activity android:name=".module.social.ChatActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="聊天">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="com.jude.fishing"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

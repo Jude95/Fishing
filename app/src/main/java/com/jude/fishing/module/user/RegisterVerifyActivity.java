@@ -3,6 +3,7 @@ package com.jude.fishing.module.user;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
@@ -28,25 +29,30 @@ public class RegisterVerifyActivity extends BeamBaseActivity<RegisterVerifyPrese
     TAGView retry;
     @InjectView(R.id.register)
     TAGView register;
+    @InjectView(R.id.number)
+    TextView number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_verifyreg);
         ButterKnife.inject(this);
+        number.setText("验证码已发送到：" + getIntent().getStringExtra("number"));
         register.setOnClickListener(v -> checkInput());
         retry.setOnClickListener(v -> getPresenter().reSendMessage());
     }
+
     public void checkInput() {
-        if (code.getText().toString().isEmpty()){
+        if (code.getText().toString().isEmpty()) {
             JUtils.Toast("请输入验证码");
             return;
         }
         getPresenter().send(code.getText().toString());
     }
+
     @Override
     public void onLastTimeNotify(int lastSecond) {
-        if (lastSecond>0)
+        if (lastSecond > 0)
             retry.setText(lastSecond + "秒后重新发送");
         else
             retry.setText("重新发送");
@@ -55,6 +61,6 @@ public class RegisterVerifyActivity extends BeamBaseActivity<RegisterVerifyPrese
     @Override
     public void onAbleNotify(boolean valuable) {
         retry.setEnabled(valuable);
-        retry.setBackgroundColor(getResources().getColor(valuable?R.color.blue:R.color.gray));
+        retry.setBackgroundColor(getResources().getColor(valuable ? R.color.blue : R.color.gray));
     }
 }

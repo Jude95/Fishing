@@ -38,7 +38,7 @@ public class LoginActivity extends BeamBaseActivity<LoginPresenter> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_login);
         ButterKnife.inject(this);
-        register.setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
+        register.setOnClickListener(v -> getPresenter().register());
         login.setOnClickListener(v-> checkInput());
         findPassword.setOnClickListener(v->startActivity(new Intent(this,ForgetPwdActivity.class)));
     }

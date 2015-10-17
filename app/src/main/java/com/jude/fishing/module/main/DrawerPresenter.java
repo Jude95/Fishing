@@ -41,7 +41,10 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
 
     public void showPlaceFragment(){
         if (mPlaceFragment == null)mPlaceFragment = new PlaceFragment();
-        if (lastFragment == mPlaceFragment)return;
+        if (lastFragment == mPlaceFragment){
+            ((MainActivity)getView().getActivity()).closeDrawer();
+            return;
+        }
         getView().showFragment(mPlaceFragment);
         lastFragment = mPlaceFragment;
         getView().focusView(getView().place);
@@ -50,7 +53,10 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
 
     public void showBlogFragment(){
         if (mBlogFragment == null) mBlogFragment = new BlogFragment();
-        if (lastFragment == mBlogFragment)return;
+        if (lastFragment == mBlogFragment){
+            ((MainActivity)getView().getActivity()).closeDrawer();
+            return;
+        }
         getView().showFragment(mBlogFragment);
         lastFragment = mBlogFragment;
         getView().focusView(getView().blog);
@@ -60,7 +66,10 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         if (checkLogin()) {
 
             if (mMessageFragment == null) mMessageFragment = new MessageFragment();
-            if (lastFragment == mMessageFragment)return;
+            if (lastFragment == mMessageFragment){
+                ((MainActivity)getView().getActivity()).closeDrawer();
+                return;
+            }
 
             getView().showFragment(mMessageFragment);
             lastFragment = mMessageFragment;
@@ -73,7 +82,10 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         if (checkLogin()) {
 
             if (mUserFragment == null) mUserFragment = new UserFragment();
-            if (lastFragment == mUserFragment)return;
+            if (lastFragment == mUserFragment){
+                ((MainActivity)getView().getActivity()).closeDrawer();
+                return;
+            }
 
             getView().showFragment(mUserFragment);
             lastFragment = mUserFragment;
