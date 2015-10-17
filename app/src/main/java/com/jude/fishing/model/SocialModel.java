@@ -57,11 +57,25 @@ public class SocialModel extends AbsModel {
     }
 
     public Observable<Object> attention(int id){
-        return ServiceClient.getService().attend(id).compose(new DefaultTransform<>());
+        return ServiceClient.getService().attend(id)
+                .doOnNext(o -> {
+                    int card = Integer.parseInt(AccountModel.getInstance().getAccount().getCared());
+                    AccountModel.getInstance().getAccount().setCared(card+1+"");
+                    AccountModel.getInstance().saveAccount(AccountModel.getInstance().getAccount());
+                    AccountModel.getInstance().setAccount(AccountModel.getInstance().getAccount());
+                })
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<Object> unAttention(int id){
-        return ServiceClient.getService().unAttend(id).compose(new DefaultTransform<>());
+        return ServiceClient.getService().unAttend(id)
+                .doOnNext(o -> {
+                    int card = Integer.parseInt(AccountModel.getInstance().getAccount().getCared());
+                    AccountModel.getInstance().getAccount().setCared(card-1+"");
+                    AccountModel.getInstance().saveAccount(AccountModel.getInstance().getAccount());
+                    AccountModel.getInstance().setAccount(AccountModel.getInstance().getAccount());
+                })
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<PersonDetail> getUserDetail(int uid){

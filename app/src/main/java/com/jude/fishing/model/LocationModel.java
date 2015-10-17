@@ -96,6 +96,9 @@ public class LocationModel extends AbsModel{
         if (AccountModel.getInstance().getAccount()!=null)
         ServiceClient.getService().UpdateLocation(location.getLatitude(),location.getLongitude(),location.getAddress())
                 .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onServiceError(int status, String info) {
+                    }
                 });
     }
 }

@@ -55,11 +55,16 @@ public class BlogModel extends AbsModel {
     }
 
     public Observable<Object> addBlog(String content,String images,String address,double lng,double lat){
-        return ServiceClient.getService().addBlog(content, images, address, lng, lat).compose(new DefaultTransform<>());
+        return ServiceClient.getService().addBlog(content, images, address, lng, lat)
+                .doOnNext(o -> {
+                    int blogs = AccountModel.getInstance().getAccount().getBlogCount();
+                    AccountModel.getInstance().getAccount().setCared(blogs+1+"");
+                })
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<Object> sendBlogComment(int id,int fid,String content){
-        return ServiceClient.getService().blogComment(id,fid,content).compose(new DefaultTransform<>());
+        return ServiceClient.getService().blogComment(id, fid, content).compose(new DefaultTransform<>());
     }
 
     List<Seed> createVirtualSeedList(int count){

@@ -33,28 +33,28 @@ public interface Service {
 
     @FormUrlEncoded
     @POST(API.URL.GetPlace)
-    Observable<List<PlaceBrief>> SyncPlace(
-            @Field("time")String lastTime);
+    Observable<List<PlaceBrief>> syncPlace(
+            @Field("time") String lastTime);
 
     @FormUrlEncoded
     @POST(API.URL.AddPlace)
-    Observable<Object> PublishPlace(
-            @Field("id")int id,
-            @Field("name")String name,
-            @Field("preview")String preview,
-            @Field("briefAddr")String briefAddr,
-            @Field("address")String address,
-            @Field("cost")int cost,
-            @Field("costType")int costType,
-            @Field("fishType")String fishType,
-            @Field("poolType")int poolType,
-            @Field("serviceType")String serviceType,
-            @Field("tel")String tel,
-            @Field("content")String content,
-            @Field("picture")String picture,
-            @Field("lat")double lat,
-            @Field("lng")double lng
-            );
+    Observable<Object> publishPlace(
+            @Field("id") int id,
+            @Field("name") String name,
+            @Field("preview") String preview,
+            @Field("briefAddr") String briefAddr,
+            @Field("address") String address,
+            @Field("cost") int cost,
+            @Field("costType") int costType,
+            @Field("fishType") String fishType,
+            @Field("poolType") int poolType,
+            @Field("serviceType") String serviceType,
+            @Field("tel") String tel,
+            @Field("content") String content,
+            @Field("picture") String picture,
+            @Field("lat") double lat,
+            @Field("lng") double lng
+    );
 
     @FormUrlEncoded
     @POST(API.URL.GetPlaceDetail)
@@ -97,6 +97,9 @@ public interface Service {
 
     @GET(API.URL.MyEvaluate)
     Observable<List<Evaluate>> myEvaluate();
+
+    @GET(API.URL.UpdateMyInfo)
+    Observable<Account> updateMyInfo();
 
     @FormUrlEncoded
     @POST(API.URL.EvaluateComment)

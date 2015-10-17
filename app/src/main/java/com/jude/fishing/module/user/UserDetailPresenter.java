@@ -9,7 +9,6 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
-import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
@@ -116,14 +115,6 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                 .flatMap(path -> {
                     bgUri = path;
                     return AccountModel.getInstance().changeUserBg(path);
-                })
-                .filter(o -> {
-                    Account account = AccountModel.getInstance().getAccount();
-                    if (account != null) {
-                        account.setBackground(bgUri);
-                        AccountModel.getInstance().updateAccount(account);
-                    }
-                    return true;
                 })
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {

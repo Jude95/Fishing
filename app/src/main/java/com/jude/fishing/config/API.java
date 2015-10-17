@@ -32,6 +32,7 @@ public class API {
         public static final String UpdateLocation = "/user/updateAddr";
         public static final String GetNearBy = "/user/getNearby";
         public static final String ModBg = "/user/modBg";
+        public static final String UpdateMyInfo = "/user/getmyinfo";
 
 
         public static final String Attend = "/user/attend";

@@ -9,6 +9,7 @@ import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.HeaderInterceptors;
 import com.jude.fishing.model.service.ServiceClient;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JFileManager;
 
 import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class AccountModel extends AbsModel {
     protected void onAppCreateOnBackThread(Context ctx) {
         super.onAppCreateOnBackThread(ctx);
         setAccount((Account) JFileManager.getInstance().getFolder(Dir.Object).readObjectFromFile(FILE_ACCOUNT));
+        updateMyInfo().subscribe(new ServiceResponse<Account>() {
+            @Override
+            public void onServiceError(int status, String info) {
+            }
+        });
     }
 
     public Account getAccount(){
@@ -64,7 +70,7 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
-        return ServiceClient.getService().modInfo(avatar,name,gender,address,age,skill,sign)
+        return ServiceClient.getService().modInfo(avatar, name, gender, address, age, skill, sign)
                 .doOnNext(o -> {
                     userAccountData.setAvatar(avatar);
                     userAccountData.setAge(age);
@@ -80,7 +86,18 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> changeUserBg(String bg){
-        return ServiceClient.getService().changeUserBg(bg).compose(new DefaultTransform<>());
+        return ServiceClient.getService().changeUserBg(bg)
+                .doOnNext(o -> userAccountData.setBackground(bg))
+                .compose(new DefaultTransform<>());
+    }
+
+    public Observable<Account> updateMyInfo(){
+        return ServiceClient.getService().updateMyInfo()
+                .doOnNext(account -> {
+                    saveAccount(account);
+                    setAccount(account);
+                })
+                .compose(new DefaultTransform<>());
     }
 
     void saveAccount(Account account){
@@ -112,11 +129,6 @@ public class AccountModel extends AbsModel {
             personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
         }
         return personBriefs;
-    }
-
-    public void updateAccount(Account account){
-        saveAccount(account);
-        userAccountDataBehaviorSubject.onNext(account);
     }
 
     public Observable<Object> register(String tel,String password,String code){

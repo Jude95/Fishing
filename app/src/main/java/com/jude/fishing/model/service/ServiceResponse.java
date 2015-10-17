@@ -24,14 +24,15 @@ public abstract class ServiceResponse<T> implements Observer<T> {
     @Override
     public void onError(Throwable e) {
         if (e.getCause() instanceof ServiceException){
+            JUtils.Log("Server Error:"+e.getLocalizedMessage());
             onServiceError(((ServiceException) e.getCause()).getStatus(), ((ServiceException) e.getCause()).getInfo());
         }else{
-            onServiceError(API.CODE.NET_INVALID,"网络错误");
+            JUtils.Log("UnKnow Error:"+e.getLocalizedMessage());
+            onServiceError(API.CODE.NET_INVALID, "网络错误");
         }
     }
 
     public void onServiceError(int status,String info){
-        JUtils.Log("server error:"+status+" ,info:"+info);
         JUtils.Toast(info);
     }
 

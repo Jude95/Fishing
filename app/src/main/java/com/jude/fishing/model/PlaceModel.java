@@ -46,7 +46,7 @@ public class PlaceModel extends AbsModel {
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
-                .mapToList(cursor ->  PlaceDBTable.getInstance().from(cursor))
+                .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
                 .subscribeOn(Schedulers.io())
                 .compose(new DefaultTransform<>());
     }
@@ -69,7 +69,7 @@ public class PlaceModel extends AbsModel {
 
 
     public Observable<List<PlaceBrief>> syncPlace(){
-        return ServiceClient.getService().SyncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
+        return ServiceClient.getService().syncPlace(JUtils.getSharedPreference().getString(PLACE_LAST_SYNC_TIME, "0"))
                 .doOnCompleted(() -> JUtils.getSharedPreference().edit().putString(PLACE_LAST_SYNC_TIME, System.currentTimeMillis() / 1000 + "").apply())
                 .doOnNext(placeBriefs -> {
                     BriteDatabase.Transaction transaction = mDbBrite.newTransaction();
@@ -98,7 +98,7 @@ public class PlaceModel extends AbsModel {
 
     public Observable<Object> publishPlace(PlaceDetail placeDetail){
         String picture  = new Gson().toJson(placeDetail.getPicture());
-        return ServiceClient.getService().PublishPlace(
+        return ServiceClient.getService().publishPlace(
                 placeDetail.getId(),
                 placeDetail.getName(),
                 placeDetail.getPreview(),
@@ -133,7 +133,7 @@ public class PlaceModel extends AbsModel {
     }
 
     public Observable<Object> sendEvaluateComment(int sid,int fid,String content){
-        return ServiceClient.getService().EvaluateComment(sid,fid,content).compose(new DefaultTransform<>());
+        return ServiceClient.getService().EvaluateComment(sid, fid, content).compose(new DefaultTransform<>());
     }
 
     public Observable<Object> publishEvaluate(int pid,String content,List<String> images,int score){

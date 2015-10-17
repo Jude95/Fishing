@@ -53,6 +53,22 @@ public class PersonDetail extends PersonBrief implements Serializable {
         this.fans = fans;
     }
 
+    public void setBlogCount(int blogCount) {
+        this.blogCount = blogCount;
+    }
+
+    public void setCared(String cared) {
+        this.cared = cared;
+    }
+
+    public void setFans(String fans) {
+        this.fans = fans;
+    }
+
+    public void setSeeds(List<Seed> seeds) {
+        this.seeds = seeds;
+    }
+
     public String getSkill() {
         return skill;
     }

@@ -23,6 +23,7 @@ import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.R;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.module.blog.BlogDetailActivity;
@@ -139,7 +140,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         getExpansion().dismissProgressPage();
         if (data == null) getExpansion().showErrorPage();
         if (data.getBackground() != null)
-            background.setImageURI(Uri.parse(data.getBackground()));
+            background.setImageURI(ImageModel.getInstance().getLargeImage(data.getBackground()));
         userName = data.getName();
         uid = data.getUID();
         name.setText(data.getName());
