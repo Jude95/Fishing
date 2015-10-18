@@ -19,7 +19,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
     private int blogCount;
     private String cared;
     private String fans;
-    private int gender;
+    private int gender;//0 男 1女
 
 
     public List<Seed> getSeeds() {
