@@ -1,10 +1,12 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.ServiceClient;
+import com.jude.fishing.model.service.ServiceResponse;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class BlogModel extends AbsModel {
     }
 
     public Observable<List<Seed>> getUserBlog(int id,int page){
-        return ServiceClient.getService().getUserBlog(id,page).compose(new DefaultTransform<>());
+        return ServiceClient.getService().getUserBlog(id, page).compose(new DefaultTransform<>());
     }
 
     public Observable<SeedDetail> getSeedDetail(int id){
@@ -49,10 +51,11 @@ public class BlogModel extends AbsModel {
 
     public Observable<Object> addBlog(String content,String images,String address,double lng,double lat){
         return ServiceClient.getService().addBlog(content, images, address, lng, lat)
-                .doOnNext(o -> {
-                    int blogs = AccountModel.getInstance().getAccount().getBlogCount();
-                    AccountModel.getInstance().getAccount().setCared(blogs+1+"");
-                })
+                .doOnNext(o -> AccountModel.getInstance().updateMyInfo().subscribe(new ServiceResponse<Account>() {
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                }))
                 .compose(new DefaultTransform<>());
     }
 

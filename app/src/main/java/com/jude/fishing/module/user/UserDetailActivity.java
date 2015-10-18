@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,6 +32,7 @@ import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.fishing.widget.ObservableScrollView;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import java.util.List;
 
@@ -166,6 +166,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
 
         public BlogSimpleAdapter(Context context, List<Seed> objects) {
             super(context, objects);
+            JUtils.Log("SeedList:"+objects.size());
         }
 
 
@@ -190,14 +191,6 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         TextView address;
         @InjectView(R.id.date)
         TextView date;
-        @InjectView(R.id.praise_image)
-        ImageView praiseImage;
-        @InjectView(R.id.praise_count)
-        TextView praiseCount;
-        @InjectView(R.id.comment_image)
-        ImageView commentImage;
-        @InjectView(R.id.comment_count)
-        TextView commentCount;
         @InjectView(R.id.tool)
         LinearLayout tool;
 
@@ -216,12 +209,10 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         @Override
         public void setData(Seed data) {
             id = data.getId();
-            preview.setImageURI(Uri.parse(data.getImages()[0]));
+            preview.setImageURI(ImageModel.getInstance().getSmallImage(data.getImages()[0]));
             content.setText(data.getContent());
             address.setText(data.getAddress());
             date.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
-            praiseCount.setText(data.getPraiseCount() + "");
-            commentCount.setText(data.getCommentCount() + "");
         }
     }
 
@@ -235,21 +226,13 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         TextView address;
         @InjectView(R.id.date)
         TextView date;
-        @InjectView(R.id.praise_image)
-        ImageView praiseImage;
-        @InjectView(R.id.praise_count)
-        TextView praiseCount;
-        @InjectView(R.id.comment_image)
-        ImageView commentImage;
-        @InjectView(R.id.comment_count)
-        TextView commentCount;
         @InjectView(R.id.tool)
         LinearLayout tool;
 
         private int id;
 
         public BlogTextViewHolder(ViewGroup parent) {
-            super(parent, R.layout.blog_item_simple_image);
+            super(parent, R.layout.blog_item_simple_text);
             ButterKnife.inject(this, itemView);
             itemView.setOnClickListener(v -> {
                 Intent i = new Intent(v.getContext(), BlogDetailActivity.class);
@@ -265,8 +248,6 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             content.setText(data.getContent());
             address.setText(data.getAddress());
             date.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
-            praiseCount.setText(data.getPraiseCount() + "");
-            commentCount.setText(data.getCommentCount() + "");
         }
     }
 
