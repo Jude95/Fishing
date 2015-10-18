@@ -73,6 +73,18 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
     Button submit;
     @InjectView(R.id.divider_cost)
     View dividerCost;
+    @InjectView(R.id.tv_area)
+    TextView tvArea;
+    @InjectView(R.id.view_area)
+    LinearLayout viewArea;
+    @InjectView(R.id.tv_deep)
+    TextView tvDeep;
+    @InjectView(R.id.view_deep)
+    LinearLayout viewDeep;
+    @InjectView(R.id.tv_nest)
+    TextView tvNest;
+    @InjectView(R.id.view_nest)
+    LinearLayout viewNest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +100,15 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
         viewCostType.setOnClickListener(v -> showCostTypeEdit());
         viewPool.setOnClickListener(v -> showPoolTypeEdit());
         viewServer.setOnClickListener(v -> showServerTypeEdit());
-        viewAddress.setOnClickListener(v->getPresenter().startPlaceSelect());
-        viewPictureCount.setOnClickListener(v->getPresenter().startPhotoSelect());
-        submit.setOnClickListener(v->getPresenter().submit());
+        viewAddress.setOnClickListener(v -> getPresenter().startPlaceSelect());
+        viewPictureCount.setOnClickListener(v -> getPresenter().startPhotoSelect());
+        viewArea.setOnClickListener(v->showAreaTypeEdit());
+        viewDeep.setOnClickListener(v->showDeepTypeEdit());
+        viewNest.setOnClickListener(v->showNestTypeEdit());
+        submit.setOnClickListener(v -> getPresenter().submit());
     }
 
-
-    public void setPictureCount(int count){
+    public void setPictureCount(int count) {
         tvPictureCount.setText(count + "张");
     }
 
@@ -104,7 +118,9 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
         tvName.setText(TextUtils.isEmpty(data.getName()) ? "点击填写名字" : data.getName());
         tvContact.setText(TextUtils.isEmpty(data.getTel()) ? "点击填写联系电话" : data.getTel());
         tvContent.setText(TextUtils.isEmpty(data.getContent()) ? "点击填写钓点介绍" : data.getContent());
-
+        tvArea.setText(TextUtils.isEmpty(data.getArea()) ? "点击选择面积" : "面积"+data.getArea());
+        tvDeep.setText(TextUtils.isEmpty(data.getDeep()) ? "点击选择水深" : "水深"+data.getDeep());
+        tvNest.setText(Constant.NestType[data.getNest()]);
         if (data.getCostType() == 0) {
             dividerCost.setVisibility(View.GONE);
             viewCostAvg.setVisibility(View.GONE);
@@ -119,18 +135,18 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
             tvCostType.setText(Constant.PlaceCostType[data.getCostType()]);
 
 
-
         if (data.getPoolType() < Constant.PlacePoolType.length)
             tvPool.setText(Constant.PlacePoolType[data.getPoolType()]);
 
         String fish = "";
         if (!TextUtils.isEmpty(data.getFishType())) {
             for (String s : data.getFishType().split(",")) {
-                try{
+                try {
                     if (Integer.parseInt(s) < Constant.FishType.length) {
                         fish += Constant.FishType[Integer.parseInt(s)] + ",";
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
             fish = fish.substring(0, fish.length() - 1);
         } else {
@@ -172,7 +188,6 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
     }
 
 
-
     private void showContactEdit() {
         new MaterialDialog.Builder(this)
                 .title("输入联系电话")
@@ -189,6 +204,7 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
                     }
                 }).show();
     }
+
 
     private void showCostAvgEdit() {
         new MaterialDialog.Builder(this)
@@ -224,6 +240,65 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         getPresenter().setCostType(which);
+                        return true;
+                    }
+                })
+                .positiveText("确定")
+                .show();
+    }
+
+    private void showDeepTypeEdit() {
+        int index = 0;
+        for (int i = 0; i < Constant.DeepType.length; i++) {
+            if (Constant.DeepType[i].equals(getPresenter().getPlaceDetail().getDeep())){
+                index = i;
+                break;
+            }
+        }
+        new MaterialDialog.Builder(this)
+                .title("请选择水深")
+                .items(Constant.DeepType)
+                .itemsCallbackSingleChoice(index, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        getPresenter().setDeep(which);
+                        return true;
+                    }
+                })
+                .positiveText("确定")
+                .show();
+    }
+
+    private void showAreaTypeEdit() {
+        int index = 0;
+        for (int i = 0; i < Constant.AreaType.length; i++) {
+            if (Constant.AreaType[i].equals(getPresenter().getPlaceDetail().getDeep())){
+                index = i;
+                break;
+            }
+        }
+        new MaterialDialog.Builder(this)
+                .title("请选择面积")
+                .items(Constant.AreaType)
+                .itemsCallbackSingleChoice(index, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        getPresenter().setArea(which);
+                        return true;
+                    }
+                })
+                .positiveText("确定")
+                .show();
+    }
+
+    private void showNestTypeEdit() {
+        new MaterialDialog.Builder(this)
+                .title("请选择是否可打窝")
+                .items(Constant.NestType)
+                .itemsCallbackSingleChoice(getPresenter().getPlaceDetail().getNest(), new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        getPresenter().setNest(which);
                         return true;
                     }
                 })

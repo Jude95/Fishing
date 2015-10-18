@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.HeaderInterceptors;
 import com.jude.fishing.model.service.ServiceClient;
@@ -121,6 +122,10 @@ public class AccountModel extends AbsModel {
             HeaderInterceptors.UID = "";
         }
 
+    }
+
+    public PersonAvatar getPersonAvatar(String id){
+        return ServiceClient.getService().GetUserAvatar(id);
     }
 
     public Observable<Object> register(String tel,String password,String code){

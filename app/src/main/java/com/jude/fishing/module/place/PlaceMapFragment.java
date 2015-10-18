@@ -85,11 +85,11 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
             if (mStatus == 0) {
                 aMap.setMapType(AMap.MAP_TYPE_SATELLITE);
                 mStatus = 1;
-                type.setImageResource(R.drawable.ic_map_paper);
+                type.setImageResource(R.drawable.ic_map_paper_orange);
             } else {
                 aMap.setMapType(AMap.MAP_TYPE_NORMAL);
                 mStatus = 0;
-                type.setImageResource(R.drawable.ic_map_moon);
+                type.setImageResource(R.drawable.ic_map_moon_orange);
             }
         });
         initMap();

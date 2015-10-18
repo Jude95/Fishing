@@ -244,6 +244,89 @@
                     android:src="@drawable/ic_drop"
                     android:layout_marginRight="16dp"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/view_area"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:text="水深"
+                    android:gravity="center"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"/>
+
+                <TextView
+                    android:id="@+id/tv_area"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    tool:text="水深12米"
+                    android:text="请输入水深"
+                    android:gravity="center_vertical"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textColor="@android:color/darker_gray"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/view_deep"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_width="64dp"
+                    android:layout_height="match_parent"
+                    android:text="面积"
+                    android:gravity="center"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"/>
+
+                <TextView
+                    android:id="@+id/tv_deep"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    tool:text="面积12平方米"
+                    android:text="请输入选择所具服务"
+                    android:gravity="center_vertical"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textColor="@android:color/darker_gray"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                android:id="@+id/view_nest"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <TextView
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:text="能否打窝"
+                    android:gravity="center"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"/>
+
+                <TextView
+                    android:id="@+id/tv_nest"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="未知"
+                    android:gravity="center_vertical"
+                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    android:textColor="@android:color/darker_gray"/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_drop"
+                    android:layout_marginRight="16dp"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

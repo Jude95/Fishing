@@ -16,8 +16,34 @@ public class PlaceDetail extends PlaceBrief implements Serializable{
     @SerializedName("collectStatus")
     private boolean collected;
     private List<String> picture;
+    private String area;
+    private String deep;
+    @SerializedName("hole")
+    private int nest;
 
+    public String getArea() {
+        return area;
+    }
 
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getDeep() {
+        return deep;
+    }
+
+    public void setDeep(String deep) {
+        this.deep = deep;
+    }
+
+    public int getNest() {
+        return nest;
+    }
+
+    public void setNest(int nest) {
+        this.nest = nest;
+    }
 
     public PlaceDetail() {
     }

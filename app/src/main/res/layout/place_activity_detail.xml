@@ -124,19 +124,40 @@
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/place_tel"/>
+                    android:src="@drawable/place_price"/>
                 <TextView
-                    android:id="@+id/tel"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    tools:text="联系方式：023-87549666"/>
+                    tools:text="人均150￥"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/white">
                 <ImageView
-                    android:layout_width="16dp"
+                    android:layout_width="24dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_right"/>
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/place_deep"/>
+                <TextView
+                    android:id="@+id/deep"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="水深12m"/>
 
             </LinearLayout>
             <View
@@ -154,14 +175,69 @@
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/place_price"/>
+                    android:src="@drawable/place_area"/>
                 <TextView
-                    android:id="@+id/price"
+                    android:id="@+id/area"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    tools:text="人均150￥"/>
+                    tools:text="面积12平米"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/place_nest"/>
+                <TextView
+                    android:id="@+id/nest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="可以打窝"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/white">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/place_tel"/>
+                <TextView
+                    android:id="@+id/tel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    tools:text="联系方式：023-87549666"/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_right"/>
 
             </LinearLayout>
             <View
@@ -287,7 +363,7 @@
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_comment_gray"/>
+                    android:src="@drawable/place_comment"/>
                 <TextView
                     android:id="@+id/comment_count"
                     android:layout_width="0dp"

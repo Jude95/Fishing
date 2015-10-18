@@ -19,6 +19,7 @@ public class API {
         public static final String MyEvaluate = "/place/myScoreList";
         public static final String EvaluateComment = "/place/comment";
         public static final String FindUser = "/user/findUser";
+        public static final String GetPersonAvatar = "/user/getBriefinfo";
 
         public static final String CheckTel = "/user/checkTel";
         public static final String Register = "/user/register";
@@ -29,6 +30,8 @@ public class API {
         public static final String ResetPass = "/user/resetPass";
         public static final String GetUserInfo = "/user/getUserinfo";
         public static final String GetMyInfo = "/user/getmyinfo";
+        public static final String GetMyPlace = "/place/myPlace";
+
         public static final String UpdateLocation = "/user/updateAddr";
         public static final String GetNearBy = "/user/getNearby";
         public static final String ModBg = "/user/modBg";

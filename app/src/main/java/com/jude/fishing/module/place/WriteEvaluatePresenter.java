@@ -106,6 +106,7 @@ public class WriteEvaluatePresenter extends Presenter<WriteEvaluateActivity> imp
                     @Override
                     public void onNext(Object o) {
                         JUtils.Toast("提交成功");
+                        getView().setResult(Activity.RESULT_OK);
                         getView().finish();
                     }
                 });

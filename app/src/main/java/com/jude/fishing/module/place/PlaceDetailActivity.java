@@ -61,9 +61,15 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     ExGridView server;
     @InjectView(R.id.comment_count)
     TextView commentCount;
-
+    @InjectView(R.id.deep)
+    TextView deep;
+    @InjectView(R.id.area)
+    TextView area;
+    @InjectView(R.id.nest)
+    TextView nest;
 
     PictureAdapter adapter;
+
 
 
     private int evaluateCount = -1;
@@ -103,7 +109,6 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
 
     @Override
     public void setError(Throwable e) {
-        JUtils.Log("Fucker" + e.getLocalizedMessage());
         getExpansion().showErrorPage();
     }
 
@@ -118,6 +123,10 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         address.setText(data.getAddress());
         tel.setText(data.getTel());
         price.setText("人均消费:" + data.getCost() + "元");
+        nest.setText(Constant.NestType[data.getNest()]);
+
+        deep.setText("水深"+data.getDeep());
+        area.setText("面积"+data.getArea());
 
         if (TextUtils.isEmpty(data.getContent())) {
             content.setText("暂无");

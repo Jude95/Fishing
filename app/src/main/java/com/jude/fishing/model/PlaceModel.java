@@ -98,26 +98,31 @@ public class PlaceModel extends AbsModel {
 
     public Observable<Object> publishPlace(PlaceDetail placeDetail){
         String picture  = new Gson().toJson(placeDetail.getPicture());
-        return ServiceClient.getService().publishPlace(
-                placeDetail.getId(),
-                placeDetail.getName(),
-                placeDetail.getPreview(),
-                placeDetail.getAddressBrief(),
-                placeDetail.getAddress(),
-                placeDetail.getCost(),
-                placeDetail.getCostType(),
-                placeDetail.getFishType(),
-                placeDetail.getPoolType(),
-                placeDetail.getServiceType(),
-                placeDetail.getTel(),
-                placeDetail.getContent(),
-                picture,
-                placeDetail.getLat(),
-                placeDetail.getLng()).compose(new DefaultTransform<>());
+        return ServiceClient.getService()
+                .publishPlace(
+                    placeDetail.getId(),
+                    placeDetail.getName(),
+                    placeDetail.getPreview(),
+                    placeDetail.getAddressBrief(),
+                    placeDetail.getAddress(),
+                    placeDetail.getCost(),
+                    placeDetail.getCostType(),
+                    placeDetail.getFishType(),
+                    placeDetail.getPoolType(),
+                    placeDetail.getServiceType(),
+                    placeDetail.getTel(),
+                    placeDetail.getContent(),
+                    picture,
+                    placeDetail.getLat(),
+                    placeDetail.getLng(),
+                    placeDetail.getArea(),
+                    placeDetail.getDeep(),
+                    placeDetail.getNest())
+                .compose(new DefaultTransform<>());
     }
 
     public Observable<List<PlaceBrief>> getUserPlaces(){
-        return ServiceClient.getService().myPlaceCollect().compose(new DefaultTransform<>());
+        return ServiceClient.getService().myPlace().compose(new DefaultTransform<>());
     }
 
     public Observable<List<PlaceBrief>> getMyCollectionPlaces(){

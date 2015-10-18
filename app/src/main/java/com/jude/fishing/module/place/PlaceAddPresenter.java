@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.amap.api.maps.model.LatLng;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
+import com.jude.fishing.config.Constant;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.PlaceDetail;
@@ -62,6 +63,18 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         publishObject(mPlaceDetail);
     }
 
+    public void setArea(int area){
+        mPlaceDetail.setArea(Constant.AreaType[area]);
+        publishObject(mPlaceDetail);
+    }
+    public void setDeep(int deep){
+        mPlaceDetail.setDeep(Constant.DeepType[deep]);
+        publishObject(mPlaceDetail);
+    }
+    public void setNest(int nest){
+        mPlaceDetail.setNest(nest);
+        publishObject(mPlaceDetail);
+    }
     public void setCostAvg(int costAvg){
         mPlaceDetail.setCost(costAvg);
         publishObject(mPlaceDetail);
@@ -160,6 +173,14 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         }
         if (TextUtils.isEmpty(mPlaceDetail.getFishType())){
             JUtils.Toast("请填写钓点鱼种");
+            return;
+        }
+        if (TextUtils.isEmpty(mPlaceDetail.getDeep())){
+            JUtils.Toast("请选择水深");
+            return;
+        }
+        if (TextUtils.isEmpty(mPlaceDetail.getArea())){
+            JUtils.Toast("请选择面积");
             return;
         }
         if (mPreUpload.size()+mHasUpload.size()==0){

@@ -76,7 +76,7 @@
             <LinearLayout
                 android:id="@+id/tool"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="24dp"
                 android:orientation="horizontal"
                 android:layout_below="@+id/image">
                 <TextView

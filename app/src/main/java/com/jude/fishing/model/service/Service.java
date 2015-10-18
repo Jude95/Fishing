@@ -6,6 +6,7 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.entities.PersonAround;
+import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
@@ -53,8 +54,11 @@ public interface Service {
             @Field("content") String content,
             @Field("picture") String picture,
             @Field("lat") double lat,
-            @Field("lng") double lng
-    );
+            @Field("lng") double lng,
+            @Field("area") String area,
+            @Field("deep") String deep,
+            @Field("hole") int hole
+            );
 
     @FormUrlEncoded
     @POST(API.URL.GetPlaceDetail)
@@ -90,9 +94,11 @@ public interface Service {
     Observable<Object> unCollectPlace(
             @Field("id") int id);
 
-
     @GET(API.URL.MyColectPlace)
     Observable<List<PlaceBrief>> myPlaceCollect();
+
+    @GET(API.URL.GetMyPlace)
+    Observable<List<PlaceBrief>> myPlace();
 
 
     @GET(API.URL.MyEvaluate)
@@ -134,6 +140,12 @@ public interface Service {
     @POST(API.URL.FindUser)
     Observable<List<PersonBrief>> FindUser(
             @Field("key") String key
+    );
+
+    @FormUrlEncoded
+    @POST(API.URL.GetPersonAvatar)
+    PersonAvatar GetUserAvatar(
+            @Field("id") String id
     );
 
     @FormUrlEncoded
@@ -218,7 +230,6 @@ public interface Service {
     /**
      * 获取广场微博
      * @param page 页码
-     * @param count 可选值 默认20
      * @return
      */
     @FormUrlEncoded

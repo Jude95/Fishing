@@ -1,14 +1,20 @@
 package com.jude.fishing.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.view.View;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.utils.JUtils;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -62,11 +68,39 @@ public class RongYunModel extends AbsModel {
 
     public void setRongYun(){
         try {
-//            RongIM.setUserInfoProvider(userId -> {
-//                PersonBrief p = PersonBriefModel.getInstance().getPersonBriefOnBlock(userId);
-//                return new UserInfo(p.getUID()+"", p.getName(), Uri.parse(p.getFace()));
-//            }, true);
+            RongIM.setUserInfoProvider(userId -> {
+                PersonAvatar p;
+                try{
+                    p = AccountModel.getInstance().getPersonAvatar(userId);
+                }catch (Exception e){
+                    return null;
+                }
+                return new UserInfo(p.getId()+"", p.getName(), ImageModel.getInstance().getSmallImage(p.getAvatar()));
+            }, false);
+            RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
+                @Override
+                public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                    Intent i = new Intent(context, UserDetailActivity.class);
+                    i.putExtra("id",Integer.parseInt(userInfo.getUserId()));
+                    context.startActivity(i);
+                    return true;
+                }
 
+                @Override
+                public boolean onUserPortraitLongClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
+                    return false;
+                }
+
+                @Override
+                public boolean onMessageClick(Context context, View view, Message message) {
+                    return false;
+                }
+
+                @Override
+                public boolean onMessageLongClick(Context context, View view, Message message) {
+                    return false;
+                }
+            });
         } catch (Exception e) {
             JUtils.Log("融云出错");
         }
