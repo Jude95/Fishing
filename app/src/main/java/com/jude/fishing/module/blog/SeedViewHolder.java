@@ -12,6 +12,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.Seed;
+import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
@@ -69,6 +70,11 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     public void setData(Seed data) {
         id = data.getId();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
+        avatar.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), UserDetailActivity.class);
+            i.putExtra("id", data.getAuthorId());
+            v.getContext().startActivity(i);
+        });
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());

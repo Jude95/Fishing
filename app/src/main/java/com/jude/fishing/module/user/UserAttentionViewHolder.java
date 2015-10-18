@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
+import com.jude.fishing.model.SocialModel;
 import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.tagview.TAGView;
 
 import butterknife.ButterKnife;
@@ -28,6 +30,7 @@ public class UserAttentionViewHolder extends BaseViewHolder<PersonBrief> {
     TAGView attention;
 
     int id;
+    PersonBrief personBrief;
 
     public UserAttentionViewHolder(ViewGroup parent) {
         super(parent, R.layout.user_item_attention);
@@ -41,12 +44,37 @@ public class UserAttentionViewHolder extends BaseViewHolder<PersonBrief> {
 
     @Override
     public void setData(PersonBrief data) {
+        personBrief = data;
         id = data.getUID();
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
-        attention.setText(data.getRelation()?"已关注":"关注");
-        attention.setTextColor(itemView.getResources().getColor(data.getRelation()?R.color.gray_deep:R.color.green));
-        attention.setBackgroundColor(itemView.getResources().getColor(data.getRelation()?R.color.gray_deep:R.color.green));
+        attention.setOnClickListener(v -> attention(data.getRelation()));
+        changeAttention(data.getRelation());
+    }
+
+    private void attention(boolean isAttention) {
+        if (isAttention)
+            SocialModel.getInstance().unAttention(id).subscribe(new ServiceResponse<Object>() {
+                @Override
+                public void onNext(Object o) {
+                    personBrief.setRelation(false);
+                    changeAttention(personBrief.getRelation());
+                }
+            });
+        else
+            SocialModel.getInstance().attention(id).subscribe(new ServiceResponse<Object>() {
+                @Override
+                public void onNext(Object o) {
+                    personBrief.setRelation(true);
+                    changeAttention(personBrief.getRelation());
+                }
+            });
+    }
+
+    private void changeAttention(boolean isAttetion){
+        attention.setText(isAttetion ? "已关注" : "关注");
+        attention.setTextColor(itemView.getResources().getColor(isAttetion ? R.color.gray_deep : R.color.green));
+        attention.setBackgroundColor(itemView.getResources().getColor(isAttetion ? R.color.gray_deep : R.color.green));
     }
 }

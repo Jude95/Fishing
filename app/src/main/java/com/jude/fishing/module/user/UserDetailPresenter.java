@@ -95,14 +95,7 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
     }
 
     public void chat(String name) {
-        RongYunModel.getInstance().chatPerson(getView(), String.valueOf(id), name);
-    }
-
-    //调用相关页面
-    public void goToActivity(Class clz,int uid) {
-        Intent intent = new Intent(getView(),clz);
-        intent.putExtra("id",uid);
-        getView().startActivity(intent);
+        if (checkLogin()) RongYunModel.getInstance().chatPerson(getView(), String.valueOf(id), name);
     }
 
     String bgUri;
@@ -124,5 +117,35 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                     }
                 });
 
+    }
+
+    boolean checkLogin(){
+        if (AccountModel.getInstance().getAccount()==null){
+            getView().startActivity(new Intent(getView(),LoginActivity.class));
+            return false;
+        }
+        return true;
+    }
+
+    public void goToActivityWithLogin(Class clz,int uid){
+        if (checkLogin()){
+            goToActivity(clz, uid);
+        }
+    }
+
+    //调用相关页面
+    public void goToActivity(Class clz,int uid) {
+        Intent intent = new Intent(getView(),clz);
+        intent.putExtra("id",uid);
+        getView().startActivity(intent);
+    }
+
+    public void changeAttention(boolean isAttended) {
+        if (checkLogin()) {
+            if (isAttended)
+                unAttention();
+            else
+                attention();
+        }
     }
 }

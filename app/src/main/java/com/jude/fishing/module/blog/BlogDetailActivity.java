@@ -1,5 +1,6 @@
 package com.jude.fishing.module.blog;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.text.InputType;
 import android.view.View;
@@ -17,9 +18,12 @@ import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.SeedComment;
 import com.jude.fishing.model.entities.SeedDetail;
+import com.jude.fishing.module.user.LoginActivity;
+import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
@@ -62,18 +66,21 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     LinearLayout praiseContainer;
     @InjectView(R.id.ll_comment)
     LinearLayout commentContainer;
-    SeedDetail seedDetail;
 
     public View getBlogDetailView(SeedDetail data, ViewGroup parent) {
         View view = getLayoutInflater().inflate(R.layout.blog_item_head, parent, false);
         ButterKnife.inject(this, view);
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
+        avatar.setOnClickListener(v -> {
+            Intent i = new Intent(this, UserDetailActivity.class);
+            i.putExtra("id", data.getAuthorId());
+            startActivity(i);
+        });
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
-        praiseContainer.setOnClickListener(v -> getPresenter().blogPraise(seedDetail.getPraiseStatus()));
-        seedDetail = data;
+        praiseContainer.setOnClickListener(v -> getPresenter().blogPraise(data.getPraiseStatus()));
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
@@ -86,19 +93,15 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
             draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40), JUtils.dip2px(40)));
             draweeView.setImageURI(Uri.parse(personBrief.getAvatar()));
             draweeView.getHierarchy().setRoundingParams(RoundingParams.asCircle());
+            draweeView.setOnClickListener(v -> {
+                Intent i = new Intent(this, UserDetailActivity.class);
+                i.putExtra("id", personBrief.getUID());
+                startActivity(i);
+            });
             praiseMember.addView(draweeView);
         }
 
         return view;
-    }
-
-    public void changePraise() {
-        seedDetail.setPraiseStatus(!seedDetail.getPraiseStatus());
-        praiseImage.setImageResource(seedDetail.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
-        int praiseNum = seedDetail.getPraiseCount();
-        if (seedDetail.getPraiseStatus()) seedDetail.setPraiseCount(praiseNum + 1);
-        else seedDetail.setPraiseCount(praiseNum - 1);
-        praiseCount.setText(seedDetail.getPraiseCount() + "");
     }
 
     @Override
@@ -107,6 +110,10 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     }
 
     public void showCommentEdit(int fid, String fname) {
+        if (AccountModel.getInstance().getAccount()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+            return;
+        }
         new MaterialDialog.Builder(this)
                 .title("输入对" + fname + "的回复")
                 .inputType(InputType.TYPE_CLASS_TEXT)

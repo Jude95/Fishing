@@ -62,7 +62,7 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            getView().changePraise();
+                            onRefresh();
                         }
                     });
         else
@@ -71,7 +71,7 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            getView().changePraise();
+                            onRefresh();
                         }
                     });
     }

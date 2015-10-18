@@ -100,10 +100,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_detail);
         ButterKnife.inject(this);
-        attentionOperation.setOnClickListener(v -> {
-            if (isAttended) getPresenter().unAttention();
-            else getPresenter().attention();
-        });
+        attentionOperation.setOnClickListener(v -> getPresenter().changeAttention(isAttended));
         id = getIntent().getIntExtra("id", 0);
         getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
@@ -119,9 +116,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
                 }
             }
         });
-        containerAttention.setOnClickListener(v -> getPresenter().goToActivity(AttentionActivity.class, uid));
+        containerAttention.setOnClickListener(v -> getPresenter().goToActivityWithLogin(AttentionActivity.class, uid));
         containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class,uid));
-        containerFans.setOnClickListener(v -> getPresenter().goToActivity(FansActivity.class, uid));
+        containerFans.setOnClickListener(v -> getPresenter().goToActivityWithLogin(FansActivity.class, uid));
         chat.setOnClickListener(v->getPresenter().chat(userName));
     }
 

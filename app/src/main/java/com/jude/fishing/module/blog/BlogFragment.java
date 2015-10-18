@@ -15,9 +15,11 @@ import com.github.clans.fab.FloatingActionButton;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.Subscription;
 
 /**
  * Created by Mr.Jude on 2015/9/11.
@@ -31,6 +33,8 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     ViewPager vpDate;
     @InjectView(R.id.write)
     FloatingActionButton write;
+    FragmentPagerAdapter pagerAdapter;
+    Subscription subscription;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,11 +46,15 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.blog_fragment_main, container, false);
         ButterKnife.inject(this, rootView);
-        vpDate.setAdapter(new BlogFragmentListAdapter(getChildFragmentManager()));
+        subscription = AccountModel.getInstance().registerAccountUpdate(account -> {
+            pagerAdapter.notifyDataSetChanged();
+            tabs.notifyDataSetChanged();
+        });
+        vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager()));
         tabs.setViewPager(vpDate);
         tabs.setTextColor(Color.WHITE);
         tabs.setBackgroundColor(getResources().getColor(R.color.blue));
-        write.setOnClickListener(v->getPresenter().write());
+        write.setOnClickListener(v -> getPresenter().write());
         return rootView;
     }
 
@@ -55,6 +63,7 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+        subscription.unsubscribe();
     }
 
     class BlogFragmentListAdapter extends FragmentPagerAdapter {
