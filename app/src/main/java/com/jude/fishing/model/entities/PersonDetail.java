@@ -14,6 +14,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
     @SerializedName("bg")
     private String background;
     private String address;
+    @SerializedName("seed")
     private List<Seed> seeds;
     private int blogCount;
     private String cared;
