@@ -45,18 +45,22 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     TextView commentCount;
     @InjectView(R.id.tool)
     LinearLayout tool;
+    @InjectView(R.id.ll_praise)
+    LinearLayout praiseContainer;
     NetImageAdapter adapter;
+    BlogListFragment mFragment;
 
     private int id;
 
-    public SeedViewHolder(ViewGroup parent) {
+    public SeedViewHolder(ViewGroup parent,BlogListFragment fragment) {
         super(parent, R.layout.blog_item_main);
         ButterKnife.inject(this, itemView);
+        mFragment = fragment;
         image.setAdapter(adapter = new NetImageAdapter(parent.getContext()));
         adapter.setNotifyOnChange(false);
-        itemView.setOnClickListener(v->{
-            Intent i = new Intent(v.getContext(),BlogDetailActivity.class);
-            i.putExtra("id",id);
+        itemView.setOnClickListener(v -> {
+            Intent i = new Intent(v.getContext(), BlogDetailActivity.class);
+            i.putExtra("id", id);
             v.getContext().startActivity(i);
         });
     }
@@ -69,6 +73,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
+        if (mFragment!=null)praiseContainer.setOnClickListener(v -> mFragment.getPresenter().praise(id,data.getPraiseStatus()));
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");

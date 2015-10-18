@@ -16,7 +16,7 @@ public class UserBlogActivity extends BeamListActivity<UserBlogPresenter,Seed> {
     
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
-        return new SeedViewHolder(viewGroup);
+        return new SeedViewHolder(viewGroup,null);
     }
 
     @Override

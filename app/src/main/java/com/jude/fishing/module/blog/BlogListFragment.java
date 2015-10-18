@@ -21,7 +21,7 @@ import com.jude.utils.JUtils;
 public class BlogListFragment extends BeamListFragment<BlogListPresenter,Seed> {
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
-        return new SeedViewHolder(viewGroup);
+        return new SeedViewHolder(viewGroup,this);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.jude.fishing.model.BlogModel;
 import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.entities.Location;
 import com.jude.fishing.model.entities.Seed;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
 
 /**
@@ -28,13 +29,12 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
     protected void onCreateView(BlogListFragment view) {
         super.onCreateView(view);
         onRefresh();
-        JUtils.Log("onCreateView"+style);
     }
 
     @Override
     protected void onDestroyView() {
         super.onDestroyView();
-        JUtils.Log("onDestroyView"+style);
+        JUtils.Log("onDestroyView" + style);
     }
 
     @Override
@@ -63,5 +63,24 @@ public class BlogListPresenter extends BeamListFragmentPresenter<BlogListFragmen
         } else if (2 == style) {
             BlogModel.getInstance().getBlogFriend(0).unsafeSubscribe(getRefreshSubscriber());
         }
+    }
+
+    public void praise(int id,boolean isPraised) {
+        if (!isPraised)
+            BlogModel.getInstance().blogPraise(id)
+                    .subscribe(new ServiceResponse<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            onRefresh();
+                        }
+                    });
+        else
+            BlogModel.getInstance().blogUnPraise(id)
+                    .subscribe(new ServiceResponse<Object>() {
+                        @Override
+                        public void onNext(Object o) {
+                            onRefresh();
+                        }
+                    });
     }
 }
