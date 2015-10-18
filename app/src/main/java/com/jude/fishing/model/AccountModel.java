@@ -5,15 +5,12 @@ import android.content.Context;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
-import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.HeaderInterceptors;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JFileManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.jude.utils.JUtils;
 
 import rx.Observable;
 import rx.Observer;
@@ -49,10 +46,10 @@ public class AccountModel extends AbsModel {
     }
 
     public Subscription registerAccountUpdate(Action1<? super Account> accountAction1){
-        return userAccountDataBehaviorSubject.subscribe(accountAction1);
+        return userAccountDataBehaviorSubject.compose(new DefaultTransform<>()).subscribe(accountAction1);
     }
     public Subscription registerAccountUpdate(Observer<? super Account> accountAction1){
-        return userAccountDataBehaviorSubject.subscribe(accountAction1);
+        return userAccountDataBehaviorSubject.compose(new DefaultTransform<>()).subscribe(accountAction1);
     }
     public Observable<Account> login(String name,String password){
         return ServiceClient.getService().login(name,password)
@@ -78,6 +75,9 @@ public class AccountModel extends AbsModel {
                     userAccountData.setAddress(address);
                     userAccountData.setSkill(skill);
                     userAccountData.setSign(sign);
+                    JUtils.Log(userAccountData.getName());
+                    JUtils.Log(userAccountData.getAvatar());
+
                     saveAccount(userAccountData);
                     setAccount(userAccountData);
                 })
@@ -109,7 +109,8 @@ public class AccountModel extends AbsModel {
 
     void setAccount(Account account){
         userAccountData = account;
-        userAccountDataBehaviorSubject.onNext(account);
+        userAccountDataBehaviorSubject
+                .onNext(account);
         if (account!=null){
             ImageModel.UID = account.getUID()+"";
             HeaderInterceptors.TOKEN = account.getToken();
@@ -120,14 +121,6 @@ public class AccountModel extends AbsModel {
             HeaderInterceptors.UID = "";
         }
 
-    }
-
-    public List<PersonBrief> createVirtualPersonBriefs(int count){
-        List<PersonBrief> personBriefs = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-//            personBriefs.add(new PersonBrief("http://i1.hdslb.com/user/1570/157056/myface.jpg",i,"赛亚♂sya", (int) (Math.random()*2),"沉迷于手游无法自拔填坑是什么能吃吗"));
-        }
-        return personBriefs;
     }
 
     public Observable<Object> register(String tel,String password,String code){

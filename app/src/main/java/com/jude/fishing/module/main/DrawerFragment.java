@@ -1,7 +1,6 @@
 package com.jude.fishing.module.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +18,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.setting.SettingActivity;
 import com.jude.utils.JUtils;
@@ -54,13 +54,13 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
     RelativeLayout logout;
     @Override
     public void setData(Account info) {
+        JUtils.Log("DrawerFragment I Get It");
         if (info == null){
             imgFace.setImageURI(null);
             tvName.setText("未登录,点击登陆");
             tvSign.setText("");
         }else{
-
-            imgFace.setImageURI(Uri.parse(info.getAvatar()));
+            imgFace.setImageURI(ImageModel.getInstance().getSmallImage(info.getAvatar()));
             tvName.setText(info.getName());
             tvSign.setText(info.getSign());
         }

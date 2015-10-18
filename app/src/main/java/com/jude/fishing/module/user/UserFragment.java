@@ -1,7 +1,6 @@
 package com.jude.fishing.module.user;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,11 +15,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.module.place.CollectionPlaceActivity;
-import com.jude.fishing.module.place.UserPlaceActivity;
 import com.jude.fishing.module.place.UserEvaluateActivity;
+import com.jude.fishing.module.place.UserPlaceActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -103,7 +103,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     @Override
     public void setData(Account data) {
         uid = data.getUID();
-        avatar.setImageURI(Uri.parse(data.getAvatar()));
+        avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
         blog.setText(data.getBlogCount()+"");

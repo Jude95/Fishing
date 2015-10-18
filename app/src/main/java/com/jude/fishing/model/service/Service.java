@@ -120,7 +120,7 @@ public interface Service {
     Observable<Object> UpdateLocation(
             @Field("lat") double lat,
             @Field("lng") double lng,
-            @Field("address") String address);
+            @Field("location") String address);
 
     @FormUrlEncoded
     @POST(API.URL.GetNearBy)

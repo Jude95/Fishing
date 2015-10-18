@@ -35,7 +35,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
                     app:tag_color="?colorPrimary"
-                    app:tag_text="添加头像" />
+                    app:tag_text="修改头像" />
             </LinearLayout>
 
             <LinearLayout
@@ -229,9 +229,7 @@
                 android:id="@+id/tg_done"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginLeft="@dimen/activity_margin"
-                android:layout_marginRight="@dimen/activity_margin"
-                android:layout_marginTop="48dp"
+                android:layout_margin="@dimen/activity_margin"
                 app:tag_color="?colorPrimary"
                 app:tag_text="完成"
                 app:tag_text_size="18sp" />
