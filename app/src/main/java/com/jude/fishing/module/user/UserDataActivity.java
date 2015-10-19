@@ -90,7 +90,7 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
 //        }
         getPresenter().sendUserData(nickName.getText().toString().trim(),
                 region.getText().toString().trim(),
-                rbMale.isChecked() ? 1 : 0,
+                rbMale.isChecked() ? 0 : 1,
                 ageNum,
                 skill.getText().toString().trim(),
                 sign.getText().toString().trim(),
