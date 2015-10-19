@@ -75,7 +75,7 @@ public class RongYunModel extends AbsModel {
                 }catch (Exception e){
                     return null;
                 }
-                return new UserInfo(p.getId()+"", p.getName(), ImageModel.getInstance().getSmallImage(p.getAvatar()));
+                return new UserInfo(userId, p.getName(), ImageModel.getInstance().getSmallImage(p.getAvatar()));
             }, false);
             RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
                 @Override
