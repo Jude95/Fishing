@@ -128,6 +128,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
                 callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
+                        getPresenter().showPlaceFragment();
                         AccountModel.getInstance().logout();
                         dialog.dismiss();
                     }
