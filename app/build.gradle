@@ -12,8 +12,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 19
-        versionName "0.1.9 Build"
+        versionCode 20
+        versionName "0.2.0 Build"
     }
 
     signingConfigs {

@@ -267,7 +267,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
 
     public void showSelectorDialog() {
         new MaterialDialog.Builder(this)
-                .title("选择图片来源")
+                .title("选择背景图片")
                 .items(new String[]{"拍照", "相册", "网络"})
                 .itemsCallback((materialDialog, view, i, charSequence) -> getPresenter().editFace(i)).show();
     }

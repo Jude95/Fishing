@@ -61,6 +61,7 @@ public class UserEvaluateViewHolder extends BaseViewHolder<Evaluate> {
 
     @Override
     public void setData(Evaluate data) {
+        id = data.getId();
         name.setText(data.getPlaceName());
         score.setScore(data.getScore());
         address.setText(data.getAddress());

@@ -162,12 +162,9 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.location_marker));
-        markerOption.title("我的位置")
-        ;
         mMyLocation = aMap.addMarker(markerOption);
         LocationModel.getInstance().registerLocationChange(location -> {
             mMyLocation.setPosition(location.toLatLng());
-            mMyLocation.setSnippet(location.getAddress());
         });
     }
 
@@ -185,6 +182,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(place.getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         Marker marker = aMap.addMarker(markerOption);
+        marker.setToTop();
         mMarkerMap.put(marker, place);
         if (mMarkerMap.size() < MIN_ZOOM_MARKER_COUNT+1) zoomMarkerList.add(place);
         if (mMarkerMap.size()== MIN_ZOOM_MARKER_COUNT+1) moveToAdjustPlace(zoomMarkerList);
@@ -243,6 +241,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        if (marker.equals(mMyLocation))return false;
         if (lastMarker != null) lastMarker.setIcon(BitmapDescriptorFactory
                 .fromResource(mMarkerMap.get(lastMarker).getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         moveTo(marker.getPosition().latitude, marker.getPosition().longitude);
