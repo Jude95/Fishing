@@ -244,7 +244,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     @Override
     public boolean onMarkerClick(Marker marker) {
         if (lastMarker != null) lastMarker.setIcon(BitmapDescriptorFactory
-                .fromResource(mMarkerMap.get(marker).getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
+                .fromResource(mMarkerMap.get(lastMarker).getCostType() == 0 ? R.drawable.location_point_green : R.drawable.location_point_red));
         moveTo(marker.getPosition().latitude, marker.getPosition().longitude);
         marker.setIcon(BitmapDescriptorFactory
                 .fromResource(mMarkerMap.get(marker).getCostType() == 0 ? R.drawable.location_point_bigger_green : R.drawable.location_point_bigger_red));

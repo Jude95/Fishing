@@ -3,6 +3,7 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:clickable="true"
     android:orientation="vertical">
@@ -149,8 +150,21 @@
                     android:gravity="center_vertical"
                     android:text="消息"
                     style="@style/Base.TextAppearance.AppCompat.Body1"
-
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/message_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/main_drawer_bubble"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    tools:text="8"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
             </RelativeLayout>
 
 

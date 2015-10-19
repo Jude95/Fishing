@@ -25,6 +25,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.LocationModel;
+import com.jude.fishing.model.entities.Location;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import butterknife.ButterKnife;
@@ -79,22 +80,25 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mUiSettings.setZoomControlsEnabled(false);
         mUiSettings.setScaleControlsEnabled(true);
         mUiSettings.setMyLocationButtonEnabled(false);
-        moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), 13);
-        mMyLocation = initMyPoint();
-        LocationModel.getInstance().registerLocationChange(location -> {
-            mMyLocation.setPosition(location.toLatLng());
-        });
+
         aMap.setOnMapClickListener(this);
         aMap.setOnMarkerClickListener(this);
         mGeocoderSearch = new GeocodeSearch(this);
         mGeocoderSearch.setOnGeocodeSearchListener(this);
+        initMyPoint();
     }
 
-    private Marker initMyPoint() {
+    private void initMyPoint() {
+        Location location = LocationModel.getInstance().getCurLocation();
+        moveTo(location.getLatitude(), location.getLongitude(), 13);
+        mGeocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(location.getLatitude(), location.getLongitude()), 50, GeocodeSearch.AMAP));
+
         MarkerOptions markerOption = new MarkerOptions();
         markerOption.icon(BitmapDescriptorFactory
                 .fromResource(R.drawable.location_marker));
-        return aMap.addMarker(markerOption);
+        mMyLocation = aMap.addMarker(markerOption);
+        mPoint = new LatLng(location.getLatitude(),location.getLongitude());
+        LocationModel.getInstance().registerLocationChange(newLocation -> mMyLocation.setPosition(newLocation.toLatLng()));
     }
 
     private void moveTo(double lat, double lng, float zoom) {

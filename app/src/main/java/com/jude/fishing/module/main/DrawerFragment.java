@@ -30,7 +30,7 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/17.
  */
 @RequiresPresenter(DrawerPresenter.class)
-public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
+public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
 
     @InjectView(R.id.imgFace)
     SimpleDraweeView imgFace;
@@ -52,14 +52,17 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
     RelativeLayout setting;
     @InjectView(R.id.logout)
     RelativeLayout logout;
+    @InjectView(R.id.message_count)
+    TextView messageCount;
+
     @Override
     public void setData(Account info) {
         JUtils.Log("DrawerFragment I Get It");
-        if (info == null){
+        if (info == null) {
             imgFace.setImageURI(null);
             tvName.setText("未登录,点击登陆");
             tvSign.setText("");
-        }else{
+        } else {
             imgFace.setImageURI(ImageModel.getInstance().getSmallImage(info.getAvatar()));
             tvName.setText(info.getName());
             tvSign.setText(info.getSign());
@@ -72,13 +75,13 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         View view = inflater.inflate(R.layout.main_fragment_drawer, container, false);
         ButterKnife.inject(this, view);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            ((RelativeLayout.LayoutParams)imgFace.getLayoutParams()).setMargins(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            ((RelativeLayout.LayoutParams) imgFace.getLayoutParams()).setMargins(
                     JUtils.dip2px(16),
-                    JUtils.dip2px(16)+JUtils.getStatusBarHeight(),
+                    JUtils.dip2px(16) + JUtils.getStatusBarHeight(),
                     JUtils.dip2px(16),
                     JUtils.dip2px(16)
-                    );
+            );
         }
         imgFace.setOnClickListener(v -> getPresenter().checkLogin());
         viewAccount.setOnClickListener(v -> getPresenter().checkLogin());
@@ -91,24 +94,32 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter,Account> {
         return view;
     }
 
+    public void setMessageCount(int i) {
+        messageCount.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
+        messageCount.setText(i + "");
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
 
-    public void showFragment(Fragment fragment){
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
-        ((MainActivity)getActivity()).closeDrawer();
+    public void showFragment(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        ((MainActivity) getActivity()).closeDrawer();
     }
+
     private View lastView;
-    public void focusView(View view){
-        if (lastView!=null)lastView.setBackgroundColor(getResources().getColor(R.color.white));
+
+    public void focusView(View view) {
+        if (lastView != null) lastView.setBackgroundColor(getResources().getColor(R.color.white));
         view.setBackgroundColor(getResources().getColor(R.color.gray_light));
         lastView = view;
     }
 
-    private void showLogoutDialog(){
+    private void showLogoutDialog() {
         MaterialDialog dialog = new MaterialDialog.Builder(getContext()).
                 title("注销登录").
                 content("您确定要退出登录吗？").

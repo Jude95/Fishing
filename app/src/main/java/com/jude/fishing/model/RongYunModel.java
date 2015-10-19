@@ -81,7 +81,7 @@ public class RongYunModel extends AbsModel {
                 @Override
                 public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
                     Intent i = new Intent(context, UserDetailActivity.class);
-                    i.putExtra("id",Integer.parseInt(userInfo.getUserId()));
+                    i.putExtra("id", Integer.parseInt(userInfo.getUserId()));
                     context.startActivity(i);
                     return true;
                 }
@@ -101,6 +101,12 @@ public class RongYunModel extends AbsModel {
                     return false;
                 }
             });
+            RongIM.getInstance().setOnReceiveUnreadCountChangedListener(new RongIM.OnReceiveUnreadCountChangedListener() {
+                @Override
+                public void onMessageIncreased(int i) {
+                    mNotifyBehaviorSubject.onNext(i);
+                }
+            }, Conversation.ConversationType.PRIVATE);
         } catch (Exception e) {
             JUtils.Log("融云出错");
         }

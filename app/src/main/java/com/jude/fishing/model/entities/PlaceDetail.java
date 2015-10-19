@@ -68,8 +68,6 @@ public class PlaceDetail extends PlaceBrief implements Serializable{
         this.picture = picture;
     }
 
-
-
     public boolean isCollected() {
         return collected;
     }
@@ -99,7 +97,7 @@ public class PlaceDetail extends PlaceBrief implements Serializable{
     }
 
     public PlaceDetail(int id, String name, String preview, String address, float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng, String tel, String content, List<String> picture) {
-        super(id, name, preview, address, score, cost, costType, fishType, poolType, serviceType, lat, lng);
+        super(id, name, preview, address, score, cost, costType, fishType, poolType, serviceType, 1,lat, lng);
         this.tel = tel;
         this.address = address;
         this.content = content;

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
@@ -13,6 +14,8 @@ import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDataActivity;
 import com.jude.fishing.module.user.UserFragment;
+
+import rx.Subscription;
 
 /**
  * Created by Mr.Jude on 2015/9/17.
@@ -25,11 +28,15 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
     private MessageFragment mMessageFragment;
     private UserFragment mUserFragment;
 
+    private Subscription mAccountSubscription;
+    private Subscription mMessageCountSubscription;
+
     @Override
     protected void onCreateView(DrawerFragment view) {
         super.onCreateView(view);
         showPlaceFragment();
-        AccountModel.getInstance().registerAccountUpdate(this);
+        mAccountSubscription = AccountModel.getInstance().registerAccountUpdate(this);
+        mMessageCountSubscription = RongYunModel.getInstance().registerNotifyCount(count -> getView().setMessageCount(count));
     }
 
     public boolean checkLogin(){
@@ -39,6 +46,13 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         }else{
             return true;
         }
+    }
+
+    @Override
+    protected void onDestroyView() {
+        super.onDestroyView();
+        mAccountSubscription.unsubscribe();
+        mMessageCountSubscription.unsubscribe();
     }
 
     @Override

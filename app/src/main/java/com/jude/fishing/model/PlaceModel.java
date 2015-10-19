@@ -45,7 +45,7 @@ public class PlaceModel extends AbsModel {
 
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
-                "SELECT * FROM " + PlaceDBTable.TABLE_NAME)
+                "SELECT * FROM " + PlaceDBTable.TABLE_NAME + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1")
                 .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
                 .subscribeOn(Schedulers.io())
                 .compose(new DefaultTransform<>());
@@ -54,6 +54,7 @@ public class PlaceModel extends AbsModel {
     public Observable<List<PlaceBrief>> getPlacesByDistance(double lat, double lng){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
+                        + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1"
                         + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
                 .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
                 .subscribeOn(Schedulers.io())

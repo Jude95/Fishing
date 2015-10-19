@@ -11,6 +11,8 @@ public class PlaceBrief implements Serializable{
     private int id;
     private String name;
     private String preview;
+    @SerializedName("state")
+    private int status;
     @SerializedName("briefAddr")
     private String addressBrief;
     private float score;
@@ -90,7 +92,7 @@ public class PlaceBrief implements Serializable{
         this.serviceType = serviceType;
     }
 
-    public PlaceBrief(int id, String name, String preview, String briefAddr,  float score,  int cost, int costType, String fishType, int poolType, String serviceType, double lat, double lng) {
+    public PlaceBrief(int id, String name, String preview, String briefAddr,  float score,  int cost, int costType, String fishType, int poolType, String serviceType, int status,double lat, double lng) {
         this.id = id;
         this.name = name;
         this.preview = preview;
@@ -101,8 +103,17 @@ public class PlaceBrief implements Serializable{
         this.fishType = fishType;
         this.poolType = poolType;
         this.serviceType = serviceType;
+        this.status = status;
         this.lat = lat;
         this.lng = lng;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getCost() {

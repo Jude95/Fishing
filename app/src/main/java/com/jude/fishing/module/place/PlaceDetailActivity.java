@@ -85,8 +85,10 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         ButterKnife.inject(this);
         picture.setAdapter(adapter = new PictureAdapter());
         tel.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
-            startActivity(intent);
+            if (!TextUtils.isEmpty(tel.getText())){
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
+                startActivity(intent);
+            }
         });
         address.setOnClickListener(v -> getPresenter().startNavigation());
         collect.setOnClickListener(v -> {
@@ -121,7 +123,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         score.setScore(data.getScore());
         scoreText.setText(data.getScore() + "");
         address.setText(data.getAddress());
-        tel.setText(data.getTel());
+        tel.setText(TextUtils.isEmpty(data.getTel())?"未知":data.getTel());
         price.setText("人均消费:" + data.getCost() + "元");
         nest.setText(Constant.NestType[data.getNest()]);
 

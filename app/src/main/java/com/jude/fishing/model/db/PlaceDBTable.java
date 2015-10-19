@@ -26,6 +26,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
     public static final String COLUMN_FISH_TYPE = "fishType";
     public static final String COLUMN_POOL_TYPE = "poolType";
     public static final String COLUMN_SERVICE_TYPE = "serviceType";
+    public static final String COLUMN_STATUS = "status";
     public static final String COLUMN_LAT = "lat";
     public static final String COLUMN_LNG = "lng";
 
@@ -45,6 +46,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
                 COLUMN_FISH_TYPE + " CHAR(50) NOT NULL,"+
                 COLUMN_POOL_TYPE + " INT NOT NULL,"+
                 COLUMN_SERVICE_TYPE + " CHAR(20) NOT NULL,"+
+                COLUMN_STATUS + " INT NOT NULL,"+
                 COLUMN_LAT + " DOUBLE NOT NULL,"+
                 COLUMN_LNG + " DOUBLE NOT NULL"
                 + ");";
@@ -63,6 +65,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
         vals.put(COLUMN_COST_TYPE, object.getCostType());
         vals.put(COLUMN_POOL_TYPE, object.getPoolType());
         vals.put(COLUMN_SERVICE_TYPE, object.getServiceType());
+        vals.put(COLUMN_STATUS, object.getStatus());
         vals.put(COLUMN_LAT, object.getLat());
         vals.put(COLUMN_LNG, object.getLng());
         return vals;
@@ -81,6 +84,7 @@ public class PlaceDBTable extends AbsDBTable<PlaceBrief> {
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FISH_TYPE)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_POOL_TYPE)),
                 cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SERVICE_TYPE)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_STATUS)),
                 cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_LAT)),
                 cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_LNG))
                 );
