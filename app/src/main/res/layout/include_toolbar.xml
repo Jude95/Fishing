@@ -8,6 +8,5 @@
     android:focusableInTouchMode="true"
     android:minHeight="?actionBarSize"
     android:background="?colorPrimary"
-    android:clipToPadding="true"
     android:fitsSystemWindows="true"
     app:theme="@style/AppTheme.Dark" />
