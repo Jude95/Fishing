@@ -41,7 +41,7 @@ public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailA
     }
 
     public void startNavigation(){
-        Intent i = new Intent(getView(),PlaceMapNavigationActivity.class);
+        Intent i = new Intent(getView(),PlaceMapPathActivity.class);
         i.putExtra("place",mDetail);
         getView().startActivity(i);
     }

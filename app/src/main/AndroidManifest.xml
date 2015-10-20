@@ -166,7 +166,7 @@
             android:label="钓点选择"/>
         <activity android:name=".module.place.PlacePhotoSelectActivity"
             android:label="图片添加"/>
-        <activity android:name=".module.place.PlaceMapNavigationActivity"
+        <activity android:name=".module.place.PlaceMapPathActivity"
             android:label="导航"/>
         <activity android:name=".module.social.ContactActivity"
             android:label="联系人"/>

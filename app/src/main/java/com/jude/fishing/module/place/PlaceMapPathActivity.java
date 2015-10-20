@@ -46,8 +46,8 @@ import butterknife.InjectView;
 /**
  * Created by zhuchenxi on 15/10/16.
  */
-@RequiresPresenter(PlaceMapNavigationPresenter.class)
-public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigationPresenter> implements AMapNaviViewListener, AMapNaviListener {
+@RequiresPresenter(PlaceMapPathPresenter.class)
+public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter> implements AMapNaviViewListener, AMapNaviListener {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
