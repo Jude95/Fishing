@@ -293,4 +293,8 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.GetContact)
     Observable<List<Contact>> getContact(@Field("data")String data);
+
+    @FormUrlEncoded
+    @POST(API.URL.Feedback)
+    Observable<Object> feedback(@Field("content")String content);
 }
