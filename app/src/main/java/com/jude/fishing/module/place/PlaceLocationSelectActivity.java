@@ -78,7 +78,8 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mUiSettings.setScaleControlsEnabled(true);
         mUiSettings.setMyLocationButtonEnabled(false);
 
-        aMap.setOnMapClickListener(this);
+        //焊死位置，不能更改
+        //aMap.setOnMapClickListener(this);
         aMap.setOnMarkerClickListener(this);
         mGeocoderSearch = new GeocodeSearch(this);
         mGeocoderSearch.setOnGeocodeSearchListener(this);

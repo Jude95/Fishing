@@ -21,6 +21,34 @@ public class PlaceBrief implements Serializable{
     private String fishType;
     private int poolType;
     private String serviceType;
+    @SerializedName("uid")
+    private int authorId;
+    private String authorName;
+    private String authorAvatar;
+
+    public String getAuthorAvatar() {
+        return authorAvatar;
+    }
+
+    public void setAuthorAvatar(String authorAvatar) {
+        this.authorAvatar = authorAvatar;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
     public void setId(int id) {
         this.id = id;

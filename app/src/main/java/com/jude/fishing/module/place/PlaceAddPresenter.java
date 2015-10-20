@@ -171,18 +171,6 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             JUtils.Toast("请选择钓点地址");
             return;
         }
-        if (TextUtils.isEmpty(mPlaceDetail.getFishType())){
-            JUtils.Toast("请填写钓点鱼种");
-            return;
-        }
-        if (TextUtils.isEmpty(mPlaceDetail.getDeep())){
-            JUtils.Toast("请选择水深");
-            return;
-        }
-        if (TextUtils.isEmpty(mPlaceDetail.getArea())){
-            JUtils.Toast("请选择面积");
-            return;
-        }
         if (mPreUpload.size()+mHasUpload.size()==0){
             JUtils.Toast("请至少添加一张图片");
             return;

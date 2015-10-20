@@ -19,6 +19,7 @@ import com.jude.fishing.R;
 import com.jude.fishing.config.Constant;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.PlaceDetail;
+import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
@@ -67,6 +68,10 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     TextView area;
     @InjectView(R.id.nest)
     TextView nest;
+    @InjectView(R.id.avatar)
+    SimpleDraweeView avatar;
+    @InjectView(R.id.name)
+    TextView name;
 
     PictureAdapter adapter;
 
@@ -85,7 +90,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         ButterKnife.inject(this);
         picture.setAdapter(adapter = new PictureAdapter());
         tel.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(tel.getText())){
+            if (!TextUtils.isEmpty(tel.getText())) {
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
                 startActivity(intent);
             }
@@ -123,13 +128,20 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         score.setScore(data.getScore());
         scoreText.setText(data.getScore() + "");
         address.setText(data.getAddress());
-        tel.setText(TextUtils.isEmpty(data.getTel())?"未知":data.getTel());
+        tel.setText(TextUtils.isEmpty(data.getTel()) ? "未知" : data.getTel());
         price.setText("人均消费:" + data.getCost() + "元");
         nest.setText(Constant.NestType[data.getNest()]);
 
-        deep.setText("水深"+data.getDeep());
-        area.setText("面积"+data.getArea());
+        deep.setText("水深" + data.getDeep());
+        area.setText("面积" + data.getArea());
 
+        name.setText(data.getAuthorName());
+        avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAuthorAvatar()));
+        name.setOnClickListener(v->{
+            Intent i = new Intent(this, UserDetailActivity.class);
+            i.putExtra("id",data.getAuthorId());
+            startActivity(i);
+        });
         if (TextUtils.isEmpty(data.getContent())) {
             content.setText("暂无");
         } else {

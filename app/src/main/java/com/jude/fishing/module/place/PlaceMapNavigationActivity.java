@@ -150,6 +150,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         if (!isSuccess) {
             JUtils.Log("calculateFootRoute 路线计算失败");
         }
+
     }
 
 
@@ -182,6 +183,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
             boundsBuild.include(mMyLocation.getPosition());
             boundsBuild.include(mPlaceLocation.getPosition());
             mAMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
+            mAMap.moveCamera(CameraUpdateFactory.zoomOut());
         });
     }
 
@@ -308,7 +310,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         // 获取路径规划线路，显示到地图上
         mRouteOverLay.setRouteInfo(naviPath);
         mRouteOverLay.addToMap();
-        mAMap.animateCamera(CameraUpdateFactory.zoomOut());
+        zoomMarker();
     }
 
     @Override
