@@ -18,8 +18,8 @@ public class FeedActivity extends BeamBaseActivity<FeedPresenter> {
 
     @InjectView(R.id.et_feed)
     EditText feed;
-    @InjectView(R.id.et_contact)
-    EditText contact;
+//    @InjectView(R.id.et_contact)
+//    EditText contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,11 @@ public class FeedActivity extends BeamBaseActivity<FeedPresenter> {
             JUtils.Toast("请积极批评我们吧");
             return;
         }
-        //TODO 验证手机邮箱
-//        if (contact.getText().toString().trim())
+//        if (contact.getText().toString().trim().isEmpty()){
+//            JUtils.Toast("大侠，留个名吧");
+//            return;
+//        }
+        getPresenter().feedback(feed.getText().toString().trim());
     }
 
     @Override

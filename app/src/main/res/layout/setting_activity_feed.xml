@@ -24,21 +24,21 @@
         android:padding="16dp"
         android:textSize="14sp" />
 
-    <TextView
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="联系方式" />
+    <!--<TextView-->
+        <!--style="@style/Base.TextAppearance.AppCompat.Body1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:padding="16dp"-->
+        <!--android:text="联系方式" />-->
 
-    <EditText
-        android:id="@+id/et_contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_round_white"
-        android:gravity="top"
-        android:hint="手机/邮箱"
-        android:padding="16dp"
-        android:singleLine="true"
-        android:textSize="14sp" />
+    <!--<EditText-->
+        <!--android:id="@+id/et_contact"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/bg_round_white"-->
+        <!--android:gravity="top"-->
+        <!--android:hint="手机/邮箱"-->
+        <!--android:padding="16dp"-->
+        <!--android:singleLine="true"-->
+        <!--android:textSize="14sp" />-->
 </LinearLayout>

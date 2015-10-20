@@ -58,6 +58,7 @@ public class API {
         public static final String BlogComment = "/weibo/comment";
 
         public static final String GetContact = "/user/contact";
+        public static final String Feedback = "/common/feedback";
     }
 
     public static class WRAPPER {
