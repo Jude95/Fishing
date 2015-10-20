@@ -48,14 +48,6 @@
         android:hint="请再次输入您的密码"
         android:background="@drawable/bg_round_white"/>
 
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_marginLeft="16dp"
-            android:text="通过通讯录添加正在玩空钩的朋友"/>
-
     <com.jude.tagview.TAGView
         android:id="@+id/register"
         android:layout_width="match_parent"

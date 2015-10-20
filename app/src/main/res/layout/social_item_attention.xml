@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:placeholderImage="@drawable/img_head_null"
+        app:placeholderImageScaleType="centerInside"
+        app:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/avatar"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@+id/avatar"
+        tool:text="林原则也" />
+
+    <TextView
+        android:id="@+id/tv_contact"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/name"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/name"
+        android:text="contact"
+        android:textColor="@color/gray_deep" />
+
+    <TextView
+        android:id="@+id/sign"
+        style="@style/TextAppearance.AppCompat.Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/avatar"
+        android:layout_marginBottom="4dp"
+        android:layout_toLeftOf="@+id/attention"
+        android:layout_toRightOf="@+id/avatar"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/gray_deep"
+        tool:text="我喜欢人类，最喜欢最喜欢了" />
+
+    <com.jude.tagview.TAGView
+        android:id="@+id/attention"
+        android:layout_width="50dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="16dp"
+        app:tag_color="@color/gray_deep"
+        app:tag_radius="5dp"
+        app:tag_stroke_width="1dp"
+        app:tag_text="关注"
+        app:tag_text_color="@color/gray_deep" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="64dp"
+        android:background="@color/gray" />
+
+</RelativeLayout>

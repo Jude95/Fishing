@@ -56,6 +56,8 @@ public class API {
         public static final String BlogPraise = "/weibo/praise";
         public static final String BlogUnPraise = "/weibo/unPraise";
         public static final String BlogComment = "/weibo/comment";
+
+        public static final String GetContact = "/user/contact";
     }
 
     public static class WRAPPER {

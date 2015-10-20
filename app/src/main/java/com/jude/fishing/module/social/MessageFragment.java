@@ -46,6 +46,7 @@ public class MessageFragment extends BeamFragment<MessagePresenter> {
         ButterKnife.inject(this, root);
         around.setOnClickListener(v -> startActivity(new Intent(getActivity(), AroundActivity.class)));
         search.setOnClickListener(c -> startActivity(new Intent(getActivity(), UserFindActivity.class)));
+        contacts.setOnClickListener(v -> startActivity(new Intent(getActivity(),ContactActivity.class)));
         listFragment = ConversationListFragment.getInstance();
         getChildFragmentManager().beginTransaction().add(R.id.container,listFragment,"ChatList").commit();
         Uri uri = Uri.parse("rong://" + getActivity().getApplicationInfo().packageName).buildUpon()

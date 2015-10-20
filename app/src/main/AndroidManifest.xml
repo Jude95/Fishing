@@ -168,6 +168,8 @@
             android:label="图片添加"/>
         <activity android:name=".module.place.PlaceMapNavigationActivity"
             android:label="导航"/>
+        <activity android:name=".module.social.ContactActivity"
+            android:label="联系人"/>
 
         <activity android:name=".module.social.ChatActivity"
             android:label="聊天">
