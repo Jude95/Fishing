@@ -78,17 +78,22 @@
         </activity>
         <activity
             android:name=".module.user.LoginActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="登录" />
         <activity
             android:name=".module.user.RegisterActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="手机号快速注册" />
         <activity
             android:name=".module.user.RegisterVerifyActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="手机号快速注册" />
         <activity android:name=".module.user.ForgetPwdActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="忘记密码"/>
         <activity
             android:name=".module.blog.WriteActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="发布热闹" />
         <activity
             android:name=".module.user.UserDetailActivity"
@@ -110,21 +115,25 @@
             android:label="我的评价" />
         <activity
             android:name=".module.place.PlaceAddActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="添加钓点" />
         <activity
             android:name=".module.setting.SettingActivity"
             android:label="@string/title_activity_setting" />
         <activity
             android:name=".module.setting.PwdChangeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="修改密码" />
         <activity
             android:name=".module.setting.BindChangeActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="修改绑定" />
         <activity
             android:name=".module.setting.MsgSetActivity"
             android:label="信息设置" />
         <activity
             android:name=".module.setting.FeedActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="用户反馈" />
         <activity
             android:name=".module.setting.AboutActivity"
@@ -137,11 +146,13 @@
             android:label="附近的人" />
         <activity
             android:name=".module.social.UserFindActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="搜索用户"/>
         <activity android:name=".module.place.PlaceDetailActivity"
             android:label="钓点详情"/>
         <activity
             android:name=".module.user.UserDataActivity"
+            android:windowSoftInputMode="adjustPan"
             android:label="修改资料" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="热闹"/>
