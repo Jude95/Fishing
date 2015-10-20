@@ -3,11 +3,14 @@ package com.jude.fishing.module.place;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
@@ -40,17 +43,24 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-
 /**
  * Created by zhuchenxi on 15/10/16.
  */
 @RequiresPresenter(PlaceMapNavigationPresenter.class)
-public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigationPresenter> implements AMapNaviViewListener, AMapNaviListener  {
+public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigationPresenter> implements AMapNaviViewListener, AMapNaviListener {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     @InjectView(R.id.map)
     MapView mMapView;
+    @InjectView(R.id.drive)
+    RadioButton drive;
+    @InjectView(R.id.walk)
+    RadioButton walk;
+    @InjectView(R.id.info)
+    TextView info;
+    @InjectView(R.id.ok)
+    Button ok;
 
     private PlaceDetail mPlaceDetail;
     private AMap mAMap;
@@ -76,12 +86,15 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         mMapView.onCreate(savedInstanceState);
         mPlaceDetail = (PlaceDetail) getIntent().getSerializableExtra("place");
         initAMapView();
+        calculateDriveRoute();
+        drive.setOnClickListener(v -> calculateDriveRoute());
+        walk.setOnClickListener(v->calculateFootRoute());
     }
 
     private void initAMapView() {
 
-        mNaviStart = new NaviLatLng(LocationModel.getInstance().getCurLocation().getLatitude(),LocationModel.getInstance().getCurLocation().getLongitude());
-        mNaviEnd = new NaviLatLng(mPlaceDetail.getLat(),mPlaceDetail.getLng());
+        mNaviStart = new NaviLatLng(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude());
+        mNaviEnd = new NaviLatLng(mPlaceDetail.getLat(), mPlaceDetail.getLng());
 
 
         mStartPoints.add(mNaviStart);
@@ -91,6 +104,11 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         mRouteOverLay = new RouteOverLay(mAMap, null);
         initMyPoint();
         initPlacePoint();
+
+        UiSettings mUiSettings = mAMap.getUiSettings();
+        mUiSettings.setZoomControlsEnabled(false);
+        mUiSettings.setMyLocationButtonEnabled(false);
+
         mAMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
@@ -113,9 +131,8 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         zoomMarker();
 
         mAMapNavi = AMapNavi.getInstance(this);
-        if (mAMapNavi==null)return;
+        if (mAMapNavi == null) return;
         mAMapNavi.setAMapNaviListener(this);
-        calculateFootRoute();
     }
 
     //计算驾车路线
@@ -151,7 +168,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
 
     public void initPlacePoint() {
         MarkerOptions markerOption = new MarkerOptions();
-        JUtils.Log("Place"+mPlaceDetail.getLat()+":"+mPlaceDetail.getLng());
+        JUtils.Log("Place" + mPlaceDetail.getLat() + ":" + mPlaceDetail.getLng());
         markerOption.position(new LatLng(mPlaceDetail.getLat(), mPlaceDetail.getLng()));
         markerOption.title(mPlaceDetail.getName()).snippet(mPlaceDetail.getAddressBrief());
         markerOption.icon(BitmapDescriptorFactory
@@ -224,7 +241,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
     public void onPause() {
         super.onPause();
         mMapView.onPause();
-        if (mAMapNavi!=null) mAMapNavi.stopNavi();
+        if (mAMapNavi != null) mAMapNavi.stopNavi();
     }
 
     @Override
@@ -232,7 +249,7 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         super.onDestroy();
         mMapView.onDestroy();
         //删除监听
-        if (mAMapNavi!=null) mAMapNavi.removeAMapNaviListener(this);
+        if (mAMapNavi != null) mAMapNavi.removeAMapNaviListener(this);
 
     }
 
@@ -282,14 +299,21 @@ public class PlaceMapNavigationActivity extends BeamBaseActivity<PlaceMapNavigat
         if (naviPath == null) {
             return;
         }
+        String timeStr = "";
+        if (naviPath.getAllTime()/3600>0){
+            timeStr+=naviPath.getAllTime()/3600+"小时";
+        }
+        timeStr+=(naviPath.getAllTime()%3600)/60+"分钟";
+        info.setText("全长" + DistanceFormat.parse(naviPath.getAllLength()) + "/" + timeStr);
         // 获取路径规划线路，显示到地图上
         mRouteOverLay.setRouteInfo(naviPath);
         mRouteOverLay.addToMap();
+        mAMap.animateCamera(CameraUpdateFactory.zoomOut());
     }
 
     @Override
     public void onCalculateRouteFailure(int i) {
-        JUtils.Log("onCalculateRouteFailure 路线计算失败:"+i);
+        JUtils.Log("onCalculateRouteFailure 路线计算失败:" + i);
     }
 
     @Override

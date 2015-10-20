@@ -145,14 +145,11 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
             if (distance > maxDistance) {
                 maxDistance = distance;
             }
-            JUtils.Log("distance:"+distance);
-
         }
-        JUtils.Log("maxDistance:"+maxDistance);
         int unit = (int) (maxDistance / 8);
         for (int i = ZOOM_LEVEL.length - 1; i >= 1; i--) {
             if (unit > ZOOM_LEVEL[i] && unit < ZOOM_LEVEL[i-1]) {
-                moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), Math.max(i-1,MIN_ZOOM));
+                moveTo(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude(), i - 1);
                 return;
             }
         }
@@ -171,6 +168,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     public void clearMarker(){
         aMap.clear();
         initMyPoint();
+        zoomMarkerList.clear();
     }
 
 

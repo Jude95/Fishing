@@ -3,7 +3,6 @@ package com.jude.fishing.module.place;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,8 +44,6 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     TextView address;
     @InjectView(R.id.ok)
     Button ok;
-    @InjectView(R.id.info)
-    CardView info;
 
     private AMap aMap;
     private Marker mMyLocation;
