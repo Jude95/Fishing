@@ -84,7 +84,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
         provider.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void sendUserData(String name, String region, int gender, int age, String skill, String sign, String avatarStr) {
+    public void sendUserData(String name, String region, int gender, String age, String skill, String sign, String avatarStr) {
         getView().getExpansion().showProgressDialog("提交中...");
         if (avatar == null) {
             avatarUrl = avatarStr;

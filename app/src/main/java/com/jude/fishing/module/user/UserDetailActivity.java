@@ -147,7 +147,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         fans.setText(data.getFans());
         blog.setText(data.getBlogCount() + "");
         address.setText(data.getAddress());
-        age.setText(data.getAge() + "年");
+        age.setText(data.getAge());
         skill.setText(data.getSkill());
         if (id==0) {
             operation.setVisibility(View.GONE);

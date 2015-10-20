@@ -25,4 +25,10 @@ public class Constant {
     public static final String[] NestType = {
             "可否打窝未知","可以打窝","不能打窝"
     };
+    public static final String[] SkillType = {
+            "传统钓","台钓","海钓","矶钓","路亚","船钓"
+    };
+    public static final String[] AgeType = {
+            "3年以下","3-5年","5-10年","10年以上"
+    };
 }

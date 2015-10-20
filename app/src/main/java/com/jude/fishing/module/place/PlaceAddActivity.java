@@ -214,7 +214,9 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
                 .input("", getPresenter().getPlaceDetail().getTel(), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
-                        getPresenter().setCostAvg(Integer.parseInt(input.toString()));
+                        try {
+                            getPresenter().setCostAvg(Integer.parseInt(input.toString()));
+                        }catch (Exception e){}
                     }
                 }).show();
     }

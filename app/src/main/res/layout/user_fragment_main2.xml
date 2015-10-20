@@ -265,7 +265,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             style="@style/Base.TextAppearance.AppCompat.Body1"
-            android:text="我的钓点"/>
+            android:text="我上传的钓点"/>
         <ImageView
             android:layout_width="8dp"
             android:layout_height="16dp"

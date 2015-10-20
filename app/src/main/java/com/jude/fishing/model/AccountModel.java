@@ -66,7 +66,7 @@ public class AccountModel extends AbsModel {
         setAccount(null);
     }
 
-    public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,int age,String skill,String sign){
+    public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,String age,String skill,String sign){
         return ServiceClient.getService().modInfo(avatar, name, gender, address, age, skill, sign)
                 .doOnNext(o -> {
                     userAccountData.setAvatar(avatar);

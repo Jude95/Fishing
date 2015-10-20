@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PersonDetail extends PersonBrief implements Serializable {
     private String skill;
-    private int age;
+    private String age;
     @SerializedName("bg")
     private String background;
     private String address;
@@ -42,7 +42,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return fans;
     }
 
-    public PersonDetail(String avatar, int id, String name, boolean relation, String sign, String skill, int age, String background, String address, List<Seed> seeds, int blogCount, String cared, String fans) {
+    public PersonDetail(String avatar, int id, String name, boolean relation, String sign, String skill, String age, String background, String address, List<Seed> seeds, int blogCount, String cared, String fans) {
         super(avatar, id, name, relation, sign);
         this.skill = skill;
         this.age = age;
@@ -74,7 +74,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
         return skill;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
@@ -86,7 +86,7 @@ public class PersonDetail extends PersonBrief implements Serializable {
         this.skill = skill;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 

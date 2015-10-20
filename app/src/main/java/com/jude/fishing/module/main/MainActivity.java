@@ -1,18 +1,16 @@
 package com.jude.fishing.module.main;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.module.setting.update.UpdateChecker;
 import com.jude.swipbackhelper.SwipeBackHelper;
-import com.umeng.update.UmengUpdateAgent;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,7 +29,8 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_main);
-        UmengUpdateAgent.forceUpdate(this);
+        //UmengUpdateAgent.forceUpdate(this);
+        UpdateChecker.getInstance().checkUpdate(this);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         mDrawerToggle = new ActionBarDrawerToggle(this

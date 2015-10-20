@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.module.setting.update.UpdateChecker;
 import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
@@ -44,7 +45,7 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
         msgSet.setOnClickListener(v -> startActivity(new Intent(this, MsgSetActivity.class)));
         feed.setOnClickListener(v -> startActivity(new Intent(this, FeedActivity.class)));
         about.setOnClickListener(v -> startActivity(new Intent(this, AboutActivity.class)));
-
+        update.setOnClickListener(v-> UpdateChecker.getInstance().forceUpdate(this));
         version.setText("当前版本：" + JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
     }
 

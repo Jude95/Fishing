@@ -2,18 +2,27 @@ package com.jude.fishing.module.user;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.config.Constant;
+import com.jude.fishing.model.LocationModel;
+import com.jude.fishing.model.entities.Location;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,9 +48,9 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
     @InjectView(R.id.rb_female)
     RadioButton rbFemale;
     @InjectView(R.id.et_age)
-    EditText age;
+    TextView age;
     @InjectView(R.id.et_good_at)
-    EditText skill;
+    TextView skill;
     @InjectView(R.id.et_sign)
     EditText sign;
     @InjectView(R.id.tg_done)
@@ -54,9 +63,11 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_data);
         ButterKnife.inject(this);
-
+        skill.setOnClickListener(v -> showSkillTypeEdit());
+        age.setOnClickListener(v->showAgeTypeEdit());
         addPhoto.setOnClickListener(v -> showSelectorDialog());
         done.setOnClickListener(v -> checkInput());
+
     }
 
     private void checkInput() {
@@ -72,14 +83,11 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
 //            JUtils.Toast("请选择所在地区");
 //            return;
 //        }
-        int ageNum = 0;
-        if (!age.getText().toString().trim().isEmpty()) {
-            ageNum = Integer.valueOf(age.getText().toString().trim());
+
+        if (age.getText().toString().trim().isEmpty()) {
+            JUtils.Toast("请选择钓龄");
+            return;
         }
-//        if (ageNum < 0 || ageNum > 100) {
-//            JUtils.Toast("请输入正确的钓龄");
-//            return;
-//        }
 //        if (skill.getText().toString().trim().isEmpty()) {
 //            JUtils.Toast("请输入您擅长的项目");
 //            return;
@@ -88,12 +96,12 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
 //            JUtils.Toast("请输入150字以内的签名");
 //            return;
 //        }
-        getPresenter().sendUserData(nickName.getText().toString().trim(),
-                region.getText().toString().trim(),
+        getPresenter().sendUserData(nickName.getText().toString(),
+                region.getText().toString(),
                 rbMale.isChecked() ? 0 : 1,
-                ageNum,
-                skill.getText().toString().trim(),
-                sign.getText().toString().trim(),
+                age.getText().toString(),
+                skill.getText().toString(),
+                sign.getText().toString(),
                 avatarStr);
     }
 
@@ -116,9 +124,65 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
         nickName.setText(data.getName());
         if (data.getGender()==0)rbMale.setChecked(true);
         else rbFemale.setChecked(true);
-        region.setText(data.getAddress());
         age.setText(data.getAge()+"");
         skill.setText(data.getSkill());
         sign.setText(data.getSign());
+        if (TextUtils.isEmpty(data.getAddress())){
+            Location location = LocationModel.getInstance().getCurLocation();
+            region.setText(location.getCity()+location.getDistrict());
+        }else{
+            region.setText(data.getAddress());
+        }
+    }
+
+    private void showSkillTypeEdit() {
+        List<Integer> list = new ArrayList<>();
+        for (String text:skill.getText().toString().split(","))
+            for (int i = 0; i < Constant.SkillType.length; i++) {
+                if (Constant.SkillType[i].equals(text)){
+                    list.add(i);
+                    break;
+                }
+            }
+        new MaterialDialog.Builder(this)
+                .title("请选择擅长")
+                .items(Constant.SkillType)
+                .itemsCallbackMultiChoice(list.toArray(new Integer[list.size()]), new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, Integer[] integers, CharSequence[] charSequences) {
+                        if (integers.length > 0) {
+                            String skillText = "";
+                            for (Integer integer : integers) {
+                                skillText += Constant.SkillType[integer]+",";
+                            }
+                            skillText = skillText.substring(0, skillText.length() - 1);
+                            skill.setText(skillText);
+                        }
+                        return false;
+                    }
+                })
+                .positiveText("确定")
+                .show();
+    }
+
+    private void showAgeTypeEdit() {
+        int index = 0;
+        for (int i = 0; i < Constant.AgeType.length; i++) {
+            if (Constant.AgeType[i].equals(age.getText())) {
+                index = i;
+            }
+        }
+        new MaterialDialog.Builder(this)
+                .title("请选择钓龄")
+                .items(Constant.AgeType)
+                .itemsCallbackSingleChoice(index, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        age.setText(Constant.AgeType[i]);
+                        return false;
+                    }
+                })
+                .positiveText("确定")
+                .show();
     }
 }

@@ -14,6 +14,7 @@ import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.entities.Token;
+import com.jude.fishing.model.entities.UpdateInfo;
 
 import java.util.List;
 
@@ -31,6 +32,9 @@ public interface Service {
 
     @GET(API.URL.QiNiuToken)
     Observable<Token> getQiNiuToken();
+
+    @GET(API.URL.Update)
+    Observable<UpdateInfo> getUpdateInfo();
 
     @FormUrlEncoded
     @POST(API.URL.GetPlace)
@@ -168,7 +172,7 @@ public interface Service {
                                @Field("name") String name,
                                @Field("gender") int gender,
                                @Field("address") String address,
-                               @Field("age") int age,
+                               @Field("age") String age,
                                @Field("skill") String skill,
                                @Field("sign") String sign);
 

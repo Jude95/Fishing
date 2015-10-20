@@ -7,6 +7,8 @@ public class API {
     public static class URL{
         public static final String BASE_URL = "http://120.27.55.225/index.php";
         public static final String QiNiuToken = "/common/qiniuToken";
+        public static final String Update = "/common/version";
+
         public static final String GetPlace = "/place/getPlace";
         public static final String AddPlace = "/place/add";
         public static final String GetPlaceDetail = "/place/getItem";
