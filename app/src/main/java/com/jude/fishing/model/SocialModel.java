@@ -1,6 +1,7 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
@@ -60,7 +61,7 @@ public class SocialModel extends AbsModel {
         return ServiceClient.getService().attend(id)
                 .doOnNext(o -> {
                     int card = Integer.parseInt(AccountModel.getInstance().getAccount().getCared());
-                    AccountModel.getInstance().getAccount().setCared(card+1+"");
+                    AccountModel.getInstance().getAccount().setCared(card + 1 + "");
                     AccountModel.getInstance().saveAccount(AccountModel.getInstance().getAccount());
                     AccountModel.getInstance().setAccount(AccountModel.getInstance().getAccount());
                 })
@@ -82,4 +83,7 @@ public class SocialModel extends AbsModel {
         return ServiceClient.getService().getUserInfo(uid).compose(new DefaultTransform<>());
     }
 
+    public Observable<List<Contact>> getContact(String data){
+        return ServiceClient.getService().getContact(data).compose(new DefaultTransform<>());
+    }
 }

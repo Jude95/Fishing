@@ -2,7 +2,6 @@ package com.jude.fishing.module.user;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -28,8 +27,6 @@ public class RegisterActivity extends BeamBaseActivity<RegisterPresenter> {
     EditText password;
     @InjectView(R.id.password_re)
     EditText passwordRe;
-    @InjectView(R.id.checkbox)
-    CheckBox checkbox;
     @InjectView(R.id.register)
     TAGView register;
 

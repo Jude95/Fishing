@@ -3,6 +3,7 @@ package com.jude.fishing.model.service;
 
 import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
 import com.jude.fishing.model.entities.PersonAround;
@@ -288,4 +289,8 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.ModBg)
     Observable<Object> changeUserBg(@Field("bg")String bg);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetContact)
+    Observable<List<Contact>> getContact(@Field("data")String data);
 }
