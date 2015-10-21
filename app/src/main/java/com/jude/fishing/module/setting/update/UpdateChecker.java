@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.UpdateInfo;
+import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
@@ -25,37 +26,41 @@ public class UpdateChecker {
 
 
     public void checkUpdate(Context ctx){
-        ServiceClient.getService().getUpdateInfo().subscribe(new ServiceResponse<UpdateInfo>() {
-            @Override
-            public void onNext(UpdateInfo updateInfo) {
-                JUtils.Log("versionCode:"+updateInfo.getVersionCode());
-                if (updateInfo.getVersionCode()> JUtils.getAppVersionCode()){
-                    showUpdateDialog(
-                            ctx,
-                            updateInfo.getVersionName(),
-                            updateInfo.getInfo(),
-                            updateInfo.getUrl());
-                }
-            }
-        });
+        ServiceClient.getService().getUpdateInfo()
+                .compose(new DefaultTransform<>())
+                .subscribe(new ServiceResponse<UpdateInfo>() {
+                    @Override
+                    public void onNext(UpdateInfo updateInfo) {
+                        JUtils.Log("versionCode:" + updateInfo.getVersionCode());
+                        if (updateInfo.getVersionCode() > JUtils.getAppVersionCode()) {
+                            showUpdateDialog(
+                                    ctx,
+                                    updateInfo.getVersionName(),
+                                    updateInfo.getInfo(),
+                                    updateInfo.getUrl());
+                        }
+                    }
+                });
     }
 
     public void forceUpdate(Context ctx){
-        ServiceClient.getService().getUpdateInfo().subscribe(new ServiceResponse<UpdateInfo>() {
-            @Override
-            public void onNext(UpdateInfo updateInfo) {
-                JUtils.Log("versionCode:"+updateInfo.getVersionCode());
-                if (updateInfo.getVersionCode()> JUtils.getAppVersionCode()){
-                    showUpdateDialog(
-                            ctx,
-                            updateInfo.getVersionName(),
-                            updateInfo.getInfo(),
-                            updateInfo.getUrl());
-                }else {
-                    JUtils.Toast("已经是最新版本");
-                }
-            }
-        });
+        ServiceClient.getService().getUpdateInfo()
+                .compose(new DefaultTransform<>())
+                .subscribe(new ServiceResponse<UpdateInfo>() {
+                    @Override
+                    public void onNext(UpdateInfo updateInfo) {
+                        JUtils.Log("versionCode:" + updateInfo.getVersionCode());
+                        if (updateInfo.getVersionCode() > JUtils.getAppVersionCode()) {
+                            showUpdateDialog(
+                                    ctx,
+                                    updateInfo.getVersionName(),
+                                    updateInfo.getInfo(),
+                                    updateInfo.getUrl());
+                        } else {
+                            JUtils.Toast("已经是最新版本");
+                        }
+                    }
+                });
     }
 
     private void showUpdateDialog(Context ctx,String versionName,String content,String url){
@@ -67,11 +72,12 @@ public class UpdateChecker {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        Intent updateIntent = new Intent(ctx,UpdataService.class);
+                        JUtils.Log("Get Start");
+                        Intent updateIntent = new Intent(ctx,UpdateService.class);
                         updateIntent.putExtra("title","空钩正在更新");
                         updateIntent.putExtra("url",url);
-                        updateIntent.putExtra("path", Environment.getDownloadCacheDirectory().getPath());
-                        updateIntent.putExtra("name",ctx.getString(R.string.app_name)+"v"+versionName);
+                        updateIntent.putExtra("path", Environment.getExternalStorageDirectory() +"/"+"download/");
+                        updateIntent.putExtra("name",ctx.getString(R.string.app_name)+"v"+versionName+".apk");
                         ctx.startService(updateIntent);
                     }
                 })

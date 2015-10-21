@@ -1,5 +1,6 @@
 package com.jude.fishing.module.place;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -80,7 +81,7 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.place_activity_navigation);
+        setContentView(R.layout.place_activity_path);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         mMapView.onCreate(savedInstanceState);
@@ -89,10 +90,14 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
         calculateDriveRoute();
         drive.setOnClickListener(v -> calculateDriveRoute());
         walk.setOnClickListener(v->calculateFootRoute());
+        ok.setOnClickListener(v-> {
+            Intent i = new Intent(this,PlaceNavigationActivity.class);
+            startActivity(i);
+        });
     }
 
     private void initAMapView() {
-
+        AMapNavi.getInstance(this).startGPS();
         mNaviStart = new NaviLatLng(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude());
         mNaviEnd = new NaviLatLng(mPlaceDetail.getLat(), mPlaceDetail.getLng());
 
@@ -128,8 +133,6 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
             }
         });
 
-        zoomMarker();
-
         mAMapNavi = AMapNavi.getInstance(this);
         if (mAMapNavi == null) return;
         mAMapNavi.setAMapNaviListener(this);
@@ -150,7 +153,6 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
         if (!isSuccess) {
             JUtils.Log("calculateFootRoute 路线计算失败");
         }
-
     }
 
 

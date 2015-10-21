@@ -21,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class UpdataService extends Service {
+public class UpdateService extends Service {
 
 	private NotificationManager notificationManager;
 	private Notification notification;
@@ -47,7 +47,7 @@ public class UpdataService extends Service {
 		String filename = intent.getExtras().getString("name");
 
 		if(url!=null&&JUtils.isNetWorkAvilable()&&task==null){
-			JUtils.Log("onStartCommand");
+			JUtils.Log("onStartCommand url:"+url+"  filepath:"+filename+"  filename:"+filename);
 			createNotification(title);
 			task = new DownloadAsyncTask();
 			task.execute(url,filepath,filename);
@@ -77,7 +77,7 @@ public class UpdataService extends Service {
 		notification.contentView = contentView;
 		notification.icon = R.mipmap.logo;
 		
-		Intent stopIntent = new Intent(this, UpdataService.class);
+		Intent stopIntent = new Intent(this, UpdateService.class);
 		PendingIntent pendingIntent = PendingIntent.getService(this, 0, stopIntent, 0);
 		
 		notification.deleteIntent = pendingIntent;
@@ -155,6 +155,7 @@ public class UpdataService extends Service {
 					finish = true;
 				}
 			} catch (Exception e) {
+				JUtils.Log(e.getLocalizedMessage());
 				finish = false;
 			}				
 			return finish;

@@ -118,7 +118,7 @@
                     android:layout_height="48dp"
                     android:layout_marginLeft="72dp"
                     android:gravity="center_vertical"
-                    android:text="热闹"
+                    android:text="渔获"
                     style="@style/Base.TextAppearance.AppCompat.Body1"
 
                     android:textStyle="bold" />

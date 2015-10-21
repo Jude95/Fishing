@@ -19,8 +19,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:gravity="right"
-                android:text="*为必填项"
+                android:text="必填项"
                 android:background="#20ff8800"/>
             <View
                 android:layout_width="match_parent"
@@ -34,7 +33,7 @@
                 <TextView
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
-                    android:text="*地点"
+                    android:text="地点"
                     android:gravity="center"
                     style="@style/Base.TextAppearance.AppCompat.Body1"/>
 
@@ -60,7 +59,7 @@
                 <TextView
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
-                    android:text="*名字"
+                    android:text="名字"
                     android:gravity="center"
                     style="@style/Base.TextAppearance.AppCompat.Body1"/>
 
@@ -87,7 +86,7 @@
                 <TextView
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
-                    android:text="*照片"
+                    android:text="照片"
                     android:gravity="center"
                     style="@style/Base.TextAppearance.AppCompat.Body1"/>
 
@@ -103,6 +102,20 @@
                     android:textColor="@android:color/darker_gray"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/darker_gray"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="以下请尽量填写"
+                android:background="#20ff8800"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"

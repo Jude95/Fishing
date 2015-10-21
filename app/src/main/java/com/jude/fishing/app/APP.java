@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import com.amap.api.navi.AMapNavi;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
 import com.jude.beam.expansion.BeamBaseActivity;
@@ -14,6 +15,7 @@ import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.utils.DataCleaner;
+import com.jude.fishing.utils.TTSController;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
 
@@ -58,6 +60,10 @@ public class APP extends Application {
                         return new PaddingTopViewExpansion(activity);
                     }
                 });
+
+                TTSController ttsManager = TTSController.getInstance(this);// 初始化语音模块
+                ttsManager.init();
+                AMapNavi.getInstance(this).setAMapNaviListener(ttsManager);// 设置语音模块播报
 
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).

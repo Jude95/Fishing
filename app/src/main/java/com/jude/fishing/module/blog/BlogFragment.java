@@ -39,7 +39,7 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("热闹");
+        getActivity().setTitle("渔获");
     }
 
     @Override
@@ -92,8 +92,8 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position){
-                case 0:return "热闹广场";
-                case 1:return "附近热闹";
+                case 0:return "渔获广场";
+                case 1:return "附近渔获";
                 case 2:return "朋友圈";
                 default:throw new RuntimeException("页数不存在");
             }

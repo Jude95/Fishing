@@ -12,8 +12,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 20
-        versionName "0.2.0 Build"
+        versionCode 24
+        versionName "0.2.4 Build"
     }
 
     signingConfigs {
@@ -77,4 +77,5 @@ dependencies {
     compile files('libs/AMap_Navi_v1.4.0_20150916.jar')
     compile files('libs/AMap_Location_v1.4.1_20150917.jar')
     compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
+    compile files('libs/Msc.jar')
 }

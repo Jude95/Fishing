@@ -45,7 +45,9 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
         msgSet.setOnClickListener(v -> startActivity(new Intent(this, MsgSetActivity.class)));
         feed.setOnClickListener(v -> startActivity(new Intent(this, FeedActivity.class)));
         about.setOnClickListener(v -> startActivity(new Intent(this, AboutActivity.class)));
-        update.setOnClickListener(v-> UpdateChecker.getInstance().forceUpdate(this));
+        update.setOnClickListener(v-> {
+            UpdateChecker.getInstance().forceUpdate(this);
+        });
         version.setText("当前版本：" + JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
     }
 
