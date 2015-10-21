@@ -204,10 +204,10 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                     mPlaceDetail.setPreview(mPlaceDetail.getPicture().get(0));
                     return PlaceModel.getInstance().publishPlace(mPlaceDetail);
                 })
+                .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        getView().getExpansion().dismissProgressDialog();
                         JUtils.Toast("提交成功");
                         getView().finish();
                     }
@@ -215,8 +215,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                     @Override
                     public void onError(Throwable e) {
                         super.onError(e);
-                        JUtils.Log("Error:"+e.getLocalizedMessage());
-                        getView().getExpansion().dismissProgressDialog();
+                        JUtils.Log("Error:" + e.getLocalizedMessage());
                     }
                 });
 

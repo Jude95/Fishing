@@ -56,7 +56,7 @@ public class AboutActivity extends BeamBaseActivity<AboutPresenter> implements V
 
     private void showDialog(){
         new MaterialDialog.Builder(this)
-                .title("天王盖地虎!")
+                .title("天王盖地虎")
                 .input("", "", (materialDialog, charSequence) -> {
                     int key = 0;
                     try {

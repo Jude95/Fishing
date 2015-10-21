@@ -18,9 +18,9 @@ public class PlaceBrief implements Serializable{
     private float score;
     private int cost;
     private int costType;
-    private String fishType;
+    private String fishType = "";
     private int poolType;
-    private String serviceType;
+    private String serviceType = "";
     @SerializedName("uid")
     private int authorId;
     private String authorName;

@@ -104,9 +104,10 @@
                     android:singleLine="true"
                     tools:text="南山黄桷垭"/>
                 <ImageView
-                    android:layout_width="16dp"
+                    android:id="@+id/address_btn"
+                    android:layout_width="24dp"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_right"/>
+                    android:src="@drawable/ic_navigation"/>
 
             </LinearLayout>
             <View
@@ -119,6 +120,7 @@
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:gravity="center_vertical"
                 android:background="@color/white">
                 <ImageView
                     android:layout_width="24dp"
@@ -126,26 +128,16 @@
                     android:layout_marginRight="16dp"
                     android:src="@drawable/place_content"/>
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:singleLine="true"
                     android:text="钓点贡献者"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
 
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/gray"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:background="@color/white">
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/avatar"
                     android:layout_width="40dp"
@@ -153,17 +145,12 @@
                     app:roundAsCircle="true"/>
                 <TextView
                     android:id="@+id/name"
-                    android:layout_marginLeft="16dp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textStyle="bold"
                     android:gravity="center_vertical"/>
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_arrow_right"/>
             </LinearLayout>
 
             <View

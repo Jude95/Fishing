@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -74,7 +75,8 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     TextView name;
 
     PictureAdapter adapter;
-
+    @InjectView(R.id.address_btn)
+    ImageView addressBtn;
 
 
     private int evaluateCount = -1;
@@ -95,6 +97,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
                 startActivity(intent);
             }
         });
+        addressBtn.setOnClickListener(v->getPresenter().startNavigation());
         address.setOnClickListener(v -> getPresenter().startNavigation());
         collect.setOnClickListener(v -> {
             if (getPresenter().collect()) {
@@ -137,9 +140,9 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
 
         name.setText(data.getAuthorName());
         avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAuthorAvatar()));
-        name.setOnClickListener(v->{
+        name.setOnClickListener(v -> {
             Intent i = new Intent(this, UserDetailActivity.class);
-            i.putExtra("id",data.getAuthorId());
+            i.putExtra("id", data.getAuthorId());
             startActivity(i);
         });
         if (TextUtils.isEmpty(data.getContent())) {
