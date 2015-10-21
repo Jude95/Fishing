@@ -23,6 +23,7 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.entities.Location;
 import com.jude.swipbackhelper.SwipeBackHelper;
@@ -78,8 +79,10 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mUiSettings.setScaleControlsEnabled(true);
         mUiSettings.setMyLocationButtonEnabled(false);
 
-        //焊死位置，不能更改
-        //aMap.setOnMapClickListener(this);
+        //焊死位置，未得许可不能更改
+        if (AccountModel.getInstance().checkIsSuper()){
+            aMap.setOnMapClickListener(this);
+        }
         aMap.setOnMarkerClickListener(this);
         mGeocoderSearch = new GeocodeSearch(this);
         mGeocoderSearch.setOnGeocodeSearchListener(this);

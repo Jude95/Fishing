@@ -42,6 +42,14 @@ public class AccountModel extends AbsModel {
         });
     }
 
+    public boolean checkIsSuper(){
+        if (userAccountData==null)return false;
+        if (userAccountData.getUID()*16 == JUtils.getSharedPreference().getInt("super",0)){
+            return true;
+        }
+        return false;
+    }
+
     public Account getAccount(){
         return userAccountData;
     }

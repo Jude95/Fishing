@@ -48,7 +48,7 @@ public class SettingActivity extends BeamBaseActivity<SettingPresenter> {
         update.setOnClickListener(v-> {
             UpdateChecker.getInstance().forceUpdate(this);
         });
-        version.setText("当前版本：" + JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
+        version.setText("当前版本：" + JUtils.getAppVersionName());
     }
 
 }
