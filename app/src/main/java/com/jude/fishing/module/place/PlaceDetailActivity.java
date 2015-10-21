@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
+import com.umeng.share.ShareManager;
 
 import java.util.List;
 
@@ -216,6 +218,13 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==R.id.share){
+            ShareManager.getInstance().share(this,"钓点详情","空钩","http://www.baidu.com","http://img4.duitang.com/uploads/item/201503/04/20150304191759_mmEtx.jpeg");
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     class PictureAdapter extends StaticPagerAdapter {
         private List<String> path;

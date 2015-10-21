@@ -14,6 +14,7 @@ android {
         targetSdkVersion 23
         versionCode 24
         versionName "0.2.4 Build"
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -78,4 +79,5 @@ dependencies {
     compile files('libs/AMap_Location_v1.4.1_20150917.jar')
     compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
     compile files('libs/Msc.jar')
+    compile 'com.android.support:multidex:1.0.1'
 }

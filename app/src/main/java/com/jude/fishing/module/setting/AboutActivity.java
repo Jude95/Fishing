@@ -36,6 +36,7 @@ public class AboutActivity extends BeamBaseActivity<AboutPresenter> implements V
         ButterKnife.inject(this);
         version.setText(JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
         logo.setOnClickListener(this);
+        share.setOnClickListener(v -> getPresenter().share());
     }
 
     private long lastBackPressed;
