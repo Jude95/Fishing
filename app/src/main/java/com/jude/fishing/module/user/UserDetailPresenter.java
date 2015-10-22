@@ -113,6 +113,7 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
+                        getView().changeBackground(bgUri);
                         JUtils.Toast("修改成功");
                     }
                 });
