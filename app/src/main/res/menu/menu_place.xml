@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/edit"
+        android:title="修改"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="always"
+        />
+    <item
         android:id="@+id/share"
         android:title="分享"
         android:icon="@drawable/ic_share"

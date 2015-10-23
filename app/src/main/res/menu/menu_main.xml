@@ -1,6 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/filter"
+        android:title="筛选"
+        android:icon="@drawable/ic_filter"
+        android:orderInCategory="99"
+        app:showAsAction="always"
+        />
     <item
         android:id="@+id/add"
         android:title="添加钓点"

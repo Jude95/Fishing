@@ -2,7 +2,6 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="white_trans80">#AFFF</color>
-    <color name="black_deep">#34322F</color>
     <color name="orange">#fda76d</color>
     <color name="orange_deep">#ff9800</color>
 
@@ -11,6 +10,7 @@
     <color name="gray_deep">#9E9E9E</color>
 
     <color name="black_gray">#4d4d4d</color>
+    <color name="black_deep">#34322F</color>
 
     <color name="purple">#d6a0d6</color>
     <color name="blue">#00bcd4</color>

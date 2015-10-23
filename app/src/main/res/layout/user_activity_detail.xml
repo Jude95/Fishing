@@ -17,18 +17,25 @@
             <RelativeLayout
                 android:id="@+id/head"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="285dp">
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/background"
                     android:layout_width="match_parent"
                     android:layout_height="3120dp"
                     app:placeholderImage="?colorPrimary"/>
+                <com.jude.tagview.TAGView
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    app:tag_as_circle="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="94dp"
+                    app:tag_color="@color/white"/>
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/avatar"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="72dp"
+                    android:layout_marginTop="96dp"
                     app:roundAsCircle="true"/>
                 <TextView
                     android:id="@+id/name"
@@ -65,7 +72,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="热闹"
+                            android:text="渔获"
                             android:textColor="@color/white"
                             style="@style/TextAppearance.AppCompat.Body2" />
                     </LinearLayout>
@@ -232,7 +239,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="他的热闹"/>
+                        android:text="他的渔获"/>
 
 
                 </LinearLayout>

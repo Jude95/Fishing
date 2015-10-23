@@ -7,14 +7,16 @@ import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.utils.JUtils;
 
 import rx.Observable;
+import rx.Subscription;
 
 /**
  * Created by Mr.Jude on 2015/9/28.
  */
 public class PlaceMapPresenter extends Presenter<PlaceMapFragment> {
-
+    private Subscription subscription;
     @Override
     protected void onCreate(PlaceMapFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
@@ -23,7 +25,13 @@ public class PlaceMapPresenter extends Presenter<PlaceMapFragment> {
     @Override
     protected void onCreateView(PlaceMapFragment view) {
         super.onCreateView(view);
-        PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
+        subscribe();
+    }
+
+    public void subscribe(){
+        JUtils.Log("subscribe");
+        if (subscription!=null)subscription.unsubscribe();
+        subscription = PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
                 .doOnNext(placeBriefs -> getView().clearMarker())
                 .flatMap(Observable::from)
                 .subscribe(new ServiceResponse<PlaceBrief>() {

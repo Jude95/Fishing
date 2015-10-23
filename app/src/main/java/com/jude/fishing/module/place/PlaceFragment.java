@@ -11,11 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.module.user.LoginActivity;
 
 import butterknife.ButterKnife;
@@ -32,7 +34,7 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
     @InjectView(R.id.style)
     FloatingActionButton style;
 
-    private boolean isMapFragment = false;
+    public boolean isMapFragment = false;
 
 
 
@@ -57,6 +59,23 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
             else
                 startActivity(new Intent(getActivity(),LoginActivity.class));
             return true;
+        }
+        if (item.getItemId()==R.id.filter){
+            FilterDialogView filterDialogView = new FilterDialogView(getContext());
+            filterDialogView.setCostType(PlaceModel.getInstance().getFilterCostType());
+            filterDialogView.setPoolType(PlaceModel.getInstance().getFilterPoolType());
+            new MaterialDialog.Builder(getContext())
+                    .title("钓点筛选")
+                    .customView(filterDialogView,true)
+                    .positiveText("确定")
+                    .onPositive((materialDialog, dialogAction) -> {
+                        int poolType = filterDialogView.getPoolType();
+                        int costType = filterDialogView.getCostType();
+                        PlaceModel.getInstance().saveFilter(poolType,costType);
+                        getPresenter().refresh();
+                    })
+                    .negativeText("取消")
+                    .show();
         }
         return super.onOptionsItemSelected(item);
     }

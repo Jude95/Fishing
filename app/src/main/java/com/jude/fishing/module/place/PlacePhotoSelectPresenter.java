@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.jude.beam.bijection.Presenter;
 import com.jude.exgridview.PieceViewGroup;
+import com.jude.fishing.model.ImageModel;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
 import com.jude.utils.JUtils;
@@ -53,7 +54,9 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
     protected void onCreateView(PlacePhotoSelectActivity view) {
         super.onCreateView(view);
         for (Uri temp : uriArrayList) {
-            getView().addImage(ImageProvider.readImageWithSize(temp,300,300));
+            JUtils.Log(temp.getPath());
+            if("http".equals(temp.getScheme()))getView().addImage(ImageModel.getInstance().getSmallImage(temp.toString()));
+            else getView().addImage(ImageProvider.readImageWithSize(temp,300,300));
         }
     }
 

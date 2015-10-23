@@ -3,6 +3,7 @@ package com.jude.fishing.module.place;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.amap.api.maps.model.LatLng;
@@ -24,17 +25,20 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
     public static final int PLACE = 1001;
     public static final int PHOTO = 1002;
 
-    private PlaceDetail mPlaceDetail = new PlaceDetail();
+    private PlaceDetail mPlaceDetail;
 
     private ArrayList<Uri> mPreUpload = new ArrayList<>();
     private ArrayList<Uri> mHasUpload = new ArrayList<>();
 
     @Override
-    protected void onCreateView(PlaceAddActivity view) {
-        super.onCreateView(view);
+    protected void onCreate(PlaceAddActivity view, Bundle savedState) {
+        super.onCreate(view, savedState);
+        mPlaceDetail = (PlaceDetail) getView().getIntent().getSerializableExtra("place");
+        if (mPlaceDetail==null)mPlaceDetail = new PlaceDetail();
         dealPicture();
         publishObject(mPlaceDetail);
     }
+
 
     public PlaceDetail getPlaceDetail() {
         return mPlaceDetail;
@@ -141,7 +145,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             ArrayList<Uri> uri = data.getParcelableArrayListExtra("uri");
             if (uri!=null){
                 for (Uri temp : uri) {
-                    if (temp.getScheme()!=null&&temp.getScheme().equals("http")){
+                    if (temp.getScheme()!=null&&"http".equals(temp.getScheme())){
                         mHasUpload.add(temp);
                     }else{
                         mPreUpload.add(temp);
@@ -177,7 +181,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
         }
         ArrayList<String> urls = new ArrayList<>();
         for (Uri uri : mHasUpload) {
-            urls.add(uri.getPath());
+            urls.add(uri.toString());
         }
         mPlaceDetail.setPicture(urls);
 

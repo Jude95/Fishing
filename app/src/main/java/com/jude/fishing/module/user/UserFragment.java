@@ -21,6 +21,7 @@ import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.module.place.CollectionPlaceActivity;
 import com.jude.fishing.module.place.UserEvaluateActivity;
 import com.jude.fishing.module.place.UserPlaceActivity;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -65,6 +66,9 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     @InjectView(R.id.place)
     LinearLayout place;
 
+    @InjectView(R.id.notification_count)
+    TextView notificationCount;
+
     int uid;
 
     @Override
@@ -85,12 +89,19 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         collect.setOnClickListener(v -> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));
         evaluate.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserEvaluateActivity.class)));
         place.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
+        notify.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
         return root;
+    }
+
+    public void setNotificationCount(int i) {
+        JUtils.Log("UI NotificationCount:"+i);
+        notificationCount.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
+        notificationCount.setText(i + "");
     }
 
     private void goToActivity(Class clz) {
         Intent intent = new Intent(getActivity(), clz);
-        intent.putExtra("id",uid);
+        intent.putExtra("id", uid);
         startActivity(intent);
     }
 
@@ -106,7 +117,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
         name.setText(data.getName());
         sign.setText(data.getSign());
-        blog.setText(data.getBlogCount()+"");
+        blog.setText(data.getBlogCount() + "");
         attention.setText(data.getCared());
         fans.setText(data.getFans());
     }

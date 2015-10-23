@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -38,6 +39,7 @@ import butterknife.InjectView;
 @RequiresPresenter(BlogDetailPresenter.class)
 public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, SeedComment> {
 
+
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -54,18 +56,22 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     ImageView praiseImage;
     @InjectView(R.id.praise_count)
     TextView praiseCount;
+    @InjectView(R.id.btn_praise)
+    LinearLayout btnPraise;
     @InjectView(R.id.comment_image)
     ImageView commentImage;
     @InjectView(R.id.comment_count)
     TextView commentCount;
+    @InjectView(R.id.btn_comment)
+    LinearLayout btnComment;
     @InjectView(R.id.tool)
     LinearLayout tool;
     @InjectView(R.id.praise_member)
     ExGridView praiseMember;
-    @InjectView(R.id.ll_praise)
-    LinearLayout praiseContainer;
-    @InjectView(R.id.ll_comment)
-    LinearLayout commentContainer;
+    @InjectView(R.id.praise_text)
+    TextView praiseText;
+    @InjectView(R.id.praise_container)
+    RelativeLayout praiseContainer;
 
     public View getBlogDetailView(SeedDetail data, ViewGroup parent) {
         View view = getLayoutInflater().inflate(R.layout.blog_item_head, parent, false);
@@ -80,12 +86,12 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
-        praiseContainer.setOnClickListener(v -> getPresenter().blogPraise(data.getPraiseStatus()));
+        btnPraise.setOnClickListener(v -> getPresenter().blogPraise(data.getPraiseStatus()));
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
-        commentContainer.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));
-
+        btnComment.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));
+        praiseContainer.setVisibility(data.getPraiseCount() == 0 ? View.GONE : View.VISIBLE);
         pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
 
         for (PersonBrief personBrief : data.getPraiseMember()) {
@@ -106,11 +112,11 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup viewGroup, int i) {
-        return new SeedCommentViewHolder(viewGroup,this);
+        return new SeedCommentViewHolder(viewGroup, this);
     }
 
     public void showCommentEdit(int fid, String fname) {
-        if (AccountModel.getInstance().getAccount()==null){
+        if (AccountModel.getInstance().getAccount() == null) {
             startActivity(new Intent(this, LoginActivity.class));
             return;
         }
@@ -131,4 +137,5 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     protected ListConfig getConfig() {
         return super.getConfig().setRefreshAble(true);
     }
+
 }

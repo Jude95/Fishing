@@ -104,11 +104,18 @@
                     android:singleLine="true"
                     tools:text="南山黄桷垭"/>
                 <ImageView
-                    android:id="@+id/address_btn"
+                    android:id="@+id/navigation_image"
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_navigation"/>
 
+                <TextView
+                    android:id="@+id/navigation_text"
+                    android:layout_width="wrap_content"
+                    android:textColor="?colorPrimary"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="导航"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -140,8 +147,8 @@
 
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/avatar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     app:roundAsCircle="true"/>
                 <TextView
                     android:id="@+id/name"

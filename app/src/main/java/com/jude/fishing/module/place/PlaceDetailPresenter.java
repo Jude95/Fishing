@@ -26,6 +26,19 @@ public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailA
                 .subscribe(this);
     }
 
+    public boolean isAuthor(){
+        if (mDetail!=null)
+            return AccountModel.getInstance().getAccount().getUID()==mDetail.getAuthorId();
+        else
+            return false;
+    }
+
+    public void startEdit(){
+        Intent i = new Intent(getView(),PlaceAddActivity.class);
+        i.putExtra("place",mDetail);
+        getView().startActivity(i);
+    }
+
     public boolean collect(){
         if (AccountModel.getInstance().getAccount()==null){
             getView().startActivity(new Intent(getView(), LoginActivity.class));

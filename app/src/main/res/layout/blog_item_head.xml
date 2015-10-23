@@ -62,7 +62,7 @@
             android:textSize="13dp"
             style="@style/TextAppearance.AppCompat.Caption"/>
         <LinearLayout
-            android:id="@+id/ll_praise"
+            android:id="@+id/btn_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
@@ -81,7 +81,7 @@
             android:gravity="center_vertical"/>
         </LinearLayout>
     <LinearLayout
-        android:id="@+id/ll_comment"
+        android:id="@+id/btn_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical">
@@ -101,26 +101,38 @@
             android:gravity="center_vertical"/>
         </LinearLayout>
     </LinearLayout>
-    <View
+    <RelativeLayout
+        android:id="@+id/praise_container"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="48dp"
         android:layout_below="@+id/tool"
         android:layout_marginLeft="@dimen/activity_margin"
         android:layout_marginRight="@dimen/activity_margin"
-        android:background="@color/gray"/>
-    <com.jude.exgridview.ExGridView
-        android:id="@+id/praise_member"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tool"
-        android:layout_margin="@dimen/activity_margin"
-        app:grid_column="8"/>
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"/>
+        <com.jude.exgridview.ExGridView
+            android:id="@+id/praise_member"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/praise_text"
+            app:grid_column="8"/>
+        <TextView
+            android:id="@+id/praise_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="觉得很赞"/>
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@+id/praise_member"
-        android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_below="@+id/praise_container"
         android:background="@color/gray"/>
 
 </RelativeLayout>

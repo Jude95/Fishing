@@ -332,7 +332,11 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
 
         Integer[] fishType = new Integer[types.length];
         for (int i = 0; i < types.length; i++) {
-            fishType[i] = Integer.parseInt(types[i]);
+            try {
+                fishType[i] = Integer.parseInt(types[i]);
+            }catch (Exception e){
+                fishType[i] = 0;
+            }
         }
 
         new MaterialDialog.Builder(this)
@@ -359,7 +363,11 @@ public class PlaceAddActivity extends BeamDataActivity<PlaceAddPresenter, PlaceD
 
         Integer[] serverTypes = new Integer[types.length];
         for (int i = 0; i < types.length; i++) {
-            serverTypes[i] = Integer.parseInt(types[i]);
+            try {
+                serverTypes[i] = Integer.parseInt(types[i]);
+            }catch (Exception e){
+                serverTypes[i] = 0;
+            }
         }
         new MaterialDialog.Builder(this)
                 .title("请选择服务类型")

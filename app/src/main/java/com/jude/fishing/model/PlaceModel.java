@@ -1,6 +1,7 @@
 package com.jude.fishing.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.jude.beam.model.AbsModel;
@@ -26,6 +27,8 @@ import rx.schedulers.Schedulers;
  */
 public class PlaceModel extends AbsModel {
     public static final String PLACE_LAST_SYNC_TIME = "placeLastSyncTime";
+    public static final String FILTER_POOL = "filter_pool";
+    public static final String FILTER_COST = "filter_cost";
 
     private BriteDatabase mDbBrite;
     public static PlaceModel getInstance() {
@@ -43,6 +46,21 @@ public class PlaceModel extends AbsModel {
         syncPlace().subscribe();
     }
 
+    public void saveFilter(int poolType,int costType){
+        SharedPreferences.Editor editor = JUtils.getSharedPreference().edit();
+        editor.putInt(FILTER_POOL,poolType);
+        editor.putInt(FILTER_COST,costType);
+        editor.apply();
+    }
+
+    public int getFilterPoolType(){
+        return JUtils.getSharedPreference().getInt(FILTER_POOL,-1);
+    }
+    public int getFilterCostType(){
+        return JUtils.getSharedPreference().getInt(FILTER_COST,-1);
+    }
+
+
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT * FROM " + PlaceDBTable.TABLE_NAME + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1")
@@ -55,6 +73,8 @@ public class PlaceModel extends AbsModel {
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
                 "SELECT *  FROM " + PlaceDBTable.TABLE_NAME
                         + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1"
+                        + (getFilterCostType()==-1?"":" AND "+PlaceDBTable.COLUMN_COST_TYPE+" == "+getFilterCostType())
+                        + (getFilterPoolType()==-1?"":" AND "+PlaceDBTable.COLUMN_POOL_TYPE+" == "+getFilterPoolType())
                         + " ORDER BY ((lat - " + lat + ")*(lat - " + lat + ")+(lng - " + lng + ")*(lng - " + lng + "))")
                 .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
                 .subscribeOn(Schedulers.io())

@@ -83,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="热闹"
+                android:text="渔获"
                 style="@style/TextAppearance.AppCompat.Body2" />
         </LinearLayout>
         <View
@@ -170,12 +170,20 @@
             android:layout_height="wrap_content"
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:text="我的通知"/>
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="16dp"
-            android:src="@drawable/ic_arrow_right"
-            android:layout_marginRight="16dp"
-            />
+
+        <TextView
+            android:id="@+id/notification_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/main_drawer_bubble"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            tool:text="8"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"

@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -68,8 +67,7 @@ public class MessageFragment extends BeamFragment<MessagePresenter> {
                 .build();
         listFragment.setUri(uri);
         fabMenu.setOnTouchListener((v, event) -> {
-            JUtils.Log("Touch"+"ACTION_UP:"+event.getAction()+" Open"+fabMenu.isOpened());
-            if (event.getAction()==MotionEvent.ACTION_UP&&fabMenu.isOpened()){
+            if (fabMenu.isOpened()){
                 fabMenu.close(true);
                 return true;
             }

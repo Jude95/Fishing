@@ -6,6 +6,7 @@ import com.jude.beam.expansion.list.BeamListFragmentPresenter;
 import com.jude.fishing.model.LocationModel;
 import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.PlaceBrief;
+import com.jude.utils.JUtils;
 
 /**
  * Created by Mr.Jude on 2015/9/11.
@@ -15,7 +16,14 @@ public class PlaceListPresenter extends BeamListFragmentPresenter<PlaceListFragm
     @Override
     protected void onCreate(PlaceListFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
+        subscribe();
+    }
+
+    public void subscribe(){
+        JUtils.Log("subscribe");
+        if (getRefreshSubscriber().isUnsubscribed())getRefreshSubscriber().unsubscribe();
         PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
+                .doOnNext(placeBriefs -> JUtils.Log("Get:"+placeBriefs.size()))
                 .unsafeSubscribe(getRefreshSubscriber());
     }
 

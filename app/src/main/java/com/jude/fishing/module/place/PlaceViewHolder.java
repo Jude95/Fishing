@@ -70,12 +70,14 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
     public void setData(PlaceBrief data) {
         id = data.getId();
         distance.setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(data.getLat(),data.getLng())));
-        cost.setText("人均"+data.getCost()+"¥");
+        cost.setText("人均" + data.getCost() + "¥");
         preview.setImageURI(ImageModel.getInstance().getSmallImage(data.getPreview()));
         name.setText(data.getName());
         score.setText(data.getScore() + "");
         scoreImage.setScore(data.getScore());
         tagContainer.removeAllViews();
+        costType.setText(Constant.PlaceCostType[data.getCostType()].charAt(0) + "");
+        poolType.setText(Constant.PlacePoolType[data.getPoolType()].charAt(0)+"");
         for (String service : data.getServiceType().split(",")) {
             try {
                 int id = Integer.parseInt(service);
@@ -85,7 +87,6 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
             }
         }
         address.setText(data.getAddressBrief());
-        JUtils.Log("Address:"+data.getAddressBrief());
     }
 
     View createTag(String content) {

@@ -6,6 +6,7 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
+import com.jude.fishing.model.entities.Notification;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
@@ -156,6 +157,13 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.Login)
     Observable<Account> login(@Field("tel") String tel, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetNotification)
+    Observable<List<Notification>> getNotification(
+            @Field("page") int page
+    );
+
 
     /**
      * 修改用户数据

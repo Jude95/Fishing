@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.Notification;
 import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.HeaderInterceptors;
@@ -12,6 +13,8 @@ import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
+
+import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
@@ -24,12 +27,16 @@ import rx.subjects.BehaviorSubject;
  */
 public class AccountModel extends AbsModel {
     public static final String FILE_ACCOUNT = "Account";
+    public static final String LAST_NOTIFICATION = "notification";
+
+
     public static AccountModel getInstance() {
         return getInstance(AccountModel.class);
     }
 
     public Account userAccountData = null;
     public BehaviorSubject<Account> userAccountDataBehaviorSubject = BehaviorSubject.create();
+    public BehaviorSubject<Integer> userNotificationBehaviorSubject = BehaviorSubject.create();
 
     @Override
     protected void onAppCreateOnBackThread(Context ctx) {
@@ -40,6 +47,7 @@ public class AccountModel extends AbsModel {
             public void onServiceError(int status, String info) {
             }
         });
+//        Observable.interval(0,5, TimeUnit.MINUTES).subscribe(aLong -> updateNotificationCount());
     }
 
     public boolean checkIsSuper(){
@@ -138,7 +146,7 @@ public class AccountModel extends AbsModel {
 
     public Observable<Object> register(String tel,String password,String code){
         return ServiceClient.getService().register(tel,password,code)
-                .flatMap(o -> login(tel,password))
+                .flatMap(o -> login(tel, password))
                 .compose(new DefaultTransform<>());
     }
 
@@ -155,6 +163,39 @@ public class AccountModel extends AbsModel {
     }
 
     public Observable<Object> resetPass(String tel,String code,String password){
-        return ServiceClient.getService().resetPass(tel,code,password).compose(new DefaultTransform<>());
+        return ServiceClient.getService().resetPass(tel, code, password).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Notification>> getNotification(int page){
+        return ServiceClient.getService().getNotification(page)
+                .doOnNext(notifications -> JUtils.getSharedPreference().edit().putInt(LAST_NOTIFICATION, notifications.get(0).getId()).apply())
+                .compose(new DefaultTransform<>());
+    }
+
+    public Subscription registerNotificationCountUpdate(Action1<Integer> action1){
+        return userNotificationBehaviorSubject.compose(new DefaultTransform<>()).subscribe(action1);
+    }
+
+    public void updateNotificationCount(){
+        ServiceClient.getService().getNotification(0)
+                .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
+                .flatMap(notifications -> {
+                    int id = JUtils.getSharedPreference().getInt(LAST_NOTIFICATION, 0);
+                    if (id == 0) return Observable.just(0);
+                    else {
+                        int index;
+                        for (index = 0; index < notifications.size(); index++) {
+                            if (id == notifications.get(index).getId()) {
+                                break;
+                            }
+                        }
+                        return Observable.just(index);
+                    }
+
+                })
+                .doOnNext(integer -> userNotificationBehaviorSubject.onNext(integer))
+                .compose(new DefaultTransform<>())
+                .subscribe();
+
     }
 }

@@ -29,6 +29,7 @@ import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
 import com.umeng.share.ShareManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -77,9 +78,13 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     TextView name;
 
     PictureAdapter adapter;
-    @InjectView(R.id.address_btn)
-    ImageView addressBtn;
+    @InjectView(R.id.navigation_image)
+    ImageView navigationImage;
+    @InjectView(R.id.navigation_text)
+    TextView navigationText;
 
+
+    List<MenuItem> edits = new ArrayList<>();
 
     private int evaluateCount = -1;
     public static final String[] SERVER_COLORS = {
@@ -99,7 +104,8 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
                 startActivity(intent);
             }
         });
-        addressBtn.setOnClickListener(v->getPresenter().startNavigation());
+        navigationImage.setOnClickListener(v -> getPresenter().startNavigation());
+        navigationText.setOnClickListener(v->getPresenter().startNavigation());
         address.setOnClickListener(v -> getPresenter().startNavigation());
         collect.setOnClickListener(v -> {
             if (getPresenter().collect()) {
@@ -139,6 +145,10 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
 
         deep.setText("水深" + data.getDeep());
         area.setText("面积" + data.getArea());
+
+        for (MenuItem edit : edits) {
+            edit.setVisible(getPresenter().isAuthor());
+        }
 
         name.setText(data.getAuthorName());
         avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAuthorAvatar()));
@@ -218,13 +228,18 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_place, menu);
+        menu.findItem(R.id.edit).setVisible(getPresenter().isAuthor());
+        edits.add(menu.findItem(R.id.edit));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.share){
-            ShareManager.getInstance().share(this,"钓点详情","空钩","http://www.baidu.com","http://img4.duitang.com/uploads/item/201503/04/20150304191759_mmEtx.jpeg");
+        if (item.getItemId() == R.id.share) {
+            ShareManager.getInstance().share(this, "钓点详情", "空钩", "http://www.baidu.com", "http://img4.duitang.com/uploads/item/201503/04/20150304191759_mmEtx.jpeg");
+        }
+        if (item.getItemId() == R.id.edit){
+            getPresenter().startEdit();
         }
         return super.onOptionsItemSelected(item);
     }

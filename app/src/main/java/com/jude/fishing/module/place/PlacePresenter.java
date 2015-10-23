@@ -9,6 +9,14 @@ public class PlacePresenter extends Presenter<PlaceFragment>{
     private PlaceMapFragment mMap;
     private PlaceListFragment mList;
 
+
+    public void refresh(){
+        if (getView().isMapFragment)
+            mMap.getPresenter().subscribe();
+        else
+            mList.getPresenter().subscribe();
+    }
+
     public PlaceMapFragment getMapFragment(){
         if (mMap==null)mMap = new PlaceMapFragment();
         return mMap;

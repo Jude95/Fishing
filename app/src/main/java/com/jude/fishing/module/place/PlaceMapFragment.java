@@ -59,7 +59,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     private Marker mMyLocation;
     private int mStatus = 0;
 
-    private static final int MIN_ZOOM_MARKER_COUNT = 3;
+    private static final int MIN_ZOOM_MARKER_COUNT = 5;
     private static final int MIN_ZOOM= 13;
 
     private final static int[] ZOOM_LEVEL = {

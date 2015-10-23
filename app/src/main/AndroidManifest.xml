@@ -175,7 +175,8 @@
             android:label="导航"/>
         <activity android:name=".module.social.ContactActivity"
             android:label="联系人"/>
-
+        <activity android:name=".module.user.NotificationActivity"
+            android:label="通知"/>
         <activity android:name=".module.social.ChatActivity"
             android:label="聊天">
             <intent-filter>

@@ -1,7 +1,54 @@
 package com.jude.fishing.module.user;
 
+import android.content.Intent;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.fishing.R;
+import com.jude.fishing.model.entities.Notification;
+import com.jude.fishing.module.blog.BlogDetailActivity;
+import com.jude.fishing.module.place.PlaceDetailActivity;
+import com.jude.fishing.utils.RecentDateFormat;
+import com.jude.utils.JTimeTransform;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by zhuchenxi on 15/10/23.
  */
-public class NotificationViewHolder {
+public class NotificationViewHolder extends BaseViewHolder<Notification> {
+    @InjectView(R.id.msg)
+    TextView msg;
+    @InjectView(R.id.time)
+    TextView time;
+
+    public NotificationViewHolder(ViewGroup parent) {
+        super(parent, R.layout.user_item_notification);
+        ButterKnife.inject(this,itemView);
+    }
+
+    @Override
+    public void setData(Notification data) {
+        msg.setText(data.getMsg());
+        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        itemView.setOnClickListener(v->{
+            switch (data.getType()){
+                case Notification.PLACE_ADD:
+                case Notification.PLACE_REFUSE:
+                case Notification.PLACE_PASS:
+                    Intent place = new Intent(itemView.getContext(), PlaceDetailActivity.class);
+                    place.putExtra("id", Integer.parseInt(data.getLink()));
+                    itemView.getContext().startActivity(place);
+                    break;
+                case Notification.BLOG_COMMENT:
+                case Notification.BLOG_RECOMMENT:
+                    Intent blog = new Intent(itemView.getContext(), BlogDetailActivity.class);
+                    blog.putExtra("id",Integer.parseInt(data.getLink()));
+                    itemView.getContext().startActivity(blog);
+                    break;
+            }
+        });
+    }
 }

@@ -151,7 +151,7 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
     private void calculateFootRoute() {
         boolean isSuccess = mAMapNavi.calculateWalkRoute(mNaviStart, mNaviEnd);
         if (!isSuccess) {
-            JUtils.Log("calculateFootRoute 路线计算失败");
+            JUtils.Toast("路线计算失败");
         }
     }
 
@@ -180,13 +180,14 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
     }
 
     private void zoomMarker() {
-        mMapView.post(() -> {
+        JUtils.Log("zoomMarker"+mMyLocation.getPosition().toString()+":"+mPlaceLocation.getPosition().toString());
+        mMapView.postDelayed(() -> {
             LatLngBounds.Builder boundsBuild = new LatLngBounds.Builder();
             boundsBuild.include(mMyLocation.getPosition());
             boundsBuild.include(mPlaceLocation.getPosition());
             mAMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuild.build(), 10));
             mAMap.moveCamera(CameraUpdateFactory.zoomOut());
-        });
+        },100);
     }
 
     @Override
@@ -299,6 +300,8 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
 
     @Override
     public void onCalculateRouteSuccess() {
+        JUtils.Log("计算成功");
+
         AMapNaviPath naviPath = mAMapNavi.getNaviPath();
         if (naviPath == null) {
             return;

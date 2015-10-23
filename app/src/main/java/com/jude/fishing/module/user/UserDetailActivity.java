@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -104,6 +105,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         id = getIntent().getIntExtra("id", 0);
         getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            head.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,JUtils.dip2px(285)+JUtils.getStatusBarHeight()));
+        }
         getToolbar().setBackgroundDrawable(mActionbarDrawable);
         setToolbarAlpha(0);
         scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
