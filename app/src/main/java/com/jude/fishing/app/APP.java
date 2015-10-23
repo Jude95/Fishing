@@ -1,8 +1,9 @@
 package com.jude.fishing.app;
 
 import android.app.ActivityManager;
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.amap.api.navi.AMapNavi;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -25,10 +26,16 @@ import io.rong.imkit.RongIM;
 /**
  * Created by Mr.Jude on 2015/1/27.
  */
-public class APP extends Application {
+public class APP extends MultiDexApplication {
     private static APP instance = null;
     public static APP getInstance(){
         return instance;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override
