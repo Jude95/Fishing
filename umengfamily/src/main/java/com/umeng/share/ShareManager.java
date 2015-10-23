@@ -66,8 +66,10 @@ public class ShareManager {
      * targetUrl : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
      */
     private void addQQQZonePlatform(Context context, String targetUrl) {
-        String appId = "100424468";
-        String appKey = "c7394704798a158208a74ab60104f0ba";
+//        String appId = "100424468";
+        String appId = "1104846329";
+//        String appKey = "c7394704798a158208a74ab60104f0ba";
+        String appKey = "NDVX3ypE9uqOdRow";
         // 添加QQ支持, 并且设置QQ分享内容的target url
         UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler((Activity) context, appId, appKey);
         qqSsoHandler.setTargetUrl(targetUrl);
@@ -133,7 +135,7 @@ public class ShareManager {
         qzone.setShareContent(content);
         qzone.setTargetUrl(targetUrl);
         qzone.setTitle(title);
-        qzone.setShareMedia(urlImage);
+        qzone.setShareImage(urlImage);
         mController.setShareMedia(qzone);
 
         // QQ分享内容

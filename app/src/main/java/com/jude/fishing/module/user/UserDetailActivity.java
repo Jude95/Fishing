@@ -271,4 +271,8 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
                 .items(new String[]{"拍照", "相册", "网络"})
                 .itemsCallback((materialDialog, view, i, charSequence) -> getPresenter().editFace(i)).show();
     }
+
+    public void changeBackground(String bgUri){
+        background.setImageURI(Uri.parse(bgUri));
+    }
 }

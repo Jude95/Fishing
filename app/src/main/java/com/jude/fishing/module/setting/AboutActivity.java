@@ -1,5 +1,6 @@
 package com.jude.fishing.module.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
+import com.umeng.socialize.bean.SocializeConfig;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -70,5 +73,14 @@ public class AboutActivity extends BeamBaseActivity<AboutPresenter> implements V
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMSsoHandler ssoHandler = SocializeConfig.getSocializeConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 }
