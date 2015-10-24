@@ -92,8 +92,6 @@ public class AccountModel extends AbsModel {
                     userAccountData.setAddress(address);
                     userAccountData.setSkill(skill);
                     userAccountData.setSign(sign);
-                    JUtils.Log(userAccountData.getName());
-                    JUtils.Log(userAccountData.getAvatar());
 
                     saveAccount(userAccountData);
                     setAccount(userAccountData);
@@ -168,7 +166,10 @@ public class AccountModel extends AbsModel {
 
     public Observable<List<Notification>> getNotification(int page){
         return ServiceClient.getService().getNotification(page)
-                .doOnNext(notifications -> JUtils.getSharedPreference().edit().putInt(LAST_NOTIFICATION, notifications.get(0).getId()).apply())
+                .doOnNext(notifications -> {
+                    if (page==0)
+                    JUtils.getSharedPreference().edit().putInt(LAST_NOTIFICATION, notifications.get(0).getId()).apply();
+                })
                 .compose(new DefaultTransform<>());
     }
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <com.jude.fishing.widget.HackyViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="#99000000" >
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="-6dp"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_return" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/home"
+            android:text="返回"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/lock"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:text="锁定"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</RelativeLayout>

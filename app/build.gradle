@@ -79,4 +79,5 @@ dependencies {
     compile files('libs/AMap_Location_v1.4.1_20150917.jar')
     compile files('libs/AMap_3DMap_v2.6.0_20150914.jar')
     compile files('libs/Msc.jar')
+    compile 'com.pnikosis:materialish-progress:1.7'
 }

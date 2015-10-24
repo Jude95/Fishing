@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Notification;
+import com.jude.utils.JUtils;
 
 /**
  * Created by zhuchenxi on 15/10/23.
@@ -24,6 +25,8 @@ public class NotificationPresenter extends BeamListActivityPresenter<Notificatio
 
     @Override
     public void onLoadMore() {
-        AccountModel.getInstance().getNotification(getCurPage()).unsafeSubscribe(getMoreSubscriber());
+        AccountModel.getInstance().getNotification(getCurPage())
+                .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
+                .unsafeSubscribe(getMoreSubscriber());
     }
 }
