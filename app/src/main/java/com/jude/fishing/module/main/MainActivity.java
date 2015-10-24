@@ -55,7 +55,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
         if (keyCode == KeyEvent.KEYCODE_BACK){
             long time = System.currentTimeMillis();
 
-            if (time-lastBackPressed>1000){
+            if (time-lastBackPressed>2000){
                 JUtils.Toast("再次点击退出APP");
                 lastBackPressed = time;
                 return true;
