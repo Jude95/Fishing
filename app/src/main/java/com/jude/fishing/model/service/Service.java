@@ -273,6 +273,16 @@ public interface Service {
                                 @Field("lat")double lat);
 
     @FormUrlEncoded
+    @POST(API.URL.DeleteBlog)
+    Observable<List<Seed>> deleteBlog(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST(API.URL.ReportBlog)
+    Observable<List<Seed>> reportBlog(
+            @Field("id")int id,
+            @Field("content")String content);
+
+    @FormUrlEncoded
     @POST(API.URL.GetBlogDetail)
     Observable<SeedDetail> getBlogDetail(@Field("id")int id);
 

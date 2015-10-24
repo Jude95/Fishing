@@ -12,12 +12,11 @@
 
     <com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/wheel"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         pre:matProg_barColor="#5588FF"
         pre:matProg_fillRadius="true"
         pre:matProg_progressIndeterminate="true"
-        pre:matProg_barWidth="12dp"
         android:layout_gravity="center" />
 
 

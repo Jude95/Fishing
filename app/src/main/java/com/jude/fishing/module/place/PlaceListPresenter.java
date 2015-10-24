@@ -23,7 +23,6 @@ public class PlaceListPresenter extends BeamListFragmentPresenter<PlaceListFragm
         JUtils.Log("subscribe");
         if (getRefreshSubscriber().isUnsubscribed())getRefreshSubscriber().unsubscribe();
         PlaceModel.getInstance().getPlacesByDistance(LocationModel.getInstance().getCurLocation().getLatitude(), LocationModel.getInstance().getCurLocation().getLongitude())
-                .doOnNext(placeBriefs -> JUtils.Log("Get:"+placeBriefs.size()))
                 .unsafeSubscribe(getRefreshSubscriber());
     }
 

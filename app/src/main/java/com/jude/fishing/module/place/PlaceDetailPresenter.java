@@ -5,10 +5,13 @@ import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.PlaceModel;
 import com.jude.fishing.model.entities.PlaceDetail;
 import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.fishing.module.setting.update.UpdateChecker;
 import com.jude.fishing.module.user.LoginActivity;
+import com.umeng.share.ShareManager;
 
 /**
  * Created by Mr.Jude on 2015/9/23.
@@ -57,5 +60,13 @@ public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailA
         Intent i = new Intent(getView(),PlaceMapPathActivity.class);
         i.putExtra("place",mDetail);
         getView().startActivity(i);
+    }
+
+    public void share(){
+        String content = mDetail.getName()
+                + "位于"+mDetail.getAddress()
+                + ",欢迎使用空钩查看详情";
+
+        ShareManager.getInstance().share(getView(), content, mDetail.getName(), UpdateChecker.getInstance().getDownloadUrl(), ImageModel.getInstance().getSmallImage(mDetail.getPreview()).toString());
     }
 }

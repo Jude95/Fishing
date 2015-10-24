@@ -1,21 +1,27 @@
 package com.jude.fishing.module.blog;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.model.BlogModel;
 import com.jude.fishing.model.entities.Seed;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -52,7 +58,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     BlogListFragment mFragment;
 
     private int id;
-
+    private int authorId;
     public SeedViewHolder(ViewGroup parent,BlogListFragment fragment) {
         super(parent, R.layout.blog_item_main);
         ButterKnife.inject(this, itemView);
@@ -64,11 +70,47 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
             i.putExtra("id", id);
             v.getContext().startActivity(i);
         });
+        itemView.setOnLongClickListener(v -> {
+            JUtils.Log("UID:"+AccountModel.getInstance().getAccount().getUID()+" id:"+id);
+            if (AccountModel.getInstance().getAccount()!=null&&AccountModel.getInstance().getAccount().getUID()==authorId){
+                new MaterialDialog.Builder(v.getContext())
+                        .title("确定要删除本条渔获吗?")
+                        .content("删除后将不可恢复")
+                        .negativeText("取消")
+                        .positiveColor(Color.RED)
+                        .positiveText("删除")
+                        .onPositive((materialDialog, dialogAction) -> BlogModel.getInstance().deleteBlog(id).subscribe(new ServiceResponse<Object>() {
+                            @Override
+                            public void onNext(Object o) {
+                                JUtils.Toast("已删除,请手动刷新");
+                            }
+                        }))
+                        .show();
+            }else{
+                new MaterialDialog.Builder(v.getContext())
+                        .title("举报")
+                        .content("你确定要举报这条渔获吗?")
+                        .input("请写下您的理由", "", (materialDialog, charSequence) -> {
+                            BlogModel.getInstance().reportBlog(id,charSequence.toString()).subscribe(new ServiceResponse<Object>() {
+                                @Override
+                                public void onNext(Object o) {
+                                    JUtils.Toast("感谢您的举报");
+                                }
+                            });
+                        })
+                        .negativeText("取消")
+                        .positiveColor(Color.RED)
+                        .positiveText("举报")
+                        .show();
+            }
+            return true;
+        });
     }
 
     @Override
     public void setData(Seed data) {
         id = data.getId();
+        authorId = data.getAuthorId();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         avatar.setOnClickListener(v -> {
             Intent i = new Intent(v.getContext(), UserDetailActivity.class);

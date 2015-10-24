@@ -41,12 +41,20 @@ public class BlogModel extends AbsModel {
         return ServiceClient.getService().getBlogDetail(id).compose(new DefaultTransform<>());
     }
 
+    public Observable<Object> reportBlog(int id,String text){
+        return ServiceClient.getService().reportBlog(id,text).compose(new DefaultTransform<>());
+    }
+
     public Observable<Object> blogPraise(int id){
         return ServiceClient.getService().blogPraise(id).compose(new DefaultTransform<>());
     }
 
     public Observable<Object> blogUnPraise(int id){
         return ServiceClient.getService().blogUnPraise(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> deleteBlog(int id){
+        return ServiceClient.getService().deleteBlog(id).compose(new DefaultTransform<>());
     }
 
     public Observable<Object> addBlog(String content,String images,String address,double lng,double lat){

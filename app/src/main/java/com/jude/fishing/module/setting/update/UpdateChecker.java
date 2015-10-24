@@ -17,7 +17,7 @@ import com.jude.utils.JUtils;
  * Created by zhuchenxi on 15/10/20.
  */
 public class UpdateChecker {
-
+    public static final String NEW_VERSION_URL = "newVersionUrl";
     private static UpdateChecker instance = new UpdateChecker();
 
     public static UpdateChecker getInstance() {
@@ -25,13 +25,17 @@ public class UpdateChecker {
     }
 
 
+    public String getDownloadUrl(){
+        return JUtils.getSharedPreference().getString(NEW_VERSION_URL,"");
+    }
+
     public void checkUpdate(Context ctx){
         ServiceClient.getService().getUpdateInfo()
                 .compose(new DefaultTransform<>())
                 .subscribe(new ServiceResponse<UpdateInfo>() {
                     @Override
                     public void onNext(UpdateInfo updateInfo) {
-                        JUtils.Log("versionCode:" + updateInfo.getVersionCode());
+                        JUtils.getSharedPreference().edit().putString(NEW_VERSION_URL,updateInfo.getUrl()).apply();
                         if (updateInfo.getVersionCode() > JUtils.getAppVersionCode()) {
                             showUpdateDialog(
                                     ctx,
@@ -49,7 +53,7 @@ public class UpdateChecker {
                 .subscribe(new ServiceResponse<UpdateInfo>() {
                     @Override
                     public void onNext(UpdateInfo updateInfo) {
-                        JUtils.Log("versionCode:" + updateInfo.getVersionCode());
+                        JUtils.getSharedPreference().edit().putString(NEW_VERSION_URL, updateInfo.getInfo()).apply();
                         if (updateInfo.getVersionCode() > JUtils.getAppVersionCode()) {
                             showUpdateDialog(
                                     ctx,

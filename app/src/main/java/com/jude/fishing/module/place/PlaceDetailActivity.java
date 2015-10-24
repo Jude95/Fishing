@@ -236,7 +236,7 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.share) {
-            ShareManager.getInstance().share(this, "钓点详情", "空钩", "http://www.baidu.com", "http://img4.duitang.com/uploads/item/201503/04/20150304191759_mmEtx.jpeg");
+            getPresenter().share();
         }
         if (item.getItemId() == R.id.edit){
             getPresenter().startEdit();

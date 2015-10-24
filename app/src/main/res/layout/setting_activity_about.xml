@@ -28,7 +28,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="version 1.0" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
     <com.jude.tagview.TAGView
         android:id="@+id/tg_share"
         android:layout_width="wrap_content"
@@ -40,16 +43,13 @@
         app:tag_text_color="#595854"
         app:tag_text_size="18sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="48dp"
         android:gravity="center_horizontal"
-        android:text="天下钓鱼 尽在空钩" />
+        android:text="天下钓鱼 尽在空钩\nCopyright©2015 HelloWorld All rights reserved" />
 
 </LinearLayout>

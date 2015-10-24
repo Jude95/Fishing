@@ -53,6 +53,8 @@ public class API {
         public static final String GetUserBlog = "/weibo/getList";
         public static final String AddBlog = "/weibo/add";
         public static final String GetBlogDetail = "/weibo/getItem";
+        public static final String DeleteBlog = "/weibo/del";
+        public static final String ReportBlog = "/common/reportWeibo";
 
         public static final String BlogPraise = "/weibo/praise";
         public static final String BlogUnPraise = "/weibo/unPraise";
