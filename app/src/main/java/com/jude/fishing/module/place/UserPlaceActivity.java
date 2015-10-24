@@ -20,6 +20,6 @@ public class UserPlaceActivity extends BeamListActivity<UserPlacePresenter,Place
 
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new PlaceViewHolder(parent);
+        return new PlaceStatusViewHolder(parent);
     }
 }

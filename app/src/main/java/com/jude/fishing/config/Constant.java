@@ -4,6 +4,10 @@ package com.jude.fishing.config;
  * Created by Mr.Jude on 2015/9/11.
  */
 public class Constant {
+    public static final String[] PlaceStatus = {
+            "审核中", "已发布", "被拒绝"
+    };
+
     public static final String[] PlaceCostType = {
             "免费", "斤塘", "天塘"
     };

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/white">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/preview"
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/container1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:layout_alignTop="@+id/preview"
+        android:layout_toRightOf="@+id/preview">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            tool:text="南山鱼塘"/>
+
+        <com.jude.tagview.TAGView
+            android:id="@+id/cost_type"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:tag_text="天"
+            android:layout_marginLeft="12dp"
+            app:tag_stroke_width="1dp"
+            app:tag_text_color="@color/orange"
+            app:tag_color="@color/orange"/>
+
+        <com.jude.tagview.TAGView
+            android:id="@+id/pool_type"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="4dp"
+            app:tag_text="江"
+            app:tag_stroke_width="1dp"
+            app:tag_text_color="@color/green"
+            app:tag_color="@color/green"/>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tool:text="审核中"
+            android:gravity="right"
+            android:textColor="@color/red"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="16dp"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/container1"
+        android:layout_above="@+id/container3"
+        android:layout_toRightOf="@+id/preview">
+
+        <com.jude.fishing.widget.ScoreView
+            android:id="@+id/score_image"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.0"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            />
+        <TextView
+            android:id="@+id/cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_deep"
+            android:gravity="right"
+            android:text="人均130￥"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/preview"
+        android:layout_above="@+id/tag_container">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            tool:text="黄桷垭"/>
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_deep"
+            android:gravity="right"
+            android:text="距离130km"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/tag_container"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="-4dp"
+        android:layout_alignBottom="@+id/preview"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>
