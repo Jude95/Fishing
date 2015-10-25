@@ -121,7 +121,19 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
-        if (mFragment!=null)praiseContainer.setOnClickListener(v -> mFragment.getPresenter().praise(id,data.getPraiseStatus()));
+        praiseContainer.setOnClickListener(v -> {
+            data.setPraiseStatus(!data.getPraiseStatus());
+            data.setPraiseCount(data.getPraiseCount()+(data.getPraiseStatus()?1:-1));
+            praiseCount.setText(data.getPraiseCount() + "");
+
+            praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
+            if (data.getPraiseStatus())
+                BlogModel.getInstance().blogPraise(id)
+                        .subscribe(new ServiceResponse<>());
+            else
+                BlogModel.getInstance().blogUnPraise(id)
+                        .subscribe(new ServiceResponse<>());
+        });
         praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");

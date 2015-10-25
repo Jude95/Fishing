@@ -179,6 +179,8 @@
             android:label="通知"/>
         <activity android:name=".module.main.ImageViewActivity"
             android:label="图片查看"/>
+        <activity android:name=".module.place.PlaceFindActivity"
+            android:label="钓点搜索"/>
         <activity android:name=".module.social.ChatActivity"
             android:label="聊天">
             <intent-filter>

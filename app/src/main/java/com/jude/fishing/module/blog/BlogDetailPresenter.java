@@ -55,10 +55,8 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
             JUtils.Toast("请登录");
             return;
         }
-        getView().getExpansion().showProgressDialog("请稍候");
         if (isPraised)
             BlogModel.getInstance().blogUnPraise(wid)
-                    .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {
@@ -67,7 +65,6 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
                     });
         else
             BlogModel.getInstance().blogPraise(wid)
-                    .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {

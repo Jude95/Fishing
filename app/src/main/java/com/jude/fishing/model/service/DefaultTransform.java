@@ -1,5 +1,7 @@
 package com.jude.fishing.model.service;
 
+import com.jude.utils.JUtils;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -10,6 +12,8 @@ import rx.android.schedulers.AndroidSchedulers;
 public class DefaultTransform<T> implements Observable.Transformer<T, T> {
     @Override
     public Observable<T> call(Observable<T> tObservable) {
-        return tObservable.observeOn(AndroidSchedulers.mainThread());
+        return tObservable
+                .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

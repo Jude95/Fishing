@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.fishing.model.SocialModel;
 import com.jude.fishing.model.entities.Contact;
+import com.jude.utils.JUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ public class ContactPresenter extends BeamListActivityPresenter<ContactActivity,
     public void onRefresh() {
         Observable.just(readContacts(getView()))
                 .flatMap(json -> SocialModel.getInstance().getContact(json))
+                .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
                 .unsafeSubscribe(getRefreshSubscriber());
     }
 

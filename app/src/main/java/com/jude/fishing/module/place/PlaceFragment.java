@@ -60,6 +60,9 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
                 startActivity(new Intent(getActivity(),LoginActivity.class));
             return true;
         }
+        if(item.getItemId()==R.id.search){
+            startActivity(new Intent(getActivity(),PlaceFindActivity.class));
+        }
         if (item.getItemId()==R.id.filter){
             FilterDialogView filterDialogView = new FilterDialogView(getContext());
             filterDialogView.setCostType(PlaceModel.getInstance().getFilterCostType());

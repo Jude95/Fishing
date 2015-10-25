@@ -6,6 +6,13 @@
         android:id="@+id/filter"
         android:title="筛选"
         android:icon="@drawable/ic_filter"
+        android:orderInCategory="98"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/search"
+        android:title="搜索"
+        android:icon="@drawable/ic_search"
         android:orderInCategory="99"
         app:showAsAction="always"
         />

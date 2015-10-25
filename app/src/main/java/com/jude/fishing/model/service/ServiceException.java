@@ -19,7 +19,7 @@ public class ServiceException extends ConversionException {
     }
 
     public ServiceException(int status, String info) {
-        super("status:"+status+"  info"+info);
+        super("ServiceException status:"+status+"  info"+info);
         this.status = status;
         this.info = info;
     }

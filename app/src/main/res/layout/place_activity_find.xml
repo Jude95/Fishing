@@ -18,7 +18,7 @@
             android:layout_marginRight="16dp"
             android:layout_height="match_parent"
             android:singleLine="true"
-            android:hint="输入昵称或手机号"/>
+            android:hint="输入钓点关键字"/>
         <ImageView
             android:layout_width="20dp"
             android:layout_height="match_parent"

@@ -3,8 +3,8 @@ package com.jude.fishing.app;
 import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.overlay.DefaultViewExpansionDelegate;
 import com.jude.utils.JUtils;
@@ -16,6 +16,8 @@ public class PaddingTopViewExpansion extends DefaultViewExpansionDelegate {
     public PaddingTopViewExpansion(BeamBaseActivity activity) {
         super(activity);
     }
+
+    private MaterialDialog mProgressDialog;
 
     @Override
     public void setToolbar(View view) {
@@ -29,4 +31,18 @@ public class PaddingTopViewExpansion extends DefaultViewExpansionDelegate {
         }
     }
 
+    @Override
+    public void showProgressDialog(String title) {
+        if (mProgressDialog!=null)mProgressDialog.dismiss();
+        mProgressDialog = new MaterialDialog.Builder(getActivity())
+                .progress(true,100)
+                .title(title)
+                .content("请稍候……")
+                .show();
+    }
+
+    @Override
+    public void dismissProgressDialog() {
+        if (mProgressDialog!=null)mProgressDialog.dismiss();
+    }
 }

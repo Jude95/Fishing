@@ -70,7 +70,10 @@ public class PlaceViewHolder extends BaseViewHolder<PlaceBrief> {
     public void setData(PlaceBrief data) {
         id = data.getId();
         distance.setText(DistanceFormat.parse(LocationModel.getInstance().getDistance(data.getLat(),data.getLng())));
-        cost.setText("人均" + data.getCost() + "¥");
+
+        if (data.getCost()==0)cost.setText("免费");
+        else cost.setText("人均" + data.getCost() + "¥");
+
         preview.setImageURI(ImageModel.getInstance().getSmallImage(data.getPreview()));
         name.setText(data.getName());
         score.setText(data.getScore() + "");

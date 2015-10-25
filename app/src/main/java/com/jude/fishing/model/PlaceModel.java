@@ -63,7 +63,18 @@ public class PlaceModel extends AbsModel {
 
     public Observable<List<PlaceBrief>> getAllPlaces(){
         return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
-                "SELECT * FROM " + PlaceDBTable.TABLE_NAME + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1")
+                "SELECT * FROM " + PlaceDBTable.TABLE_NAME
+                        + " WHERE "+PlaceDBTable.COLUMN_STATUS+"==1")
+                .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
+                .subscribeOn(Schedulers.io())
+                .compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<PlaceBrief>> findPlacesByKey(String key){
+        return mDbBrite.createQuery(PlaceDBTable.TABLE_NAME,
+                "SELECT * FROM " + PlaceDBTable.TABLE_NAME
+                        + " WHERE " + PlaceDBTable.COLUMN_STATUS+"==1"
+                        + " AND " + PlaceDBTable.COLUMN_NAME+" LIKE '%"+ key + "%'")
                 .mapToList(cursor -> PlaceDBTable.getInstance().from(cursor))
                 .subscribeOn(Schedulers.io())
                 .compose(new DefaultTransform<>());
@@ -80,6 +91,8 @@ public class PlaceModel extends AbsModel {
                 .subscribeOn(Schedulers.io())
                 .compose(new DefaultTransform<>());
     }
+
+
 
     public Observable<List<PlaceBrief>> updatePlacesByDistance(double lat, double lng){
         return syncPlace()

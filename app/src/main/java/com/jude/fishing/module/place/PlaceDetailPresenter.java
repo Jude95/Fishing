@@ -30,7 +30,7 @@ public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailA
     }
 
     public boolean isAuthor(){
-        if (mDetail!=null)
+        if (AccountModel.getInstance().getAccount()!=null&&mDetail!=null)
             return AccountModel.getInstance().getAccount().getUID()==mDetail.getAuthorId();
         else
             return false;

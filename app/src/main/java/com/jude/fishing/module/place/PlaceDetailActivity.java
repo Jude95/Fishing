@@ -27,7 +27,6 @@ import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
-import com.umeng.share.ShareManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,12 +97,6 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         getExpansion().showProgressPage();
         ButterKnife.inject(this);
         picture.setAdapter(adapter = new PictureAdapter());
-        tel.setOnClickListener(v -> {
-            if (!TextUtils.isEmpty(tel.getText())) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
-                startActivity(intent);
-            }
-        });
         navigationImage.setOnClickListener(v -> getPresenter().startNavigation());
         navigationText.setOnClickListener(v->getPresenter().startNavigation());
         address.setOnClickListener(v -> getPresenter().startNavigation());
@@ -139,7 +132,19 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
         score.setScore(data.getScore());
         scoreText.setText(data.getScore() + "");
         address.setText(data.getAddress());
-        tel.setText(TextUtils.isEmpty(data.getTel()) ? "未知" : data.getTel());
+
+        if(TextUtils.isEmpty(data.getTel())){
+            tel.setText("未知");
+        }else{
+            tel.setText(data.getTel());
+            tel.setOnClickListener(v -> {
+                if (!TextUtils.isEmpty(tel.getText())) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel.getText()));
+                    startActivity(intent);
+                }
+            });
+        }
+
         price.setText("人均消费:" + data.getCost() + "元");
         nest.setText(Constant.NestType[data.getNest()]);
 
