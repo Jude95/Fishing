@@ -133,7 +133,7 @@
                     android:layout_width="24dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/place_content"/>
+                    android:src="@drawable/place_contributor"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
