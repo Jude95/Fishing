@@ -1,4 +1,4 @@
-package com.jude.fishing.module.setting.update;
+package com.jude.fishing.module.setting;
 
 import android.app.Notification;
 import android.app.NotificationManager;

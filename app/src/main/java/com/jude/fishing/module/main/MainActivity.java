@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
-import com.jude.fishing.module.setting.update.UpdateChecker;
+import com.jude.fishing.model.CommonModel;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.utils.JUtils;
 
@@ -31,7 +31,6 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_main);
-        UpdateChecker.getInstance().checkUpdate(this);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         mDrawerToggle = new ActionBarDrawerToggle(this

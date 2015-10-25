@@ -193,7 +193,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".module.setting.update.UpdateService"/>
+        <service android:name=".module.setting.UpdateService"/>
     </application>
 
 </manifest>
