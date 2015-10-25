@@ -83,15 +83,25 @@ public class CommonModel extends AbsModel {
                     @Override
                     public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
                         JUtils.Log("Get Start");
-                        Intent updateIntent = new Intent(ctx,UpdateService.class);
-                        updateIntent.putExtra("title","空钩正在更新");
-                        updateIntent.putExtra("url",url);
-                        updateIntent.putExtra("path", Environment.getExternalStorageDirectory() +"/"+"download/");
-                        updateIntent.putExtra("name",ctx.getString(R.string.app_name)+"v"+versionName+".apk");
+                        Intent updateIntent = new Intent(ctx, UpdateService.class);
+                        updateIntent.putExtra("title", "空钩正在更新");
+                        updateIntent.putExtra("url", url);
+                        updateIntent.putExtra("path", findDownLoadDirectory());
+                        updateIntent.putExtra("name", ctx.getString(R.string.app_name) + "v" + versionName + ".apk");
                         ctx.startService(updateIntent);
                     }
                 })
                 .show();
 
+    }
+
+    private String findDownLoadDirectory(){
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+            JUtils.Log("找到SD卡");
+            return Environment.getExternalStorageDirectory() + "/" + "download/";
+        }else{
+            JUtils.Log("没有SD卡");
+            return Environment.getRootDirectory() + "/" + "download/";
+        }
     }
 }
