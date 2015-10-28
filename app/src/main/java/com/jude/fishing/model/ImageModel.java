@@ -1,18 +1,18 @@
 package com.jude.fishing.model;
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.net.Uri;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.service.ServiceClient;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
 import com.qiniu.android.storage.UploadManager;
 
 import java.io.File;
 
 import rx.Observable;
-import rx.Subscriber;
 
 /**
  * Created by zhuchenxi on 15/7/21.
@@ -57,6 +57,10 @@ public class ImageModel extends AbsModel {
             return Uri.parse(path);
     }
 
+    private String createName(File file){
+        String realName = "u"+UID+System.currentTimeMillis()+file.hashCode()+".jpg";
+        return realName;
+    }
 
     /**
      *
@@ -64,40 +68,38 @@ public class ImageModel extends AbsModel {
      * @return 上传文件访问地址
      */
     public Observable<String> putImage(final File file){
-        return ServiceClient.getService().getQiNiuToken().flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                String realName = "u"+UID+System.currentTimeMillis()+file.hashCode()+".jpg";
-                String path = ADDRESS+realName;
-                mUploadManager.put(file, realName, token.getToken(), (key, info, response) -> {
-                    if (info.isOK())subscriber.onNext(path);
-                    else subscriber.onError(new NetworkErrorException(info.error));
-                    subscriber.onCompleted();
-                }, null);
-            }
-        }));
+        return Observable.just(createName(file))
+                .doOnNext(name -> ServiceClient.getService().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
+                    @Override
+                    public void onNext(Token token) {
+                        mUploadManager.put(file, name, token.getToken(), (key, info, response) -> {
+                            if (!info.isOK()) JUtils.Toast("图片上传失败!");
+                            else JUtils.Log("图片已上传");
+                        }, null);
+                    }
+                }))
+                .map(name -> ADDRESS + name);
     }
 
+
+
+
     public Observable<String> putImage(final File[] file){
-
-        return ServiceClient.getService().getQiNiuToken().flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                final int[] counter = {0};
-                for (File temp : file) {
-                    JUtils.Log(temp.getPath()+" exist:"+temp.exists());
-
-                    String realName = "u"+UID+System.currentTimeMillis()+temp.hashCode()+".jpg";
-                    String path = ADDRESS+realName;
-                    mUploadManager.put(temp, realName, token.getToken(), (key, info, response) -> {
-                        JUtils.Log("Uploaded "+path+info.isOK()+" "+info.toString());
-                        if (info.isOK())subscriber.onNext(path);
-                        else subscriber.onError(new NetworkErrorException("Error:"+info.error));
-                        if (++counter[0]==file.length)subscriber.onCompleted();
-                    }, null);
-                }
-            }
-        }));
+        return Observable.from(file)
+                .map(file1 -> {
+                    String name = createName(file1);
+                    ServiceClient.getService().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
+                        @Override
+                        public void onNext(Token token) {
+                            mUploadManager.put(file1, name, token.getToken(), (key, info, response) -> {
+                                if (!info.isOK()) JUtils.Toast("图片上传失败!");
+                                else JUtils.Log("图片已上传："+name);
+                            }, null);
+                        }
+                    });
+                    return name;
+                })
+                .map(name -> ADDRESS + name);
     }
 
 

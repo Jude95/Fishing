@@ -92,7 +92,11 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         commentCount.setText(data.getCommentCount() + "");
         btnComment.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));
         praiseContainer.setVisibility(data.getPraiseCount() == 0 ? View.GONE : View.VISIBLE);
-        pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
+
+        if ( data.getImages()!=null&&data.getImages().length!=0){
+            pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
+            pictures.setColumnCount(Math.min(data.getImages().length, 3));
+        }
 
         for (PersonBrief personBrief : data.getPraiseMember()) {
             SimpleDraweeView draweeView = new SimpleDraweeView(this);

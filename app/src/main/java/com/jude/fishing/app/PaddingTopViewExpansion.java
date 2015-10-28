@@ -37,6 +37,7 @@ public class PaddingTopViewExpansion extends DefaultViewExpansionDelegate {
         mProgressDialog = new MaterialDialog.Builder(getActivity())
                 .progress(true,100)
                 .title(title)
+                .cancelable(false)
                 .content("请稍候……")
                 .show();
     }

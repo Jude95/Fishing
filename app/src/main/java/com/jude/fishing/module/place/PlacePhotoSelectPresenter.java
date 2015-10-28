@@ -68,12 +68,15 @@ public class PlacePhotoSelectPresenter extends Presenter<PlacePhotoSelectActivit
     }
 
     public void editFace(int style){
+        if (uriArrayList.size()>=30){
+            JUtils.Toast("最多上传30张图片");
+        }
         switch (style){
             case 0:
                 provider.getImageFromCamera(listener);
                 break;
             case 1:
-                provider.getImageFromAlbum(listener);
+                provider.getImageFromAlbum(listener,30-uriArrayList.size());
                 break;
         }
     }

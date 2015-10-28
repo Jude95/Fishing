@@ -212,7 +212,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        JUtils.Toast("提交成功");
+                        JUtils.ToastLong("提交成功，图片需要几十秒上传完成才能查看");
                         getView().finish();
                     }
 

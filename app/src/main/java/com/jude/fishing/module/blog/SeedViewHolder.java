@@ -123,7 +123,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         address.setText(data.getAddress());
         praiseContainer.setOnClickListener(v -> {
             data.setPraiseStatus(!data.getPraiseStatus());
-            data.setPraiseCount(data.getPraiseCount()+(data.getPraiseStatus()?1:-1));
+            data.setPraiseCount(data.getPraiseCount() + (data.getPraiseStatus() ? 1 : -1));
             praiseCount.setText(data.getPraiseCount() + "");
 
             praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
@@ -138,6 +138,9 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
         adapter.clear();
+        if (data.getImages()!=null&&data.getImages().length!=0){
+            image.setColumnCount(Math.min(data.getImages().length,3));
+        }
         adapter.addAll(data.getImages());
         adapter.notifyDataSetChanged();
     }

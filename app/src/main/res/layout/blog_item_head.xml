@@ -38,7 +38,7 @@
         android:id="@+id/pictures"
         android:layout_marginTop="@dimen/activity_margin"
         android:layout_marginLeft="@dimen/activity_margin"
-        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_marginRight="56dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/content"

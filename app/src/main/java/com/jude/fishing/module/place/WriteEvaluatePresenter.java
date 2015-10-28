@@ -56,12 +56,16 @@ public class WriteEvaluatePresenter extends Presenter<WriteEvaluateActivity> imp
     }
 
     public void editFace(int style){
+        if (uriArrayList.size()>=9){
+            JUtils.Toast("最多上传9张图片");
+            return;
+        }
         switch (style){
             case 0:
                 provider.getImageFromCamera(listener);
                 break;
             case 1:
-                provider.getImageFromAlbum(listener);
+                provider.getImageFromAlbum(listener,9-uriArrayList.size());
                 break;
             case 2:
                 provider.getImageFromNet(listener);
@@ -138,7 +142,7 @@ public class WriteEvaluatePresenter extends Presenter<WriteEvaluateActivity> imp
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
-                        JUtils.Toast("提交成功");
+                        JUtils.ToastLong("提交成功，图片需要几十秒上传完成才能查看");
                         getView().setResult(Activity.RESULT_OK);
                         getView().finish();
                     }
