@@ -20,6 +20,7 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.subjects.BehaviorSubject;
 
 /**
@@ -169,6 +170,25 @@ public class AccountModel extends AbsModel {
                 .doOnNext(notifications -> {
                     if (page==0)
                     JUtils.getSharedPreference().edit().putInt(LAST_NOTIFICATION, notifications.get(0).getId()).apply();
+                })
+                .flatMap(new Func1<List<Notification>, Observable<List<Notification>>>() {
+                    @Override
+                    public Observable<List<Notification>> call(List<Notification> notifications) {
+
+                        return userNotificationBehaviorSubject.doOnNext(new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                for (Integer i = 0; i < integer; i++) {
+                                    notifications.get(i).setRead(false);
+                                }
+                            }
+                        }).flatMap(new Func1<Integer, Observable<List<Notification>>>() {
+                            @Override
+                            public Observable<List<Notification>> call(Integer integer) {
+                                return Observable.just(notifications);
+                            }
+                        });
+                    }
                 })
                 .compose(new DefaultTransform<>());
     }

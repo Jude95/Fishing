@@ -4,6 +4,9 @@ package com.jude.fishing.model.entities;
  * Created by zhuchenxi on 15/10/23.
  */
 public class Notification {
+    public static final int USER_ATTENTION = 300;
+
+
     public static final int PLACE_PASS = 200;
     public static final int PLACE_REFUSE = 201;
     public static final int PLACE_ADD = 202;
@@ -18,6 +21,15 @@ public class Notification {
     private String link;
     private int type;
     private long time;
+    private boolean read = true;
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     public long getTime() {
         return time;
