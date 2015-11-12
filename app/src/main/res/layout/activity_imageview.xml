@@ -43,6 +43,7 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:text="锁定"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
             android:textColor="@android:color/white"

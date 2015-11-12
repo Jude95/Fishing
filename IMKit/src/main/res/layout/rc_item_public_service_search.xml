@@ -13,7 +13,7 @@
         android:layout_height="30dp"
         android:id="@+id/portrait"
         android:layout_gravity="center_vertical"
-        app:defDrawable="@drawable/rc_ic_def_msg_portrait"
+        app:RCDefDrawable="@drawable/rc_ic_def_msg_portrait"
         />
 
     <TextView

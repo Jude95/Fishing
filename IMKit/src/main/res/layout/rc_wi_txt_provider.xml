@@ -48,7 +48,8 @@
             android:layout_toLeftOf="@id/rc_frame"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#353535"
+            android:textSize="16sp"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent" />
     </RelativeLayout>

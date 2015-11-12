@@ -3,29 +3,36 @@
     android:orientation="vertical"
     android:background="@drawable/rc_bg_item"
     android:layout_width="fill_parent"
-    android:descendantFocusability="blocksDescendants"
-    android:padding="5dp"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:paddingLeft="12dp"
+    android:paddingRight="6dp"
+    android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:paddingTop="4dp"
+        android:paddingBottom="3dp">
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="#353535"
             android:id="@id/rc_txt"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="80dp"
+            android:gravity="center_vertical"
             android:lines="2"
             android:ellipsize="end"/>
 
         <io.rong.imkit.widget.AsyncImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:id="@id/rc_img"
+            android:scaleType="centerCrop"
             android:layout_gravity="center_vertical" />
     </RelativeLayout>
 

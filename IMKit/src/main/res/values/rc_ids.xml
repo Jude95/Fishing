@@ -48,5 +48,5 @@
     <item type="id" name="rc_send"/>
     <item type="id" name="rc_fragment"/>
     <item type="id" name="rc_frame"/>
-
+    <item type="id" name="rc_sent_status"/>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="emoji_res">
+    <array name="rc_emoji_res">
         <item>@drawable/u1f60a</item>
         <item>@drawable/u1f628</item>
         <item>@drawable/u1f60d</item>
@@ -131,7 +131,7 @@
         <item>@drawable/u23f3</item>
     </array>
 
-    <integer-array name="emoji_code">
+    <integer-array name="rc_emoji_code">
             <item>0x1f60a</item>
             <item>0x1f628</item>
             <item>0x1f60d</item>

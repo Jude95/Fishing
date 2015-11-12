@@ -36,7 +36,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:src="@drawable/rc_ic_portrait_voip"
-            app:defDrawable="@drawable/rc_ic_portrait_voip"
+            app:RCDefDrawable="@drawable/rc_ic_portrait_voip"
             android:layout_marginTop="71dp"
             />
     </FrameLayout>

@@ -73,7 +73,7 @@
             android:id="@+id/user_photo"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:defDrawable="@drawable/rc_ic_portrait_voip"
+            app:RCDefDrawable="@drawable/rc_ic_portrait_voip"
             android:src="@drawable/rc_ic_portrait_voip"/>
     </FrameLayout>
 

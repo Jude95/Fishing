@@ -70,8 +70,10 @@ public class APP extends MultiDexApplication {
 
                 TTSController ttsManager = TTSController.getInstance(this);// 初始化语音模块
                 ttsManager.init();
-                AMapNavi.getInstance(this).setAMapNaviListener(ttsManager);// 设置语音模块播报
-
+                try {
+                    AMapNavi.getInstance(this).setAMapNaviListener(ttsManager);// 设置语音模块播报
+                }catch (Exception e){
+                }
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview).

@@ -55,7 +55,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
     compile 'com.jude:beam:2.4.7'
-    compile 'com.jude:swipebackhelper:2.0.2'
+    compile 'com.jude:swipebackhelper:2.1.0'
     compile 'com.jude:imageprovider:2.0.2'
     compile 'com.jude:utils:1.0.7'
     compile project(':umengfamily')

@@ -6,7 +6,7 @@
     android:clickable="true"
     android:gravity="center">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -20,17 +20,18 @@
             android:padding="5dp"
             android:textSize="16dp"
             android:textColor="#353535"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_gravity="center"/>
 
         <ImageView
             android:id="@id/rc_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
             android:background="@android:color/transparent" />
-    </LinearLayout>
+    </FrameLayout>
 
     <View
         android:layout_width="0.05dip"

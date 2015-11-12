@@ -67,8 +67,8 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         score.setScore(data.getScore());
-        if (data.getImages()!=null&&data.getImages().length!=0){
-            pictures.setColumnCount(Math.min(data.getImages().length, 3));
+        if (data.getImages()!=null&&data.getImages().size()!=0){
+            pictures.setColumnCount(Math.min(data.getImages().size(), 3));
             pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
         }
         view.setOnClickListener(v-> showCommentEdit(0,data.getAuthorName()));

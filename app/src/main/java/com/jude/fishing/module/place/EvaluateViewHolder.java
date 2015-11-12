@@ -72,8 +72,8 @@ public class EvaluateViewHolder extends BaseViewHolder<Evaluate> {
         commentCount.setText(data.getCommentCount() + "");
         address.setText(data.getAddress());
         adapter.clear();
-        if (data.getImages()!=null&&data.getImages().length!=0){
-            image.setColumnCount(Math.min(data.getImages().length, 3));
+        if (data.getImages()!=null&&data.getImages().size()!=0){
+            image.setColumnCount(Math.min(data.getImages().size(), 3));
             adapter.addAll(data.getImages());
         }
         adapter.notifyDataSetChanged();

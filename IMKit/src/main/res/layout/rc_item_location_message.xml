@@ -16,15 +16,8 @@
         android:scaleType="fitXY"
         android:layout_width="206dp"
         android:layout_height="120dp"
-        app:defDrawable="@drawable/rc_ic_location_item_default"
+        app:RCDefDrawable="@drawable/rc_ic_location_item_default"
         />
-
-    <TextView
-        android:id="@id/rc_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@id/rc_content"

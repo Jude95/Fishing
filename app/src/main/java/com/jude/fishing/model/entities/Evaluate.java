@@ -2,6 +2,8 @@ package com.jude.fishing.model.entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Mr.Jude on 2015/9/12.
  */
@@ -20,10 +22,10 @@ public class Evaluate {
     private String authorAvatar;
     private String authorName;
     private String address;
-    private String[] images;
+    private List<String> images;
     private int commentCount;
 
-    public Evaluate(String address, String authorAvatar, int authorId, String authorName, int commentCount, String content, int id, String[] images, int placeId, String placeName, String placePreview, int score, long time) {
+    public Evaluate(String address, String authorAvatar, int authorId, String authorName, int commentCount, String content, int id, List<String> images, int placeId, String placeName, String placePreview, int score, long time) {
         this.address = address;
         this.authorAvatar = authorAvatar;
         this.authorId = authorId;
@@ -63,7 +65,7 @@ public class Evaluate {
         return id;
     }
 
-    public String[] getImages() {
+    public List<String> getImages() {
         return images;
     }
 

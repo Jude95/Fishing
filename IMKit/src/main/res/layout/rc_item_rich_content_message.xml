@@ -30,7 +30,7 @@
         android:layout_marginRight="5dp"
         android:scaleType="fitXY"
         android:layout_marginTop="3dp"
-        app:defDrawable="@drawable/rc_ic_def_rich_content"
+        app:RCDefDrawable="@drawable/rc_ic_def_rich_content"
         />
 
     <TextView
