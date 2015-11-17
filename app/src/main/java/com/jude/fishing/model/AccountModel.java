@@ -216,7 +216,12 @@ public class AccountModel extends AbsModel {
                 })
                 .doOnNext(integer -> userNotificationBehaviorSubject.onNext(integer))
                 .compose(new DefaultTransform<>())
-                .subscribe();
+                .subscribe(new ServiceResponse<Integer>(){
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
 
     }
 }

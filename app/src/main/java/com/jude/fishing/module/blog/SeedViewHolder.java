@@ -55,14 +55,12 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
     @InjectView(R.id.ll_praise)
     LinearLayout praiseContainer;
     NetImageAdapter adapter;
-    BlogListFragment mFragment;
 
     private int id;
     private int authorId;
-    public SeedViewHolder(ViewGroup parent,BlogListFragment fragment) {
+    public SeedViewHolder(ViewGroup parent) {
         super(parent, R.layout.blog_item_main);
         ButterKnife.inject(this, itemView);
-        mFragment = fragment;
         image.setAdapter(adapter = new NetImageAdapter(parent.getContext()));
         adapter.setNotifyOnChange(false);
         itemView.setOnClickListener(v -> {
