@@ -3,6 +3,7 @@ package com.jude.fishing.model;
 import android.content.Context;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.config.API;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Notification;
@@ -46,6 +47,10 @@ public class AccountModel extends AbsModel {
         updateMyInfo().subscribe(new ServiceResponse<Account>() {
             @Override
             public void onServiceError(int status, String info) {
+                if (status== API.CODE.LOGIN_INVALID){
+                    logout();
+                }
+                super.onServiceError(status,info);
             }
         });
 //        Observable.interval(0,5, TimeUnit.MINUTES).subscribe(aLong -> updateNotificationCount());

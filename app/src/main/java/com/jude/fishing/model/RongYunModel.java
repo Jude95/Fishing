@@ -8,6 +8,7 @@ import android.view.View;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.module.setting.MsgSetActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.utils.JUtils;
 
@@ -77,6 +78,15 @@ public class RongYunModel extends AbsModel {
                 }
                 return new UserInfo(userId, p.getName(), ImageModel.getInstance().getSmallImage(p.getAvatar()));
             }, true);
+            RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
+                @Override
+                public boolean onReceived(Message message, int i) {
+                    if (JUtils.getSharedPreference().getBoolean(MsgSetActivity.CHAT_NOTIFY,true)){
+                        return false;//交给融云处理
+                    }
+                    return true;//自己处理，不处理
+                }
+            });
             RongIM.setConversationBehaviorListener(new RongIM.ConversationBehaviorListener() {
                 @Override
                 public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo userInfo) {
