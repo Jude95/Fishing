@@ -99,4 +99,11 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
             }
         }
     }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (this.getView() != null)
+            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
+    }
 }

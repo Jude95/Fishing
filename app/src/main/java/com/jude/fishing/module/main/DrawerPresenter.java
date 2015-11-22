@@ -34,7 +34,7 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
     @Override
     protected void onCreateView(DrawerFragment view) {
         super.onCreateView(view);
-        showBlogFragment();
+//        showBlogFragment();
         mAccountSubscription = AccountModel.getInstance().registerAccountUpdate(this);
         mMessageCountSubscription = RongYunModel.getInstance().registerNotifyCount(count -> getView().setMessageCount(count));
     }

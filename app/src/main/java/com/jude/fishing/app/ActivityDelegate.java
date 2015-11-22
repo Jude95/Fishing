@@ -41,6 +41,7 @@ public class ActivityDelegate extends ActivityLifeCycleDelegate {
     protected void onDestroy() {
         super.onDestroy();
         SwipeBackHelper.onDestroy(getActivity());
+        JActivityManager.getInstance().popActivity(getActivity());
     }
 
     @Override

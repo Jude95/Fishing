@@ -121,4 +121,11 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         attention.setText(data.getCared());
         fans.setText(data.getFans());
     }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (this.getView() != null)
+            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
+    }
 }

@@ -1,10 +1,10 @@
 package com.jude.fishing.model;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonBrief;
-import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.ServiceClient;
 
@@ -79,7 +79,7 @@ public class SocialModel extends AbsModel {
                 .compose(new DefaultTransform<>());
     }
 
-    public Observable<PersonDetail> getUserDetail(int uid){
+    public Observable<Account> getUserDetail(int uid){
         return ServiceClient.getService().getUserInfo(uid).compose(new DefaultTransform<>());
     }
 
