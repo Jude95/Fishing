@@ -183,7 +183,7 @@
             android:windowSoftInputMode="adjustPan"
             android:label="钓点搜索"/>
         <activity android:name=".module.social.ChatActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="adjustResize"
             android:label="聊天">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
