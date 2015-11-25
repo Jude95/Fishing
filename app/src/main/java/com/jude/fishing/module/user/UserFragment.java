@@ -74,7 +74,6 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("个人中心");
     }
 
     @Nullable

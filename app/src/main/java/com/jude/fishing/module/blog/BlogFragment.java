@@ -39,7 +39,6 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("渔获");
     }
 
     @Override

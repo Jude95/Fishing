@@ -1,6 +1,7 @@
 package com.jude.fishing.module.main;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +50,13 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
 
         init();
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+//        重新建立的时候getActivity为null，暂时完全不保存状态
+//        super.onSaveInstanceState(outState);
+    }
+
     private FragmentPagerAdapter pagerAdapter;
     DrawerFragment drawerFragment;
     private void init() {
@@ -72,6 +80,17 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
             @Override
             public int getCount() {
                 return 4;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position){
+                    case R.id.blog:return "渔获";
+                    case R.id.place:return "钓点";
+                    case R.id.message:return "消息";
+                    case R.id.user:return "个人中心";
+                    default:throw new RuntimeException("页数不存在");
+                }
             }
         };
     }
@@ -102,6 +121,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
         Fragment fragment = (Fragment) pagerAdapter.instantiateItem(container, v.getId());
         pagerAdapter.setPrimaryItem(container, 0, fragment);
         pagerAdapter.finishUpdate(container);
+        setTitle(pagerAdapter.getPageTitle(v.getId()));
         closeDrawer();
     }
 }

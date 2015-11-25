@@ -42,7 +42,6 @@ public class MessageFragment extends BeamFragment<MessagePresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("消息");
     }
 
     @Nullable

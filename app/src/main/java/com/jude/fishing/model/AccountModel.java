@@ -202,8 +202,8 @@ public class AccountModel extends AbsModel {
         return userNotificationBehaviorSubject.compose(new DefaultTransform<>()).subscribe(action1);
     }
 
-    public void updateNotificationCount(){
-        ServiceClient.getService().getNotification(0)
+    public Subscription updateNotificationCount(){
+        return ServiceClient.getService().getNotification(0)
                 .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
                 .flatMap(notifications -> {
                     int id = JUtils.getSharedPreference().getInt(LAST_NOTIFICATION, 0);

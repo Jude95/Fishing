@@ -41,7 +41,6 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.app_name);
         setHasOptionsMenu(true);
     }
 
