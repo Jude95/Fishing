@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
@@ -23,6 +24,7 @@ import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.Subscription;
 
 @RequiresPresenter(MainPresenter.class)
 public class MainActivity extends BeamBaseActivity<MainPresenter> implements DrawerFragment.DrawerChangedListener{
@@ -116,12 +118,18 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
     }
 
 
+    Subscription subscription;
     @Override
     public void onChange(View v) {
         Fragment fragment = (Fragment) pagerAdapter.instantiateItem(container, v.getId());
         pagerAdapter.setPrimaryItem(container, 0, fragment);
         pagerAdapter.finishUpdate(container);
         setTitle(pagerAdapter.getPageTitle(v.getId()));
+        if (v.getId()==R.id.user){
+            subscription = AccountModel.getInstance().updateNotificationCount();
+        }else if (subscription!=null){
+            subscription.unsubscribe();
+        }
         closeDrawer();
     }
 }

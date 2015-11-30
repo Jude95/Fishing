@@ -108,7 +108,7 @@ public class ShareManager {
         // 配置SSO
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler((Activity) context, "100424468", "c7394704798a158208a74ab60104f0ba");
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler((Activity) context, "1104980016", "Dz9oJR8HGlmg6Prr");
         qZoneSsoHandler.addToSocialSDK();
         mController.setShareContent(content);
 
