@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 Properties props = new Properties()
-props.load(new FileInputStream(file("signing.properties")))
+props.load(new FileInputStream(file("../config/signing.properties")))
+props.load(new FileInputStream(file("../config/key.properties")))
 
 android {
     compileSdkVersion 23
@@ -12,9 +13,29 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 41
-        versionName "1.0.1"
+        versionCode 42
+        versionName "1.0.2"
         multiDexEnabled true
+        manifestPlaceholders = [
+                UMENG_APPKEY    : props['UMENG_APPKEY'],
+                AMAP_APPKEY     : props['AMAP_APPKEY'],
+                UMENG_SECRET    : props['UMENG_SECRET'],
+                RONGYUN_APPKEY  : props['RONGYUN_APPKEY']
+        ]
+    }
+
+    productFlavors {
+        xiaomi{}
+        baidu{}
+        wandoujia{}
+        qihu360{}
+        share{}
+        liuhengyu{}
+        origin{}
+    }
+    //应用到每一个flavor
+    productFlavors.all { flavor ->
+        manifestPlaceholders.put("UMENG_CHANNEL",name)
     }
 
     signingConfigs {
@@ -31,6 +52,17 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')
+                            &&'release'.equals(variant.buildType.name)) {
+                        def apkFile = new File(
+                                output.outputFile.getParent(),
+                                "Fashing_${variant.flavorName}_v${variant.versionName}_${buildTime()}.apk")
+                        output.outputFile = apkFile
+                    }
+                }
+            }
         }
         debug {
             signingConfig signingConfigs.release
@@ -40,6 +72,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
 }
 
 dependencies {
