@@ -30,7 +30,7 @@ public class PlacePresenter extends Presenter<PlaceFragment>{
     @Override
     protected void onCreateView(PlaceFragment view) {
         super.onCreateView(view);
-        getView().setMapFragment();
+        getView().initFragment();
     }
 
 }

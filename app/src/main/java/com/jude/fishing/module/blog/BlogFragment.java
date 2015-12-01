@@ -16,6 +16,8 @@ import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.module.main.MainActivity;
+import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,7 +41,6 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("渔获");
     }
 
     @Override
@@ -47,16 +48,45 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
         View rootView = inflater.inflate(R.layout.blog_fragment_main, container, false);
         ButterKnife.inject(this, rootView);
         subscription = AccountModel.getInstance().registerAccountUpdate(account -> {
+            if (getPresenter().checkLogin()){
+                pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager());
+            }else {
+                pagerAdapter = new BlogFragmentListAdapterLogOut(getChildFragmentManager());
+            }
+            vpDate.setAdapter(pagerAdapter);
             pagerAdapter.notifyDataSetChanged();
             tabs.notifyDataSetChanged();
         });
-        vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager()));
+        if (getPresenter().checkLogin()){
+            vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager()));
+        }else {
+            vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapterLogOut(getChildFragmentManager()));
+        }
+        vpDate.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (position==0&&isFirst&&openDrawer&&positionOffsetPixels==0){
+                    isFirst = false;
+                    JUtils.Log("pos:"+positionOffset+" "+positionOffsetPixels);
+                    ((MainActivity)getActivity()).openDrawer();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                JUtils.Log("state:"+state);
+                if (1==state){openDrawer=true;isFirst=true;}
+                else openDrawer = false;
+            }
+        });
+
         tabs.setViewPager(vpDate);
         tabs.setTextColor(Color.WHITE);
         tabs.setBackgroundColor(getResources().getColor(R.color.blue));
         write.setOnClickListener(v -> getPresenter().write());
         return rootView;
     }
+    boolean openDrawer = false,isFirst = true;
 
 
     @Override
@@ -83,10 +113,10 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
 
         @Override
         public int getCount() {
-            if (getPresenter().checkLogin())
+//            if (getPresenter().checkLogin())
                 return 3;
-            else
-                return 2;
+//            else
+//                return 2;
         }
 
         @Override
@@ -98,5 +128,42 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
                 default:throw new RuntimeException("页数不存在");
             }
         }
+    }
+
+    class BlogFragmentListAdapterLogOut extends FragmentPagerAdapter {
+
+        public BlogFragmentListAdapterLogOut(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment f =  new BlogListFragment();
+            Bundle b = new Bundle();
+            b.putInt("style",position);
+            f.setArguments(b);
+            return f;
+        }
+
+        @Override
+        public int getCount() {
+                return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:return "渔获广场";
+                case 1:return "附近渔获";
+                default:throw new RuntimeException("页数不存在");
+            }
+        }
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (this.getView() != null)
+            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
     }
 }

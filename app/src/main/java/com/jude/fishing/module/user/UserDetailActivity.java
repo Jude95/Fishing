@@ -24,7 +24,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.R;
 import com.jude.fishing.model.ImageModel;
-import com.jude.fishing.model.entities.PersonDetail;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.module.blog.BlogDetailActivity;
 import com.jude.fishing.module.blog.UserBlogActivity;
@@ -44,7 +44,7 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/18.
  */
 @RequiresPresenter(UserDetailPresenter.class)
-public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, PersonDetail> {
+public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Account> {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -137,7 +137,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     }
 
     @Override
-    public void setData(PersonDetail data) {
+    public void setData(Account data) {
         getExpansion().dismissProgressPage();
         if (data == null) getExpansion().showErrorPage();
         if (data.getBackground() != null)

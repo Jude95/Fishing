@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
-import com.jude.fishing.model.entities.PersonDetail;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
@@ -15,10 +15,12 @@ import com.jude.utils.JUtils;
 
 import java.io.File;
 
+import rx.Subscription;
+
 /**
  * Created by heqiang on 2015/9/23.
  */
-public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivity, PersonDetail> {
+public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivity, Account> {
     private Uri avatar;
     private String avatarUrl;
     private ImageProvider provider;
@@ -57,11 +59,18 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
         }
     };
 
+    Subscription subscription;
     @Override
     protected void onCreate(UserDataActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         provider = new ImageProvider(getView());
-        AccountModel.getInstance().registerAccountUpdate(this);
+        subscription = AccountModel.getInstance().registerAccountUpdate(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();JUtils.Log("onDestroy0"+subscription.isUnsubscribed());
+        subscription.unsubscribe();
     }
 
     public void editFace(int style) {
@@ -98,7 +107,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
                         }
                     });
         } else
-            ImageModel.getInstance().putImage(new File(avatar.getPath()))
+            ImageModel.getInstance().putImage(new File(avatar.getPath()), () -> JUtils.Log("putImage complete"))
                     .doOnError(throwable -> {
                         getView().getExpansion().dismissProgressDialog();
                         JUtils.Toast("图片上传失败");

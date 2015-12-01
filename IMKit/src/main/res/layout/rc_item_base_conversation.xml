@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginRight="85dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         android:ellipsize="end"

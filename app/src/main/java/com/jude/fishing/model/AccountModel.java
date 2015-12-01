@@ -3,6 +3,7 @@ package com.jude.fishing.model;
 import android.content.Context;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.config.API;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Notification;
@@ -46,6 +47,10 @@ public class AccountModel extends AbsModel {
         updateMyInfo().subscribe(new ServiceResponse<Account>() {
             @Override
             public void onServiceError(int status, String info) {
+                if (status== API.CODE.LOGIN_INVALID){
+                    logout();
+                }
+                super.onServiceError(status,info);
             }
         });
 //        Observable.interval(0,5, TimeUnit.MINUTES).subscribe(aLong -> updateNotificationCount());
@@ -197,8 +202,8 @@ public class AccountModel extends AbsModel {
         return userNotificationBehaviorSubject.compose(new DefaultTransform<>()).subscribe(action1);
     }
 
-    public void updateNotificationCount(){
-        ServiceClient.getService().getNotification(0)
+    public Subscription updateNotificationCount(){
+        return ServiceClient.getService().getNotification(0)
                 .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
                 .flatMap(notifications -> {
                     int id = JUtils.getSharedPreference().getInt(LAST_NOTIFICATION, 0);

@@ -30,7 +30,7 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/17.
  */
 @RequiresPresenter(DrawerPresenter.class)
-public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
+public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> implements View.OnClickListener {
 
     @InjectView(R.id.imgFace)
     SimpleDraweeView imgFace;
@@ -85,12 +85,19 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
         }
         imgFace.setOnClickListener(v -> getPresenter().checkLogin());
         viewAccount.setOnClickListener(v -> getPresenter().checkLogin());
-        place.setOnClickListener(v -> getPresenter().showPlaceFragment());
-        blog.setOnClickListener(v -> getPresenter().showBlogFragment());
-        message.setOnClickListener(v -> getPresenter().showMessageFragment());
-        user.setOnClickListener(v -> getPresenter().showUserFragment());
         setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
         logout.setOnClickListener(v -> showLogoutDialog());
+        place.setOnClickListener(this);
+        blog.setOnClickListener(this);
+        message.setOnClickListener(this);
+        user.setOnClickListener(this);
+        blog.post(new Runnable() {
+            @Override
+            public void run() {
+                blog.performClick();
+            }
+        });
+
         return view;
     }
 
@@ -128,7 +135,8 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
                 callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        getPresenter().showBlogFragment();
+//                        getPresenter().showBlogFragment();
+                        blog.performClick();
                         AccountModel.getInstance().logout();
                         dialog.dismiss();
                     }
@@ -138,5 +146,26 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> {
                         dialog.dismiss();
                     }
                 }).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (drawerChangedListener!=null){
+            if (v.getId()==R.id.message||v.getId()==R.id.user){
+                if (!getPresenter().checkLogin())return;
+            }
+            drawerChangedListener.onChange(v);
+            focusView(v);
+        }
+    }
+
+    DrawerChangedListener drawerChangedListener;
+
+    public void setDrawerChangedListener(DrawerChangedListener drawerChangedListener) {
+        this.drawerChangedListener = drawerChangedListener;
+    }
+
+    public interface DrawerChangedListener{
+        void onChange(View view);
     }
 }

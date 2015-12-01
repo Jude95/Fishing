@@ -16,8 +16,8 @@ import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Constant;
 import com.jude.fishing.model.LocationModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Location;
-import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
 
@@ -31,7 +31,7 @@ import butterknife.InjectView;
  * Created by heqiang on 2015/9/23.
  */
 @RequiresPresenter(UserDataPresenter.class)
-public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonDetail> {
+public class UserDataActivity extends BeamDataActivity<UserDataPresenter,Account> {
 
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
@@ -118,7 +118,7 @@ public class UserDataActivity extends BeamDataActivity<UserDataPresenter,PersonD
     }
 
     @Override
-    public void setData(PersonDetail data) {
+    public void setData(Account data) {
         avatarStr = data.getAvatar();
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         nickName.setText(data.getName());

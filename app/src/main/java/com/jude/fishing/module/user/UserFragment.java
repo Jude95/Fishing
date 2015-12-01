@@ -74,7 +74,6 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle("个人中心");
     }
 
     @Nullable
@@ -120,5 +119,12 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         blog.setText(data.getBlogCount() + "");
         attention.setText(data.getCared());
         fans.setText(data.getFans());
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (this.getView() != null)
+            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
     }
 }

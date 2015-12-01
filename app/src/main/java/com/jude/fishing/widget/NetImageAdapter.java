@@ -2,6 +2,8 @@ package com.jude.fishing.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,8 @@ public class NetImageAdapter extends ArrayAdapter<String> implements View.OnClic
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         SimpleDraweeView draweeView = new SimpleDraweeView(getContext());
+        draweeView.getHierarchy().setPlaceholderImage(new ColorDrawable(Color.rgb(252,242,230)));
+        draweeView.getHierarchy().setFadeDuration(300);
         draweeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         draweeView.setImageURI(ImageModel.getInstance().getSmallImage(getItem(position)));
         draweeView.setTag(position);

@@ -5,4 +5,7 @@
 
     <!-- 设置在会话列表或会话页面是否显示“连接状态”的提示 -->
     <bool name="rc_is_show_warning_notification">true</bool>
+
+    <!-- 设置未听的语音消息，是否连续播放 -->
+    <bool name="rc_play_audio_continuous">true</bool>
 </resources>

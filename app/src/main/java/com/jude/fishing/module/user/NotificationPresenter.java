@@ -7,6 +7,8 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Notification;
 import com.jude.utils.JUtils;
 
+import rx.Subscription;
+
 /**
  * Created by zhuchenxi on 15/10/23.
  */
@@ -19,8 +21,15 @@ public class NotificationPresenter extends BeamListActivityPresenter<Notificatio
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscription.unsubscribe();
+    }
+
+    Subscription subscription;
+    @Override
     public void onRefresh() {
-        AccountModel.getInstance().getNotification(0).unsafeSubscribe(getRefreshSubscriber());
+        subscription = AccountModel.getInstance().getNotification(0).unsafeSubscribe(getRefreshSubscriber());
     }
 
     @Override

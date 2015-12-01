@@ -235,7 +235,7 @@ public interface Service {
 
     @FormUrlEncoded
     @POST(API.URL.GetUserInfo)
-    Observable<PersonDetail> getUserInfo(@Field("id")int id);
+    Observable<Account> getUserInfo(@Field("id")int id);
 
     @POST(API.URL.GetMyInfo)
     Observable<PersonDetail> getMyInfo();

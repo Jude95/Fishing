@@ -8,6 +8,7 @@ import android.os.Environment;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.app.APP;
+import com.jude.fishing.event.OnCompleteListener;
 import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
@@ -78,14 +79,14 @@ public class ImageModel extends AbsModel {
      * @param file 需上传文件
      * @return 上传文件访问地址
      */
-    public Observable<String> putImage(final File file){
+    public Observable<String> putImage(final File file,OnCompleteListener listener){
         return Observable.just(createName(file))
                 .doOnNext(name -> ServiceClient.getService().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
                     @Override
                     public void onNext(Token token) {
                         mUploadManager.put(compressImage(file), name, token.getToken(), (key, info, response) -> {
                             if (!info.isOK()) JUtils.Toast("图片上传失败!");
-                            else JUtils.Log("图片已上传");
+                            else {JUtils.Log("图片已上传");listener.onComplete();}
                         }, null);
                     }
                 }))
@@ -95,21 +96,16 @@ public class ImageModel extends AbsModel {
 
 
 
-    public Observable<String> putImage(final File[] file){
-        return Observable.from(file)
-                .map(file1 -> {
-                    String name = createName(file1);
-                    ServiceClient.getService().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
-                        @Override
-                        public void onNext(Token token) {
-                            mUploadManager.put(compressImage(file1), name, token.getToken(), (key, info, response) -> {
+    public Observable<String> putImage(final File[] files){
+        return ServiceClient.getService().getQiNiuToken()
+                .flatMap(token -> Observable.from(files).map(file -> {
+                            String name = createName(file);
+                            mUploadManager.put(compressImage(file),name,token.getToken(),(key, info, response) -> {
                                 if (!info.isOK()) JUtils.Toast("图片上传失败!");
                                 else JUtils.Log("图片已上传：" + name);
-                            }, null);
-                        }
-                    });
-                    return name;
-                })
+                            },null);
+                            return name;
+                        }))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(name -> ADDRESS + name);
