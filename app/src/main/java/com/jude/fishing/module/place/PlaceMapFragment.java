@@ -257,6 +257,7 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mMapView.onDestroy();
         ButterKnife.reset(this);
     }
 }

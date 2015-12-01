@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -49,6 +50,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
                 , 0);
         drawerLayout.post(() -> mDrawerToggle.syncState());
         drawerLayout.setDrawerListener(mDrawerToggle);
+//        drawerLayout.setEdgeSize(300);
 
         init();
     }
@@ -99,6 +101,10 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
 
     public void closeDrawer(){
         drawerLayout.closeDrawers();
+    }
+
+    public void openDrawer(){
+        drawerLayout.openDrawer(Gravity.LEFT);
     }
 
 

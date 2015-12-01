@@ -17,6 +17,7 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.BlogModel;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
@@ -120,6 +121,10 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
         content.setText(data.getContent());
         address.setText(data.getAddress());
         praiseContainer.setOnClickListener(v -> {
+            if (AccountModel.getInstance().getAccount()==null){
+                praiseContainer.getContext().startActivity(new Intent(praiseContainer.getContext(), LoginActivity.class));
+                return;
+            }
             data.setPraiseStatus(!data.getPraiseStatus());
             data.setPraiseCount(data.getPraiseCount() + (data.getPraiseStatus() ? 1 : -1));
             praiseCount.setText(data.getPraiseCount() + "");
