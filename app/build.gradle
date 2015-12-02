@@ -32,6 +32,7 @@ android {
         share{}
         liuhengyu{}
         origin{}
+        update{}
     }
     //应用到每一个flavor
     productFlavors.all { flavor ->
