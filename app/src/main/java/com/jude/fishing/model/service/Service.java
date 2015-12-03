@@ -6,6 +6,7 @@ import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
+import com.jude.fishing.model.entities.FishingSeed;
 import com.jude.fishing.model.entities.Notification;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonAvatar;
@@ -315,4 +316,27 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.Feedback)
     Observable<Object> feedback(@Field("content")String content);
+
+    @FormUrlEncoded
+    @POST(API.URL.AddDateInfo)
+    Observable<Object> addDateInfo(@Field("title")String title,
+                                   @Field("address")String address,
+                                   @Field("content")String content,
+                                   @Field("acTime")long acTime);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetDateList)
+    Observable<List<FishingSeed>> getDateList(@Field("page")int page);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetDateItem)
+    Observable<FishingSeed> getDateItem(@Field("id")String id);
+
+    @FormUrlEncoded
+    @POST(API.URL.GetDatePersonList)
+    Observable<List<PersonBrief>> getDatePersonList(@Field("id")String id);
+
+    @FormUrlEncoded
+    @POST(API.URL.EnrollDate)
+    Observable<Object> joinDate(@Field("id")String id);
 }

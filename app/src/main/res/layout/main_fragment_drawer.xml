@@ -98,6 +98,35 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/gofishing"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/main_drawer_selector"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:adjustViewBounds="true"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/nav_blog" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="72dp"
+                    android:gravity="center_vertical"
+                    android:text="约钓"
+                    style="@style/Base.TextAppearance.AppCompat.Body1"
+
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/place"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"

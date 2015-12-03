@@ -63,6 +63,12 @@ public class API {
 
         public static final String GetContact = "/user/contact";
         public static final String Feedback = "/common/feedback";
+
+        public static final String AddDateInfo = "/yue/add";
+        public static final String GetDateList = "/yue/getList";
+        public static final String GetDateItem = "/yue/item";
+        public static final String GetDatePersonList = "/yue/enrollList";
+        public static final String EnrollDate = "/yue/enroll";
     }
 
     public static class WRAPPER {

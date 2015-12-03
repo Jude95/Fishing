@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/activity_margin">
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="响亮的标题"
+            android:singleLine="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:background="@color/gray" />
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="描述一下，约起来吧"
+            android:minHeight="96dp"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:background="@color/gray" />
+
+        <com.jude.tagview.TAGView
+            android:id="@+id/tg_time"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:tag_color="?colorPrimary"
+            app:tag_stroke_width="1dp"
+            app:tag_text="选择时间"
+            app:tag_text_color="?colorPrimary" />
+
+        <!--<com.jude.tagview.TAGView-->
+        <!--android:layout_marginTop="@dimen/activity_margin"-->
+        <!--android:id="@+id/tg_address"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="48dp"-->
+        <!--app:tag_color="?colorPrimary"-->
+        <!--app:tag_stroke_width="1dp"-->
+        <!--app:tag_text="选择地点"-->
+        <!--app:tag_text_color="?colorPrimary" />-->
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/shadow_bottom" />
+
+    <com.jude.tagview.TAGView
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/activity_margin"
+        app:tag_color="?colorPrimary"
+        app:tag_text="发布"
+        app:tag_text_size="18sp" />
+</LinearLayout>

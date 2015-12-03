@@ -3,6 +3,7 @@ package com.jude.fishing.module.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +18,7 @@ import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.module.blog.BlogFragment;
+import com.jude.fishing.module.gofishing.FishingFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.UserFragment;
@@ -28,7 +30,7 @@ import butterknife.InjectView;
 import rx.Subscription;
 
 @RequiresPresenter(MainPresenter.class)
-public class MainActivity extends BeamBaseActivity<MainPresenter> implements DrawerFragment.DrawerChangedListener{
+public class MainActivity extends BeamBaseActivity<MainPresenter> implements DrawerFragment.DrawerChangedListener {
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
     @InjectView(R.id.container)
@@ -63,58 +65,30 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
 
     private FragmentPagerAdapter pagerAdapter;
     DrawerFragment drawerFragment;
+
     private void init() {
         drawerFragment = (DrawerFragment) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
         drawerFragment.setDrawerChangedListener(this);
-        pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                if (R.id.blog==position){
-                    return new BlogFragment();
-                }else if (R.id.place==position){
-                    return new PlaceFragment();
-                }else if (R.id.message==position){
-                    return new MessageFragment();
-                }else if (R.id.user==position){
-                    return new UserFragment();
-                }
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                switch (position){
-                    case R.id.blog:return "渔获";
-                    case R.id.place:return "钓点";
-                    case R.id.message:return "消息";
-                    case R.id.user:return "个人中心";
-                    default:throw new RuntimeException("页数不存在");
-                }
-            }
-        };
+        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
     }
 
-    public void closeDrawer(){
+    public void closeDrawer() {
         drawerLayout.closeDrawers();
     }
 
-    public void openDrawer(){
+    public void openDrawer() {
         drawerLayout.openDrawer(Gravity.LEFT);
     }
 
 
     private long lastBackPressed;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             long time = System.currentTimeMillis();
 
-            if (time-lastBackPressed>2000){
+            if (time - lastBackPressed > 2000) {
                 JUtils.Toast("再次点击退出APP");
                 lastBackPressed = time;
                 return true;
@@ -125,17 +99,64 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
 
 
     Subscription subscription;
+
     @Override
     public void onChange(View v) {
         Fragment fragment = (Fragment) pagerAdapter.instantiateItem(container, v.getId());
         pagerAdapter.setPrimaryItem(container, 0, fragment);
         pagerAdapter.finishUpdate(container);
         setTitle(pagerAdapter.getPageTitle(v.getId()));
-        if (v.getId()==R.id.user){
+        if (v.getId() == R.id.user) {
             subscription = AccountModel.getInstance().updateNotificationCount();
-        }else if (subscription!=null){
+        } else if (subscription != null) {
             subscription.unsubscribe();
         }
         closeDrawer();
+    }
+
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+
+        public MyFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (R.id.blog == position) {
+                return new BlogFragment();
+            } else if (R.id.place == position) {
+                return new PlaceFragment();
+            } else if (R.id.message == position) {
+                return new MessageFragment();
+            } else if (R.id.user == position) {
+                return new UserFragment();
+            } else if (R.id.gofishing == position) {
+                return new FishingFragment();
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case R.id.blog:
+                    return "渔获";
+                case R.id.place:
+                    return "钓点";
+                case R.id.message:
+                    return "消息";
+                case R.id.user:
+                    return "个人中心";
+                case R.id.gofishing:
+                    return "约钓";
+                default:
+                    throw new RuntimeException("页数不存在");
+            }
+        }
     }
 }

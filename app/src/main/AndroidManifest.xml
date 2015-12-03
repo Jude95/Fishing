@@ -194,6 +194,25 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <!--聚合会话列表-->
+        <activity
+            android:name=".module.social.SubConversationListActivtiy"
+            android:screenOrientation="portrait"
+            android:label="我的群组"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:host="com.jude.fishing"
+                    android:pathPrefix="/subconversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".module.gofishing.FishingWriteActivity"
+            android:label="约钓"/>
+        <activity android:name=".module.gofishing.FishingDetailActivity"
+            android:label="约钓"/>
 
         <service android:name=".module.setting.UpdateService"/>
     </application>

@@ -54,6 +54,8 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     RelativeLayout logout;
     @InjectView(R.id.message_count)
     TextView messageCount;
+    @InjectView(R.id.gofishing)
+    RelativeLayout fishing;
 
     @Override
     public void setData(Account info) {
@@ -91,6 +93,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         blog.setOnClickListener(this);
         message.setOnClickListener(this);
         user.setOnClickListener(this);
+        fishing.setOnClickListener(this);
         blog.post(new Runnable() {
             @Override
             public void run() {

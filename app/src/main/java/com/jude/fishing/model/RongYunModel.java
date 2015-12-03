@@ -29,25 +29,27 @@ public class RongYunModel extends AbsModel {
     public static RongYunModel getInstance() {
         return getInstance(RongYunModel.class);
     }
+
     public BehaviorSubject<Integer> mNotifyBehaviorSubject = BehaviorSubject.create();
+
     @Override
     protected void onAppCreate(Context ctx) {
         AccountModel.getInstance().registerAccountUpdate(user -> {
             if (user != null) connectRongYun1(user.getRongToken());
         });
-        if (AccountModel.getInstance().getAccount()!=null)
+        if (AccountModel.getInstance().getAccount() != null)
             connectRongYun1(AccountModel.getInstance().getAccount().getRongToken());
     }
 
-    public void loginOut(){
+    public void loginOut() {
         connectRongYun1("");
     }
 
-    public Subscription registerNotifyCount(Action1<Integer> notify){
+    public Subscription registerNotifyCount(Action1<Integer> notify) {
         return mNotifyBehaviorSubject.subscribe(notify);
     }
 
-    public void connectRongYun1(String token){
+    public void connectRongYun1(String token) {
         RongIM.connect(token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
@@ -67,13 +69,13 @@ public class RongYunModel extends AbsModel {
         });
     }
 
-    public void setRongYun(){
+    public void setRongYun() {
         try {
             RongIM.setUserInfoProvider(userId -> {
                 PersonAvatar p;
-                try{
+                try {
                     p = AccountModel.getInstance().getPersonAvatar(userId);
-                }catch (Exception e){
+                } catch (Exception e) {
                     return null;
                 }
                 return new UserInfo(userId, p.getName(), ImageModel.getInstance().getSmallImage(p.getAvatar()));
@@ -81,7 +83,7 @@ public class RongYunModel extends AbsModel {
             RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {
                 @Override
                 public boolean onReceived(Message message, int i) {
-                    if (JUtils.getSharedPreference().getBoolean(MsgSetActivity.CHAT_NOTIFY,true)){
+                    if (JUtils.getSharedPreference().getBoolean(MsgSetActivity.CHAT_NOTIFY, true)) {
                         return false;//交给融云处理
                     }
                     return true;//自己处理，不处理
@@ -128,11 +130,11 @@ public class RongYunModel extends AbsModel {
     }
 
 
-    public void updateRongYunPersonBrief(PersonBrief p){
-        RongIM.getInstance().refreshUserInfoCache(new UserInfo(p.getUID()+"",p.getName(), Uri.parse(p.getAvatar())));
+    public void updateRongYunPersonBrief(PersonBrief p) {
+        RongIM.getInstance().refreshUserInfoCache(new UserInfo(p.getUID() + "", p.getName(), Uri.parse(p.getAvatar())));
     }
 
-    public void chatPerson(Context ctx,String id,String title){
+    public void chatPerson(Context ctx, String id, String title) {
 //        Intent i = new Intent(ctx, ChatActivity.class);
 //        i.putExtra("id",id);
 //        i.putExtra("title",title);
@@ -141,17 +143,41 @@ public class RongYunModel extends AbsModel {
         RongIM.getInstance().startPrivateChat(ctx, id, title);
     }
 
-    public void chatGroup(Context ctx,String id,String title){
+    public void chatGroup(Context ctx, String id, String title) {
 //        Intent i = new Intent(ctx, ChatActivity.class);
 //        i.putExtra("id",id);
 //        i.putExtra("title",title);
 //        i.putExtra("type", Conversation.ConversationType.GROUP.getName().toLowerCase());
 //        ctx.startActivity(i);
-        RongIM.getInstance().startGroupChat(ctx,id,title);
+        RongIM.getInstance().startGroupChat(ctx, id, title);
     }
 
-    public void chatList(Context ctx){
+    public void chatList(Context ctx) {
         RongIM.getInstance().startConversationList(ctx);
         //ctx.startActivity(new Intent(ctx, ChatListActivity.class));
+    }
+
+
+    public void joinGroup(Context context,String groupId,String groupName) {
+        /**
+         * 加入群组。
+         *
+         * @param groupId   群组 Id。
+         * @param groupName 群组名称。
+         * @param callback  加入群组状态的回调。
+         */
+        RongIM.getInstance().getRongIMClient().joinGroup(groupId, groupName, new RongIMClient.OperationCallback() {
+
+            @Override
+            public void onSuccess() {
+                JUtils.Toast("加入群组成功");
+                chatGroup(context,groupId,groupName);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                JUtils.Toast("加入群组失败");
+            }
+        });
     }
 }

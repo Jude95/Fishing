@@ -1,5 +1,6 @@
 package com.jude.fishing.model;
 
+import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import com.jude.beam.model.AbsModel;
 import com.jude.fishing.app.APP;
 import com.jude.fishing.event.OnCompleteListener;
 import com.jude.fishing.model.entities.Token;
+import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
@@ -109,6 +111,25 @@ public class ImageModel extends AbsModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(name -> ADDRESS + name);
+    }
+
+    public Observable<String> put(File[] files){
+        return ServiceClient.getService().getQiNiuToken()
+                .flatMap(token -> Observable.create(subscriber -> {
+                    for (int i=0;i<files.length;i++) {
+                        String name;
+                        final int finalI = i;
+                        mUploadManager.put(compressImage(files[i]), name = createName(files[i]), token.getToken(), (key, info, response) -> {
+                            if (info.isOK()) {
+                                subscriber.onNext(name);
+                                JUtils.Log("ok:"+name+" "+finalI);
+                                if (finalI ==files.length)
+                                    subscriber.onCompleted();
+                            }
+                            else {subscriber.onError(new NetworkErrorException("图片上传错误:"+info.error));}
+                        }, null);
+                    }
+                })).map(name->ADDRESS+name).compose(new DefaultTransform<>());
     }
 
     private File compressImage(File file){

@@ -54,12 +54,15 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
     private String mAddress;
     private String mBriefAddress;
 
+    private boolean canSelect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place_activity_select_location);
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
+        canSelect = getIntent().getBooleanExtra("can",false);
         mMapView.onCreate(savedInstanceState);
         initMap();
         ok.setOnClickListener(v -> {
@@ -80,7 +83,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         mUiSettings.setMyLocationButtonEnabled(false);
 
         //焊死位置，未得许可不能更改
-        if (AccountModel.getInstance().checkIsSuper()){
+        if (canSelect||AccountModel.getInstance().checkIsSuper()){
             aMap.setOnMapClickListener(this);
         }
         aMap.setOnMarkerClickListener(this);
