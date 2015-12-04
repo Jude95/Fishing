@@ -113,7 +113,7 @@
                     android:adjustViewBounds="true"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:src="@drawable/nav_blog" />
+                    android:src="@drawable/nav_date" />
 
                 <TextView
                     android:layout_width="wrap_content"

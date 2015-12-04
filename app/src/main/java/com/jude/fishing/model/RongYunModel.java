@@ -8,6 +8,9 @@ import android.view.View;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
+import com.jude.fishing.model.entities.Token;
+import com.jude.fishing.model.service.ServiceClient;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.fishing.module.setting.MsgSetActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.utils.JUtils;
@@ -54,6 +57,7 @@ public class RongYunModel extends AbsModel {
             @Override
             public void onTokenIncorrect() {
                 JUtils.Log("融云Token失效");
+                refreshToken();
             }
 
             @Override
@@ -177,6 +181,19 @@ public class RongYunModel extends AbsModel {
             @Override
             public void onError(RongIMClient.ErrorCode errorCode) {
                 JUtils.Toast("加入群组失败");
+            }
+        });
+    }
+
+    public void refreshToken(){
+        ServiceClient.getService().refreshRongYun().subscribe(new ServiceResponse<Token>(){
+            @Override
+            public void onNext(Token token) {
+                connectRongYun1(token.getToken());
+            }
+
+            @Override
+            public void onServiceError(int status, String info) {
             }
         });
     }

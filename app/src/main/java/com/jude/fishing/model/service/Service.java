@@ -101,7 +101,7 @@ public interface Service {
     Observable<Object> unCollectPlace(
             @Field("id") int id);
 
-    @GET(API.URL.MyColectPlace)
+    @GET(API.URL.MyCollectPlace)
     Observable<List<PlaceBrief>> myPlaceCollect();
 
     @GET(API.URL.GetMyPlace)
@@ -339,4 +339,7 @@ public interface Service {
     @FormUrlEncoded
     @POST(API.URL.EnrollDate)
     Observable<Object> joinDate(@Field("id")String id);
+
+    @GET(API.URL.RefreshRongYUn)
+    Observable<Token> refreshRongYun();
 }

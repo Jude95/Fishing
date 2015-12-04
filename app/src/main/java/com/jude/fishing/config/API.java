@@ -18,7 +18,7 @@ public class API {
         public static final String PublishEvaluate = "/place/score";
         public static final String CollectPlace = "/place/collect";
         public static final String UnCollectPlace = "/place/unCollect";
-        public static final String MyColectPlace = "/place/myCollect";
+        public static final String MyCollectPlace = "/place/myCollect";
         public static final String MyEvaluate = "/place/myScoreList";
         public static final String EvaluateComment = "/place/comment";
         public static final String FindUser = "/user/findUser";
@@ -69,6 +69,7 @@ public class API {
         public static final String GetDateItem = "/yue/item";
         public static final String GetDatePersonList = "/yue/enrollList";
         public static final String EnrollDate = "/yue/enroll";
+        public static final String RefreshRongYUn = "/user/refreshRong";
     }
 
     public static class WRAPPER {
