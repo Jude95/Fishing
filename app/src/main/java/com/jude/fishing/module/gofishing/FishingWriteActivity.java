@@ -67,7 +67,7 @@ public class FishingWriteActivity extends BeamBaseActivity<FishingWritePresenter
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calender.set(year, monthOfYear, dayOfMonth);
                 tgTime.setText(new SimpleDateFormat("yyyy年MM月dd日").format(calender.getTime()));
-                time = calender.getTimeInMillis();
+                time = calender.getTime().getTime();
             }
         }, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH));
         dialog.show();

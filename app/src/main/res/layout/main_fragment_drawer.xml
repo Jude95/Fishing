@@ -113,7 +113,8 @@
                     android:adjustViewBounds="true"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:src="@drawable/nav_blog" />
+                    android:tint="@color/gray_deep"
+                    android:src="@drawable/nav_fishing" />
 
                 <TextView
                     android:layout_width="wrap_content"

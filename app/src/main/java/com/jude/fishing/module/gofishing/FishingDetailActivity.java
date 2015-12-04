@@ -21,6 +21,9 @@ import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
 import com.jude.utils.JUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -28,7 +31,7 @@ import butterknife.InjectView;
  * Created by heqiang on 2015/12/2.
  */
 @RequiresPresenter(FishingDetailPresenter.class)
-public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresenter,FishingSeed>{
+public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresenter, FishingSeed> {
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -43,6 +46,8 @@ public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresent
     ExGridView joinMember;
     @InjectView(R.id.tv_title)
     TextView title;
+    @InjectView(R.id.tv_date_time)
+    TextView dateTime;
     boolean joined;
 
     @Override
@@ -50,10 +55,11 @@ public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fishing_activity_detail);
         ButterKnife.inject(this);
-        join.setOnClickListener(v -> getPresenter().joinDate(strTitle,joined));
+        join.setOnClickListener(v -> getPresenter().joinDate(strTitle, joined));
     }
 
     String strTitle;
+
     @Override
     public void setError(Throwable e) {
         getExpansion().showErrorPage();
@@ -67,10 +73,11 @@ public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresent
         title.setText(data.getTitle());
         strTitle = data.getTitle();
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        dateTime.setText(new SimpleDateFormat("yyyy年MM月dd日").format(new Date(data.getAcTime())));
         content.setText(data.getContent());
         int uid = AccountModel.getInstance().getAccount().getUID();
         for (PersonBrief personBrief : data.getEnrollMember()) {
-            if (personBrief.getUID()== uid){
+            if (personBrief.getUID() == uid) {
                 joined = true;
                 join.setText("进入");
             }
