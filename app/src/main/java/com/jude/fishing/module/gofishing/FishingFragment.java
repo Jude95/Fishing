@@ -11,13 +11,13 @@ import com.jude.beam.expansion.list.BeamListFragment;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
-import com.jude.fishing.model.entities.FishingSeed;
+import com.jude.fishing.model.entities.Date;
 
 /**
  * Created by heqiang on 2015/12/2.
  */
 @RequiresPresenter(FishingPresenter.class)
-public class FishingFragment extends BeamListFragment<FishingPresenter,FishingSeed>{
+public class FishingFragment extends BeamListFragment<FishingPresenter,Date>{
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
         return new GoFishingViewHolder(parent);

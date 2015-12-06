@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
-import com.jude.fishing.model.entities.FishingSeed;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
 
@@ -14,7 +14,7 @@ import rx.Observable;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class FishingDetailPresenter extends BeamDataActivityPresenter<FishingDetailActivity, FishingSeed> {
+public class FishingDetailPresenter extends BeamDataActivityPresenter<FishingDetailActivity, Date> {
     String id;
 
     @Override

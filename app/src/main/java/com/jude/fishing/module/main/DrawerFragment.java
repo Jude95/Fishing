@@ -59,7 +59,6 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
 
     @Override
     public void setData(Account info) {
-        JUtils.Log("DrawerFragment I Get It");
         if (info == null) {
             imgFace.setImageURI(null);
             tvName.setText("未登录,点击登陆");

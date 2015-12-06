@@ -9,7 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
-import com.jude.fishing.model.entities.FishingSeed;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.utils.JTimeTransform;
@@ -20,7 +20,7 @@ import butterknife.InjectView;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class GoFishingViewHolder extends BaseViewHolder<FishingSeed>{
+public class GoFishingViewHolder extends BaseViewHolder<Date>{
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -46,7 +46,7 @@ public class GoFishingViewHolder extends BaseViewHolder<FishingSeed>{
     }
 
     @Override
-    public void setData(FishingSeed data) {
+    public void setData(Date data) {
         id = data.getId();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());

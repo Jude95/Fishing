@@ -13,7 +13,7 @@ import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
-import com.jude.fishing.model.entities.FishingSeed;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.utils.RecentDateFormat;
@@ -22,7 +22,6 @@ import com.jude.utils.JTimeTransform;
 import com.jude.utils.JUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,7 +30,7 @@ import butterknife.InjectView;
  * Created by heqiang on 2015/12/2.
  */
 @RequiresPresenter(FishingDetailPresenter.class)
-public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresenter, FishingSeed> {
+public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresenter, Date> {
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -66,14 +65,14 @@ public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresent
     }
 
     @Override
-    public void setData(FishingSeed data) {
+    public void setData(Date data) {
         getExpansion().dismissProgressPage();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         title.setText(data.getTitle());
         strTitle = data.getTitle();
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
-        dateTime.setText(new SimpleDateFormat("yyyy年MM月dd日").format(new Date(data.getAcTime())));
+        dateTime.setText(new SimpleDateFormat("yyyy年MM月dd日").format(new java.util.Date(data.getAcTime())));
         content.setText(data.getContent());
         int uid = AccountModel.getInstance().getAccount().getUID();
         for (PersonBrief personBrief : data.getEnrollMember()) {

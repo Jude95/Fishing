@@ -69,7 +69,10 @@ public class API {
         public static final String GetDateItem = "/yue/item";
         public static final String GetDatePersonList = "/yue/enrollList";
         public static final String EnrollDate = "/yue/enroll";
+        public static final String GetMyDateList = "/yue/getMyList";
         public static final String RefreshRongYUn = "/user/refreshRong";
+
+
     }
 
     public static class WRAPPER {

@@ -3,7 +3,7 @@ package com.jude.fishing.model;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Contact;
-import com.jude.fishing.model.entities.FishingSeed;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.service.DefaultTransform;
@@ -89,15 +89,19 @@ public class SocialModel extends AbsModel {
     }
 
     public Observable<Object> addDateInfor(String title,String address,String content,long time){
-        return ServiceClient.getService().addDateInfo(title,address,content,time).compose(new DefaultTransform<>());
+        return ServiceClient.getService().addDateInfo(title, address, content, time).compose(new DefaultTransform<>());
     }
 
-    public Observable<List<FishingSeed>> getDateList(int page){
+    public Observable<List<Date>> getDateList(int page){
         return ServiceClient.getService().getDateList(page).compose(new DefaultTransform<>());
     }
 
-    public Observable<FishingSeed> getDateItem(String id){
+    public Observable<Date> getDateItem(String id){
         return ServiceClient.getService().getDateItem(id).compose(new DefaultTransform<>());
+    }
+
+    public Date getDateItemDirect(String id){
+        return ServiceClient.getService().getDateItemDirect(id);
     }
 
     public Observable<List<PersonBrief>> getDatePersonList(String id){
@@ -106,5 +110,9 @@ public class SocialModel extends AbsModel {
 
     public Observable<Object> joinDate(String id){
         return ServiceClient.getService().joinDate(id).compose(new DefaultTransform<>());
+    }
+
+    public Observable<List<Date>> getMyDateList(){
+        return ServiceClient.getService().getMyDateList().compose(new DefaultTransform<>());
     }
 }

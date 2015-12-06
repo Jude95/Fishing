@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class FishingSeed implements Serializable {
+public class Date implements Serializable {
     private String id;
     private int authorId;
     private String authorAvatar;
@@ -17,9 +17,9 @@ public class FishingSeed implements Serializable {
     private long acTime;
     private String address;
     private String title;
-    public FishingSeed(){}
+    public Date(){}
 
-    public FishingSeed(String id, int authorId, String authorAvatar, String authorName, long time, String content, long acTime, String address, String title) {
+    public Date(String id, int authorId, String authorAvatar, String authorName, long time, String content, long acTime, String address, String title) {
         this.id = id;
         this.authorId = authorId;
         this.authorAvatar = authorAvatar;

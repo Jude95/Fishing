@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.View;
 
 import com.jude.beam.model.AbsModel;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.PersonAvatar;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.Token;
@@ -15,9 +16,13 @@ import com.jude.fishing.module.setting.MsgSetActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.utils.JUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
 import rx.Subscription;
@@ -128,11 +133,40 @@ public class RongYunModel extends AbsModel {
                     mNotifyBehaviorSubject.onNext(i);
                 }
             }, Conversation.ConversationType.PRIVATE);
+
+            RongIM.setGroupInfoProvider(new RongIM.GroupInfoProvider() {
+
+                @Override
+                public Group getGroupInfo(String groupId) {
+                    Date date = SocialModel.getInstance().getDateItemDirect(groupId);
+                    return new Group(date.getId(),date.getTitle(),Uri.parse(date.getAuthorAvatar()));
+                }
+            }, true);
+
+            SocialModel.getInstance().getMyDateList().subscribe(new ServiceResponse<List<Date>>(){
+                @Override
+                public void onNext(List<Date> dates) {
+                    ArrayList<Group> groups=new ArrayList<>();
+                    for (Date date : dates) {
+                        groups.add(new Group(date.getId(),date.getTitle(),Uri.parse(date.getAuthorAvatar())));
+                    }
+                    RongIM.getInstance().getRongIMClient().syncGroup(groups, new RongIMClient.OperationCallback() {
+                        @Override
+                        public void onSuccess() {
+                            JUtils.Log("群组同步成功");
+                        }
+
+                        @Override
+                        public void onError(RongIMClient.ErrorCode errorCode) {
+                            JUtils.Log("群组同步错误"+errorCode);
+                        }
+                    });
+                }
+            });
         } catch (Exception e) {
             JUtils.Log("融云出错");
         }
     }
-
 
     public void updateRongYunPersonBrief(PersonBrief p) {
         RongIM.getInstance().refreshUserInfoCache(new UserInfo(p.getUID() + "", p.getName(), Uri.parse(p.getAvatar())));
