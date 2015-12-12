@@ -18,7 +18,7 @@ import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.module.blog.BlogFragment;
-import com.jude.fishing.module.gofishing.FishingFragment;
+import com.jude.fishing.module.date.DateFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.UserFragment;
@@ -131,7 +131,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
             } else if (R.id.user == position) {
                 return new UserFragment();
             } else if (R.id.gofishing == position) {
-                return new FishingFragment();
+                return new DateFragment();
             }
             return null;
         }

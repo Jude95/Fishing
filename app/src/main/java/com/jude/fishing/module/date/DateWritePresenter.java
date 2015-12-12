@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.app.Activity;
 
@@ -10,7 +10,7 @@ import com.jude.utils.JUtils;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class FishingWritePresenter extends Presenter<FishingWriteActivity> {
+public class DateWritePresenter extends Presenter<DateWriteActivity> {
     public void addDateInfor(String title, String address, String content, long time) {
         SocialModel.getInstance().addDateInfor(title, address, content, time)
                 .subscribe(new ServiceResponse<Object>() {

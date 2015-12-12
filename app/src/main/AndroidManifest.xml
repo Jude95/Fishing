@@ -209,9 +209,9 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.gofishing.FishingWriteActivity"
+        <activity android:name=".module.date.DateWriteActivity"
             android:label="约钓"/>
-        <activity android:name=".module.gofishing.FishingDetailActivity"
+        <activity android:name=".module.date.DateDetailActivity"
             android:label="约钓"/>
 
         <service android:name=".module.setting.UpdateService"/>

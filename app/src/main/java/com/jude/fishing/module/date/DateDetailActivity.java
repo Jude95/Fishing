@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -29,8 +29,8 @@ import butterknife.InjectView;
 /**
  * Created by heqiang on 2015/12/2.
  */
-@RequiresPresenter(FishingDetailPresenter.class)
-public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresenter, Date> {
+@RequiresPresenter(DateDetailPresenter.class)
+public class DateDetailActivity extends BeamDataActivity<DateDetailPresenter, Date> {
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -80,12 +80,12 @@ public class FishingDetailActivity extends BeamDataActivity<FishingDetailPresent
                 joined = true;
                 join.setText("进入");
             }
-            SimpleDraweeView draweeView = new SimpleDraweeView(FishingDetailActivity.this);
+            SimpleDraweeView draweeView = new SimpleDraweeView(DateDetailActivity.this);
             draweeView.setLayoutParams(new ViewGroup.LayoutParams(JUtils.dip2px(40), JUtils.dip2px(40)));
             draweeView.setImageURI(Uri.parse(personBrief.getAvatar()));
             draweeView.getHierarchy().setRoundingParams(RoundingParams.asCircle());
             draweeView.setOnClickListener(v -> {
-                Intent i = new Intent(FishingDetailActivity.this, UserDetailActivity.class);
+                Intent i = new Intent(DateDetailActivity.this, UserDetailActivity.class);
                 i.putExtra("id", personBrief.getUID());
                 startActivity(i);
             });

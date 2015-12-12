@@ -70,7 +70,6 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
             v.getContext().startActivity(i);
         });
         itemView.setOnLongClickListener(v -> {
-            JUtils.Log("UID:"+AccountModel.getInstance().getAccount().getUID()+" id:"+id);
             if (AccountModel.getInstance().getAccount()!=null&&AccountModel.getInstance().getAccount().getUID()==authorId){
                 new MaterialDialog.Builder(v.getContext())
                         .title("确定要删除本条渔获吗?")

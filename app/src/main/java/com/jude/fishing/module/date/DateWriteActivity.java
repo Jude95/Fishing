@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import butterknife.OnClick;
 /**
  * Created by heqiang on 2015/12/2.
  */
-@RequiresPresenter(FishingWritePresenter.class)
-public class FishingWriteActivity extends BeamBaseActivity<FishingWritePresenter> {
+@RequiresPresenter(DateWritePresenter.class)
+public class DateWriteActivity extends BeamBaseActivity<DateWritePresenter> {
     @InjectView(R.id.content)
     EditText content;
     @InjectView(R.id.tg_time)
@@ -62,7 +62,7 @@ public class FishingWriteActivity extends BeamBaseActivity<FishingWritePresenter
     @OnClick(R.id.tg_time)
     public void getTime() {
         Calendar calender = Calendar.getInstance();
-        DatePickerDialog dialog = new DatePickerDialog(FishingWriteActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dialog = new DatePickerDialog(DateWriteActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calender.set(year, monthOfYear, dayOfMonth);
@@ -75,7 +75,7 @@ public class FishingWriteActivity extends BeamBaseActivity<FishingWritePresenter
 
 //    @OnClick(R.id.tg_address)
 //    public void getAddress(){
-//        Intent intent = new Intent(FishingWriteActivity.this,PlaceLocationSelectActivity.class);
+//        Intent intent = new Intent(DateWriteActivity.this,PlaceLocationSelectActivity.class);
 //        intent.putExtra("can",true);
 //        startActivityForResult(intent,120);
 //    }

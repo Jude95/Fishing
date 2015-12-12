@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,11 +16,11 @@ import com.jude.fishing.model.entities.Date;
 /**
  * Created by heqiang on 2015/12/2.
  */
-@RequiresPresenter(FishingPresenter.class)
-public class FishingFragment extends BeamListFragment<FishingPresenter,Date>{
+@RequiresPresenter(DatePresenter.class)
+public class DateFragment extends BeamListFragment<DatePresenter,Date>{
     @Override
     protected BaseViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new GoFishingViewHolder(parent);
+        return new DateViewHolder(parent);
     }
 
     @Nullable

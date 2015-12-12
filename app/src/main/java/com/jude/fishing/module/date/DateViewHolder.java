@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +20,7 @@ import butterknife.InjectView;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class GoFishingViewHolder extends BaseViewHolder<Date>{
+public class DateViewHolder extends BaseViewHolder<Date>{
     @InjectView(R.id.avatar)
     SimpleDraweeView avatar;
     @InjectView(R.id.name)
@@ -29,9 +29,10 @@ public class GoFishingViewHolder extends BaseViewHolder<Date>{
     TextView time;
     @InjectView(R.id.tv_title)
     TextView title;
-
+    @InjectView(R.id.count)
+    TextView count;
     private String id;
-    public GoFishingViewHolder(ViewGroup parent) {
+    public DateViewHolder(ViewGroup parent) {
         super(parent, R.layout.fishing_item);
         ButterKnife.inject(this,itemView);
         itemView.setOnClickListener(v -> {
@@ -39,7 +40,7 @@ public class GoFishingViewHolder extends BaseViewHolder<Date>{
                 v.getContext().startActivity(new Intent(v.getContext(), LoginActivity.class));
                 return;
             }
-            Intent i = new Intent(v.getContext(), FishingDetailActivity.class);
+            Intent i = new Intent(v.getContext(), DateDetailActivity.class);
             i.putExtra("id", id);
             v.getContext().startActivity(i);
         });
@@ -50,7 +51,8 @@ public class GoFishingViewHolder extends BaseViewHolder<Date>{
         id = data.getId();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getAcTime()).toString(new RecentDateFormat("MM月dd日")));
         title.setText(data.getTitle());
+        count.setText((data.getEnrollMember()==null?0:data.getEnrollMember().size())+"人已报名");
     }
 }

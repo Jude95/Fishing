@@ -1,4 +1,4 @@
-package com.jude.fishing.module.gofishing;
+package com.jude.fishing.module.date;
 
 import android.os.Bundle;
 
@@ -14,11 +14,11 @@ import rx.Observable;
 /**
  * Created by heqiang on 2015/12/2.
  */
-public class FishingDetailPresenter extends BeamDataActivityPresenter<FishingDetailActivity, Date> {
+public class DateDetailPresenter extends BeamDataActivityPresenter<DateDetailActivity, Date> {
     String id;
 
     @Override
-    protected void onCreate(FishingDetailActivity view, Bundle savedState) {
+    protected void onCreate(DateDetailActivity view, Bundle savedState) {
         id = getView().getIntent().getStringExtra("id");
         getView().getExpansion().showProgressPage();
         onRefresh();
