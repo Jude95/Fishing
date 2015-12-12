@@ -3,9 +3,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="6dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
@@ -18,43 +18,74 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/avatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            fresco:roundAsCircle="true" />
-
-        <TextView
-            android:id="@+id/name"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/avatar"
-            android:gravity="center_vertical"
-            android:text="Jude"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/time"
-            style="@style/TextAppearance.AppCompat.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_below="@id/name"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/avatar"
-            android:gravity="center_vertical"
-            android:text="今天 07:24" />
-
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/avatar"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
+            style="@style/Base.TextAppearance.AppCompat.Title"
             android:text="title"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            tools:text="2天后"
+            android:layout_alignTop="@id/tv_title"
+            android:layout_alignBottom="@id/tv_title"
+            android:gravity="center"
+            />
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            >
+            <TextView
+                android:id="@+id/count"
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="24dp"
+                android:layout_below="@id/name"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/avatar"
+                android:gravity="center_vertical"
+                tools:text="20人已报名" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发起者："/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/avatar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                card:roundAsCircle="true" />
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                tools:text="Jude"
+                android:textSize="16sp" />
+
+
+
+        </LinearLayout>
+
+
+
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>
