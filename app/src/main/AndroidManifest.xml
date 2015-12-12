@@ -24,9 +24,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -44,11 +42,11 @@
             android:name="UMENG_APPKEY"
             android:value="${UMENG_APPKEY}" />
         <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="${UMENG_MESSAGE_SECRET}" />
+        <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
-        <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="${UMENG_SECRET}" />
         <!-- 融云 -->
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"

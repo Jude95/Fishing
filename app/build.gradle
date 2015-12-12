@@ -20,11 +20,10 @@ android {
                 UMENG_APPKEY    : props['UMENG_APPKEY'],
                 AMAP_APPKEY     : props['AMAP_APPKEY'],
                 UMENG_SECRET    : props['UMENG_SECRET'],
-                UMENG_CHANNEL   : "origin",
+                UMENG_MESSAGE_SECRET    : props['UMENG_MESSAGE_SECRET'],
                 RONGYUN_APPKEY  : props['RONGYUN_APPKEY']
         ]
     }
-
     productFlavors {
         xiaomi{}
         baidu{}
@@ -66,9 +65,15 @@ android {
                     }
                 }
             }
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a"
+            }
         }
         debug {
             signingConfig signingConfigs.release
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a"
+            }
         }
     }
     compileOptions {
