@@ -7,6 +7,7 @@ import com.jude.beam.bijection.ActivityLifeCycleDelegate;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.utils.JActivityManager;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * Created by Mr.Jude on 2015/9/9.
@@ -22,6 +23,7 @@ public class ActivityDelegate extends ActivityLifeCycleDelegate {
         super.onCreate(savedInstanceState);
         SwipeBackHelper.onCreate(getActivity());
         JActivityManager.getInstance().pushActivity(getActivity());
+        PushAgent.getInstance(getActivity()).onAppStart();
     }
 
     @Override

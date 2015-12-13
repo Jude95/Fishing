@@ -53,7 +53,6 @@ public class AccountModel extends AbsModel {
                 super.onServiceError(status,info);
             }
         });
-//        Observable.interval(0,5, TimeUnit.MINUTES).subscribe(aLong -> updateNotificationCount());
     }
 
     public boolean checkIsSuper(){
@@ -66,6 +65,10 @@ public class AccountModel extends AbsModel {
 
     public Account getAccount(){
         return userAccountData;
+    }
+
+    public BehaviorSubject<Account> getAccountUpdateSubject(){
+        return userAccountDataBehaviorSubject;
     }
 
     public Subscription registerAccountUpdate(Action1<? super Account> accountAction1){

@@ -13,12 +13,14 @@ import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beam.expansion.overlay.ViewConfig;
 import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
 import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
+import com.jude.fishing.BuildConfig;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
 import com.jude.fishing.utils.DataCleaner;
 import com.jude.fishing.utils.TTSController;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
+import com.umeng.message.PushAgent;
 
 import io.rong.imkit.RongIM;
 
@@ -62,7 +64,7 @@ public class APP extends MultiDexApplication {
                 JUtils.setDebug(true, "Fishing");
                 JFileManager.getInstance().init(this, Dir.values());
                 DataCleaner.Update(this, 18);
-
+                PushAgent.getInstance(this).setDebugMode(BuildConfig.DEBUG);
                 Beam.init(this);
                 Beam.setActivityLifeCycleDelegateProvider(ActivityDelegate::new);
                 Beam.setViewExpansionDelegateProvider(new ViewExpansionDelegateProvider() {
@@ -71,6 +73,7 @@ public class APP extends MultiDexApplication {
                         return new PaddingTopViewExpansion(activity);
                     }
                 });
+
 
                 TTSController ttsManager = TTSController.getInstance(this);// 初始化语音模块
                 ttsManager.init();

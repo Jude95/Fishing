@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -58,7 +59,8 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
     @Override
     public void setData(SeedComment data) {
         id = data.getAuthorId();
-        itemView.setOnClickListener(v-> mActivity.showCommentEdit(data.getId(),data.getAuthorName()));
+        itemView.setOnClickListener(v -> mActivity.showCommentEdit(data.getId(), data.getAuthorName()));
+        if (!TextUtils.isEmpty(data.getAuthorAvatar()))
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));

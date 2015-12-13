@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -51,7 +50,14 @@
         <meta-data
             android:name="RONG_CLOUD_APP_KEY"
             android:value="${RONGYUN_APPKEY}" />
-
+        <meta-data
+            android:name="SMS_MOB_APPKEY"
+            android:value="${SMS_MOB_APPKEY}"
+            />
+        <meta-data
+            android:name="SMS_MOB_APPSECRET"
+            android:value="SMS_MOB_APPSECRET"
+            />
         <meta-data
             android:name="MODEL"
             android:value="
@@ -62,7 +68,8 @@
             com.jude.fishing.model.PlaceModel,
             com.jude.fishing.model.ImageModel,
             com.jude.fishing.model.RongYunModel,
-            com.jude.fishing.model.SocialModel" />
+            com.jude.fishing.model.SocialModel,
+            com.jude.fishing.model.PushModel" />
         <activity android:name=".module.main.LaunchActivity"
             android:theme="@style/LaunchTheme">
             <intent-filter>
@@ -180,6 +187,8 @@
         <activity android:name=".module.place.PlaceFindActivity"
             android:windowSoftInputMode="adjustPan"
             android:label="钓点搜索"/>
+        <activity android:name=".module.setting.DevelopActivity"
+            android:label="开发者选项"/>
         <activity android:name=".module.social.ChatActivity"
             android:windowSoftInputMode="adjustResize"
             android:label="聊天">

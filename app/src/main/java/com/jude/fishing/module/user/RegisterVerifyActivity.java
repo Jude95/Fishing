@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
+import com.jude.smssdk_mob.TimeListener;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cn.smssdk.gui.TimeListener;
 
 /**
  * Created by Mr.Jude on 2015/9/13.

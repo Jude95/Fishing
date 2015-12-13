@@ -1,1 +1,1 @@
-include ':app', ':umengfamily', ':IMKit', ':SMSSDK'
+include ':app', ':umengfamily', ':IMKit'

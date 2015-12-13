@@ -19,3 +19,6 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 }
+subprojects {
+    task allDeps(type: DependencyReportTask) {}
+}
