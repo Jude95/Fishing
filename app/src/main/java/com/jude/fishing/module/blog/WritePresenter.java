@@ -104,7 +104,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
             for (int i = 0; i < size; i++) {
                 files[i] = new File(uriArrayList.get(i).getPath());
             }
-            ImageModel.getInstance().putImage(files)
+            ImageModel.getInstance().putImageAsync(files)
                     .doOnError(new Action1<Throwable>() {
                         @Override
                         public void call(Throwable throwable) {

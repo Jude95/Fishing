@@ -192,7 +192,7 @@ public class PlaceAddPresenter extends BeamDataActivityPresenter<PlaceAddActivit
             files[i] = new File(mPreUpload.get(i).getPath());
         }
         getView().getExpansion().showProgressDialog("开始上传");
-        ImageModel.getInstance().putImage(files)
+        ImageModel.getInstance().putImageAsync(files)
                 .doOnError(throwable -> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");

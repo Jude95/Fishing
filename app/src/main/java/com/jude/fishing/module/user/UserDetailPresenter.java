@@ -5,12 +5,11 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.jude.beam.expansion.data.BeamDataActivityPresenter;
-import com.jude.fishing.event.OnCompleteListener;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
-import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
 import com.jude.library.imageprovider.OnImageSelectListener;
@@ -18,14 +17,13 @@ import com.jude.utils.JUtils;
 
 import java.io.File;
 
-import rx.Subscription;
-
 /**
  * Created by Mr.Jude on 2015/9/18.
  */
-public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailActivity, Account> {
-    private int id;
+public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailActivity, PersonDetail> {
+
     private ImageProvider provider;
+    public PersonDetail mData;
     OnImageSelectListener listener = new OnImageSelectListener() {
 
         @Override
@@ -44,21 +42,15 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
         }
     };
 
-    Subscription subscription;
     @Override
     protected void onCreate(UserDetailActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         provider = new ImageProvider(getView());
-        id = getView().getIntent().getIntExtra("id", 0);
-        if (id == 0) subscription = AccountModel.getInstance().registerAccountUpdate(this);
-        else subscription = SocialModel.getInstance().getUserDetail(id).subscribe(this);
+        SocialModel.getInstance().getUserDetail(getView().getIntent().getIntExtra("id", 0))
+                .doOnNext(account -> mData = account)
+                .subscribe(this);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();JUtils.Log("onDestroy detail"+subscription.isUnsubscribed());
-        subscription.unsubscribe();
-    }
 
     public void editFace(int style) {
         switch (style) {
@@ -82,7 +74,7 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
 
     public void attention() {
         getView().getExpansion().showProgressDialog("请稍等...");
-        SocialModel.getInstance().attention(id)
+        SocialModel.getInstance().attention(mData.getUID())
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
@@ -94,7 +86,7 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
 
     public void unAttention() {
         getView().getExpansion().showProgressDialog("请稍等...");
-        SocialModel.getInstance().unAttention(id)
+        SocialModel.getInstance().unAttention(mData.getUID())
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
@@ -104,19 +96,13 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                 });
     }
 
-    public void chat(String name) {
-        if (checkLogin()) RongYunModel.getInstance().chatPerson(getView(), String.valueOf(id), name);
+    public void chat() {
+        if (checkLogin()) RongYunModel.getInstance().chatPerson(getView(), String.valueOf(mData.getUID()), mData.getName());
     }
 
     String bgUri;
     void changeUserBg(String uri){
-        ImageModel.getInstance().putImage(new File(uri),new OnCompleteListener(){
-
-            @Override
-            public void onComplete() {
-                getView().changeBackground(bgUri);
-            }
-        })
+        ImageModel.getInstance().putImageSync(new File(uri))
                 .doOnError(throwable -> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");
@@ -129,8 +115,8 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
                 .subscribe(new ServiceResponse<Object>() {
                     @Override
                     public void onNext(Object o) {
-
                         JUtils.Toast("修改成功");
+                        getView().changeBackground(bgUri);
                     }
                 });
 

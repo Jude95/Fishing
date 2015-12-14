@@ -23,8 +23,9 @@ import com.jude.beam.expansion.data.BeamDataActivity;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
-import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.module.blog.BlogDetailActivity;
 import com.jude.fishing.module.blog.UserBlogActivity;
@@ -44,7 +45,7 @@ import butterknife.InjectView;
  * Created by Mr.Jude on 2015/9/18.
  */
 @RequiresPresenter(UserDetailPresenter.class)
-public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Account> {
+public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, PersonDetail> {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -92,17 +93,12 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
     private boolean isAttended;
     private Drawable mActionbarDrawable;
 
-    int id;
-    String userName;
-    int uid;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity_detail);
         ButterKnife.inject(this);
         attentionOperation.setOnClickListener(v -> getPresenter().changeAttention(isAttended));
-        id = getIntent().getIntExtra("id", 0);
         getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -120,10 +116,6 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
                 }
             }
         });
-        containerAttention.setOnClickListener(v -> getPresenter().goToActivityWithLogin(AttentionActivity.class, uid));
-        containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class,uid));
-        containerFans.setOnClickListener(v -> getPresenter().goToActivityWithLogin(FansActivity.class, uid));
-        chat.setOnClickListener(v->getPresenter().chat(userName));
     }
 
     public void changeAttention() {
@@ -137,13 +129,11 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
     }
 
     @Override
-    public void setData(Account data) {
+    public void setData(PersonDetail data) {
         getExpansion().dismissProgressPage();
         if (data == null) getExpansion().showErrorPage();
         if (data.getBackground() != null)
             background.setImageURI(ImageModel.getInstance().getLargeImage(data.getBackground()));
-        userName = data.getName();
-        uid = data.getUID();
         name.setText(data.getName());
         avatar.setImageURI(Uri.parse(data.getAvatar()));
         attention.setText(data.getCared());
@@ -153,7 +143,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
         address.setText(data.getAddress());
         age.setText(data.getAge());
         skill.setText(data.getSkill());
-        if (id==0) {
+        chat.setOnClickListener(v -> getPresenter().chat());
+
+        if (data.getUID() == AccountModel.getInstance().getAccount().getUID()) {
             operation.setVisibility(View.GONE);
             background.setOnClickListener(v -> showSelectorDialog());
         } else {
@@ -161,13 +153,17 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
             tvOpAttention.setText(isAttended ? "已关注" : "关注");
         }
         blogList.setAdapter(new BlogSimpleAdapter(this, data.getSeeds()));
+        containerAttention.setOnClickListener(v -> getPresenter().goToActivityWithLogin(AttentionActivity.class, data.getUID()));
+        containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class, data.getUID()));
+        containerFans.setOnClickListener(v -> getPresenter().goToActivityWithLogin(FansActivity.class, data.getUID()));
+        findViewById(R.id.edit).setVisibility(AccountModel.getInstance().getAccount() != null && AccountModel.getInstance().getAccount().getUID() == data.getUID()?View.VISIBLE:View.GONE);
+        //invalidateOptionsMenu();
     }
 
     class BlogSimpleAdapter extends RecyclerArrayAdapter<Seed> {
 
         public BlogSimpleAdapter(Context context, List<Seed> objects) {
             super(context, objects);
-            JUtils.Log("SeedList:"+objects.size());
         }
 
 
@@ -254,11 +250,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Ac
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         getMenuInflater().inflate(R.menu.menu_edit_user_data, menu);
-        if (0 != id) {
-            menu.findItem(R.id.edit).setVisible(false);
-        }
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override

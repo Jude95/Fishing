@@ -84,7 +84,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
                     JUtils.dip2px(16)
             );
         }
-        imgFace.setOnClickListener(v -> getPresenter().checkLogin());
+        imgFace.setOnClickListener(v -> getPresenter().showUserDetail());
         viewAccount.setOnClickListener(v -> getPresenter().checkLogin());
         setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
         logout.setOnClickListener(v -> showLogoutDialog());

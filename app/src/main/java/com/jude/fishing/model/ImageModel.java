@@ -1,6 +1,5 @@
 package com.jude.fishing.model;
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,10 +8,8 @@ import android.os.Environment;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.app.APP;
-import com.jude.fishing.event.OnCompleteListener;
 import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.service.DefaultTransform;
-import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.utils.JUtils;
 import com.qiniu.android.storage.UploadManager;
@@ -22,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 /**
@@ -77,60 +74,111 @@ public class ImageModel extends AbsModel {
     }
 
     /**
-     *
+     * 异步上传
+     * TODO 更改返回类型
      * @param file 需上传文件
      * @return 上传文件访问地址
      */
-    public Observable<String> putImage(final File file,OnCompleteListener listener){
+    public Observable<String> putImageAsync(final File file){
         return Observable.just(createName(file))
-                .doOnNext(name -> ServiceClient.getService().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
+                .doOnNext(name -> CommonModel.getInstance().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
                     @Override
                     public void onNext(Token token) {
                         mUploadManager.put(compressImage(file), name, token.getToken(), (key, info, response) -> {
                             if (!info.isOK()) JUtils.Toast("图片上传失败!");
-                            else {JUtils.Log("图片已上传");listener.onComplete();}
+                            else JUtils.Log("图片已上传");
                         }, null);
                     }
                 }))
-                .map(name -> ADDRESS + name);
+                .subscribeOn(Schedulers.io())
+                .map(name -> ADDRESS + name)
+                .compose(new DefaultTransform<>());
     }
 
 
 
 
-    public Observable<String> putImage(final File[] files){
-        return ServiceClient.getService().getQiNiuToken()
-                .flatMap(token -> Observable.from(files).map(file -> {
-                            String name = createName(file);
-                            mUploadManager.put(compressImage(file),name,token.getToken(),(key, info, response) -> {
+    public Observable<String> putImageAsync(final File[] file){
+        return Observable.from(file)
+                .map(file1 -> {
+                    String name = createName(file1);
+                    CommonModel.getInstance().getQiNiuToken().subscribe(new ServiceResponse<Token>() {
+                        @Override
+                        public void onNext(Token token) {
+                            mUploadManager.put(compressImage(file1), name, token.getToken(), (key, info, response) -> {
                                 if (!info.isOK()) JUtils.Toast("图片上传失败!");
                                 else JUtils.Log("图片已上传：" + name);
-                            },null);
-                            return name;
-                        }))
+                            }, null);
+                        }
+                    });
+                    return name;
+                })
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(name -> ADDRESS + name);
+                .map(name -> ADDRESS + name)
+                .compose(new DefaultTransform<>());
     }
 
-    public Observable<String> put(File[] files){
-        return ServiceClient.getService().getQiNiuToken()
-                .flatMap(token -> Observable.create(subscriber -> {
-                    for (int i=0;i<files.length;i++) {
-                        String name;
-                        final int finalI = i;
-                        mUploadManager.put(compressImage(files[i]), name = createName(files[i]), token.getToken(), (key, info, response) -> {
-                            if (info.isOK()) {
-                                subscriber.onNext(name);
-                                JUtils.Log("ok:"+name+" "+finalI);
-                                if (finalI ==files.length)
-                                    subscriber.onCompleted();
+    /**
+     * 同步上传
+     * @param file 需上传文件
+     * @return 上传文件访问地址
+     */
+    public Observable<String> putImageSync(final File file){
+        String name = createName(file);
+        return CommonModel.getInstance().getQiNiuToken()
+                .flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        File f = compressImage(file);
+                        String url = ADDRESS + name;
+
+                        mUploadManager.put(f, name, token.getToken(), (key, info, response) -> {
+                            if (!info.isOK()) {
+                                JUtils.Toast("图片上传失败!");
+                                subscriber.onError(new Throwable("key:" + key + "  info:" + info + "  response:" + response));
+                            } else {
+                                JUtils.Log("图片已上传");
+                                subscriber.onNext(url);
                             }
-                            else {subscriber.onError(new NetworkErrorException("图片上传错误:"+info.error));}
+                            subscriber.onCompleted();
                         }, null);
                     }
-                })).map(name->ADDRESS+name).compose(new DefaultTransform<>());
+                }))
+                .doOnNext(s -> JUtils.Log("已上传：" + s))
+                .compose(new DefaultTransform<>());
     }
+
+
+    public Observable<String> putImageSync(final File[] file){
+        final int[] count = {0};
+        return CommonModel.getInstance().getQiNiuToken()
+                .flatMap(token -> Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        for (File temp : file) {
+                            String name = createName(temp);
+                            File f = compressImage(temp);
+                            String url = ADDRESS + name;
+
+                            mUploadManager.put(f, name, token.getToken(), (key, info, response) -> {
+                                if (!info.isOK()) {
+                                    JUtils.Toast("图片上传失败!");
+                                    subscriber.onError(new Throwable("key:" + key + "  info:" + info + "  response:" + response));
+                                } else {
+                                    JUtils.Log("图片已上传");
+                                    subscriber.onNext(url);
+                                }
+                                count[0]++;
+                                if (count[0] == file.length)subscriber.onCompleted();
+                            }, null);
+                        }
+
+                    }
+                }))
+                .doOnNext(s -> JUtils.Log("已上传：" + s))
+                .compose(new DefaultTransform<>());
+    }
+
 
     private File compressImage(File file){
         BitmapFactory.Options options = new BitmapFactory.Options();

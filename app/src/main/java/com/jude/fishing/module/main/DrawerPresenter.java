@@ -13,6 +13,7 @@ import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDataActivity;
+import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.module.user.UserFragment;
 
 import rx.Subscription;
@@ -60,6 +61,14 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         super.onResume();
         if (AccountModel.getInstance().getAccount()!=null&&TextUtils.isEmpty(AccountModel.getInstance().getAccount().getName())){
             getView().startActivity(new Intent(getView().getActivity(), UserDataActivity.class));
+        }
+    }
+
+    public void showUserDetail(){
+        if (checkLogin()){
+            Intent i = new Intent(getView().getActivity(),UserDetailActivity.class);
+            i.putExtra("id",AccountModel.getInstance().getAccount().getUID());
+            getView().startActivity(i);
         }
     }
 

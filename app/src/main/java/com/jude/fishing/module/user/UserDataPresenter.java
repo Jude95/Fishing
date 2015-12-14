@@ -107,7 +107,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
                         }
                     });
         } else
-            ImageModel.getInstance().putImage(new File(avatar.getPath()), () -> JUtils.Log("putImage complete"))
+            ImageModel.getInstance().putImageAsync(new File(avatar.getPath()))
                     .doOnError(throwable -> {
                         getView().getExpansion().dismissProgressDialog();
                         JUtils.Toast("图片上传失败");

@@ -123,7 +123,7 @@ public class WriteEvaluatePresenter extends Presenter<WriteEvaluateActivity> imp
         }
         List<String> images = new ArrayList<>();
         getView().getExpansion().showProgressDialog("开始上传");
-        ImageModel.getInstance().putImage(files)
+        ImageModel.getInstance().putImageAsync(files)
                 .doOnError(throwable -> {
                     getView().getExpansion().dismissProgressDialog();
                     JUtils.Toast("图片上传失败");

@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.R;
+import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.entities.UpdateInfo;
 import com.jude.fishing.model.service.DefaultTransform;
 import com.jude.fishing.model.service.ServiceClient;
@@ -33,6 +34,9 @@ public class CommonModel extends AbsModel {
 
     public String getDownloadUrl(){
         return JUtils.getSharedPreference().getString(NEW_VERSION_URL,"");
+    }
+    public Observable<Token> getQiNiuToken(){
+        return ServiceClient.getService().getQiNiuToken();
     }
 
     public void checkUpdate(Context ctx){

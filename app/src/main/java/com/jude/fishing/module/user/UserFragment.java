@@ -15,6 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
+import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.blog.UserBlogActivity;
@@ -81,7 +82,11 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.user_fragment_main2, container, false);
         ButterKnife.inject(this, root);
-        containerUser.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserDetailActivity.class)));
+        containerUser.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), UserDetailActivity.class);
+            i.putExtra("id", AccountModel.getInstance().getAccount().getUID());
+            startActivity(i);
+        });
         containerBlog.setOnClickListener(v -> goToActivity(UserBlogActivity.class));
         containerFans.setOnClickListener(v -> goToActivity(FansActivity.class));
         containerAttention.setOnClickListener(v -> goToActivity(AttentionActivity.class));
