@@ -162,6 +162,11 @@ public class PlaceDetailActivity extends BeamDataActivity<PlaceDetailPresenter, 
             i.putExtra("id", data.getAuthorId());
             startActivity(i);
         });
+        avatar.setOnClickListener(v->{
+            Intent i = new Intent(this, UserDetailActivity.class);
+            i.putExtra("id", data.getAuthorId());
+            startActivity(i);
+        });
         if (TextUtils.isEmpty(data.getContent())) {
             content.setText("暂无");
         } else {

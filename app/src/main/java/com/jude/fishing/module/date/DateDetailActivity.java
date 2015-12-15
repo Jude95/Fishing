@@ -52,7 +52,7 @@ public class DateDetailActivity extends BeamDataActivity<DateDetailPresenter, Da
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fishing_activity_detail);
+        setContentView(R.layout.date_activity_detail);
         ButterKnife.inject(this);
         join.setOnClickListener(v -> getPresenter().joinDate(strTitle, joined));
     }

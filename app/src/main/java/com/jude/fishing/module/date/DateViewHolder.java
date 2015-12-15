@@ -33,7 +33,7 @@ public class DateViewHolder extends BaseViewHolder<Date>{
     TextView count;
     private String id;
     public DateViewHolder(ViewGroup parent) {
-        super(parent, R.layout.fishing_item);
+        super(parent, R.layout.date_item);
         ButterKnife.inject(this,itemView);
         itemView.setOnClickListener(v -> {
             if (AccountModel.getInstance().getAccount()==null){

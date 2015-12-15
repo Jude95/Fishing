@@ -33,7 +33,7 @@ public class DateFragment extends BeamListFragment<DatePresenter,Date>{
 
     @Override
     public int getLayout() {
-        return R.layout.fishing_fragment_main;
+        return R.layout.date_fragment_main;
     }
 
     @Override

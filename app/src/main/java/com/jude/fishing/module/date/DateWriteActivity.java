@@ -38,7 +38,7 @@ public class DateWriteActivity extends BeamBaseActivity<DateWritePresenter> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fishing_activity_write);
+        setContentView(R.layout.date_activity_write);
         ButterKnife.inject(this);
         send.setOnClickListener(v -> checkInput());
     }

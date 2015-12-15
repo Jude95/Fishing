@@ -72,12 +72,14 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     TextView praiseText;
     @InjectView(R.id.praise_container)
     RelativeLayout praiseContainer;
+    @InjectView(R.id.author_container)
+    RelativeLayout authorContainer;
 
     public View getBlogDetailView(SeedDetail data, ViewGroup parent) {
         View view = getLayoutInflater().inflate(R.layout.blog_item_head, parent, false);
         ButterKnife.inject(this, view);
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
-        avatar.setOnClickListener(v -> {
+        authorContainer.setOnClickListener(v -> {
             Intent i = new Intent(this, UserDetailActivity.class);
             i.putExtra("id", data.getAuthorId());
             startActivity(i);
@@ -93,7 +95,7 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         btnComment.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));
         praiseContainer.setVisibility(data.getPraiseCount() == 0 ? View.GONE : View.VISIBLE);
 
-        if ( data.getImages()!=null&&data.getImages().length!=0){
+        if (data.getImages() != null && data.getImages().length != 0) {
             pictures.setAdapter(new NetImageAdapter(parent.getContext(), data.getImages()));
             pictures.setColumnCount(Math.min(data.getImages().length, 3));
         }
@@ -141,5 +143,6 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
     protected ListConfig getConfig() {
         return super.getConfig().setRefreshAble(true);
     }
+
 
 }

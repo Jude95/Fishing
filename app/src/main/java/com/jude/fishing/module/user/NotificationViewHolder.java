@@ -48,7 +48,8 @@ public class NotificationViewHolder extends BaseViewHolder<Notification> {
                     itemView.getContext().startActivity(place);
                     break;
                 case Notification.BLOG_COMMENT:
-                case Notification.BLOG_RECOMMENT:
+                case Notification.BLOG_RECOMMEND:
+                case Notification.BLOG_PRAISE:
                     Intent blog = new Intent(itemView.getContext(), BlogDetailActivity.class);
                     blog.putExtra("id", Integer.parseInt(data.getLink()));
                     itemView.getContext().startActivity(blog);

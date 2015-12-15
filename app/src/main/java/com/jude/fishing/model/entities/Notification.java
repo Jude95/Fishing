@@ -12,8 +12,8 @@ public class Notification {
     public static final int PLACE_ADD = 202;
 
     public static final int BLOG_COMMENT = 100;
-    public static final int BLOG_RECOMMENT = 101;
-
+    public static final int BLOG_RECOMMEND = 101;
+    public static final int BLOG_PRAISE = 102;
 
 
     private int id;
