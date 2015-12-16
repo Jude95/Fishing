@@ -134,6 +134,7 @@
                 android:background="@drawable/main_drawer_selector"
                 android:clickable="true"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <ImageView

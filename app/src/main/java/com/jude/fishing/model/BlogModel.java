@@ -59,11 +59,7 @@ public class BlogModel extends AbsModel {
 
     public Observable<Object> addBlog(String content,String images,String address,double lng,double lat){
         return ServiceClient.getService().addBlog(content, images, address, lng, lat)
-                .doOnNext(o -> AccountModel.getInstance().updateMyInfo().subscribe(new ServiceResponse<Account>() {
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-                }))
+                .doOnNext(o -> AccountModel.getInstance().updateMyInfo().subscribe(new ServiceResponse<Account>()))
                 .compose(new DefaultTransform<>());
     }
 
