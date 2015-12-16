@@ -98,5 +98,38 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/gray"/>
+    <LinearLayout
+        android:id="@+id/container_server_debug"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Server's Type:"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="使用Debug服务器"/>
+            <Switch
+                android:id="@+id/switch_user_debug_server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
 </LinearLayout>

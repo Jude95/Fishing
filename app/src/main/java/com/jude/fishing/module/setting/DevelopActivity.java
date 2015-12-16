@@ -3,6 +3,7 @@ package com.jude.fishing.module.setting;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -40,13 +41,17 @@ public class DevelopActivity extends BeamBaseActivity<DevelopPresenter> {
     TextView tvDeviceToken;
     @InjectView(R.id.container_device_token)
     LinearLayout containerDeviceToken;
+    @InjectView(R.id.switch_user_debug_server)
+    Switch switchUserDebugServer;
+    @InjectView(R.id.container_server_debug)
+    LinearLayout containerServerDebug;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity_develop);
         ButterKnife.inject(this);
-        tvUserId.setText(AccountModel.getInstance().getAccount().getUID()+"");
+        tvUserId.setText(AccountModel.getInstance().getAccount().getUID() + "");
         containerUserId.setOnClickListener(v -> {
             new MaterialDialog.Builder(this)
                     .items(new String[]{"Copy user id"})
@@ -68,11 +73,16 @@ public class DevelopActivity extends BeamBaseActivity<DevelopPresenter> {
                     .show();
         });
         tvUserToken.setText(AccountModel.getInstance().getAccount().getToken());
-        containerUserToken.setOnClickListener(v->{
+        containerUserToken.setOnClickListener(v -> {
             new MaterialDialog.Builder(this)
                     .items(new String[]{"Copy user token"})
                     .itemsCallback((materialDialog, view, i, charSequence) -> JUtils.copyToClipboard(AccountModel.getInstance().getAccount().getToken()))
                     .show();
+        });
+        switchUserDebugServer.setChecked(JUtils.getSharedPreference().getBoolean("DebugServer",false));
+        switchUserDebugServer.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            JUtils.getSharedPreference().edit().putBoolean("DebugServer",isChecked).apply();
+            JUtils.Toast("退出重启生效");
         });
     }
 
