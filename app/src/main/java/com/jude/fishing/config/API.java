@@ -47,6 +47,7 @@ public class API {
 
         public static final String MyAttend = "/user/myAttend";
         public static final String MyFans = "/user/myFans";
+        public static final String SignIn = "/user/clockIn";
 
         public static final String GetBlogGround = "/weibo/getListGround";
         public static final String GetBlogFriend = "/weibo/getListFriend";
@@ -63,6 +64,8 @@ public class API {
 
         public static final String GetContact = "/user/contact";
         public static final String Feedback = "/common/feedback";
+        public static final String GetPushSetting = "/user/getPushset";
+        public static final String UploadPushSetting = "/user/pushSet";
 
         public static final String AddDateInfo = "/yue/add";
         public static final String GetDateList = "/yue/getList";

@@ -22,7 +22,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="196dp"
+                android:layout_height="170dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/img_drawer"
                 android:orientation="vertical">
@@ -45,11 +45,12 @@
                 <LinearLayout
                     android:id="@+id/viewAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="16dp"
-                    android:orientation="vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvName"
@@ -57,14 +58,43 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:text="未登录,点击登录"
+                        tools:text="Jude"
                         android:textStyle="bold" />
 
+                    <ImageView
+                        android:id="@+id/img_score"
+                        android:layout_width="12dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_gold_white"
+                        android:tint="@color/yellow"/>
                     <TextView
-                        android:id="@+id/tvSign"
+                        android:id="@+id/tv_score"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/yellow"
+                        tools:text="12"
+                        android:textSize="12sp"
+                        android:layout_height="match_parent" />
+
+                    <com.jude.tagview.TAGView
+                        android:id="@+id/mark"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white" />
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        fresco:tag_color="@color/white"
+                        fresco:tag_stroke_width="1dp"
+                        fresco:tag_text="签到"
+                        fresco:tag_padding_left="6dp"
+                        fresco:tag_padding_right="6dp"
+                        fresco:tag_text_size="12dp"
+                        />
+
                 </LinearLayout>
+
+
+
 
             </RelativeLayout>
 

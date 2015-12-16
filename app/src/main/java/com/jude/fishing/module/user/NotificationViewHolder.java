@@ -43,6 +43,7 @@ public class NotificationViewHolder extends BaseViewHolder<Notification> {
                 case Notification.PLACE_ADD:
                 case Notification.PLACE_REFUSE:
                 case Notification.PLACE_PASS:
+                case Notification.PLACE_COMMENT:
                     Intent place = new Intent(itemView.getContext(), PlaceDetailActivity.class);
                     place.putExtra("id", Integer.parseInt(data.getLink()));
                     itemView.getContext().startActivity(place);

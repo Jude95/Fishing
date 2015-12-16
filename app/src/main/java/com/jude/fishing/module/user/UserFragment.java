@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
@@ -71,6 +72,10 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     TextView notificationCount;
 
     int uid;
+    @InjectView(R.id.tv_score)
+    TextView tvScore;
+    @InjectView(R.id.score)
+    LinearLayout score;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,11 +99,18 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         evaluate.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserEvaluateActivity.class)));
         place.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
         notify.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
+        score.setOnClickListener(v->{
+            new MaterialDialog.Builder(getContext())
+                    .title("积分兑换说明")
+                    .content("因为钓友们对于积分系统呼声很高，所以我们推出了积分系统：\n\n每日签到 +2\n每日第一篇渔获 +2\n\n因为刚刚推出，兑换商城还需完善，所以暂时无法兑换，我们将尽快推出良心的兑换系统。\n钓友们的支持是我们进步的动力。")
+                    .positiveText("确定")
+                    .show();
+        });
         return root;
     }
 
     public void setNotificationCount(int i) {
-        JUtils.Log("UI NotificationCount:"+i);
+        JUtils.Log("UI NotificationCount:" + i);
         notificationCount.setVisibility(i == 0 ? View.GONE : View.VISIBLE);
         notificationCount.setText(i + "");
     }
@@ -117,6 +129,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
 
     @Override
     public void setData(Account data) {
+        JUtils.Log("setData:"+data.getSign());
         uid = data.getUID();
         avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
         name.setText(data.getName());
@@ -124,6 +137,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         blog.setText(data.getBlogCount() + "");
         attention.setText(data.getCared());
         fans.setText(data.getFans());
+        tvScore.setText(data.getScore()+"");
     }
 
     @Override

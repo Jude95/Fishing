@@ -4,9 +4,9 @@ package com.jude.fishing.model.service;
 import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.Contact;
+import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateDetail;
-import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.Notification;
 import com.jude.fishing.model.entities.PersonAround;
 import com.jude.fishing.model.entities.PersonAvatar;
@@ -14,6 +14,7 @@ import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.PlaceBrief;
 import com.jude.fishing.model.entities.PlaceDetail;
+import com.jude.fishing.model.entities.PushSetting;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.entities.Token;
@@ -349,4 +350,18 @@ public interface Service {
 
     @GET(API.URL.GetMyDateList)
     Observable<List<Date>> getMyDateList();
+
+    @GET(API.URL.SignIn)
+    Observable<Object> signIn();
+
+    @GET(API.URL.GetPushSetting)
+    Observable<PushSetting> getPushSetting();
+
+    @FormUrlEncoded
+    @POST(API.URL.UploadPushSetting)
+    Observable<Object> uploadPushSetting(
+            @Field("zan")int praise,
+            @Field("comment")int comment,
+            @Field("care")int care,
+            @Field("place")int place);
 }

@@ -116,6 +116,7 @@ public class AccountModel extends AbsModel {
 
     public Observable<Account> updateMyInfo(){
         return ServiceClient.getService().updateMyInfo()
+                .onExceptionResumeNext(Observable.just(getAccount()))
                 .doOnNext(account -> {
                     saveAccount(account);
                     setAccount(account);
@@ -171,6 +172,10 @@ public class AccountModel extends AbsModel {
 
     public Observable<Object> resetPass(String tel,String code,String password){
         return ServiceClient.getService().resetPass(tel, code, password).compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> signIn(){
+        return ServiceClient.getService().signIn().compose(new DefaultTransform<>());
     }
 
     public Observable<List<Notification>> getNotification(int page){

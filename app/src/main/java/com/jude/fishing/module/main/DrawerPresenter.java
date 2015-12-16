@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
+import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
@@ -15,6 +17,7 @@ import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDataActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.module.user.UserFragment;
+import com.jude.utils.JUtils;
 
 import rx.Subscription;
 
@@ -36,7 +39,9 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
     protected void onCreateView(DrawerFragment view) {
         super.onCreateView(view);
 //        showBlogFragment();
-        mAccountSubscription = AccountModel.getInstance().registerAccountUpdate(this);
+        mAccountSubscription = AccountModel.getInstance().registerAccountUpdate(account -> {
+            publishObject(account);
+        });
         mMessageCountSubscription = RongYunModel.getInstance().registerNotifyCount(count -> getView().setMessageCount(count));
     }
 
@@ -47,6 +52,19 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         }else{
             return true;
         }
+    }
+
+    public void signIn(){
+        ((BeamBaseActivity)getView().getActivity()).getExpansion().showProgressDialog("签到中");
+        AccountModel.getInstance().signIn()
+                .flatMap(o -> AccountModel.getInstance().updateMyInfo())
+                .subscribe(new ServiceResponse<Object>() {
+                    @Override
+                    public void onNext(Object o) {
+                        ((BeamBaseActivity)getView().getActivity()).getExpansion().dismissProgressDialog();
+                        JUtils.Toast("签到成功 积分+2");
+                    }
+                });
     }
 
     @Override

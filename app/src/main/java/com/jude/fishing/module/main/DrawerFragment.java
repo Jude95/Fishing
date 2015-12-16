@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.setting.SettingActivity;
+import com.jude.tagview.TAGView;
 import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
@@ -36,8 +38,6 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     SimpleDraweeView imgFace;
     @InjectView(R.id.tvName)
     TextView tvName;
-    @InjectView(R.id.tvSign)
-    TextView tvSign;
     @InjectView(R.id.viewAccount)
     LinearLayout viewAccount;
     @InjectView(R.id.place)
@@ -56,17 +56,39 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     TextView messageCount;
     @InjectView(R.id.gofishing)
     RelativeLayout fishing;
+    @InjectView(R.id.mark)
+    TAGView mark;
+    @InjectView(R.id.tv_score)
+    TextView tvScore;
+    @InjectView(R.id.img_score)
+    ImageView imgScore;
 
     @Override
     public void setData(Account info) {
         if (info == null) {
             imgFace.setImageURI(null);
             tvName.setText("未登录,点击登陆");
-            tvSign.setText("");
+            mark.setVisibility(View.INVISIBLE);
+            tvScore.setVisibility(View.INVISIBLE);
+            imgScore.setVisibility(View.INVISIBLE);
         } else {
             imgFace.setImageURI(ImageModel.getInstance().getSmallImage(info.getAvatar()));
             tvName.setText(info.getName());
-            tvSign.setText(info.getSign());
+            tvScore.setText(info.getScore() + "");
+            tvScore.setVisibility(View.VISIBLE);
+            imgScore.setVisibility(View.VISIBLE);
+            mark.setVisibility(View.VISIBLE);
+            if (info.isHasSignIn()) {
+                mark.setText("已签到");
+                mark.setTextColor(getResources().getColor(R.color.gray));
+                mark.setBackgroundColor(getResources().getColor(R.color.gray));
+                mark.setEnabled(false);
+            } else {
+                mark.setText("签到");
+                mark.setTextColor(getResources().getColor(R.color.white));
+                mark.setBackgroundColor(getResources().getColor(R.color.white));
+                mark.setEnabled(true);
+            }
         }
     }
 
@@ -93,13 +115,8 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         message.setOnClickListener(this);
         user.setOnClickListener(this);
         fishing.setOnClickListener(this);
-        blog.post(new Runnable() {
-            @Override
-            public void run() {
-                blog.performClick();
-            }
-        });
-
+        blog.post(() -> blog.performClick());
+        mark.setOnClickListener(v -> getPresenter().signIn());
         return view;
     }
 
@@ -152,9 +169,9 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
 
     @Override
     public void onClick(View v) {
-        if (drawerChangedListener!=null){
-            if (v.getId()==R.id.message||v.getId()==R.id.user){
-                if (!getPresenter().checkLogin())return;
+        if (drawerChangedListener != null) {
+            if (v.getId() == R.id.message || v.getId() == R.id.user) {
+                if (!getPresenter().checkLogin()) return;
             }
             drawerChangedListener.onChange(v);
             focusView(v);
@@ -167,7 +184,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         this.drawerChangedListener = drawerChangedListener;
     }
 
-    public interface DrawerChangedListener{
+    public interface DrawerChangedListener {
         void onChange(View view);
     }
 }

@@ -35,6 +35,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
     private GeocodeSearch mGeocoderSearch;
     Location location;
     String address = "";
+    boolean isShowAddress = true;
     OnImageSelectListener listener = new OnImageSelectListener() {
 
         @Override
@@ -65,6 +66,10 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
         if (location != null) {
             mGeocoderSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(location.getLatitude(), location.getLongitude()), 50, GeocodeSearch.AMAP));
         }
+    }
+
+    public void setIsShowAddress(boolean isShowAddress){
+        this.isShowAddress = isShowAddress;
     }
 
     public void editFace(int style) {
@@ -118,7 +123,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
                         Gson gson = new Gson();
                         String gsonStr = gson.toJson(strings);
                         JUtils.Log(gsonStr);
-                        return BlogModel.getInstance().addBlog(content, gsonStr, address, location.getLongitude(), location.getLatitude());
+                        return BlogModel.getInstance().addBlog(content, gsonStr, isShowAddress?address:"", isShowAddress?location.getLongitude():0, isShowAddress?location.getLatitude():0);
                     })
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
@@ -129,7 +134,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
                         }
                     });
         } else {
-            BlogModel.getInstance().addBlog(content, "[]", address, location.getLongitude(), location.getLatitude())
+            BlogModel.getInstance().addBlog(content, "[]", isShowAddress?address:"", isShowAddress?location.getLongitude():0, isShowAddress?location.getLatitude():0)
                     .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
@@ -144,6 +149,7 @@ public class WritePresenter extends Presenter<WriteActivity> implements PieceVie
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
         address = regeocodeResult.getRegeocodeAddress().getTownship();
+        getView().showAddress(address);
     }
 
     @Override

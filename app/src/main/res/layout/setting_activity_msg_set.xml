@@ -19,16 +19,17 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
-            android:src="@drawable/setting_msg" />
+            android:src="@drawable/notify_priase" />
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="系统信息提醒" />
+            android:text="点赞信息提醒" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_praise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp" />
@@ -46,17 +47,17 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
-            android:src="@drawable/setting_msg_notify" />
+            android:src="@drawable/notify_comment" />
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="联系人聊天信息提醒" />
+            android:text="评论信息提醒" />
 
         <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_chat_notify"
+            android:id="@+id/switch_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp" />
@@ -73,19 +74,45 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
-            android:src="@drawable/setting_msg_loc" />
+            android:src="@drawable/notify_care" />
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="附近的人聊天信息提醒" />
+            android:text="关注信息提醒" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_care"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:layout_marginRight="@dimen/activity_margin"
+            android:src="@drawable/notify_location" />
+
+        <TextView
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="钓点信息提醒" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
 </LinearLayout>

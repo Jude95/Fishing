@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.bijection.RequiresPresenter;
@@ -32,6 +34,10 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
     PieceViewGroup images;
     @InjectView(R.id.content)
     EditText content;
+    @InjectView(R.id.address)
+    TextView address;
+    @InjectView(R.id.show_address)
+    Switch showAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +48,20 @@ public class WriteActivity extends BeamBaseActivity<WritePresenter> {
         images.setAddImageRes(R.drawable.pic_add);
         images.setOKImageRes(R.drawable.pic_ok);
         images.setOnViewDeleteListener(getPresenter());
-        send.setOnClickListener(v->checkInput());
+        send.setOnClickListener(v -> checkInput());
+        showAddress.setOnCheckedChangeListener((buttonView, isChecked) -> getPresenter().setIsShowAddress(isChecked));
     }
 
     private void checkInput() {
-        if (content.getText().toString().trim().isEmpty()){
+        if (content.getText().toString().trim().isEmpty()) {
             JUtils.Toast("说点什么吧");
             return;
         }
         getPresenter().writeBlog(content.getText().toString().trim());
+    }
+
+    public void showAddress(String text) {
+        address.setText(text);
     }
 
     public void showSelectorDialog() {

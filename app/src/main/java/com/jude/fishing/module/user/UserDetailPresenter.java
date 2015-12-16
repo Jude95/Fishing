@@ -9,6 +9,7 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.SocialModel;
+import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.library.imageprovider.ImageProvider;
@@ -16,6 +17,8 @@ import com.jude.library.imageprovider.OnImageSelectListener;
 import com.jude.utils.JUtils;
 
 import java.io.File;
+
+import rx.Subscriber;
 
 /**
  * Created by Mr.Jude on 2015/9/18.
@@ -46,11 +49,34 @@ public class UserDetailPresenter extends BeamDataActivityPresenter<UserDetailAct
     protected void onCreate(UserDetailActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         provider = new ImageProvider(getView());
-        SocialModel.getInstance().getUserDetail(getView().getIntent().getIntExtra("id", 0))
-                .doOnNext(account -> mData = account)
-                .subscribe(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onRefresh();
+    }
+
+    private void onRefresh(){
+        SocialModel.getInstance().getUserDetail(getView().getIntent().getIntExtra("id", 0))
+                .doOnNext(account -> mData = account)
+                .unsafeSubscribe(new Subscriber<Account>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Account account) {
+                        publishObject(account);
+                    }
+                });
+    }
 
     public void editFace(int style) {
         switch (style) {

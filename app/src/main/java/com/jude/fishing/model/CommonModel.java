@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jude.beam.model.AbsModel;
 import com.jude.fishing.R;
+import com.jude.fishing.model.entities.PushSetting;
 import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.entities.UpdateInfo;
 import com.jude.fishing.model.service.DefaultTransform;
@@ -37,6 +38,14 @@ public class CommonModel extends AbsModel {
     }
     public Observable<Token> getQiNiuToken(){
         return ServiceClient.getService().getQiNiuToken();
+    }
+
+    public Observable<PushSetting> getPushSetting(){
+        return ServiceClient.getService().getPushSetting().compose(new DefaultTransform<>());
+    }
+
+    public Observable<Object> uploadPushSetting(PushSetting setting){
+        return ServiceClient.getService().uploadPushSetting(setting.isPraiseNotify()?1:0,setting.isCommentNotify()?1:0,setting.isCareNotify()?1:0,setting.isPlaceNotify()?1:0).compose(new DefaultTransform<>());
     }
 
     public void checkUpdate(Context ctx){
@@ -108,4 +117,6 @@ public class CommonModel extends AbsModel {
             return Environment.getRootDirectory() + "/" + "download/";
         }
     }
+
+
 }

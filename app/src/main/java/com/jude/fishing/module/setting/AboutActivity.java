@@ -37,7 +37,7 @@ public class AboutActivity extends BeamBaseActivity<AboutPresenter> implements V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting_activity_about);
         ButterKnife.inject(this);
-        version.setText(JUtils.getAppVersionName() + " " + JUtils.getAppVersionCode());
+        version.setText(JUtils.getAppVersionName() );
         logo.setOnClickListener(this);
         share.setOnClickListener(v -> getPresenter().share());
     }

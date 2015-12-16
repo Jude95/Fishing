@@ -102,7 +102,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            JUtils.Toast("提交成功");
+                            JUtils.Toast("修改成功");
                             getView().finish();
                         }
                     });
@@ -121,7 +121,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
                     .subscribe(new ServiceResponse<Object>() {
                         @Override
                         public void onNext(Object o) {
-                            JUtils.Toast("提交成功");
+                            JUtils.Toast("修改成功");
                             getView().finish();
                         }
                     });

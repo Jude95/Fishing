@@ -10,6 +10,7 @@ public class Notification {
     public static final int PLACE_PASS = 200;
     public static final int PLACE_REFUSE = 201;
     public static final int PLACE_ADD = 202;
+    public static final int PLACE_COMMENT = 203;
 
     public static final int BLOG_COMMENT = 100;
     public static final int BLOG_RECOMMEND = 101;
