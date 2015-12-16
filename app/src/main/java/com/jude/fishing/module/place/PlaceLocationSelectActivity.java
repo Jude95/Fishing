@@ -102,7 +102,7 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
                 .fromResource(R.drawable.location_marker));
         mMyLocation = aMap.addMarker(markerOption);
         mPoint = new LatLng(location.getLatitude(),location.getLongitude());
-        LocationModel.getInstance().registerLocationChange(newLocation -> mMyLocation.setPosition(newLocation.toLatLng()));
+        LocationModel.getInstance().registerLocationChange(newLocation -> mMyLocation.setPosition(new LatLng(location.latitude,location.longitude)));
     }
 
     private void moveTo(double lat, double lng, float zoom) {

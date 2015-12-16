@@ -164,7 +164,7 @@ public class PlaceMapPathActivity extends BeamBaseActivity<PlaceMapPathPresenter
         ;
         mMyLocation = mAMap.addMarker(markerOption);
         LocationModel.getInstance().registerLocationChange(location -> {
-            mMyLocation.setPosition(location.toLatLng());
+            mMyLocation.setPosition(new LatLng(location.latitude,location.longitude));
             mMyLocation.setSnippet(location.getAddress());
         });
     }

@@ -1,8 +1,5 @@
 package com.jude.fishing.model.entities;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.maps.model.LatLng;
-
 import java.io.Serializable;
 
 /**
@@ -10,24 +7,19 @@ import java.io.Serializable;
  */
 public class Location implements Serializable{
 
-    private String address = "重庆市南岸区";
-    private double altitude = 0;
-    private String city = "重庆市";
-    private String country = "中国";
-    private String district = "南岸区";
-    private String floor = "";
-    private double latitude = 29.53;
-    private double longitude = 106.60;
-    private String province = "重庆市";
-    private String street = "";
-    private int regionCode = 110000;
+    public String address = "重庆市南岸区";
+    public double altitude = 0;
+    public String city = "重庆市";
+    public String country = "中国";
+    public String district = "南岸区";
+    public double latitude = 29.53;
+    public double longitude = 106.60;
+    public String province = "重庆市";
+    public int regionCode = 110000;
 
 
     public Location(){}
 
-    public Location(AMapLocation location) {
-        setLocation(location);
-    }
 
     public int getRegionCode() {
         return regionCode;
@@ -44,19 +36,7 @@ public class Location implements Serializable{
         return longitude;
     }
 
-    public void setLocation(AMapLocation location){
-        address = location.getAddress();
-        altitude = location.getAltitude();
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        city = location.getCity();
-        country = location.getCountry();
-        district = location.getDistrict();
-        floor = location.getFloor();
-        province = location.getProvince();
-        street = location.getStreet();
-        regionCode = Integer.parseInt(location.getAdCode());
-    }
+
 
     public android.location.Location toLocation(){
         android.location.Location location = new android.location.Location("");
@@ -64,10 +44,6 @@ public class Location implements Serializable{
         location.setLatitude(latitude);
         location.setLongitude(longitude);
         return location;
-    }
-
-    public LatLng toLatLng(){
-        return new LatLng(latitude,longitude);
     }
 
     public String getAddress() {
@@ -86,16 +62,16 @@ public class Location implements Serializable{
         return country;
     }
 
-    public String getFloor() {
-        return floor;
-    }
 
     public String getProvince() {
         return province;
     }
 
-    public String getStreet() {
-        return street;
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Location) {
+            return (address.equals(((Location) o).address));
+        }
+        return false;
     }
-
 }

@@ -161,7 +161,8 @@ public class PlaceMapFragment extends BeamFragment<PlaceMapPresenter> implements
                 .fromResource(R.drawable.location_marker));
         mMyLocation = aMap.addMarker(markerOption);
         LocationModel.getInstance().registerLocationChange(location -> {
-            mMyLocation.setPosition(location.toLatLng());
+            JUtils.Log("latitude"+location.latitude+"  longitude"+location.longitude);
+            mMyLocation.setPosition(new LatLng(location.latitude, location.longitude));
         });
     }
 
