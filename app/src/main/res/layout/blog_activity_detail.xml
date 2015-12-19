@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/include_toolbar"/>
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@color/white">
+        <EditText
+            android:id="@+id/reply"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:hint="发表评论"
+            android:padding="4dp"
+            android:textSize="14sp"
+            android:layout_height="wrap_content"
+            android:minHeight="32dp"
+            android:background="@drawable/frame_gray"/>
+        <com.jude.tagview.TAGView
+            android:id="@+id/reply_send"
+            android:layout_width="56dp"
+            android:layout_height="32dp"
+            app:tag_color="?colorPrimary"
+            android:layout_marginLeft="8dp"
+            app:tag_text="发送"/>
+    </LinearLayout>
+</LinearLayout>

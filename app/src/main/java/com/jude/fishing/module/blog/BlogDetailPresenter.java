@@ -74,6 +74,7 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
     }
 
     public void sentComment(int fid, String content) {
+        getView().getExpansion().showProgressDialog("提交中");
         BlogModel.getInstance().sendBlogComment(wid, fid, content)
                 .finallyDo(() -> getView().getExpansion().dismissProgressDialog())
                 .subscribe(new ServiceResponse<Object>() {

@@ -6,4 +6,9 @@
         android:title="举报"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/delete"
+        android:title="删除"
+        app:showAsAction="never"
+        />
 </menu>

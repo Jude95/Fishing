@@ -45,7 +45,7 @@
                 <LinearLayout
                     android:id="@+id/viewAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="28dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_margin="16dp"
@@ -63,7 +63,7 @@
 
                     <ImageView
                         android:id="@+id/img_score"
-                        android:layout_width="12dp"
+                        android:layout_width="16dp"
                         android:layout_marginLeft="8dp"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_gold_white"
@@ -75,7 +75,8 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/yellow"
                         tools:text="12"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="2dp"
                         android:layout_height="match_parent" />
 
                     <com.jude.tagview.TAGView
@@ -86,8 +87,8 @@
                         fresco:tag_color="@color/white"
                         fresco:tag_stroke_width="1dp"
                         fresco:tag_text="签到"
-                        fresco:tag_padding_left="6dp"
-                        fresco:tag_padding_right="6dp"
+                        fresco:tag_padding_left="8dp"
+                        fresco:tag_padding_right="8dp"
                         fresco:tag_text_size="12dp"
                         />
 
