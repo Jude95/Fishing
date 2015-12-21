@@ -63,7 +63,7 @@ public class LocationModel extends AbsModel{
         AMapLocationClient mLocationClient = new AMapLocationClient(ctx);
         AMapLocationClientOption option = new AMapLocationClientOption();
         //每分钟取一下最新位置。
-        option.setInterval(6000);
+        option.setInterval(60*1000);
         //只取一次位置
         //option.setOnceLocation(true);
         mLocationClient.setLocationOption(option);
