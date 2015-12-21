@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -110,14 +111,21 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
             subscription = AccountModel.getInstance().updateNotificationCount();
         } else if (subscription != null) {
             subscription.unsubscribe();
+            subscription = null;
         }
         closeDrawer();
     }
 
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+    public void logout(){
+        pagerAdapter.destroyItem(container,R.id.user,"");
+        pagerAdapter.destroyItem(container,R.id.message,"");
+    }
 
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+        FragmentManager fragmentManager;
         public MyFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
+            fragmentManager = fm;
         }
 
         @Override
@@ -137,8 +145,21 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
         }
 
         @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            String name = makeFragmentName(container.getId(),getItemId(position));
+            Fragment fragment = fragmentManager.findFragmentByTag(name);
+            if (fragment != null) {
+                super.destroyItem(container, position, fragment);
+            }
+        }
+
+        private String makeFragmentName(int viewId, long id) {
+            return "android:switcher:" + viewId + ":" + id;
+        }
+
+        @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
         @Override

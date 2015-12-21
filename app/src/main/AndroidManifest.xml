@@ -220,6 +220,8 @@
             android:label="约钓"/>
         <activity android:name=".module.date.DateDetailActivity"
             android:label="约钓"/>
+        <activity android:name=".module.social.PhotoActivity"
+            android:label="查看图片"/>
 
         <service android:name=".module.setting.UpdateService"/>
         <service android:name="com.amap.api.location.APSService"/>

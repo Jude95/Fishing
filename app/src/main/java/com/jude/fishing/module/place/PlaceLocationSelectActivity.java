@@ -2,7 +2,9 @@ package com.jude.fishing.module.place;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,13 +27,13 @@ import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.LocationModel;
+import com.jude.fishing.model.RongYunModel;
 import com.jude.fishing.model.entities.Location;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-
+import io.rong.message.LocationMessage;
 
 
 /**
@@ -56,6 +58,8 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
 
     private boolean canSelect;
 
+    private LocationMessage locationMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +67,23 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         ButterKnife.inject(this);
         canSelect = getIntent().getBooleanExtra("can",false);
+        locationMessage = getIntent().getParcelableExtra("location");
         mMapView.onCreate(savedInstanceState);
         initMap();
+        if (locationMessage!=null){
+            ok.setVisibility(View.GONE);
+        }
         ok.setOnClickListener(v -> {
-            Intent i = new Intent();
-            i.putExtra("point", mPoint);
-            i.putExtra("address", mAddress);
-            i.putExtra("briefAddress", mBriefAddress);
-            setResult(Activity.RESULT_OK, i);
+            if (RongYunModel.getInstance().getLastLocationCallback()!=null){
+                RongYunModel.getInstance().getLastLocationCallback().onSuccess(locationMessage);
+                RongYunModel.getInstance().setLastLocationCallback(null);
+            }else {
+                Intent i = new Intent();
+                i.putExtra("point", mPoint);
+                i.putExtra("address", mAddress);
+                i.putExtra("briefAddress", mBriefAddress);
+                setResult(Activity.RESULT_OK, i);
+            }
             finish();
         });
     }
@@ -140,6 +153,14 @@ public class PlaceLocationSelectActivity extends BeamBaseActivity<PlaceLocationS
         address.setText(regeocodeResult.getRegeocodeAddress().getFormatAddress());
         mAddress = regeocodeResult.getRegeocodeAddress().getFormatAddress();
         mBriefAddress = regeocodeResult.getRegeocodeAddress().getTownship();
+        Uri uri = Uri.parse("http://m.amap.com/navi").buildUpon()
+                .appendQueryParameter("dest",LocationModel.getInstance().getCurLocation().getLatitude()+","+LocationModel.getInstance().getCurLocation().getLongitude())
+                .appendQueryParameter("destName",mAddress)
+                .appendQueryParameter("hideRouteIcon","1")
+                .appendQueryParameter("key","474871845dfffa03a26cfcb0ab4fb4f1")
+                .build();
+        locationMessage = LocationMessage.obtain(LocationModel.getInstance().getCurLocation().getLatitude(),LocationModel.getInstance().getCurLocation().getLongitude(),
+                mAddress, uri);
     }
 
     @Override

@@ -12,7 +12,9 @@ import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.model.entities.Token;
 import com.jude.fishing.model.service.ServiceClient;
 import com.jude.fishing.model.service.ServiceResponse;
+import com.jude.fishing.module.place.PlaceLocationSelectActivity;
 import com.jude.fishing.module.setting.MsgSetActivity;
+import com.jude.fishing.module.social.PhotoActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.utils.JUtils;
 
@@ -25,6 +27,8 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Group;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.message.ImageMessage;
+import io.rong.message.LocationMessage;
 import rx.Subscription;
 import rx.functions.Action1;
 import rx.subjects.BehaviorSubject;
@@ -114,6 +118,21 @@ public class RongYunModel extends AbsModel {
 
                 @Override
                 public boolean onMessageClick(Context context, View view, Message message) {
+                    if (message.getContent() instanceof LocationMessage) {
+                        Intent intent = new Intent(context, PlaceLocationSelectActivity.class);
+                        intent.putExtra("location", message.getContent());
+                        context.startActivity(intent);
+                    } else if (message.getContent() instanceof ImageMessage) {
+                        ImageMessage imageMessage = (ImageMessage) message.getContent();
+                        Intent intent = new Intent(context, PhotoActivity.class);
+
+                        intent.putExtra("photo", imageMessage.getLocalUri() == null ? imageMessage.getRemoteUri() : imageMessage.getLocalUri());
+                        if (imageMessage.getThumUri() != null)
+                            intent.putExtra("thumbnail", imageMessage.getThumUri());
+
+                        context.startActivity(intent);
+                    }
+
                     return false;
                 }
 
@@ -166,6 +185,7 @@ public class RongYunModel extends AbsModel {
         } catch (Exception e) {
             JUtils.Log("融云出错");
         }
+        RongIM.setLocationProvider(new LocationProvider());
     }
 
     public void updateRongYunPersonBrief(PersonBrief p) {
@@ -230,5 +250,32 @@ public class RongYunModel extends AbsModel {
             public void onServiceError(int status, String info) {
             }
         });
+    }
+
+    private RongIM.LocationProvider.LocationCallback mLastLocationCallback;
+    //位置提供者
+    class LocationProvider implements RongIM.LocationProvider {
+
+        /**
+         * 位置信息提供者:LocationProvider 的回调方法，打开第三方地图页面。
+         *
+         * @param context  上下文
+         * @param callback 回调
+         */
+        @Override
+        public void onStartLocation(Context context, RongIM.LocationProvider.LocationCallback callback) {
+            setLastLocationCallback(callback);
+            Intent intent = new Intent(context, PlaceLocationSelectActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+    }
+
+    public RongIM.LocationProvider.LocationCallback getLastLocationCallback() {
+        return mLastLocationCallback;
+    }
+
+    public void setLastLocationCallback(RongIM.LocationProvider.LocationCallback lastLocationCallback) {
+        this.mLastLocationCallback = lastLocationCallback;
     }
 }

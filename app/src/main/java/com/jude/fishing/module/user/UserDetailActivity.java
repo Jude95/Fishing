@@ -145,7 +145,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         skill.setText(data.getSkill());
         chat.setOnClickListener(v -> getPresenter().chat());
 
-        if (data.getUID() == AccountModel.getInstance().getAccount().getUID()) {
+        if (AccountModel.getInstance().getAccount()!=null&&data.getUID() == AccountModel.getInstance().getAccount().getUID()) {
             operation.setVisibility(View.GONE);
             background.setOnClickListener(v -> showSelectorDialog());
         } else {
