@@ -176,10 +176,7 @@ public class PlaceModel extends AbsModel {
     }
 
     public Observable<Object> publishEvaluate(int pid,String content,List<String> images,int score){
-        String imageStr = "";
-        if (images!=null){
-            imageStr = new Gson().toJson(images);
-        }
+        String imageStr = images==null?"[]": new Gson().toJson(images);
         return ServiceClient.getService().publishEvaluate(pid, content, imageStr, score).compose(new DefaultTransform<>());
     }
 

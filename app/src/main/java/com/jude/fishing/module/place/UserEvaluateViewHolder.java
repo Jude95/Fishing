@@ -68,7 +68,7 @@ public class UserEvaluateViewHolder extends BaseViewHolder<Evaluate> {
         commentCount.setText(data.getCommentCount() + "");
         content.setText(data.getContent());
         adapter.clear();
-        if(data.getImages()!=null){
+        if(data.getImages()!=null&&data.getImages().size()>0){
             adapter.addAll(data.getImages());
             image.setColumnCount(Math.min(data.getImages().size(),3));
         }
