@@ -64,7 +64,7 @@ public class UserDataPresenter extends BeamDataActivityPresenter<UserDataActivit
     protected void onCreate(UserDataActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
         provider = new ImageProvider(getView());
-        subscription = AccountModel.getInstance().registerAccountUpdate(this);
+        subscription = AccountModel.getInstance().getAccountUpdateSubject().unsafeSubscribe(getDataSubscriber());
     }
 
     @Override

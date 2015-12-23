@@ -17,7 +17,7 @@ public class MsgSetPresenter extends BeamDataActivityPresenter<MsgSetActivity,Pu
     @Override
     protected void onCreate(MsgSetActivity view, Bundle savedState) {
         super.onCreate(view, savedState);
-        CommonModel.getInstance().getPushSetting().subscribe(this);
+        CommonModel.getInstance().getPushSetting().unsafeSubscribe(getDataSubscriber());
     }
 
     @Override

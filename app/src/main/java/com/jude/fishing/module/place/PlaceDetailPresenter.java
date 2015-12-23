@@ -26,7 +26,7 @@ public class PlaceDetailPresenter extends BeamDataActivityPresenter<PlaceDetailA
         id = getView().getIntent().getIntExtra("id",0);
         PlaceModel.getInstance().getPlaceDetail(getView().getIntent().getIntExtra("id", 0))
                 .doOnNext(placeDetail -> mDetail=placeDetail)
-                .subscribe(this);
+                .unsafeSubscribe(getDataSubscriber());
     }
 
     public boolean isAuthor(){

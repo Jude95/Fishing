@@ -31,7 +31,7 @@ public class DateDetailPresenter extends BeamDataActivityPresenter<DateDetailAct
                             fishingSeed.setEnrollMember(personBriefs);
                             return Observable.just(fishingSeed);
                         }))
-                .subscribe(this);
+                .unsafeSubscribe(getDataSubscriber());
     }
 
     public void joinDate(String title, boolean joined) {

@@ -1,6 +1,7 @@
 package com.jude.fishing.module.user;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -129,15 +130,25 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
 
     @Override
     public void setData(Account data) {
-        JUtils.Log("setData:"+data.getSign());
-        uid = data.getUID();
-        avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
-        name.setText(data.getName());
-        sign.setText(data.getSign());
-        blog.setText(data.getBlogCount() + "");
-        attention.setText(data.getCared());
-        fans.setText(data.getFans());
-        tvScore.setText(data.getScore()+"");
+        if (data==null){
+            uid = 0;
+            avatar.setImageURI(Uri.EMPTY);
+            name.setText("");
+            sign.setText("");
+            blog.setText("0");
+            attention.setText("0");
+            fans.setText("0");
+            tvScore.setText("0");
+        }else{
+            uid = data.getUID();
+            avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
+            name.setText(data.getName());
+            sign.setText(data.getSign());
+            blog.setText(data.getBlogCount() + "");
+            attention.setText(data.getCared());
+            fans.setText(data.getFans());
+            tvScore.setText(data.getScore()+"");
+        }
     }
 
     @Override

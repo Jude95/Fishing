@@ -18,7 +18,7 @@ public class UserPresenter extends BeamDataFragmentPresenter<UserFragment,Accoun
     @Override
     protected void onCreate(UserFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
-        AccountModel.getInstance().getAccountUpdateSubject().compose(new DefaultTransform<>()).subscribe(this);
+        AccountModel.getInstance().getAccountUpdateSubject().compose(new DefaultTransform<>()).unsafeSubscribe(getDataSubscriber());
     }
 
     @Override

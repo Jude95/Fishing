@@ -116,11 +116,6 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
         closeDrawer();
     }
 
-    public void logout(){
-        pagerAdapter.destroyItem(container,R.id.user,"");
-        pagerAdapter.destroyItem(container,R.id.message,"");
-    }
-
     private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
         FragmentManager fragmentManager;
         public MyFragmentPagerAdapter(FragmentManager fm) {
