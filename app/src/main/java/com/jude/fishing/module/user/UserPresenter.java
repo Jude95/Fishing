@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Account;
-import com.jude.fishing.model.service.DefaultTransform;
 
 import rx.Subscription;
 
@@ -18,13 +17,13 @@ public class UserPresenter extends BeamDataFragmentPresenter<UserFragment,Accoun
     @Override
     protected void onCreate(UserFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
-        AccountModel.getInstance().getAccountUpdateSubject().compose(new DefaultTransform<>()).unsafeSubscribe(getDataSubscriber());
+        AccountModel.getInstance().getAccountUpdateSubject().unsafeSubscribe(getDataSubscriber());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        AccountModel.getInstance().updateNotificationCount();
+        AccountModel.getInstance().updateNotificationCount();
     }
 
     @Override

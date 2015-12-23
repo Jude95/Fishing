@@ -1,17 +1,16 @@
 package com.jude.fishing.module.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.jude.beam.bijection.RequiresPresenter;
@@ -22,13 +21,15 @@ import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.date.DateFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
+import com.jude.fishing.module.user.LoginActivity;
+import com.jude.fishing.module.user.UserDataActivity;
 import com.jude.fishing.module.user.UserFragment;
+import com.jude.fishing.widget.FragmentManagerAdapter;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.utils.JUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import rx.Subscription;
 
 @RequiresPresenter(MainPresenter.class)
 public class MainActivity extends BeamBaseActivity<MainPresenter> implements DrawerFragment.DrawerChangedListener {
@@ -53,24 +54,25 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
                 , 0);
         drawerLayout.post(() -> mDrawerToggle.syncState());
         drawerLayout.setDrawerListener(mDrawerToggle);
-//        drawerLayout.setEdgeSize(300);
-
         init();
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-//        重新建立的时候getActivity为null，暂时完全不保存状态
-//        super.onSaveInstanceState(outState);
+    protected void onResume() {
+        super.onResume();
+        //保证没名字的用户进不来
+        if (AccountModel.getInstance().getAccount()!=null&& TextUtils.isEmpty(AccountModel.getInstance().getAccount().getName())){
+            startActivity(new Intent(this, UserDataActivity.class));
+        }
     }
 
-    private FragmentPagerAdapter pagerAdapter;
+    private FragmentManagerAdapter mFragmentAdapter;
     DrawerFragment drawerFragment;
 
     private void init() {
         drawerFragment = (DrawerFragment) getSupportFragmentManager().findFragmentById(R.id.drawer_fragment);
         drawerFragment.setDrawerChangedListener(this);
-        pagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        mFragmentAdapter = new MyFragmentManagerAdapter(getSupportFragmentManager());
     }
 
     public void closeDrawer() {
@@ -98,77 +100,60 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
         return super.onKeyDown(keyCode, event);
     }
 
-
-    Subscription subscription;
+    int lastNavId = 0;
 
     @Override
     public void onChange(View v) {
-        Fragment fragment = (Fragment) pagerAdapter.instantiateItem(container, v.getId());
-        pagerAdapter.setPrimaryItem(container, 0, fragment);
-        pagerAdapter.finishUpdate(container);
-        setTitle(pagerAdapter.getPageTitle(v.getId()));
-        if (v.getId() == R.id.user) {
-            subscription = AccountModel.getInstance().updateNotificationCount();
-        } else if (subscription != null) {
-            subscription.unsubscribe();
-            subscription = null;
+        switch (v.getId()){
+            case R.id.nav_message:
+            case R.id.nav_user:
+            case R.id.nav_logout:
+                if (!AccountModel.getInstance().isLogin()){
+                    startActivity(new Intent(this, LoginActivity.class));
+                }
+                break;
         }
+        mFragmentAdapter.applyItem(container, v.getId());
+        setTitle(mFragmentAdapter.getTitle(v.getId()));
         closeDrawer();
+        lastNavId = v.getId();
     }
 
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-        FragmentManager fragmentManager;
-        public MyFragmentPagerAdapter(FragmentManager fm) {
+    private class MyFragmentManagerAdapter extends FragmentManagerAdapter {
+
+        public MyFragmentManagerAdapter(FragmentManager fm) {
             super(fm);
-            fragmentManager = fm;
         }
 
         @Override
         public Fragment getItem(int position) {
-            if (R.id.blog == position) {
+            if (R.id.nav_blog == position) {
                 return new BlogFragment();
-            } else if (R.id.place == position) {
+            } else if (R.id.nav_place == position) {
                 return new PlaceFragment();
-            } else if (R.id.message == position) {
+            } else if (R.id.nav_message == position) {
                 return new MessageFragment();
-            } else if (R.id.user == position) {
+            } else if (R.id.nav_user == position) {
                 return new UserFragment();
-            } else if (R.id.gofishing == position) {
+            } else if (R.id.nav_date == position) {
                 return new DateFragment();
             }
             return null;
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            String name = makeFragmentName(container.getId(),getItemId(position));
-            Fragment fragment = fragmentManager.findFragmentByTag(name);
-            if (fragment != null) {
-                super.destroyItem(container, position, fragment);
-            }
-        }
-
-        private String makeFragmentName(int viewId, long id) {
-            return "android:switcher:" + viewId + ":" + id;
-        }
 
         @Override
-        public int getCount() {
-            return 5;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
+        public String getTitle(int position) {
             switch (position) {
-                case R.id.blog:
+                case R.id.nav_blog:
                     return "渔获";
-                case R.id.place:
+                case R.id.nav_place:
                     return "钓点";
-                case R.id.message:
+                case R.id.nav_message:
                     return "消息";
-                case R.id.user:
+                case R.id.nav_user:
                     return "个人中心";
-                case R.id.gofishing:
+                case R.id.nav_date:
                     return "约钓";
                 default:
                     throw new RuntimeException("页数不存在");

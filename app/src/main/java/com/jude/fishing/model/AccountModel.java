@@ -36,7 +36,7 @@ public class AccountModel extends AbsModel {
         return getInstance(AccountModel.class);
     }
 
-    public Account userAccountData = null;
+
     public BehaviorSubject<Account> userAccountDataBehaviorSubject = BehaviorSubject.create();
     public BehaviorSubject<Integer> userNotificationBehaviorSubject = BehaviorSubject.create();
 
@@ -56,19 +56,23 @@ public class AccountModel extends AbsModel {
     }
 
     public boolean checkIsSuper(){
-        if (userAccountData==null)return false;
-        if (userAccountData.getUID()*16 == JUtils.getSharedPreference().getInt("super",0)){
+        if (getAccount()==null)return false;
+        if (getAccount().getUID()*16 == JUtils.getSharedPreference().getInt("super",0)){
             return true;
         }
         return false;
     }
 
-    public Account getAccount(){
-        return userAccountData;
+    public boolean isLogin(){
+        return getAccount()!=null;
     }
 
-    public BehaviorSubject<Account> getAccountUpdateSubject(){
-        return userAccountDataBehaviorSubject;
+    public Account getAccount(){
+        return userAccountDataBehaviorSubject.getValue();
+    }
+
+    public Observable<Account> getAccountUpdateSubject(){
+        return userAccountDataBehaviorSubject.compose(new DefaultTransform<>());
     }
 
     public Subscription registerAccountUpdate(Action1<? super Account> accountAction1){
@@ -94,23 +98,24 @@ public class AccountModel extends AbsModel {
     public Observable<Object> modifyUserData(String avatar,String name,int gender,String address,String age,String skill,String sign){
         return ServiceClient.getService().modInfo(avatar, name, gender, address, age, skill, sign)
                 .doOnNext(o -> {
-                    userAccountData.setAvatar(avatar);
-                    userAccountData.setAge(age);
-                    userAccountData.setName(name);
-                    userAccountData.setGender(gender);
-                    userAccountData.setAddress(address);
-                    userAccountData.setSkill(skill);
-                    userAccountData.setSign(sign);
+                    Account account = getAccount();
+                    account.setAvatar(avatar);
+                    account.setAge(age);
+                    account.setName(name);
+                    account.setGender(gender);
+                    account.setAddress(address);
+                    account.setSkill(skill);
+                    account.setSign(sign);
 
-                    saveAccount(userAccountData);
-                    setAccount(userAccountData);
+                    saveAccount(account);
+                    setAccount(account);
                 })
                 .compose(new DefaultTransform<>());
     }
 
     public Observable<Object> changeUserBg(String bg){
         return ServiceClient.getService().changeUserBg(bg)
-                .doOnNext(o -> userAccountData.setBackground(bg))
+                .doOnNext(o -> getAccount().setBackground(bg))
                 .compose(new DefaultTransform<>());
     }
 
@@ -133,7 +138,6 @@ public class AccountModel extends AbsModel {
     }
 
     void setAccount(Account account){
-        userAccountData = account;
         userAccountDataBehaviorSubject
                 .onNext(account);
         if (account!=null){

@@ -17,7 +17,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.data.BeamDataFragment;
 import com.jude.fishing.R;
-import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Account;
 import com.jude.fishing.module.blog.UserBlogActivity;
@@ -88,19 +87,15 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.user_fragment_main2, container, false);
         ButterKnife.inject(this, root);
-        containerUser.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), UserDetailActivity.class);
-            i.putExtra("id", AccountModel.getInstance().getAccount().getUID());
-            startActivity(i);
-        });
-        containerBlog.setOnClickListener(v -> goToActivity(UserBlogActivity.class));
-        containerFans.setOnClickListener(v -> goToActivity(FansActivity.class));
-        containerAttention.setOnClickListener(v -> goToActivity(AttentionActivity.class));
+
+        containerBlog.setOnClickListener(v -> goToActivityWithId(UserBlogActivity.class));
+        containerFans.setOnClickListener(v -> goToActivityWithId(FansActivity.class));
+        containerAttention.setOnClickListener(v -> goToActivityWithId(AttentionActivity.class));
         collect.setOnClickListener(v -> startActivity(new Intent(getActivity(), CollectionPlaceActivity.class)));
         evaluate.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserEvaluateActivity.class)));
         place.setOnClickListener(v -> startActivity(new Intent(getActivity(), UserPlaceActivity.class)));
         notify.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
-        score.setOnClickListener(v->{
+        score.setOnClickListener(v -> {
             new MaterialDialog.Builder(getContext())
                     .title("积分兑换说明")
                     .content("因为钓友们对于积分系统呼声很高，所以我们推出了积分系统：\n\n每日签到 +2\n每日第一篇渔获 +2\n\n因为刚刚推出，兑换商城还需完善，所以暂时无法兑换，我们将尽快推出良心的兑换系统。\n钓友们的支持是我们进步的动力。")
@@ -116,7 +111,7 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
         notificationCount.setText(i + "");
     }
 
-    private void goToActivity(Class clz) {
+    private void goToActivityWithId(Class clz) {
         Intent intent = new Intent(getActivity(), clz);
         intent.putExtra("id", uid);
         startActivity(intent);
@@ -139,6 +134,11 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
             attention.setText("0");
             fans.setText("0");
             tvScore.setText("0");
+            containerUser.setOnClickListener(v -> {
+                Intent i = new Intent(getActivity(), UserDetailActivity.class);
+                i.putExtra("id", 0);
+                startActivity(i);
+            });
         }else{
             uid = data.getUID();
             avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAvatar()));
@@ -148,13 +148,12 @@ public class UserFragment extends BeamDataFragment<UserPresenter, Account> {
             attention.setText(data.getCared());
             fans.setText(data.getFans());
             tvScore.setText(data.getScore()+"");
+            containerUser.setOnClickListener(v -> {
+                Intent i = new Intent(getActivity(), UserDetailActivity.class);
+                i.putExtra("id", data.getUID());
+                startActivity(i);
+            });
         }
     }
 
-    @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if (this.getView() != null)
-            this.getView().setVisibility(menuVisible ? View.VISIBLE : View.GONE);
-    }
 }

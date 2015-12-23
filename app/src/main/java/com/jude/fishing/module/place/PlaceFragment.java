@@ -42,6 +42,7 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -81,6 +82,8 @@ public class PlaceFragment extends BeamFragment<PlacePresenter> {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Nullable
     @Override

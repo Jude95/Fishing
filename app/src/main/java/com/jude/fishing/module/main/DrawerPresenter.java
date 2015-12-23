@@ -2,7 +2,6 @@ package com.jude.fishing.module.main;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.data.BeamDataFragmentPresenter;
@@ -14,7 +13,6 @@ import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.place.PlaceFragment;
 import com.jude.fishing.module.social.MessageFragment;
 import com.jude.fishing.module.user.LoginActivity;
-import com.jude.fishing.module.user.UserDataActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
 import com.jude.fishing.module.user.UserFragment;
 import com.jude.utils.JUtils;
@@ -38,10 +36,7 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
     @Override
     protected void onCreateView(DrawerFragment view) {
         super.onCreateView(view);
-//        showBlogFragment();
-        mAccountSubscription = AccountModel.getInstance().registerAccountUpdate(account -> {
-            publishObject(account);
-        });
+        mAccountSubscription = AccountModel.getInstance().getAccountUpdateSubject().unsafeSubscribe(getDataSubscriber());
         mMessageCountSubscription = RongYunModel.getInstance().registerNotifyCount(count -> getView().setMessageCount(count));
     }
 
@@ -74,14 +69,6 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         mMessageCountSubscription.unsubscribe();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (AccountModel.getInstance().getAccount()!=null&&TextUtils.isEmpty(AccountModel.getInstance().getAccount().getName())){
-            getView().startActivity(new Intent(getView().getActivity(), UserDataActivity.class));
-        }
-    }
-
     public void showUserDetail(){
         if (checkLogin()){
             Intent i = new Intent(getView().getActivity(),UserDetailActivity.class);
@@ -90,59 +77,4 @@ public class DrawerPresenter extends BeamDataFragmentPresenter<DrawerFragment,Ac
         }
     }
 
-    public void showPlaceFragment(){
-        if (mPlaceFragment == null)mPlaceFragment = new PlaceFragment();
-        if (lastFragment == mPlaceFragment){
-            ((MainActivity)getView().getActivity()).closeDrawer();
-            return;
-        }
-        getView().showFragment(mPlaceFragment);
-        lastFragment = mPlaceFragment;
-        getView().focusView(getView().place);
-    }
-
-
-    public void showBlogFragment(){
-        if (mBlogFragment == null) mBlogFragment = new BlogFragment();
-        if (lastFragment == mBlogFragment){
-            ((MainActivity)getView().getActivity()).closeDrawer();
-            return;
-        }
-        getView().showFragment(mBlogFragment);
-        lastFragment = mBlogFragment;
-        getView().focusView(getView().blog);
-    }
-
-    public void showMessageFragment(){
-        if (checkLogin()) {
-
-            if (mMessageFragment == null) mMessageFragment = new MessageFragment();
-            if (lastFragment == mMessageFragment){
-                ((MainActivity)getView().getActivity()).closeDrawer();
-                return;
-            }
-
-            getView().showFragment(mMessageFragment);
-            lastFragment = mMessageFragment;
-            getView().focusView(getView().message);
-
-        }
-    }
-
-    public void showUserFragment(){
-        if (checkLogin()) {
-
-            if (mUserFragment == null) mUserFragment = new UserFragment();
-            if (lastFragment == mUserFragment){
-                ((MainActivity)getView().getActivity()).closeDrawer();
-                return;
-            }
-
-            getView().showFragment(mUserFragment);
-            lastFragment = mUserFragment;
-
-            getView().focusView(getView().user);
-
-        }
-    }
 }

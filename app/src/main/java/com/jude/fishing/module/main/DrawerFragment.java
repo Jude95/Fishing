@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,22 +39,22 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     TextView tvName;
     @InjectView(R.id.viewAccount)
     LinearLayout viewAccount;
-    @InjectView(R.id.place)
-    RelativeLayout place;
-    @InjectView(R.id.blog)
-    RelativeLayout blog;
-    @InjectView(R.id.message)
-    RelativeLayout message;
-    @InjectView(R.id.user)
-    RelativeLayout user;
-    @InjectView(R.id.setting)
-    RelativeLayout setting;
-    @InjectView(R.id.logout)
-    RelativeLayout logout;
+    @InjectView(R.id.nav_place)
+    RelativeLayout navPlace;
+    @InjectView(R.id.nav_blog)
+    RelativeLayout navBlog;
+    @InjectView(R.id.nav_message)
+    RelativeLayout navMessage;
+    @InjectView(R.id.nav_user)
+    RelativeLayout navUser;
+    @InjectView(R.id.nav_setting)
+    RelativeLayout navSetting;
+    @InjectView(R.id.nav_logout)
+    RelativeLayout navLogout;
     @InjectView(R.id.message_count)
     TextView messageCount;
-    @InjectView(R.id.gofishing)
-    RelativeLayout fishing;
+    @InjectView(R.id.nav_date)
+    RelativeLayout navDate;
     @InjectView(R.id.mark)
     TAGView mark;
     @InjectView(R.id.tv_score)
@@ -98,6 +97,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         View view = inflater.inflate(R.layout.main_fragment_drawer, container, false);
         ButterKnife.inject(this, view);
 
+        //为API20以上的statusBar做适配
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ((RelativeLayout.LayoutParams) imgFace.getLayoutParams()).setMargins(
                     JUtils.dip2px(16),
@@ -106,16 +106,19 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
                     JUtils.dip2px(16)
             );
         }
+
         imgFace.setOnClickListener(v -> getPresenter().showUserDetail());
-        viewAccount.setOnClickListener(v -> getPresenter().checkLogin());
-        setting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
-        logout.setOnClickListener(v -> showLogoutDialog());
-        place.setOnClickListener(this);
-        blog.setOnClickListener(this);
-        message.setOnClickListener(this);
-        user.setOnClickListener(this);
-        fishing.setOnClickListener(this);
-        blog.post(() -> blog.performClick());
+        viewAccount.setOnClickListener(v -> getPresenter().showUserDetail());
+        navSetting.setOnClickListener(v -> startActivity(new Intent(getActivity(), SettingActivity.class)));
+        navLogout.setOnClickListener(v -> showLogoutDialog());
+
+        navPlace.setOnClickListener(this);
+        navBlog.setOnClickListener(this);
+        navMessage.setOnClickListener(this);
+        navUser.setOnClickListener(this);
+        navDate.setOnClickListener(this);
+
+        navBlog.post(() -> navBlog.performClick());
         mark.setOnClickListener(v -> getPresenter().signIn());
         return view;
     }
@@ -132,11 +135,6 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         ButterKnife.reset(this);
     }
 
-    public void showFragment(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-        ((MainActivity) getActivity()).closeDrawer();
-    }
-
     private View lastView;
 
     public void focusView(View view) {
@@ -146,7 +144,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     }
 
     private void showLogoutDialog() {
-        MaterialDialog dialog = new MaterialDialog.Builder(getContext()).
+        new MaterialDialog.Builder(getContext()).
                 title("注销登录").
                 content("您确定要退出登录吗？").
                 positiveText("注销").
@@ -154,7 +152,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
                 callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        blog.performClick();
+                        navBlog.performClick();
                         AccountModel.getInstance().logout();
                         dialog.dismiss();
                     }
@@ -169,9 +167,6 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     @Override
     public void onClick(View v) {
         if (drawerChangedListener != null) {
-            if (v.getId() == R.id.message || v.getId() == R.id.user) {
-                if (!getPresenter().checkLogin()) return;
-            }
             drawerChangedListener.onChange(v);
             focusView(v);
         }

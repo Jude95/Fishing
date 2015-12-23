@@ -100,7 +100,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/blog"
+                android:id="@+id/nav_blog"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -129,7 +129,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/gofishing"
+                android:id="@+id/nav_date"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -158,7 +158,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/place"
+                android:id="@+id/nav_place"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -186,7 +186,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/message"
+                android:id="@+id/nav_message"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -230,7 +230,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/user"
+                android:id="@+id/nav_user"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -268,7 +268,7 @@
 
 
             <RelativeLayout
-                android:id="@+id/setting"
+                android:id="@+id/nav_setting"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
@@ -296,7 +296,7 @@
                     android:textStyle="bold" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/logout"
+                android:id="@+id/nav_logout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
