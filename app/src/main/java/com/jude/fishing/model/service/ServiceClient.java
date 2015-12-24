@@ -2,7 +2,7 @@ package com.jude.fishing.model.service;
 
 
 import com.jude.fishing.BuildConfig;
-import com.jude.fishing.config.API;
+import com.jude.fishing.config.Service;
 import com.jude.utils.JUtils;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -37,7 +37,7 @@ public class ServiceClient {
     private static RestAdapter createAdapter(){
         boolean isInDebugServer = JUtils.getSharedPreference().getBoolean("DebugServer",false);
         return new RestAdapter.Builder()
-                .setEndpoint(isInDebugServer?API.URL.BASE_URL_DEBUG:API.URL.BASE_URL)
+                .setEndpoint(isInDebugServer?Service.BASE_URL_DEBUG:Service.BASE_URL)
                 .setRequestInterceptor(new HeaderInterceptors())
                 .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
                 .setConverter(new WrapperConverter())

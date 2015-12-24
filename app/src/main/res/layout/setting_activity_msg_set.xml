@@ -19,7 +19,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="@dimen/activity_margin"
             android:layout_marginRight="@dimen/activity_margin"
-            android:src="@drawable/notify_priase" />
+            android:src="@drawable/notify_praise" />
 
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Body1"

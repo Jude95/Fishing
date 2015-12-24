@@ -69,7 +69,8 @@
             com.jude.fishing.model.ImageModel,
             com.jude.fishing.model.RongYunModel,
             com.jude.fishing.model.SocialModel,
-            com.jude.fishing.model.PushModel" />
+            com.jude.fishing.model.PushModel,
+            com.jude.fishing.model.ArticleModel" />
         <activity android:name=".module.main.LaunchActivity"
             android:theme="@style/LaunchTheme">
             <intent-filter>

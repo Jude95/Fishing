@@ -1,8 +1,8 @@
-package com.jude.fishing.model.service;
+package com.jude.fishing.config;
 
 
-import com.jude.fishing.config.API;
 import com.jude.fishing.model.entities.Account;
+import com.jude.fishing.model.entities.Article;
 import com.jude.fishing.model.entities.Contact;
 import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.Evaluate;
@@ -33,20 +33,23 @@ import rx.Observable;
  * 服务器接口
  */
 public interface Service {
+     String BASE_URL = "http://114.215.86.90/index.php";
+     String BASE_URL_DEBUG = "http://120.27.55.225/index.php";
+     String SHARE = BASE_URL + "/common/share/";
 
-    @GET(API.URL.QiNiuToken)
+    @GET("/common/qiniuToken")
     Observable<Token> getQiNiuToken();
 
-    @GET(API.URL.Update)
+    @GET("/common/version")
     Observable<UpdateInfo> getUpdateInfo();
 
     @FormUrlEncoded
-    @POST(API.URL.GetPlace)
+    @POST("/place/getPlace")
     Observable<List<PlaceBrief>> syncPlace(
             @Field("time") String lastTime);
 
     @FormUrlEncoded
-    @POST(API.URL.AddPlace)
+    @POST("/place/add")
     Observable<Object> publishPlace(
             @Field("id") int id,
             @Field("name") String name,
@@ -69,22 +72,22 @@ public interface Service {
             );
 
     @FormUrlEncoded
-    @POST(API.URL.GetPlaceDetail)
+    @POST("/place/getItem")
     Observable<PlaceDetail> getPlaceDetail(@Field("id") int id);
 
     @FormUrlEncoded
-    @POST(API.URL.GetEvaluate)
+    @POST("/place/scoreList")
     Observable<List<Evaluate>> getEvaluate(
             @Field("id") int id,
             @Field("page") int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetEvaluateDetail)
+    @POST("/place/scoreList")
     Observable<EvaluateDetail> getEvaluateDetail(
             @Field("id") int id);
 
     @FormUrlEncoded
-    @POST(API.URL.PublishEvaluate)
+    @POST("/place/scoreList")
     Observable<Object> publishEvaluate(
             @Field("pid") int pid,
             @Field("content") String content,
@@ -92,52 +95,52 @@ public interface Service {
             @Field("score") int score);
 
     @FormUrlEncoded
-    @POST(API.URL.CollectPlace)
+    @POST("/place/collect")
     Observable<Object> collectPlace(
             @Field("id") int id);
 
 
     @FormUrlEncoded
-    @POST(API.URL.UnCollectPlace)
+    @POST("/place/unCollect")
     Observable<Object> unCollectPlace(
             @Field("id") int id);
 
-    @GET(API.URL.MyCollectPlace)
+    @GET("/place/myCollect")
     Observable<List<PlaceBrief>> myPlaceCollect();
 
-    @GET(API.URL.GetMyPlace)
+    @GET("/place/myPlace")
     Observable<List<PlaceBrief>> myPlace();
 
 
-    @GET(API.URL.MyEvaluate)
+    @GET("/place/myScoreList")
     Observable<List<Evaluate>> myEvaluate();
 
-    @GET(API.URL.UpdateMyInfo)
+    @GET("/user/getmyinfo")
     Observable<Account> updateMyInfo();
 
     @FormUrlEncoded
-    @POST(API.URL.EvaluateComment)
+    @POST("/place/comment")
     Observable<Object> EvaluateComment(
             @Field("sid") int sid,
             @Field("fid") int fid,
             @Field("content") String content);
 
     @FormUrlEncoded
-    @POST(API.URL.Register)
+    @POST("/user/register")
     Observable<Object> register(@Field("tel") String tel,
                                 @Field("password") String password,
                                 @Field("code") String code);
 
 
     @FormUrlEncoded
-    @POST(API.URL.UpdateLocation)
+    @POST("/user/updateAddr")
     Observable<Object> UpdateLocation(
             @Field("lat") double lat,
             @Field("lng") double lng,
             @Field("location") String address);
 
     @FormUrlEncoded
-    @POST(API.URL.GetNearBy)
+    @POST("/user/getNearby")
     Observable<List<PersonAround>> GetNearBy(
             @Field("lat") double lat,
             @Field("lng") double lng,
@@ -145,23 +148,23 @@ public interface Service {
             );
 
     @FormUrlEncoded
-    @POST(API.URL.FindUser)
+    @POST("/user/findUser")
     Observable<List<PersonBrief>> FindUser(
             @Field("key") String key
     );
 
     @FormUrlEncoded
-    @POST(API.URL.GetPersonAvatar)
+    @POST("/user/getBriefinfo")
     PersonAvatar GetUserAvatar(
             @Field("id") String id
     );
 
     @FormUrlEncoded
-    @POST(API.URL.Login)
+    @POST("/user/login")
     Observable<Account> login(@Field("tel") String tel, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST(API.URL.GetNotification)
+    @POST("/user/getNotify")
     Observable<List<Notification>> getNotification(
             @Field("page") int page
     );
@@ -178,7 +181,7 @@ public interface Service {
      * @param sign    签名
      */
     @FormUrlEncoded
-    @POST(API.URL.ModInfo)
+    @POST("/user/modInfo")
     Observable<Object> modInfo(@Field("avatar") String avatar,
                                @Field("name") String name,
                                @Field("gender") int gender,
@@ -188,7 +191,7 @@ public interface Service {
                                @Field("sign") String sign);
 
     @FormUrlEncoded
-    @POST(API.URL.ModPass)
+    @POST("/user/modPass")
     Observable<Object> modPass(@Field("oldpwd") String oldpwd, @Field("newpwd") String newpwd);
 
     /**
@@ -197,7 +200,7 @@ public interface Service {
      * @return
      */
     @FormUrlEncoded
-    @POST(API.URL.CheckTel)
+    @POST("/user/checkTel")
     Observable<Object> checkTel(@Field("tel") String tel);
 
     /**
@@ -208,38 +211,38 @@ public interface Service {
      * @return
      */
     @FormUrlEncoded
-    @POST(API.URL.BindTel)
+    @POST("/user/bindTel")
     Observable<Object> bindTel(@Field("tel")String tel,
                                @Field("code")String code,
                                @Field("password")String password);
 
     @FormUrlEncoded
-    @POST(API.URL.ResetPass)
+    @POST("/user/resetPass")
     Observable<Object> resetPass(@Field("tel")String tel,
                                  @Field("code")String code,
                                  @Field("password")String password);
 
     @FormUrlEncoded
-    @POST(API.URL.Attend)
+    @POST("/user/attend")
     Observable<Object> attend(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.UnAttend)
+    @POST("/user/unAttend")
     Observable<Object> unAttend(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.MyAttend)
+    @POST( "/user/myAttend")
     Observable<List<PersonBrief>> myAttend(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.MyFans)
+    @POST("/user/myFans")
     Observable<List<PersonBrief>> myFans(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.GetUserInfo)
+    @POST("/user/getUserinfo")
     Observable<Account> getUserInfo(@Field("id")int id);
 
-    @POST(API.URL.GetMyInfo)
+    @POST("/user/getmyinfo")
     Observable<PersonDetail> getMyInfo();
 
     /**
@@ -248,26 +251,26 @@ public interface Service {
      * @return
      */
     @FormUrlEncoded
-    @POST(API.URL.GetBlogGround)
+    @POST("/weibo/getListGround")
     Observable<List<Seed>> getBlogGround(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetBlogFriend)
+    @POST("/weibo/getListFriend")
     Observable<List<Seed>> getBlogFriend(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetBlogNearby)
+    @POST("/weibo/getListNear")
     Observable<List<Seed>> getBlogNearby(@Field("page")int page,
                                           @Field("count")int count,
                                           @Field("lat") double lat,
                                           @Field("lng") double lng);
 
     @FormUrlEncoded
-    @POST(API.URL.GetUserBlog)
+    @POST("/weibo/getList")
     Observable<List<Seed>> getUserBlog(@Field("id")int id,@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.AddBlog)
+    @POST("/weibo/add")
     Observable<Object> addBlog(@Field("content")String content,
                                 @Field("images")String images,
                                 @Field("address")String address,
@@ -275,25 +278,25 @@ public interface Service {
                                 @Field("lat")double lat);
 
     @FormUrlEncoded
-    @POST(API.URL.DeleteBlog)
+    @POST("/weibo/del")
     Observable<List<Seed>> deleteBlog(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.ReportBlog)
+    @POST("/common/reportWeibo")
     Observable<List<Seed>> reportBlog(
             @Field("id")int id,
             @Field("content")String content);
 
     @FormUrlEncoded
-    @POST(API.URL.GetBlogDetail)
+    @POST("/weibo/getItem")
     Observable<SeedDetail> getBlogDetail(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.BlogPraise)
+    @POST("/weibo/praise")
     Observable<Object> blogPraise(@Field("id")int id);
 
     @FormUrlEncoded
-    @POST(API.URL.BlogUnPraise)
+    @POST("/weibo/unPraise")
     Observable<Object> blogUnPraise(@Field("id")int id);
 
     /**
@@ -303,65 +306,72 @@ public interface Service {
      * @return
      */
     @FormUrlEncoded
-    @POST(API.URL.BlogComment)
+    @POST("/weibo/comment")
     Observable<Object> blogComment(@Field("wid")int wid,@Field("fid")int fid,@Field("content")String content);
 
     @FormUrlEncoded
-    @POST(API.URL.ModBg)
+    @POST("/user/modBg")
     Observable<Object> changeUserBg(@Field("bg")String bg);
 
     @FormUrlEncoded
-    @POST(API.URL.GetContact)
+    @POST("/user/contact")
     Observable<List<Contact>> getContact(@Field("data")String data);
 
     @FormUrlEncoded
-    @POST(API.URL.Feedback)
+    @POST("/common/feedback")
     Observable<Object> feedback(@Field("content")String content);
 
     @FormUrlEncoded
-    @POST(API.URL.AddDateInfo)
+    @POST("/yue/add")
     Observable<Object> addDateInfo(@Field("title")String title,
                                    @Field("address")String address,
                                    @Field("content")String content,
                                    @Field("acTime")long acTime);
 
     @FormUrlEncoded
-    @POST(API.URL.GetDateList)
+    @POST("/yue/getList")
     Observable<List<Date>> getDateList(@Field("page")int page);
 
     @FormUrlEncoded
-    @POST(API.URL.GetDateItem)
+    @POST("/yue/item")
     Observable<Date> getDateItem(@Field("id")String id);
 
     @FormUrlEncoded
-    @POST(API.URL.GetDateItem)
+    @POST("/yue/item")
     Date getDateItemDirect(@Field("id")String id);
 
     @FormUrlEncoded
-    @POST(API.URL.GetDatePersonList)
+    @POST("/yue/enrollList")
     Observable<List<PersonBrief>> getDatePersonList(@Field("id")String id);
 
     @FormUrlEncoded
-    @POST(API.URL.EnrollDate)
+    @POST("/yue/enroll")
     Observable<Object> joinDate(@Field("id")String id);
 
-    @GET(API.URL.RefreshRongYUn)
+    @GET("/user/refreshRong")
     Observable<Token> refreshRongYun();
 
-    @GET(API.URL.GetMyDateList)
+    @GET("/yue/getMyList")
     Observable<List<Date>> getMyDateList();
 
-    @GET(API.URL.SignIn)
+    @GET("/user/clockIn")
     Observable<Object> signIn();
 
-    @GET(API.URL.GetPushSetting)
+    @GET("/user/getPushset")
     Observable<PushSetting> getPushSetting();
 
     @FormUrlEncoded
-    @POST(API.URL.UploadPushSetting)
+    @POST("/user/pushSet")
     Observable<Object> uploadPushSetting(
             @Field("zan")int praise,
             @Field("comment")int comment,
             @Field("care")int care,
             @Field("place")int place);
+
+    @FormUrlEncoded
+    @POST("/article/getList")
+    Observable<List<Article>> getArticles(
+            @Field("type")int type,
+            @Field("page")int page,
+            @Field("count")int count);
 }
