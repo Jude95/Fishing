@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,24 +12,29 @@
         android:layout_height="match_parent" />
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/activity_margin"
-        android:padding="8dp">
-        <ImageView
-            android:id="@+id/type"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_map_moon_orange"
-            android:background="@drawable/bg_round_alpha"/>
+    <com.jude.fitsystemwindowlayout.FitSystemWindowsRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:padding_status="false"
+        app:padding_navigation="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/activity_margin"
+            android:padding="8dp">
+            <ImageView
+                android:id="@+id/type"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_map_moon_orange"
+                android:background="@drawable/bg_round_alpha"/>
 
-    </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -66,6 +72,9 @@
                 android:background="@drawable/bg_round_alpha"
                 android:src="@drawable/ic_minus_orange"/>
         </LinearLayout>
+
+
+    </com.jude.fitsystemwindowlayout.FitSystemWindowsRelativeLayout>
 
 
 </RelativeLayout>

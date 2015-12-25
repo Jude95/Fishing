@@ -18,16 +18,22 @@
             android:id="@+id/vp_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/write"
+        <com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|bottom"
             android:layout_margin="16dp"
-            android:src="@drawable/fab_add"
-            app:fab_colorNormal="?colorAccent"
-            app:fab_colorPressed="?colorAccent"
-            app:fab_size="normal" />
+            app:padding_status="false"
+            app:padding_navigation="true">
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/fab_add"
+                app:fab_colorNormal="?colorAccent"
+                app:fab_colorPressed="?colorAccent"
+                app:fab_size="normal" />
+        </com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout>
     </FrameLayout>
 
 
