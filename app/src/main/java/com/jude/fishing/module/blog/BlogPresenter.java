@@ -18,7 +18,5 @@ public class BlogPresenter extends Presenter<BlogFragment> {
         }
     }
 
-    public boolean checkLogin() {
-        return AccountModel.getInstance().getAccount() != null;
-    }
+
 }

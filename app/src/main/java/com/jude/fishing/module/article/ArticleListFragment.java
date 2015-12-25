@@ -6,6 +6,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.list.BeamListFragment;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.fishing.R;
 import com.jude.fishing.model.entities.Article;
 
 /**
@@ -21,5 +22,10 @@ public class ArticleListFragment extends BeamListFragment<ArticleListPresenter,A
     @Override
     protected ListConfig getConfig() {
         return super.getConfig().setRefreshAble(true).setLoadmoreAble(true);
+    }
+
+    @Override
+    public int getLayout() {
+        return R.layout.include_recyclerview;
     }
 }

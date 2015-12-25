@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    app:padding_status="false"
     android:background="#3777d0">
     <com.amap.api.navi.AMapNaviView
         android:id="@+id/navigation"
@@ -11,4 +13,4 @@
         android:layout_height="match_parent"
         />
 
-</LinearLayout>
+</com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout>

@@ -5,14 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.astuetz.PagerSlidingTabStrip
+    <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:pstsIndicatorHeight="2dp"
-        app:pstsIndicatorColor="?colorAccent"
-        app:pstsDividerColor="#0000"
-        />
+        android:layout_height="wrap_content"
+        android:background="?colorPrimary"/>
 
     <FrameLayout
         android:layout_width="match_parent"

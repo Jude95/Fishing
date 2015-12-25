@@ -1,7 +1,7 @@
 package com.jude.fishing.module.blog;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.astuetz.PagerSlidingTabStrip;
 import com.github.clans.fab.FloatingActionButton;
 import com.jude.beam.bijection.BeamFragment;
 import com.jude.beam.bijection.RequiresPresenter;
@@ -30,7 +29,7 @@ import rx.Subscription;
 public class BlogFragment extends BeamFragment<BlogPresenter> {
 
     @InjectView(R.id.tabs)
-    PagerSlidingTabStrip tabs;
+    TabLayout tabs;
     @InjectView(R.id.vp_date)
     ViewPager vpDate;
     @InjectView(R.id.write)
@@ -48,46 +47,38 @@ public class BlogFragment extends BeamFragment<BlogPresenter> {
         View rootView = inflater.inflate(R.layout.blog_fragment_main, container, false);
         ButterKnife.inject(this, rootView);
         subscription = AccountModel.getInstance().registerAccountUpdate(account -> {
-            if (getPresenter().checkLogin()){
+            if (account!=null){
                 pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager());
             }else {
                 pagerAdapter = new BlogFragmentListAdapterLogOut(getChildFragmentManager());
             }
             vpDate.setAdapter(pagerAdapter);
-            pagerAdapter.notifyDataSetChanged();
-            tabs.notifyDataSetChanged();
+            tabs.setupWithViewPager(vpDate);
         });
-        if (getPresenter().checkLogin()){
-            vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapter(getChildFragmentManager()));
-        }else {
-            vpDate.setAdapter(pagerAdapter = new BlogFragmentListAdapterLogOut(getChildFragmentManager()));
-        }
         vpDate.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position==0&&isFirst&&openDrawer&&positionOffsetPixels==0){
+                if (position == 0 && isFirst && openDrawer && positionOffsetPixels == 0) {
                     isFirst = false;
-                    JUtils.Log("pos:"+positionOffset+" "+positionOffsetPixels);
-                    ((MainActivity)getActivity()).openDrawer();
+                    JUtils.Log("pos:" + positionOffset + " " + positionOffsetPixels);
+                    ((MainActivity) getActivity()).openDrawer();
                 }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                JUtils.Log("state:"+state);
-                if (1==state){openDrawer=true;isFirst=true;}
-                else openDrawer = false;
+                JUtils.Log("state:" + state);
+                if (1 == state) {
+                    openDrawer = true;
+                    isFirst = true;
+                } else openDrawer = false;
             }
         });
-
-        tabs.setViewPager(vpDate);
-        tabs.setTextColor(Color.WHITE);
-        tabs.setBackgroundColor(getResources().getColor(R.color.blue));
+        tabs.setTabTextColors(getResources().getColor(R.color.gray_light), getResources().getColor(R.color.white));
         write.setOnClickListener(v -> getPresenter().write());
         return rootView;
     }
     boolean openDrawer = false,isFirst = true;
-
 
     @Override
     public void onDestroyView() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -63,4 +64,4 @@
         android:layout_margin="@dimen/activity_margin"
         android:text="*注册即默认统一空钩《服务协议》条款"/>
 
-</LinearLayout>
+</com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout>

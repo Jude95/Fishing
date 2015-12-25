@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ import com.jude.fishing.module.blog.UserBlogActivity;
 import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.fishing.widget.ObservableScrollView;
+import com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
 import com.jude.utils.JUtils;
@@ -102,17 +104,17 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         getExpansion().showProgressPage();
         mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            head.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,JUtils.dip2px(285)+JUtils.getStatusBarHeight()));
+            head.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, JUtils.dip2px(285) + JUtils.getStatusBarHeight()));
         }
         getToolbar().setBackgroundDrawable(mActionbarDrawable);
-        setToolbarAlpha(0);
+        setToolbarAlpha(false);
         scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
                 if (y > head.getHeight() - toolbar.getHeight()) {
-                    setToolbarAlpha(1);
+                    setToolbarAlpha(true);
                 } else {
-                    setToolbarAlpha(0);
+                    setToolbarAlpha(false);
                 }
             }
         });
@@ -123,9 +125,8 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         tvOpAttention.setText(isAttended ? "已关注" : "关注");
     }
 
-    protected void setToolbarAlpha(float alpha) {
-        float curalpna = Math.max(Math.min(alpha, 1), 0);
-        mActionbarDrawable.setAlpha((int) (curalpna * 255));
+    protected void setToolbarAlpha(boolean transparent) {
+        mActionbarDrawable.setAlpha(transparent?255:0);
     }
 
     @Override
@@ -145,7 +146,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         skill.setText(data.getSkill());
         chat.setOnClickListener(v -> getPresenter().chat());
 
-        if (AccountModel.getInstance().getAccount()!=null&&data.getUID() == AccountModel.getInstance().getAccount().getUID()) {
+        if (AccountModel.getInstance().getAccount() != null && data.getUID() == AccountModel.getInstance().getAccount().getUID()) {
             operation.setVisibility(View.GONE);
             background.setOnClickListener(v -> showSelectorDialog());
         } else {
@@ -156,7 +157,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         containerAttention.setOnClickListener(v -> getPresenter().goToActivityWithLogin(AttentionActivity.class, data.getUID()));
         containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class, data.getUID()));
         containerFans.setOnClickListener(v -> getPresenter().goToActivityWithLogin(FansActivity.class, data.getUID()));
-        findViewById(R.id.edit).setVisibility(AccountModel.getInstance().getAccount() != null && AccountModel.getInstance().getAccount().getUID() == data.getUID()?View.VISIBLE:View.GONE);
+        getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
         //invalidateOptionsMenu();
     }
 
@@ -250,9 +251,22 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.clear();
         getMenuInflater().inflate(R.menu.menu_edit_user_data, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        JUtils.Log("onPrepareOptionsMenu");
+        MenuItem search = menu.findItem(R.id.edit);
+        search.setVisible(AccountModel.getInstance().isLogin()
+                && getPresenter().getDataSubject().getValue() != null
+                && AccountModel.getInstance().getAccount().getUID() == getPresenter().getDataSubject().getValue().getUID());
+        if (AccountModel.getInstance().isLogin()
+                && getPresenter().getDataSubject().getValue() != null) {
+            JUtils.Log("L" + AccountModel.getInstance().getAccount().getUID() + "  N" + getPresenter().getDataSubject().getValue().getUID());
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -270,7 +284,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
                 .itemsCallback((materialDialog, view, i, charSequence) -> getPresenter().editFace(i)).show();
     }
 
-    public void changeBackground(String bgUri){
+    public void changeBackground(String bgUri) {
         background.setImageURI(Uri.parse(bgUri));
     }
 }

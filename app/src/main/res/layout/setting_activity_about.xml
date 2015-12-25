@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,4 +53,4 @@
         android:gravity="center_horizontal"
         android:text="天下钓鱼 尽在空钩\nCopyright©2015 HelloWorld All rights reserved" />
 
-</LinearLayout>
+</com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout>

@@ -8,5 +8,4 @@
     android:focusableInTouchMode="true"
     android:minHeight="?actionBarSize"
     android:background="?colorPrimary"
-    android:fitsSystemWindows="true"
     app:theme="@style/AppTheme.Dark" />

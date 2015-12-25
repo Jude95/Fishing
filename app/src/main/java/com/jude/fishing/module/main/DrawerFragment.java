@@ -61,6 +61,8 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
     TextView tvScore;
     @InjectView(R.id.img_score)
     ImageView imgScore;
+    @InjectView(R.id.nav_article)
+    RelativeLayout navArticle;
 
     @Override
     public void setData(Account info) {
@@ -117,7 +119,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         navMessage.setOnClickListener(this);
         navUser.setOnClickListener(this);
         navDate.setOnClickListener(this);
-
+        navArticle.setOnClickListener(this);
         navBlog.post(() -> navBlog.performClick());
         mark.setOnClickListener(v -> getPresenter().signIn());
         return view;

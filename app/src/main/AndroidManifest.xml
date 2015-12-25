@@ -191,7 +191,8 @@
         <activity android:name=".module.setting.DevelopActivity"
             android:label="开发者选项"/>
         <activity android:name=".module.social.ChatActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:label="聊天">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

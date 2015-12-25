@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:padding="16dp"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        style="@style/Base.TextAppearance.AppCompat.Subhead"
-        tools:text="雷克萨斯（凌志）这个品牌有什么吸引人的地方？"/>
-
     <LinearLayout
-        android:id="@+id/container_praise"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/praise_image"
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/notify_praise"
-            android:paddingBottom="3dp"
-            android:layout_marginLeft="16dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
         <TextView
-            android:id="@+id/praise_count"
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            tools:text="雷克萨斯（凌志）这个品牌有什么吸引人的地方？"/>
+
+        <LinearLayout
+            android:id="@+id/container_praise"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginLeft="4dp"
-            tools:text="12"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/praise_image"
+                android:layout_width="16dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/notify_praise"
+                android:paddingBottom="3dp"
+                android:layout_marginLeft="16dp"/>
+            <TextView
+                android:id="@+id/praise_count"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="4dp"
+                tools:text="12"/>
+        </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
 
 </LinearLayout>

@@ -17,6 +17,7 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
+import com.jude.fishing.module.article.ArticleMainFragment;
 import com.jude.fishing.module.blog.BlogFragment;
 import com.jude.fishing.module.date.DateFragment;
 import com.jude.fishing.module.place.PlaceFragment;
@@ -126,17 +127,20 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
         }
 
         @Override
-        public Fragment getItem(int position) {
-            if (R.id.nav_blog == position) {
-                return new BlogFragment();
-            } else if (R.id.nav_place == position) {
-                return new PlaceFragment();
-            } else if (R.id.nav_message == position) {
-                return new MessageFragment();
-            } else if (R.id.nav_user == position) {
-                return new UserFragment();
-            } else if (R.id.nav_date == position) {
-                return new DateFragment();
+        public Fragment getItem(int itemId) {
+            switch (itemId){
+                case R.id.nav_blog:
+                    return new BlogFragment();
+                case R.id.nav_place:
+                    return new PlaceFragment();
+                case R.id.nav_message:
+                    return new MessageFragment();
+                case R.id.nav_article:
+                    return new ArticleMainFragment();
+                case R.id.nav_user:
+                    return new UserFragment();
+                case R.id.nav_date:
+                    return new DateFragment();
             }
             return null;
         }
@@ -151,6 +155,8 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
                     return "钓点";
                 case R.id.nav_message:
                     return "消息";
+                case R.id.nav_article:
+                    return "文章";
                 case R.id.nav_user:
                     return "个人中心";
                 case R.id.nav_date:

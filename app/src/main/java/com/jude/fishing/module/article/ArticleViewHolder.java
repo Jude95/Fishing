@@ -34,7 +34,7 @@ public class ArticleViewHolder extends BaseViewHolder<Article> {
     @Override
     public void setData(Article data) {
         title.setText(data.getTitle());
-        praiseCount.setText(data.getPraiseCount());
+        praiseCount.setText(data.getPraiseCount()+"");
         praiseImage.setImageResource(data.isPraised()?R.drawable.praise_red:R.drawable.praise_gray);
     }
 }

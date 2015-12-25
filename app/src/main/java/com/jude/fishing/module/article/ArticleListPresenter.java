@@ -16,6 +16,7 @@ public class ArticleListPresenter extends BeamListFragmentPresenter<ArticleListF
     protected void onCreate(ArticleListFragment view, Bundle savedState) {
         super.onCreate(view, savedState);
         type = getView().getArguments().getInt("type");
+        onRefresh();
     }
 
     @Override
