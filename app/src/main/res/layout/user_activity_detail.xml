@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     app:padding_status="false"
     app:padding_navigation="true">
 
@@ -259,14 +260,20 @@
 
     </com.jude.fishing.widget.ObservableScrollView>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@id/toolbar"
+    <com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout
+        android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        android:background="?colorPrimary"
-        android:fitsSystemWindows="true"
-        app:theme="@style/AppTheme.Dark" />
+        app:status_color="#0000">
+        <android.support.v7.widget.Toolbar
+            android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:background="#0000"
+            app:theme="@style/AppTheme.Dark" />
+    </com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout>
+
 
     <LinearLayout
         android:id="@+id/operation"

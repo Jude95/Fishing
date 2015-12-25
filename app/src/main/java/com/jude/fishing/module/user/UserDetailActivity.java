@@ -2,7 +2,7 @@ package com.jude.fishing.module.user;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -91,6 +90,8 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     TextView tvOpAttention;
     @InjectView(R.id.ll_chat)
     LinearLayout chat;
+    @InjectView(R.id.toolbar_container)
+    FitSystemWindowsFrameLayout toolbarContainer;
 
     private boolean isAttended;
     private Drawable mActionbarDrawable;
@@ -102,19 +103,17 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         ButterKnife.inject(this);
         attentionOperation.setOnClickListener(v -> getPresenter().changeAttention(isAttended));
         getExpansion().showProgressPage();
-        mActionbarDrawable = new ColorDrawable(getResources().getColor(R.color.blue));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             head.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, JUtils.dip2px(285) + JUtils.getStatusBarHeight()));
         }
-        getToolbar().setBackgroundDrawable(mActionbarDrawable);
-        setToolbarAlpha(false);
+        setToolbarTransparent(true);
         scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
             @Override
             public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
                 if (y > head.getHeight() - toolbar.getHeight()) {
-                    setToolbarAlpha(true);
+                    setToolbarTransparent(false);
                 } else {
-                    setToolbarAlpha(false);
+                    setToolbarTransparent(true);
                 }
             }
         });
@@ -125,8 +124,9 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         tvOpAttention.setText(isAttended ? "已关注" : "关注");
     }
 
-    protected void setToolbarAlpha(boolean transparent) {
-        mActionbarDrawable.setAlpha(transparent?255:0);
+    protected void setToolbarTransparent(boolean transparent) {
+//        mActionbarDrawable.setAlpha(transparent ? 255 : 0);
+        toolbarContainer.setBackgroundColor(transparent? Color.TRANSPARENT:getResources().getColor(R.color.blue));
     }
 
     @Override
@@ -157,8 +157,6 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         containerAttention.setOnClickListener(v -> getPresenter().goToActivityWithLogin(AttentionActivity.class, data.getUID()));
         containerBlog.setOnClickListener(v -> getPresenter().goToActivity(UserBlogActivity.class, data.getUID()));
         containerFans.setOnClickListener(v -> getPresenter().goToActivityWithLogin(FansActivity.class, data.getUID()));
-        getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-        //invalidateOptionsMenu();
     }
 
     class BlogSimpleAdapter extends RecyclerArrayAdapter<Seed> {
@@ -249,24 +247,13 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_user_data, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        JUtils.Log("onPrepareOptionsMenu");
         MenuItem search = menu.findItem(R.id.edit);
-        search.setVisible(AccountModel.getInstance().isLogin()
-                && getPresenter().getDataSubject().getValue() != null
-                && AccountModel.getInstance().getAccount().getUID() == getPresenter().getDataSubject().getValue().getUID());
-        if (AccountModel.getInstance().isLogin()
-                && getPresenter().getDataSubject().getValue() != null) {
-            JUtils.Log("L" + AccountModel.getInstance().getAccount().getUID() + "  N" + getPresenter().getDataSubject().getValue().getUID());
-        }
-        return super.onPrepareOptionsMenu(menu);
+        search.setVisible(AccountModel.getInstance().getAccount().getUID() == getIntent().getIntExtra("id", 0));
+        return true;
     }
 
     @Override

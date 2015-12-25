@@ -161,7 +161,8 @@
             android:label="钓点详情"/>
         <activity
             android:name=".module.user.UserDataActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+
             android:label="修改资料" />
         <activity android:name=".module.blog.BlogDetailActivity"
             android:label="渔获"/>
