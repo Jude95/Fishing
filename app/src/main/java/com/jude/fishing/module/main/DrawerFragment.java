@@ -91,6 +91,13 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
                 mark.setEnabled(true);
             }
         }
+        if (AccountModel.getInstance().checkIsSuper()){
+            navArticle.setVisibility(View.VISIBLE);
+            navDate.setVisibility(View.VISIBLE);
+        }else{
+            navArticle.setVisibility(View.GONE);
+            navDate.setVisibility(View.GONE);
+        }
     }
 
     @Nullable
@@ -122,6 +129,7 @@ public class DrawerFragment extends BeamDataFragment<DrawerPresenter, Account> i
         navArticle.setOnClickListener(this);
         navBlog.post(() -> navBlog.performClick());
         mark.setOnClickListener(v -> getPresenter().signIn());
+
         return view;
     }
 

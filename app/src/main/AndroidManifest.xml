@@ -225,7 +225,8 @@
             android:label="约钓"/>
         <activity android:name=".module.social.PhotoActivity"
             android:label="查看图片"/>
-
+        <activity android:name=".module.article.ArticleWebActivity"
+            android:label="文章详情"/>
         <service android:name=".module.setting.UpdateService"/>
         <service android:name="com.amap.api.location.APSService"/>
     </application>

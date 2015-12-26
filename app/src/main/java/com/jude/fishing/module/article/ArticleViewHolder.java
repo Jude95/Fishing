@@ -1,5 +1,6 @@
 package com.jude.fishing.module.article;
 
+import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,6 +36,11 @@ public class ArticleViewHolder extends BaseViewHolder<Article> {
     public void setData(Article data) {
         title.setText(data.getTitle());
         praiseCount.setText(data.getPraiseCount()+"");
-        praiseImage.setImageResource(data.isPraised()?R.drawable.praise_red:R.drawable.praise_gray);
+        praiseImage.setImageResource(data.isPraised() ? R.drawable.praise_red : R.drawable.praise_gray);
+        itemView.setOnClickListener(v->{
+            Intent i = new Intent(getContext(),ArticleWebActivity.class);
+            i.putExtra("data",data);
+            getContext().startActivity(i);
+        });
     }
 }

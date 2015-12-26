@@ -13,8 +13,8 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 51
-        versionName "1.1.0"
+        versionCode 52
+        versionName "1.1.1"
         multiDexEnabled true
         manifestPlaceholders = [
                 UMENG_APPKEY    : props['UMENG_APPKEY'],
@@ -125,7 +125,7 @@ dependencies {
     compile 'com.jude:imageprovider:2.0.2'
     compile 'com.jude:utils:1.1.0'
     compile 'com.jude:smssdk_mob:1.0.3'
-    compile 'com.jude:fitsystemwindowlayout:1.0.7'
+    compile 'com.jude:fitsystemwindowlayout:1.0.8'
     compile project(':umengfamily')
     compile project(':IMKit')
     compile files('libs/Android_Location_V1.3.2.jar')
