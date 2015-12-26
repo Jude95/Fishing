@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jude.fitsystemwindowlayout.FitSystemWindowsLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <include layout="@layout/include_toolbar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            android:background="?colorPrimary"
+            app:theme="@style/AppTheme.Dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="16dp"
+            android:gravity="right|center_vertical">
+
+            <TextView
+                android:id="@+id/praise_count"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/white"
+                tools:text="12"/>
+
+            <ImageView
+                android:id="@+id/praise_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_praise_white"/>
+
+            <ImageView
+                android:id="@+id/collect_img"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="16dp"
+                android:src="@drawable/ic_collect_white"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"

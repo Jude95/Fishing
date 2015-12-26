@@ -99,7 +99,7 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
         content.setText(data.getContent());
         address.setText(data.getAddress());
         btnPraise.setOnClickListener(v -> getPresenter().blogPraise(data.getPraiseStatus()));
-        praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
+        praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_red : R.drawable.ic_collect_gray);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
         btnComment.setOnClickListener(v -> showCommentEdit(0, data.getAuthorName()));

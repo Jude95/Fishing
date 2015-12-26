@@ -36,7 +36,7 @@ public class ArticleViewHolder extends BaseViewHolder<Article> {
     public void setData(Article data) {
         title.setText(data.getTitle());
         praiseCount.setText(data.getPraiseCount()+"");
-        praiseImage.setImageResource(data.isPraised() ? R.drawable.praise_red : R.drawable.praise_gray);
+        praiseImage.setImageResource(data.isPraised() ? R.drawable.ic_praise_red : R.drawable.ic_praise_gray);
         itemView.setOnClickListener(v->{
             Intent i = new Intent(getContext(),ArticleWebActivity.class);
             i.putExtra("data",data);

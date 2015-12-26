@@ -78,7 +78,7 @@
             android:id="@+id/praise_image"
             android:layout_width="16dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_collect_unfocus"/>
+            android:src="@drawable/ic_collect_gray"/>
         <TextView
             android:id="@+id/praise_count"
             android:layout_width="wrap_content"

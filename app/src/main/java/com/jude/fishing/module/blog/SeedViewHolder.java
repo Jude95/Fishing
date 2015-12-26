@@ -91,7 +91,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
             data.setPraiseCount(data.getPraiseCount() + (data.getPraiseStatus() ? 1 : -1));
             praiseCount.setText(data.getPraiseCount() + "");
 
-            praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
+            praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_red : R.drawable.ic_collect_gray);
             if (data.getPraiseStatus())
                 BlogModel.getInstance().blogPraise(id)
                         .subscribe(new ServiceResponse<>());
@@ -99,7 +99,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
                 BlogModel.getInstance().blogUnPraise(id)
                         .subscribe(new ServiceResponse<>());
         });
-        praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_focus : R.drawable.ic_collect_unfocus);
+        praiseImage.setImageResource(data.getPraiseStatus() ? R.drawable.ic_collect_red : R.drawable.ic_collect_gray);
         praiseCount.setText(data.getPraiseCount() + "");
         commentCount.setText(data.getCommentCount() + "");
         adapter.clear();

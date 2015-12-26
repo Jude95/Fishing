@@ -19,6 +19,8 @@ public class Article implements Serializable{
     private int praiseCount;
     @SerializedName("praised")
     private boolean isPraised;
+    @SerializedName("collected")
+    private boolean isCollected;
 
     public int getId() {
         return id;
@@ -82,5 +84,17 @@ public class Article implements Serializable{
 
     public void setPraiseCount(int praiseCount) {
         this.praiseCount = praiseCount;
+    }
+
+    public void setIsPraised(boolean isPraised) {
+        this.isPraised = isPraised;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void setIsCollected(boolean isCollected) {
+        this.isCollected = isCollected;
     }
 }
