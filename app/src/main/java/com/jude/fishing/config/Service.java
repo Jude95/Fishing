@@ -374,4 +374,20 @@ public interface Service {
             @Field("type")int type,
             @Field("page")int page,
             @Field("count")int count);
+
+    @FormUrlEncoded
+    @POST("/article/collect")
+    Observable<Object> collectArticle(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST("/article/praise")
+    Observable<Object> praiseArticle(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST("/article/unPraise")
+    Observable<Object> unCollectArticle(@Field("id")int id);
+
+    @FormUrlEncoded
+    @POST("/article/unCollect")
+    Observable<Object> unPraiseArticle(@Field("id")int id);
 }

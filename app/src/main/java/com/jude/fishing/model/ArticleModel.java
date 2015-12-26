@@ -20,4 +20,17 @@ public class ArticleModel extends AbsModel {
     public Observable<List<Article>> getArticleList(int type, int page){
         return ServiceClient.getService().getArticles(type,page,30).compose(new DefaultTransform<>());
     }
+
+    public Observable<Object> collect(int id){
+        return ServiceClient.getService().collectArticle(id).compose(new DefaultTransform<>());
+    }
+    public Observable<Object> praise(int id){
+        return ServiceClient.getService().praiseArticle(id).compose(new DefaultTransform<>());
+    }
+    public Observable<Object> unCollect(int id){
+        return ServiceClient.getService().unCollectArticle(id).compose(new DefaultTransform<>());
+    }
+    public Observable<Object> unPraise(int id){
+        return ServiceClient.getService().unPraiseArticle(id).compose(new DefaultTransform<>());
+    }
 }
