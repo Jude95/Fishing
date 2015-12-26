@@ -190,6 +190,7 @@
                 android:layout_height="48dp"
                 android:background="@drawable/main_drawer_selector"
                 android:clickable="true"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
