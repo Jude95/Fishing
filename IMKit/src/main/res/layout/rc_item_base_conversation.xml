@@ -57,4 +57,18 @@
         android:src="@drawable/rc_ic_message_block"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@id/rc_conversation_status"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignRight="@id/rc_conversation_msg_block"
+        android:layout_below="@+id/rc_conversation_time"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:textColor="#d7d7d7"
+        android:textSize="@dimen/rc_conversation_item_data_size"
+        android:text="已读"
+        android:visibility="gone"/>
+
 </RelativeLayout>

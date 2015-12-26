@@ -8,4 +8,7 @@
 
     <!-- 设置未听的语音消息，是否连续播放 -->
     <bool name="rc_play_audio_continuous">true</bool>
+
+    <!-- 设置已读回执 -->
+    <bool name="rc_read_receipt">false</bool>
 </resources>

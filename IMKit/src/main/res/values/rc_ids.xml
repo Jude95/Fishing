@@ -49,4 +49,5 @@
     <item type="id" name="rc_fragment"/>
     <item type="id" name="rc_frame"/>
     <item type="id" name="rc_sent_status"/>
+    <item type="id" name="rc_conversation_status" />
 </resources>

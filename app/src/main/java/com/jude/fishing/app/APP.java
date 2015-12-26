@@ -84,7 +84,8 @@ public class APP extends MultiDexApplication {
                 ListConfig.setDefaultListConfig(new ListConfig().
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview).
-                        setContainerProgressRes(R.layout.include_loading));
+                        setContainerProgressRes(R.layout.include_loading).
+                        setPaddingNavigationBarAble(true             ));
                 ViewConfig.setDefaultViewConfig(new ViewConfig().
                                 setProgressRes(R.layout.activity_progress).
                                 setErrorRes(R.layout.activity_error)

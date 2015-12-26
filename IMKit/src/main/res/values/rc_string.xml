@@ -98,6 +98,8 @@
     <string name="rc_info_not_in_chatroom">你不在该聊天室</string>
     <string name="rc_rejected_by_blacklist_prompt">您的消息已经发出，但被对方拒收</string>
     <string name="rc_info_forbidden_to_talk">您当前在群组中被禁言</string>
+    <string name="rc_forbidden_in_chatroom">你已被禁言，不能发送消息</string>
+    <string name="rc_kicked_from_chatroom">你已被踢出聊天室</string>
 
     <string name="rc_send_format">发送(%1$s)</string>
     <string name="rc_yesterday_format">昨天 %1$s</string>
@@ -116,8 +118,9 @@
     <string name="rc_read_all">阅读全文</string>
 
     <string name="rc_voip_cpu_error">很抱歉，该功能暂时不支持您的机型</string>
-    <string name="rc_notification_send">发来了</string>
-    <string name="rc_notification_msg">条消息</string>
-    <string name="rc_notification_contact">个联系人</string>
+    
     <string name="rc_notification_ticker_text">您有了一条新消息</string>
+    <string name="rc_notification_new_msg">%1$s发来了%2$d条消息</string>
+    <string name="rc_notification_new_plural_msg">%1$d个联系人发来了%2$d条消息</string>
+
 </resources>
