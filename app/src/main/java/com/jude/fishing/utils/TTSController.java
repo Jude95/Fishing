@@ -7,12 +7,12 @@ import com.amap.api.navi.AMapNaviListener;
 import com.amap.api.navi.model.AMapNaviInfo;
 import com.amap.api.navi.model.AMapNaviLocation;
 import com.amap.api.navi.model.NaviInfo;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechListener;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SpeechUser;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechListener;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.SynthesizerListener;
 
 /**
  * 语音播报组件
@@ -37,10 +37,9 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
 	}
 
 	public void init() {
-		SpeechUser.getUser().login(mContext, null, null,
-				"appid=56272326", listener);
+		SpeechUtility.createUtility(mContext, SpeechConstant.APPID + "=56272326");
 		// 初始化合成对象.
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext);
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
 		initSpeechSynthesizer();
 	}
 
@@ -55,7 +54,7 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
 		}
 		if (null == mSpeechSynthesizer) {
 			// 创建合成对象.
-			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext);
+			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
 			initSpeechSynthesizer();
 		}
 		// 进行语音合成.
@@ -89,10 +88,6 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
 	private SpeechListener listener = new SpeechListener() {
 
 		@Override
-		public void onData(byte[] arg0) {
-		}
-
-		@Override
 		public void onCompleted(SpeechError error) {
 			if (error != null) {
 
@@ -101,6 +96,11 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
 
 		@Override
 		public void onEvent(int arg0, Bundle arg1) {
+		}
+
+		@Override
+		public void onBufferReceived(byte[] bytes) {
+
 		}
 	};
 
@@ -116,6 +116,11 @@ public class TTSController implements SynthesizerListener, AMapNaviListener {
 	public void onCompleted(SpeechError arg0) {
 		// TODO Auto-generated method stub
 		isfinish = true;
+	}
+
+	@Override
+	public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
 	}
 
 	@Override
