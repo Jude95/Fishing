@@ -111,6 +111,7 @@ public class MainActivity extends BeamBaseActivity<MainPresenter> implements Dra
             case R.id.nav_logout:
                 if (!AccountModel.getInstance().isLogin()){
                     startActivity(new Intent(this, LoginActivity.class));
+                    return;
                 }
                 break;
         }

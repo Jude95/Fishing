@@ -3,7 +3,6 @@ package com.jude.fishing.module.user;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -94,7 +93,6 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     FitSystemWindowsFrameLayout toolbarContainer;
 
     private boolean isAttended;
-    private Drawable mActionbarDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

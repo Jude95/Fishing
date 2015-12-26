@@ -23,6 +23,7 @@ public class UserPresenter extends BeamDataFragmentPresenter<UserFragment,Accoun
     @Override
     protected void onResume() {
         super.onResume();
+        if (AccountModel.getInstance().isLogin())
         AccountModel.getInstance().updateNotificationCount();
     }
 
