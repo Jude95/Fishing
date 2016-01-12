@@ -120,7 +120,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.qiniu:qiniu-android-sdk:7.0.7'
-    compile 'com.jude:beam:2.5.5'
+    compile 'com.jude:beam:2.5.6'
     compile 'com.jude:swipebackhelper:2.1.3'
     compile 'com.jude:imageprovider:2.0.2'
     compile 'com.jude:utils:1.1.0'
