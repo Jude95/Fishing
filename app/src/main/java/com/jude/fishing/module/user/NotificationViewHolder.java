@@ -39,23 +39,18 @@ public class NotificationViewHolder extends BaseViewHolder<Notification> {
         time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
         unread.setVisibility(data.isRead() ? View.GONE:View.VISIBLE);
         itemView.setOnClickListener(v -> {
-            switch (data.getType()) {
-                case Notification.PLACE_ADD:
-                case Notification.PLACE_REFUSE:
-                case Notification.PLACE_PASS:
-                case Notification.PLACE_COMMENT:
+            switch (data.getType()%100) {
+                case Notification.PLACE:
                     Intent place = new Intent(itemView.getContext(), PlaceDetailActivity.class);
                     place.putExtra("id", Integer.parseInt(data.getLink()));
                     itemView.getContext().startActivity(place);
                     break;
-                case Notification.BLOG_COMMENT:
-                case Notification.BLOG_RECOMMEND:
-                case Notification.BLOG_PRAISE:
+                case Notification.BLOG:
                     Intent blog = new Intent(itemView.getContext(), BlogDetailActivity.class);
                     blog.putExtra("id", Integer.parseInt(data.getLink()));
                     itemView.getContext().startActivity(blog);
                     break;
-                case Notification.USER_ATTENTION:
+                case Notification.USER:
                     Intent user = new Intent(itemView.getContext(), UserDetailActivity.class);
                     user.putExtra("id", Integer.parseInt(data.getLink()));
                     itemView.getContext().startActivity(user);

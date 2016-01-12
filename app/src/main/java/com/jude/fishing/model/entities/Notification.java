@@ -4,14 +4,19 @@ package com.jude.fishing.model.entities;
  * Created by zhuchenxi on 15/10/23.
  */
 public class Notification {
+    //用户相关
+    public static final int USER = 3;
     public static final int USER_ATTENTION = 300;
 
-
+    //钓点相关
+    public static final int PLACE = 2;
     public static final int PLACE_PASS = 200;
     public static final int PLACE_REFUSE = 201;
     public static final int PLACE_ADD = 202;
     public static final int PLACE_COMMENT = 203;
 
+    //渔获相关
+    public static final int BLOG = 1;
     public static final int BLOG_COMMENT = 100;
     public static final int BLOG_RECOMMEND = 101;
     public static final int BLOG_PRAISE = 102;
