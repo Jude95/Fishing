@@ -20,6 +20,8 @@ import com.jude.fishing.utils.DataCleaner;
 import com.jude.fishing.utils.TTSController;
 import com.jude.utils.JFileManager;
 import com.jude.utils.JUtils;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.message.PushAgent;
 
 import io.rong.imkit.RongIM;
@@ -33,6 +35,7 @@ public class APP extends MultiDexApplication {
     public static APP getInstance(){
         return instance;
     }
+    public RefWatcher RefWatcher;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -49,16 +52,12 @@ public class APP extends MultiDexApplication {
         if("com.jude.fishing".equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
 
-            try {
-            /* IMKit SDK调用第一步 初始化 */
-                RongIM.init(this);
-            }catch (Exception e){
-                //Android6.0还没有适配
-            }
 
+            RongIM.init(this);
             /* 必须在使用 RongIM 的进程注册回调、注册自定义消息等 */
             if ("com.jude.fishing".equals(getCurProcessName(getApplicationContext()))) {
                 instance = this;
+                RefWatcher = LeakCanary.install(this);
                 Fresco.initialize(this);
                 JUtils.initialize(this);
                 JUtils.setDebug(true, "Fishing");
