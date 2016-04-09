@@ -13,7 +13,7 @@ android {
         applicationId "com.jude.fishing"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 53
+        versionCode 54
         versionName "1.1.4"
         multiDexEnabled true
         manifestPlaceholders = [
