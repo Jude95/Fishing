@@ -11,7 +11,6 @@ import com.jude.fishing.R;
 import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.module.user.LoginActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.utils.JTimeTransform;
 
 import butterknife.ButterKnife;
@@ -51,7 +50,7 @@ public class DateViewHolder extends BaseViewHolder<Date>{
         id = data.getId();
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getAcTime()).toString(new RecentDateFormat("MM月dd日")));
+        time.setText(new JTimeTransform(data.getAcTime()).toString(new JTimeTransform.RecentDateFormat("MM月dd日")));
         title.setText(data.getTitle());
         count.setText((data.getEnrollMember()==null?0:data.getEnrollMember().size())+"人已报名");
     }

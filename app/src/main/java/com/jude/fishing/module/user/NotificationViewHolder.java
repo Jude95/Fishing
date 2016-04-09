@@ -10,7 +10,6 @@ import com.jude.fishing.R;
 import com.jude.fishing.model.entities.Notification;
 import com.jude.fishing.module.blog.BlogDetailActivity;
 import com.jude.fishing.module.place.PlaceDetailActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
 
@@ -36,7 +35,7 @@ public class NotificationViewHolder extends BaseViewHolder<Notification> {
     @Override
     public void setData(Notification data) {
         msg.setText(data.getMsg());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         unread.setVisibility(data.isRead() ? View.GONE:View.VISIBLE);
         itemView.setOnClickListener(v -> {
             switch (data.getType()%100) {

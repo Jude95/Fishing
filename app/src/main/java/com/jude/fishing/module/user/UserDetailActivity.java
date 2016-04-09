@@ -28,7 +28,6 @@ import com.jude.fishing.model.entities.PersonDetail;
 import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.module.blog.BlogDetailActivity;
 import com.jude.fishing.module.blog.UserBlogActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.fishing.widget.ObservableScrollView;
 import com.jude.fitsystemwindowlayout.FitSystemWindowsFrameLayout;
@@ -206,7 +205,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             preview.setImageURI(ImageModel.getInstance().getSmallImage(data.getImages()[0]));
             content.setText(data.getContent());
             address.setText(data.getAddress());
-            date.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+            date.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         }
     }
 
@@ -241,7 +240,7 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
             preview.setText(data.getContent().charAt(0) + "");
             content.setText(data.getContent());
             address.setText(data.getAddress());
-            date.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+            date.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         }
     }
 

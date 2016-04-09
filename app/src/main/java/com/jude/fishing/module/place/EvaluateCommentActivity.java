@@ -21,7 +21,6 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Evaluate;
 import com.jude.fishing.model.entities.EvaluateComment;
 import com.jude.fishing.module.user.LoginActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JTimeTransform;
@@ -63,7 +62,7 @@ public class EvaluateCommentActivity extends BeamListActivity<EvaluateCommentPre
         address.setText(data.getAddress());
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         score.setScore(data.getScore());

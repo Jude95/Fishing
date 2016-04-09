@@ -16,7 +16,6 @@ import com.jude.fishing.model.AccountModel;
 import com.jude.fishing.model.entities.Date;
 import com.jude.fishing.model.entities.PersonBrief;
 import com.jude.fishing.module.user.UserDetailActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
 import com.jude.utils.JUtils;
@@ -71,7 +70,7 @@ public class DateDetailActivity extends BeamDataActivity<DateDetailPresenter, Da
         name.setText(data.getAuthorName());
         title.setText(data.getTitle());
         strTitle = data.getTitle();
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         dateTime.setText(new SimpleDateFormat("yyyy年MM月dd日").format(new java.util.Date(data.getAcTime())));
         content.setText(data.getContent());
         int uid = AccountModel.getInstance().getAccount().getUID();

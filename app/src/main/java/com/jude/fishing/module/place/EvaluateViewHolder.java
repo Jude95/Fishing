@@ -12,7 +12,6 @@ import com.jude.exgridview.ExGridView;
 import com.jude.fishing.R;
 import com.jude.fishing.model.ImageModel;
 import com.jude.fishing.model.entities.Evaluate;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.fishing.widget.ScoreView;
 import com.jude.utils.JTimeTransform;
@@ -67,7 +66,7 @@ public class EvaluateViewHolder extends BaseViewHolder<Evaluate> {
         score.setScore(data.getScore());
         avatar.setImageURI(ImageModel.getInstance().getSmallImage(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         content.setText(data.getContent());
         commentCount.setText(data.getCommentCount() + "");
         address.setText(data.getAddress());

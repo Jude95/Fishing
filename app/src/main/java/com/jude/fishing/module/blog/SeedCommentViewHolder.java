@@ -15,7 +15,6 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.SeedComment;
 import com.jude.fishing.module.user.UserDetailActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.utils.UserClickableSpan;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.utils.JTimeTransform;
@@ -63,7 +62,7 @@ public class SeedCommentViewHolder extends BaseViewHolder<SeedComment> {
         if (!TextUtils.isEmpty(data.getAuthorAvatar()))
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
         child.removeAllViews();
         createTextView(child, dealChildArray(data));

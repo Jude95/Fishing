@@ -12,7 +12,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.EvaluateComment;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.utils.UserClickableSpan;
 import com.jude.fishing.widget.LinearWrapContentRecyclerView;
 import com.jude.utils.JTimeTransform;
@@ -52,7 +51,7 @@ public class EvaluateCommentViewHolder extends BaseViewHolder<EvaluateComment> {
     public void setData(EvaluateComment data) {
         avatar.setImageURI(Uri.parse(data.getAuthorAvatar()));
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat("MM-dd hh:mm")));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat("MM-dd hh:mm")));
         content.setText(data.getContent());
         itemView.setOnClickListener(v-> mActivity.showCommentEdit(data.getId(),data.getAuthorName()));
         child.removeAllViews();

@@ -31,7 +31,6 @@ import com.jude.fishing.model.entities.SeedDetail;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.tagview.TAGView;
 import com.jude.utils.JTimeTransform;
@@ -95,7 +94,7 @@ public class BlogDetailActivity extends BeamListActivity<BlogDetailPresenter, Se
             startActivity(i);
         });
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
         btnPraise.setOnClickListener(v -> getPresenter().blogPraise(data.getPraiseStatus()));

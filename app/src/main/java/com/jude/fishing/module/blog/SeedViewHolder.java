@@ -17,7 +17,6 @@ import com.jude.fishing.model.entities.Seed;
 import com.jude.fishing.model.service.ServiceResponse;
 import com.jude.fishing.module.user.LoginActivity;
 import com.jude.fishing.module.user.UserDetailActivity;
-import com.jude.fishing.utils.RecentDateFormat;
 import com.jude.fishing.widget.NetImageAdapter;
 import com.jude.utils.JTimeTransform;
 
@@ -79,7 +78,7 @@ public class SeedViewHolder extends BaseViewHolder<Seed> {
             v.getContext().startActivity(i);
         });
         name.setText(data.getAuthorName());
-        time.setText(new JTimeTransform(data.getTime()).toString(new RecentDateFormat()));
+        time.setText(new JTimeTransform(data.getTime()).toString(new JTimeTransform.RecentDateFormat()));
         content.setText(data.getContent());
         address.setText(data.getAddress());
         praiseContainer.setOnClickListener(v -> {
