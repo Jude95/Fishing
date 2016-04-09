@@ -8,11 +8,8 @@ import android.support.multidex.MultiDexApplication;
 import com.amap.api.navi.AMapNavi;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.beam.Beam;
-import com.jude.beam.expansion.BeamBaseActivity;
 import com.jude.beam.expansion.list.ListConfig;
 import com.jude.beam.expansion.overlay.ViewConfig;
-import com.jude.beam.expansion.overlay.ViewExpansionDelegate;
-import com.jude.beam.expansion.overlay.ViewExpansionDelegateProvider;
 import com.jude.fishing.BuildConfig;
 import com.jude.fishing.R;
 import com.jude.fishing.config.Dir;
@@ -46,7 +43,6 @@ public class APP extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
         /* OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIM 的进程和 Push 进程执行了 init。
          * xxx.xxx.xxx 是您的主进程或者使用了 RongIM 的其他进程 */
         if("com.jude.fishing".equals(getCurProcessName(getApplicationContext())) ||
@@ -66,12 +62,7 @@ public class APP extends MultiDexApplication {
                 PushAgent.getInstance(this).setDebugMode(BuildConfig.DEBUG);
                 Beam.init(this);
                 Beam.setActivityLifeCycleDelegateProvider(ActivityDelegate::new);
-                Beam.setViewExpansionDelegateProvider(new ViewExpansionDelegateProvider() {
-                    @Override
-                    public ViewExpansionDelegate createViewExpansionDelegate(BeamBaseActivity activity) {
-                        return new PaddingTopViewExpansion(activity);
-                    }
-                });
+                Beam.setViewExpansionDelegateProvider(PaddingTopViewExpansion::new);
 
 
                 TTSController ttsManager = TTSController.getInstance(this);// 初始化语音模块
@@ -84,7 +75,7 @@ public class APP extends MultiDexApplication {
                         setRefreshAble(true).
                         setContainerLayoutRes(R.layout.activity_recyclerview).
                         setContainerProgressRes(R.layout.include_loading).
-                        setPaddingNavigationBarAble(true             ));
+                        setPaddingNavigationBarAble(true));
                 ViewConfig.setDefaultViewConfig(new ViewConfig().
                                 setProgressRes(R.layout.activity_progress).
                                 setErrorRes(R.layout.activity_error)

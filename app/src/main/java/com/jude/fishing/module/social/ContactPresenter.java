@@ -1,5 +1,6 @@
 package com.jude.fishing.module.social;
 
+import android.Manifest;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import com.jude.beam.expansion.list.BeamListActivityPresenter;
 import com.jude.fishing.model.SocialModel;
 import com.jude.fishing.model.entities.Contact;
 import com.jude.utils.JUtils;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,7 +28,10 @@ public class ContactPresenter extends BeamListActivityPresenter<ContactActivity,
 
     @Override
     public void onRefresh() {
-        Observable.just(readContacts(getView()))
+        RxPermissions.getInstance(getView())
+                .request(Manifest.permission.READ_CONTACTS)
+                .filter(aBoolean -> aBoolean)
+                .flatMap(aBoolean -> Observable.just(readContacts(getView())))
                 .flatMap(json -> SocialModel.getInstance().getContact(json))
                 .doOnError(throwable -> JUtils.Log(throwable.getLocalizedMessage()))
                 .unsafeSubscribe(getRefreshSubscriber());

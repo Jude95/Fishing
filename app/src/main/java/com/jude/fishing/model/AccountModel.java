@@ -36,7 +36,6 @@ public class AccountModel extends AbsModel {
         return getInstance(AccountModel.class);
     }
 
-
     public BehaviorSubject<Account> userAccountDataBehaviorSubject = BehaviorSubject.create();
     public BehaviorSubject<Integer> userNotificationBehaviorSubject = BehaviorSubject.create();
 

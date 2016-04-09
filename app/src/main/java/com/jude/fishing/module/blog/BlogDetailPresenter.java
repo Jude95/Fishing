@@ -46,7 +46,9 @@ public class BlogDetailPresenter extends BeamListActivityPresenter<BlogDetailAct
                     });
                     JUtils.Log("onCreate" + seedDetail.getComments());
                     return seedDetail.getComments();
-                }).unsafeSubscribe(getRefreshSubscriber());
+                })
+                .finallyDo(()->getView().getListView().showRecycler())
+                .unsafeSubscribe(getRefreshSubscriber());
     }
 
     public void blogPraise(boolean isPraised) {

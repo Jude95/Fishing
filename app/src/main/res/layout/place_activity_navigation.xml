@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:padding_status="true"
+    app:padding_navigation="true"
     app:status_color="#3777d0">
     <com.amap.api.navi.AMapNaviView
         android:id="@+id/navigation"

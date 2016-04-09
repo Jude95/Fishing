@@ -58,19 +58,19 @@
             android:name="SMS_MOB_APPSECRET"
             android:value="SMS_MOB_APPSECRET"
             />
-        <meta-data
-            android:name="MODEL"
-            android:value="
-            com.jude.fishing.model.CommonModel,
-            com.jude.fishing.model.AccountModel,
-            com.jude.fishing.model.BlogModel,
-            com.jude.fishing.model.LocationModel,
-            com.jude.fishing.model.PlaceModel,
-            com.jude.fishing.model.ImageModel,
-            com.jude.fishing.model.RongYunModel,
-            com.jude.fishing.model.SocialModel,
-            com.jude.fishing.model.PushModel,
-            com.jude.fishing.model.ArticleModel" />
+        <!--<meta-data-->
+            <!--android:name="MODEL"-->
+            <!--android:value="-->
+            <!--com.jude.fishing.model.CommonModel,-->
+            <!--com.jude.fishing.model.AccountModel,-->
+            <!--com.jude.fishing.model.BlogModel,-->
+            <!--com.jude.fishing.model.LocationModel,-->
+            <!--com.jude.fishing.model.PlaceModel,-->
+            <!--com.jude.fishing.model.ImageModel,-->
+            <!--com.jude.fishing.model.RongYunModel,-->
+            <!--com.jude.fishing.model.SocialModel,-->
+            <!--com.jude.fishing.model.PushModel,-->
+            <!--com.jude.fishing.model.ArticleModel" />-->
         <activity android:name=".module.main.LaunchActivity"
             android:theme="@style/LaunchTheme">
             <intent-filter>

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jude.beam.expansion.BeamBasePresenter;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.fishing.R;
 import com.jude.fishing.model.entities.Article;
@@ -39,7 +40,7 @@ public class ArticleViewHolder extends BaseViewHolder<Article> {
         praiseImage.setImageResource(data.isPraised() ? R.drawable.ic_praise_red : R.drawable.ic_praise_gray);
         itemView.setOnClickListener(v->{
             Intent i = new Intent(getContext(),ArticleWebActivity.class);
-            i.putExtra("data",data);
+            i.putExtra(BeamBasePresenter.KEY_DATA,data);
             getContext().startActivity(i);
         });
     }

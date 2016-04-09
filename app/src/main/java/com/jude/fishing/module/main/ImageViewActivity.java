@@ -100,6 +100,7 @@ public class ImageViewActivity extends BeamBaseActivity<ImageViewPresenter> impl
             View view = LayoutInflater.from(ImageViewActivity.this).inflate(R.layout.item_imagepage, container, false);
             final PhotoView photoView = (PhotoView) view.findViewById(R.id.photoview);
             final View wheel = view.findViewById(R.id.wheel);
+            photoView.setOnPhotoTapListener((view1, v, v1) -> finish());
 
             ImagePipeline imagePipeline = Fresco.getImagePipeline();
             ImageRequest request = ImageRequestBuilder.newBuilderWithSource(urls.get(position))

@@ -16,6 +16,7 @@ import rx.Observable;
  * Created by Mr.Jude on 2015/9/12.
  */
 public class BlogModel extends AbsModel {
+
     public static BlogModel getInstance() {
         return getInstance(BlogModel.class);
     }
