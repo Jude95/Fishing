@@ -248,8 +248,8 @@ public class UserDetailActivity extends BeamDataActivity<UserDetailPresenter, Pe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_user_data, menu);
-        MenuItem search = menu.findItem(R.id.edit);
-        search.setVisible(AccountModel.getInstance().getAccount().getUID() == getIntent().getIntExtra("id", 0));
+        MenuItem edit = menu.findItem(R.id.edit);
+        edit.setVisible(AccountModel.getInstance().isLogin() && AccountModel.getInstance().getAccount().getUID() == getIntent().getIntExtra("id", 0));
         return true;
     }
 
