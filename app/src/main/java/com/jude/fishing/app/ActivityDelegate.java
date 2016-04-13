@@ -21,7 +21,7 @@ public class ActivityDelegate extends ActivityLifeCycleDelegate {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        APP.getInstance().RefWatcher.watch(getActivity());
+//        APP.getInstance().RefWatcher.watch(getActivity());
         SwipeBackHelper.onCreate(getActivity());
         JActivityManager.getInstance().pushActivity(getActivity());
         PushAgent.getInstance(getActivity()).onAppStart();
